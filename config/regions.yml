@@ -1,0 +1,111 @@
+regions:
+  north_81:
+    name: North 81
+    counties:
+      - Madison
+      - Pierce
+      - Platte
+      - Stanton
+  northeast:
+    name: Northeast
+    counties:
+      - Antelope
+      - Boone
+      - Burt
+      - Cedar
+      - Colfax
+      - Cuming
+      - Dodge
+      - Knox
+      - Nance
+      - Thurston
+      - Wayne
+  panhandle:
+    name: Panhandle
+    counties:
+      - Banner
+      - Box Butte
+      - Cheyenne
+      - Dawes
+      - Deuel
+      - Garden
+      - Kimball
+      - Morrill
+      - Scotts Bluff
+      - Sheridan
+      - Sioux
+  sandhills:
+    name: Sandhills
+    counties:
+      - Blaine
+      - Boyd
+      - Brown
+      - Cherry
+      - Custer
+      - Garfield
+      - Grant
+      - Greeley
+      - Holt
+      - Hooker
+      - Keya Paha
+      - Loup
+      - Rock
+      - Thomas
+      - Valley
+      - Wheeler
+  siouxland:
+    name: Siouxland
+    counties:
+      - Dakota
+      - Dixon
+  southeast:
+    name: Southeast
+    counties:
+      - Butler
+      - Fillmore
+      - Gage
+      - Jefferson
+      - Johnson
+      - Nemaha
+      - Otoe
+      - Pawnee
+      - Polk
+      - Richardson
+      - Saline
+      - Thayer
+      - York
+  southwest:
+    name: Southwest
+    counties:
+      - Arthur
+      - Chase
+      - Dawson
+      - Dundy
+      - Frontier
+      - Furnas
+      - Gosper
+      - Hayes
+      - Hitchcock
+      - Keith
+      - Lincoln
+      - Logan
+      - McPherson
+      - Perkins
+      - Red Willow
+  tri_cities:
+    name: Tri-Cities
+    counties:
+      - Adams
+      - Buffalo
+      - Clay
+      - Franklin
+      - Hall
+      - Hamilton
+      - Harlan
+      - Howard
+      - Kearney
+      - Merrick
+      - Nuckolls
+      - Phelps
+      - Sherman
+      - Webster

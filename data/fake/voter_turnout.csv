@@ -1,0 +1,4 @@
+county_fips,year,measure,value,source
+31001,2020,voter_turnout_pct,0.62,placeholder
+31019,2020,voter_turnout_pct,0.58,placeholder
+31119,2020,voter_turnout_pct,0.55,placeholder

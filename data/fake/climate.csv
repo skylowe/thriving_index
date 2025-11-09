@@ -1,0 +1,4 @@
+county_fips,year,measure,value,source
+31001,2020,climate_amenities_index,0.2,placeholder
+31019,2020,climate_amenities_index,-0.1,placeholder
+31119,2020,climate_amenities_index,-0.4,placeholder

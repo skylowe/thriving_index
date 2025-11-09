@@ -1,0 +1,65 @@
+region_id,region_name,value,measure,year
+north_81,North 81,20.6425,median_age,2020
+northeast,Northeast,29.671818181818182,median_age,2020
+panhandle,Panhandle,49.54272727272727,median_age,2020
+sandhills,Sandhills,57.52375,median_age,2020
+siouxland,Siouxland,18.385,median_age,2020
+southeast,Southeast,55.05384615384615,median_age,2020
+southwest,Southwest,53.68266666666666,median_age,2020
+tri_cities,Tri-Cities,44.340714285714284,median_age,2020
+north_81,North 81,47.71,poverty_rate,2020
+northeast,Northeast,54.483636363636364,poverty_rate,2020
+panhandle,Panhandle,52.10636363636364,poverty_rate,2020
+sandhills,Sandhills,51.51375,poverty_rate,2020
+siouxland,Siouxland,48.74,poverty_rate,2020
+southeast,Southeast,48.471538461538465,poverty_rate,2020
+southwest,Southwest,48.35066666666667,poverty_rate,2020
+tri_cities,Tri-Cities,39.635714285714286,poverty_rate,2020
+north_81,North 81,4.309002201904099,households_with_children_growth,2020
+northeast,Northeast,-0.2500915756560155,households_with_children_growth,2020
+panhandle,Panhandle,1.2736767397441933,households_with_children_growth,2020
+sandhills,Sandhills,4.536574952972988,households_with_children_growth,2020
+siouxland,Siouxland,-0.8741839840511287,households_with_children_growth,2020
+southeast,Southeast,0.11433776335945843,households_with_children_growth,2020
+southwest,Southwest,10.917148463015137,households_with_children_growth,2020
+tri_cities,Tri-Cities,6.372275124474281,households_with_children_growth,2020
+north_81,North 81,63.89,hs_attainment,2020
+northeast,Northeast,47.18545454545455,hs_attainment,2020
+panhandle,Panhandle,38.526363636363634,hs_attainment,2020
+sandhills,Sandhills,54.175625000000004,hs_attainment,2020
+siouxland,Siouxland,36.795,hs_attainment,2020
+southeast,Southeast,51.47538461538461,hs_attainment,2020
+southwest,Southwest,54.215333333333334,hs_attainment,2020
+tri_cities,Tri-Cities,42.59285714285714,hs_attainment,2020
+north_81,North 81,43.035000000000004,associates_attainment,2020
+northeast,Northeast,47.56181818181818,associates_attainment,2020
+panhandle,Panhandle,41.232727272727274,associates_attainment,2020
+sandhills,Sandhills,47.334375,associates_attainment,2020
+siouxland,Siouxland,38.82,associates_attainment,2020
+southeast,Southeast,62.27076923076923,associates_attainment,2020
+southwest,Southwest,46.854,associates_attainment,2020
+tri_cities,Tri-Cities,48.41428571428572,associates_attainment,2020
+north_81,North 81,54.0025,bachelors_attainment,2020
+northeast,Northeast,50.22090909090909,bachelors_attainment,2020
+panhandle,Panhandle,50.906363636363636,bachelors_attainment,2020
+sandhills,Sandhills,61.075625,bachelors_attainment,2020
+siouxland,Siouxland,69.62,bachelors_attainment,2020
+southeast,Southeast,44.66923076923077,bachelors_attainment,2020
+southwest,Southwest,49.221333333333334,bachelors_attainment,2020
+tri_cities,Tri-Cities,53.82357142857143,bachelors_attainment,2020
+north_81,North 81,52.472500000000004,labor_force_participation,2020
+northeast,Northeast,48.03545454545454,labor_force_participation,2020
+panhandle,Panhandle,48.20636363636363,labor_force_participation,2020
+sandhills,Sandhills,32.785000000000004,labor_force_participation,2020
+siouxland,Siouxland,62.47,labor_force_participation,2020
+southeast,Southeast,58.41,labor_force_participation,2020
+southwest,Southwest,46.572,labor_force_participation,2020
+tri_cities,Tri-Cities,50.64642857142857,labor_force_participation,2020
+north_81,North 81,0,telecommuters_share,2020
+northeast,Northeast,0,telecommuters_share,2020
+panhandle,Panhandle,0,telecommuters_share,2020
+sandhills,Sandhills,0,telecommuters_share,2020
+siouxland,Siouxland,0,telecommuters_share,2020
+southeast,Southeast,0.03435494668778472,telecommuters_share,2020
+southwest,Southwest,0,telecommuters_share,2020
+tri_cities,Tri-Cities,0.042169353929416974,telecommuters_share,2020

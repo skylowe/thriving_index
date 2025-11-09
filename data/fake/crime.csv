@@ -1,0 +1,4 @@
+county_fips,year,measure,value,source
+31001,2020,violent_crime_rate,210,placeholder
+31019,2020,violent_crime_rate,180,placeholder
+31119,2020,violent_crime_rate,95,placeholder

@@ -1,0 +1,41 @@
+region_id,region_name,component,year,component_index
+north_81,North 81,demographic,2020,100
+north_81,North 81,economic_opportunity,2020,100
+north_81,North 81,education_skill,2020,100
+north_81,North 81,growth,2020,100
+north_81,North 81,other_prosperity,2020,100
+northeast,Northeast,demographic,2020,100
+northeast,Northeast,economic_opportunity,2020,100
+northeast,Northeast,education_skill,2020,100
+northeast,Northeast,growth,2020,100
+northeast,Northeast,other_prosperity,2020,100
+panhandle,Panhandle,demographic,2020,100
+panhandle,Panhandle,economic_opportunity,2020,100
+panhandle,Panhandle,education_skill,2020,100
+panhandle,Panhandle,growth,2020,100
+panhandle,Panhandle,other_prosperity,2020,100
+sandhills,Sandhills,demographic,2020,100
+sandhills,Sandhills,economic_opportunity,2020,100
+sandhills,Sandhills,education_skill,2020,100
+sandhills,Sandhills,growth,2020,100
+sandhills,Sandhills,other_prosperity,2020,100
+siouxland,Siouxland,demographic,2020,100
+siouxland,Siouxland,economic_opportunity,2020,100
+siouxland,Siouxland,education_skill,2020,100
+siouxland,Siouxland,growth,2020,100
+siouxland,Siouxland,other_prosperity,2020,100
+southeast,Southeast,demographic,2020,100
+southeast,Southeast,economic_opportunity,2020,100
+southeast,Southeast,education_skill,2020,100
+southeast,Southeast,growth,2020,100
+southeast,Southeast,other_prosperity,2020,100
+southwest,Southwest,demographic,2020,100
+southwest,Southwest,economic_opportunity,2020,100
+southwest,Southwest,education_skill,2020,100
+southwest,Southwest,growth,2020,100
+southwest,Southwest,other_prosperity,2020,100
+tri_cities,Tri-Cities,demographic,2020,100
+tri_cities,Tri-Cities,economic_opportunity,2020,100
+tri_cities,Tri-Cities,education_skill,2020,100
+tri_cities,Tri-Cities,growth,2020,100
+tri_cities,Tri-Cities,other_prosperity,2020,100

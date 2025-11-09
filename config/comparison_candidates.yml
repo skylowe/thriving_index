@@ -1,0 +1,43 @@
+candidates:
+  area15:
+    name: Area 15 Regional Planning Commission
+    state: IA
+    county_fips:
+      - 19001
+      - 19003
+    population: 82000
+    pct_micropolitan: 0.62
+    pct_farm_income: 0.18
+    pct_ranch_income: 0.02
+    pct_mfg_employment: 0.12
+    distance_small_msa_miles: 60
+    distance_large_msa_miles: 95
+  blackhawk_hills:
+    name: Blackhawk Hills Resource Conservation and Development
+    state: IL
+    county_fips:
+      - 17001
+      - 17007
+    population: 225000
+    pct_micropolitan: 0.71
+    pct_farm_income: 0.15
+    pct_ranch_income: 0.01
+    pct_mfg_employment: 0.17
+    distance_small_msa_miles: 40
+    distance_large_msa_miles: 110
+  pioneer_trails:
+    name: Pioneer Trails Regional Planning Commission
+    state: MO
+    county_fips:
+      - 29001
+      - 29003
+    population: 165000
+    pct_micropolitan: 0.55
+    pct_farm_income: 0.12
+    pct_ranch_income: 0.03
+    pct_mfg_employment: 0.09
+    distance_small_msa_miles: 50
+    distance_large_msa_miles: 140
+notes:
+  - "TODO: Extend to the full set of ~85 candidate EDA regions captured in the 2022 methodology."
+  - "Values above are placeholders sized to exercise Mahalanobis distance calculations."

@@ -1,0 +1,4 @@
+county_fips,year,measure,value,source
+31001,2020,property_crime_rate,1800,placeholder
+31019,2020,property_crime_rate,1200,placeholder
+31119,2020,property_crime_rate,900,placeholder

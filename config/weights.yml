@@ -1,0 +1,19 @@
+components:
+  growth: 1
+  economic_opportunity: 1
+  other_prosperity: 1
+  demographic: 1
+  education_skill: 1
+  infrastructure_cost: 1
+  quality_of_life: 1
+  social_capital: 1
+measures:
+  median_age: 1
+  hs_attainment: 1
+  associates_attainment: 1
+  bachelors_attainment: 1
+  labor_force_participation: 1
+  poverty_rate: 1
+  households_with_children_growth: 1
+  telecommuters_share: 1
+# Add measure-specific overrides here when needed.
