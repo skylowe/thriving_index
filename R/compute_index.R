@@ -11,7 +11,10 @@ measure_component_map <- function() {
       "associates_attainment",
       "bachelors_attainment",
       "labor_force_participation",
-      "telecommuters_share"
+      "telecommuters_share",
+      "dir_income_share",
+      "dir_income_growth",
+      "nonfarm_proprietor_income"
     ),
     component = c(
       "demographic",
@@ -21,7 +24,10 @@ measure_component_map <- function() {
       "education_skill",
       "education_skill",
       "education_skill",
-      "economic_opportunity"
+      "economic_opportunity",
+      "other_prosperity",
+      "growth",
+      "other_prosperity"
     )
   )
 }
@@ -51,4 +57,3 @@ compute_index_scores <- function(measures_df) {
     aggregate = aggregate
   )
 }
-

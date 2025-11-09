@@ -16,4 +16,7 @@ measures:
   poverty_rate: 1
   households_with_children_growth: 1
   telecommuters_share: 1
+  dir_income_share: 1
+  dir_income_growth: 1
+  nonfarm_proprietor_income: 1
 # Add measure-specific overrides here when needed.

@@ -14,7 +14,7 @@ ti_setup_libpaths <- function() {
 ti_setup_libpaths()
 
 ti_require_packages <- function() {
-  pkgs <- c("jsonlite", "httr", "dplyr", "purrr", "readr", "stringr", "tidyr", "yaml", "tibble", "testthat")
+  pkgs <- c("jsonlite", "httr", "dplyr", "purrr", "readr", "stringr", "tidyr", "yaml", "tibble", "testthat", "readxl")
   for (pkg in pkgs) {
     if (!suppressWarnings(require(pkg, character.only = TRUE, quietly = TRUE))) {
       stop(sprintf("Package '%s' is required. Install it to %s before continuing.", pkg, paste(.libPaths(), collapse = ", ")))
@@ -95,7 +95,7 @@ ti_clean_county_name <- function(name) {
 ti_region_config <- function() {
   cfg_path <- ti_paths()$config_regions
   cfg <- yaml::read_yaml(cfg_path)
-  purrr::imap_dfr(cfg$regions, function(region, region_id) {
+  regions <- purrr::imap_dfr(cfg$regions, function(region, region_id) {
     tibble::tibble(
       region_id = region_id,
       region_name = region$name,
@@ -103,6 +103,8 @@ ti_region_config <- function() {
     )
   }) %>%
     dplyr::mutate(county_clean = ti_clean_county_name(county))
+  counties <- ti_county_reference() %>% dplyr::select(county_clean, county_fips)
+  regions %>% dplyr::left_join(counties, by = "county_clean")
 }
 
 ti_assign_regions <- function(df, county_col = "county_name") {
@@ -112,7 +114,17 @@ ti_assign_regions <- function(df, county_col = "county_name") {
     dplyr::left_join(regions, by = "county_clean")
 }
 
-ti_region_summarise <- function(df, value_col, measure_id, year, weight_col = NULL, agg = c("mean", "weighted_mean")) {
+ti_assign_regions_by_fips <- function(df, fips_col = "county_fips") {
+  regions <- ti_region_config() %>% dplyr::select(region_id, region_name, county_fips)
+  if (!"county_fips" %in% names(df)) {
+    df <- df %>% dplyr::mutate(county_fips = .data[[fips_col]])
+    fips_col <- "county_fips"
+  }
+  df %>%
+    dplyr::left_join(regions, by = setNames("county_fips", fips_col))
+}
+
+ti_region_summarise <- function(df, value_col, measure_id, year, weight_col = NULL, agg = c("mean", "weighted_mean", "sum")) {
   agg <- match.arg(agg)
   if (!"region_id" %in% names(df)) {
     stop("Data must include region_id before summarising.")
@@ -122,6 +134,10 @@ ti_region_summarise <- function(df, value_col, measure_id, year, weight_col = NU
     df %>%
       dplyr::group_by(region_id, region_name) %>%
       dplyr::summarise(value = stats::weighted.mean(.data[[value_col]], w = .data[[weight_col]], na.rm = TRUE), .groups = "drop")
+  } else if (agg == "sum") {
+    df %>%
+      dplyr::group_by(region_id, region_name) %>%
+      dplyr::summarise(value = sum(.data[[value_col]], na.rm = TRUE), .groups = "drop")
   } else {
     df %>%
       dplyr::group_by(region_id, region_name) %>%
@@ -157,3 +173,46 @@ ti_component_weights <- function() {
     measures = cfg$measures
   )
 }
+
+ti_workbook_path <- function() {
+  path <- file.path(ti_project_root(), "Thriving_Index_Calculations.xlsx")
+  if (!file.exists(path)) {
+    stop("Workbook Thriving_Index_Calculations.xlsx not found at project root")
+  }
+  path
+}
+
+ti_zone_lookup <- local({
+  cache <- NULL
+  function() {
+    if (!is.null(cache)) return(cache)
+    path <- ti_workbook_path()
+    df <- readxl::read_excel(path, sheet = "ZONE TABLES", range = "A2:C40", col_names = TRUE)
+    df <- df %>%
+      dplyr::rename(zone_name = `Zone Name`, zone_label = `Zone #`) %>%
+      dplyr::mutate(zone_number = readr::parse_number(zone_label)) %>%
+      dplyr::filter(!is.na(zone_number), stringr::str_detect(zone_label, "Nebraska")) %>%
+      dplyr::distinct(zone_number, .keep_all = TRUE)
+    cache <<- df
+    df
+  }
+})
+
+ti_county_reference <- local({
+  cache <- NULL
+  function() {
+    if (!is.null(cache)) return(cache)
+    path <- ti_workbook_path()
+    df <- readxl::read_excel(path, sheet = "RAW DATA (EDITS HERE ONLY)", range = "A3:D900", col_names = c("fips", "county", "state", "zone_label"))
+    df <- df %>%
+      dplyr::filter(state == "Nebraska", !is.na(fips)) %>%
+      dplyr::mutate(
+        county_fips = stringr::str_pad(as.character(fips), 5, pad = "0"),
+        county_clean = ti_clean_county_name(county),
+        zone_number = readr::parse_number(zone_label)
+      ) %>%
+      dplyr::left_join(ti_zone_lookup() %>% dplyr::select(zone_number, zone_name), by = "zone_number")
+    cache <<- df
+    df
+  }
+})

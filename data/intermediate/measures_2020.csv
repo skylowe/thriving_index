@@ -63,3 +63,27 @@ siouxland,Siouxland,0,telecommuters_share,2020
 southeast,Southeast,0.03435494668778472,telecommuters_share,2020
 southwest,Southwest,0,telecommuters_share,2020
 tri_cities,Tri-Cities,0.042169353929416974,telecommuters_share,2020
+north_81,North 81,1228660.2241918445,nonfarm_proprietor_income,2020
+northeast,Northeast,4022533.4365852177,nonfarm_proprietor_income,2020
+panhandle,Panhandle,4078057.9128302634,nonfarm_proprietor_income,2020
+sandhills,Sandhills,5782958.640996367,nonfarm_proprietor_income,2020
+siouxland,Siouxland,534108.1541962922,nonfarm_proprietor_income,2020
+southeast,Southeast,4217019.410524517,nonfarm_proprietor_income,2020
+southwest,Southwest,4865155.650861561,nonfarm_proprietor_income,2020
+tri_cities,Tri-Cities,4729968.34134683,nonfarm_proprietor_income,2020
+north_81,North 81,1.2456382368379968,dir_income_share,2020
+northeast,Northeast,0.8893903525869916,dir_income_share,2020
+panhandle,Panhandle,0.9797620707715915,dir_income_share,2020
+sandhills,Sandhills,0.8737999405713807,dir_income_share,2020
+siouxland,Siouxland,1.3947538813019866,dir_income_share,2020
+southeast,Southeast,0.9688959963773165,dir_income_share,2020
+southwest,Southwest,1.014739128365028,dir_income_share,2020
+tri_cities,Tri-Cities,1.0483020832040182,dir_income_share,2020
+north_81,North 81,0.2456382368379969,dir_income_growth,2020
+northeast,Northeast,-0.11060964741300841,dir_income_growth,2020
+panhandle,Panhandle,-0.02023792922840845,dir_income_growth,2020
+sandhills,Sandhills,-0.12620005942861937,dir_income_growth,2020
+siouxland,Siouxland,0.3947538813019866,dir_income_growth,2020
+southeast,Southeast,-0.031104003622683542,dir_income_growth,2020
+southwest,Southwest,0.014739128365028,dir_income_growth,2020
+tri_cities,Tri-Cities,0.04830208320401813,dir_income_growth,2020
