@@ -158,3 +158,4 @@ Change Log
 - 2025-11-09: Initial plan drafted from source PDFs and workbook sheet names; API mapping and repo structure proposed.
 - 2025-11-09: Scaffolded R modules, scripts, configs, placeholder data, and first subset of ACS-based measures; added offline-friendly pipeline and smoke-test scaffolding.
 - 2025-11-09: Added workbook-derived county metadata, BEA CAINC5N fetcher, and new measures (non-farm proprietor income, DIR share/growth); pipeline and tests updated.
+- 2025-11-09: Completed zone-table ingestion, full component coverage (growth, opportunity, other prosperity, demographic, education, infrastructure, quality of life, social capital), Mahalanobis peer grouping via zone groups, and live API run (ACS + BEA) with workbook-backed stand-ins for remaining public-data gaps.

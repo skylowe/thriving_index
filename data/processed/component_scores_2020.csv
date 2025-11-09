@@ -3,39 +3,63 @@ north_81,North 81,demographic,2020,100
 north_81,North 81,economic_opportunity,2020,100
 north_81,North 81,education_skill,2020,100
 north_81,North 81,growth,2020,100
+north_81,North 81,infrastructure_cost,2020,100
 north_81,North 81,other_prosperity,2020,100
-northeast,Northeast,demographic,2020,100
-northeast,Northeast,economic_opportunity,2020,100
-northeast,Northeast,education_skill,2020,100
-northeast,Northeast,growth,2020,100
-northeast,Northeast,other_prosperity,2020,100
-panhandle,Panhandle,demographic,2020,100
-panhandle,Panhandle,economic_opportunity,2020,100
-panhandle,Panhandle,education_skill,2020,100
-panhandle,Panhandle,growth,2020,100
-panhandle,Panhandle,other_prosperity,2020,100
+north_81,North 81,quality_of_life,2020,100
+north_81,North 81,social_capital,2020,100
+northeast,Northeast,demographic,2020,96.95245503030571
+northeast,Northeast,economic_opportunity,2020,61.8087462144568
+northeast,Northeast,education_skill,2020,99.41901168362396
+northeast,Northeast,growth,2020,150.11927425265782
+northeast,Northeast,infrastructure_cost,2020,79.67828492433802
+northeast,Northeast,other_prosperity,2020,130.61025045876568
+northeast,Northeast,quality_of_life,2020,47.54611342634615
+northeast,Northeast,social_capital,2020,99.80254818922153
+panhandle,Panhandle,demographic,2020,113.44906724781386
+panhandle,Panhandle,economic_opportunity,2020,115.73297980603569
+panhandle,Panhandle,education_skill,2020,201.4208207113242
+panhandle,Panhandle,growth,2020,-9.662725383793415
+panhandle,Panhandle,infrastructure_cost,2020,105.9670174713935
+panhandle,Panhandle,other_prosperity,2020,-7.344091565822104
+panhandle,Panhandle,quality_of_life,2020,142.44936358184177
+panhandle,Panhandle,social_capital,2020,64.69194665521732
 sandhills,Sandhills,demographic,2020,100
 sandhills,Sandhills,economic_opportunity,2020,100
 sandhills,Sandhills,education_skill,2020,100
 sandhills,Sandhills,growth,2020,100
+sandhills,Sandhills,infrastructure_cost,2020,100
 sandhills,Sandhills,other_prosperity,2020,100
+sandhills,Sandhills,quality_of_life,2020,100
+sandhills,Sandhills,social_capital,2020,100
 siouxland,Siouxland,demographic,2020,100
 siouxland,Siouxland,economic_opportunity,2020,100
 siouxland,Siouxland,education_skill,2020,100
 siouxland,Siouxland,growth,2020,100
+siouxland,Siouxland,infrastructure_cost,2020,100
 siouxland,Siouxland,other_prosperity,2020,100
+siouxland,Siouxland,quality_of_life,2020,100
+siouxland,Siouxland,social_capital,2020,100
 southeast,Southeast,demographic,2020,100
 southeast,Southeast,economic_opportunity,2020,100
 southeast,Southeast,education_skill,2020,100
 southeast,Southeast,growth,2020,100
+southeast,Southeast,infrastructure_cost,2020,100
 southeast,Southeast,other_prosperity,2020,100
-southwest,Southwest,demographic,2020,100
-southwest,Southwest,economic_opportunity,2020,100
-southwest,Southwest,education_skill,2020,100
-southwest,Southwest,growth,2020,100
-southwest,Southwest,other_prosperity,2020,100
+southeast,Southeast,quality_of_life,2020,100
+southeast,Southeast,social_capital,2020,100
+southwest,Southwest,demographic,2020,95.69356766126887
+southwest,Southwest,economic_opportunity,2020,128.82348294376476
+southwest,Southwest,education_skill,2020,1.4841208705556284
+southwest,Southwest,growth,2020,126.1306016293637
+southwest,Southwest,infrastructure_cost,2020,114.3546976042685
+southwest,Southwest,other_prosperity,2020,130.81846541890667
+southwest,Southwest,quality_of_life,2020,127.48915184969658
+southwest,Southwest,social_capital,2020,135.50550515556128
 tri_cities,Tri-Cities,demographic,2020,100
 tri_cities,Tri-Cities,economic_opportunity,2020,100
 tri_cities,Tri-Cities,education_skill,2020,100
 tri_cities,Tri-Cities,growth,2020,100
+tri_cities,Tri-Cities,infrastructure_cost,2020,100
 tri_cities,Tri-Cities,other_prosperity,2020,100
+tri_cities,Tri-Cities,quality_of_life,2020,100
+tri_cities,Tri-Cities,social_capital,2020,100

@@ -2,33 +2,58 @@ source(file.path("R", "utils.R"))
 source(file.path("R", "compute_peers.R"))
 
 measure_component_map <- function() {
+  mapping <- c(
+    median_age = "demographic",
+    poverty_rate = "other_prosperity",
+    households_with_children_growth = "growth",
+    hs_attainment = "education_skill",
+    associates_attainment = "education_skill",
+    bachelors_attainment = "education_skill",
+    labor_force_participation = "education_skill",
+    telecommuters_share = "economic_opportunity",
+    dir_income_share = "other_prosperity",
+    dir_income_growth = "growth",
+    nonfarm_proprietor_income = "other_prosperity",
+    total_employment_growth = "growth",
+    private_employment = "growth",
+    private_wage_growth = "growth",
+    entrepreneurial_activity = "economic_opportunity",
+    nonfarm_proprietors_per_capita = "economic_opportunity",
+    employer_establishments_per_capita = "economic_opportunity",
+    nonemployer_worker_share = "economic_opportunity",
+    industry_diversity = "economic_opportunity",
+    occupation_diversity = "economic_opportunity",
+    personal_income_volatility = "other_prosperity",
+    life_expectancy = "other_prosperity",
+    dependency_ratio = "demographic",
+    population_change = "demographic",
+    millennial_genz_change = "demographic",
+    percent_nonwhite = "demographic",
+    percent_hispanic = "demographic",
+    knowledge_workers_share = "education_skill",
+    broadband_access = "infrastructure_cost",
+    interstate_presence = "infrastructure_cost",
+    weekly_wage_rate = "infrastructure_cost",
+    top_marginal_tax_rate = "infrastructure_cost",
+    four_year_colleges = "infrastructure_cost",
+    opportunity_zones = "infrastructure_cost",
+    commute_time = "quality_of_life",
+    housing_pre_1960 = "quality_of_life",
+    relative_weekly_wage = "quality_of_life",
+    healthcare_access = "quality_of_life",
+    climate_amenities = "quality_of_life",
+    national_parks_access = "quality_of_life",
+    violent_crime_rate = "quality_of_life",
+    property_crime_rate = "quality_of_life",
+    nonprofit_density = "social_capital",
+    volunteer_hours = "social_capital",
+    volunteer_rate = "social_capital",
+    voter_turnout = "social_capital",
+    tree_city_share = "social_capital"
+  )
   tibble::tibble(
-    measure = c(
-      "median_age",
-      "poverty_rate",
-      "households_with_children_growth",
-      "hs_attainment",
-      "associates_attainment",
-      "bachelors_attainment",
-      "labor_force_participation",
-      "telecommuters_share",
-      "dir_income_share",
-      "dir_income_growth",
-      "nonfarm_proprietor_income"
-    ),
-    component = c(
-      "demographic",
-      "other_prosperity",
-      "growth",
-      "education_skill",
-      "education_skill",
-      "education_skill",
-      "education_skill",
-      "economic_opportunity",
-      "other_prosperity",
-      "growth",
-      "other_prosperity"
-    )
+    measure = names(mapping),
+    component = unname(mapping)
   )
 }
 

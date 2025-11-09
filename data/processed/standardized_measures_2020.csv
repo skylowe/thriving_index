@@ -1,89 +1,297 @@
 region_id,region_name,value,measure,year,peer_group,z,index_value
-north_81,North 81,20.6425,median_age,2020,north_81,0,100
-northeast,Northeast,29.671818181818182,median_age,2020,northeast,0,100
-panhandle,Panhandle,49.54272727272727,median_age,2020,panhandle,0,100
-sandhills,Sandhills,57.52375,median_age,2020,sandhills,0,100
-siouxland,Siouxland,18.385,median_age,2020,siouxland,0,100
-southeast,Southeast,55.05384615384615,median_age,2020,southeast,0,100
-southwest,Southwest,53.68266666666666,median_age,2020,southwest,0,100
-tri_cities,Tri-Cities,44.340714285714284,median_age,2020,tri_cities,0,100
-north_81,North 81,47.71,poverty_rate,2020,north_81,0,100
-northeast,Northeast,54.483636363636364,poverty_rate,2020,northeast,0,100
-panhandle,Panhandle,52.10636363636364,poverty_rate,2020,panhandle,0,100
-sandhills,Sandhills,51.51375,poverty_rate,2020,sandhills,0,100
-siouxland,Siouxland,48.74,poverty_rate,2020,siouxland,0,100
-southeast,Southeast,48.471538461538465,poverty_rate,2020,southeast,0,100
-southwest,Southwest,48.35066666666667,poverty_rate,2020,southwest,0,100
-tri_cities,Tri-Cities,39.635714285714286,poverty_rate,2020,tri_cities,0,100
-north_81,North 81,4.309002201904099,households_with_children_growth,2020,north_81,0,100
-northeast,Northeast,-0.2500915756560155,households_with_children_growth,2020,northeast,0,100
-panhandle,Panhandle,1.2736767397441933,households_with_children_growth,2020,panhandle,0,100
-sandhills,Sandhills,4.536574952972988,households_with_children_growth,2020,sandhills,0,100
-siouxland,Siouxland,-0.8741839840511287,households_with_children_growth,2020,siouxland,0,100
-southeast,Southeast,0.11433776335945843,households_with_children_growth,2020,southeast,0,100
-southwest,Southwest,10.917148463015137,households_with_children_growth,2020,southwest,0,100
-tri_cities,Tri-Cities,6.372275124474281,households_with_children_growth,2020,tri_cities,0,100
-north_81,North 81,63.89,hs_attainment,2020,north_81,0,100
-northeast,Northeast,47.18545454545455,hs_attainment,2020,northeast,0,100
-panhandle,Panhandle,38.526363636363634,hs_attainment,2020,panhandle,0,100
-sandhills,Sandhills,54.175625000000004,hs_attainment,2020,sandhills,0,100
-siouxland,Siouxland,36.795,hs_attainment,2020,siouxland,0,100
-southeast,Southeast,51.47538461538461,hs_attainment,2020,southeast,0,100
-southwest,Southwest,54.215333333333334,hs_attainment,2020,southwest,0,100
-tri_cities,Tri-Cities,42.59285714285714,hs_attainment,2020,tri_cities,0,100
-north_81,North 81,43.035000000000004,associates_attainment,2020,north_81,0,100
-northeast,Northeast,47.56181818181818,associates_attainment,2020,northeast,0,100
-panhandle,Panhandle,41.232727272727274,associates_attainment,2020,panhandle,0,100
-sandhills,Sandhills,47.334375,associates_attainment,2020,sandhills,0,100
-siouxland,Siouxland,38.82,associates_attainment,2020,siouxland,0,100
-southeast,Southeast,62.27076923076923,associates_attainment,2020,southeast,0,100
-southwest,Southwest,46.854,associates_attainment,2020,southwest,0,100
-tri_cities,Tri-Cities,48.41428571428572,associates_attainment,2020,tri_cities,0,100
-north_81,North 81,54.0025,bachelors_attainment,2020,north_81,0,100
-northeast,Northeast,50.22090909090909,bachelors_attainment,2020,northeast,0,100
-panhandle,Panhandle,50.906363636363636,bachelors_attainment,2020,panhandle,0,100
-sandhills,Sandhills,61.075625,bachelors_attainment,2020,sandhills,0,100
-siouxland,Siouxland,69.62,bachelors_attainment,2020,siouxland,0,100
-southeast,Southeast,44.66923076923077,bachelors_attainment,2020,southeast,0,100
-southwest,Southwest,49.221333333333334,bachelors_attainment,2020,southwest,0,100
-tri_cities,Tri-Cities,53.82357142857143,bachelors_attainment,2020,tri_cities,0,100
-north_81,North 81,52.472500000000004,labor_force_participation,2020,north_81,0,100
-northeast,Northeast,48.03545454545454,labor_force_participation,2020,northeast,0,100
-panhandle,Panhandle,48.20636363636363,labor_force_participation,2020,panhandle,0,100
-sandhills,Sandhills,32.785000000000004,labor_force_participation,2020,sandhills,0,100
-siouxland,Siouxland,62.47,labor_force_participation,2020,siouxland,0,100
-southeast,Southeast,58.41,labor_force_participation,2020,southeast,0,100
-southwest,Southwest,46.572,labor_force_participation,2020,southwest,0,100
-tri_cities,Tri-Cities,50.64642857142857,labor_force_participation,2020,tri_cities,0,100
-north_81,North 81,0,telecommuters_share,2020,north_81,0,100
-northeast,Northeast,0,telecommuters_share,2020,northeast,0,100
-panhandle,Panhandle,0,telecommuters_share,2020,panhandle,0,100
-sandhills,Sandhills,0,telecommuters_share,2020,sandhills,0,100
-siouxland,Siouxland,0,telecommuters_share,2020,siouxland,0,100
-southeast,Southeast,0.03435494668778472,telecommuters_share,2020,southeast,0,100
-southwest,Southwest,0,telecommuters_share,2020,southwest,0,100
-tri_cities,Tri-Cities,0.042169353929416974,telecommuters_share,2020,tri_cities,0,100
-north_81,North 81,1228660.2241918445,nonfarm_proprietor_income,2020,north_81,0,100
-northeast,Northeast,4022533.4365852177,nonfarm_proprietor_income,2020,northeast,0,100
-panhandle,Panhandle,4078057.9128302634,nonfarm_proprietor_income,2020,panhandle,0,100
-sandhills,Sandhills,5782958.640996367,nonfarm_proprietor_income,2020,sandhills,0,100
-siouxland,Siouxland,534108.1541962922,nonfarm_proprietor_income,2020,siouxland,0,100
-southeast,Southeast,4217019.410524517,nonfarm_proprietor_income,2020,southeast,0,100
-southwest,Southwest,4865155.650861561,nonfarm_proprietor_income,2020,southwest,0,100
-tri_cities,Tri-Cities,4729968.34134683,nonfarm_proprietor_income,2020,tri_cities,0,100
-north_81,North 81,1.2456382368379968,dir_income_share,2020,north_81,0,100
-northeast,Northeast,0.8893903525869916,dir_income_share,2020,northeast,0,100
-panhandle,Panhandle,0.9797620707715915,dir_income_share,2020,panhandle,0,100
-sandhills,Sandhills,0.8737999405713807,dir_income_share,2020,sandhills,0,100
-siouxland,Siouxland,1.3947538813019866,dir_income_share,2020,siouxland,0,100
-southeast,Southeast,0.9688959963773165,dir_income_share,2020,southeast,0,100
-southwest,Southwest,1.014739128365028,dir_income_share,2020,southwest,0,100
-tri_cities,Tri-Cities,1.0483020832040182,dir_income_share,2020,tri_cities,0,100
-north_81,North 81,0.2456382368379969,dir_income_growth,2020,north_81,0,100
-northeast,Northeast,-0.11060964741300841,dir_income_growth,2020,northeast,0,100
-panhandle,Panhandle,-0.02023792922840845,dir_income_growth,2020,panhandle,0,100
-sandhills,Sandhills,-0.12620005942861937,dir_income_growth,2020,sandhills,0,100
-siouxland,Siouxland,0.3947538813019866,dir_income_growth,2020,siouxland,0,100
-southeast,Southeast,-0.031104003622683542,dir_income_growth,2020,southeast,0,100
-southwest,Southwest,0.014739128365028,dir_income_growth,2020,southwest,0,100
-tri_cities,Tri-Cities,0.04830208320401813,dir_income_growth,2020,tri_cities,0,100
+north_81,North 81,39.45,median_age,2020,North 81 Group,0,100
+northeast,Northeast,40.372727272727275,median_age,2020,Northeast Group,0,100
+siouxland,Siouxland,37.2,median_age,2020,Siouxland Group,0,100
+north_81,North 81,9.2,poverty_rate,2020,North 81 Group,0,100
+northeast,Northeast,10.8,poverty_rate,2020,Northeast Group,0,100
+siouxland,Siouxland,12.1,poverty_rate,2020,Siouxland Group,0,100
+north_81,North 81,0.7527564034483902,dependency_ratio,2020,North 81 Group,0,100
+northeast,Northeast,0.823407506792371,dependency_ratio,2020,Northeast Group,0,100
+siouxland,Siouxland,0.7943363946767243,dependency_ratio,2020,Siouxland Group,0,100
+north_81,North 81,0.06880927785844873,percent_nonwhite,2020,North 81 Group,0,100
+northeast,Northeast,0.12155101911148751,percent_nonwhite,2020,Northeast Group,0,100
+siouxland,Siouxland,0.2299550075697518,percent_nonwhite,2020,Siouxland Group,0,100
+north_81,North 81,0.10832722442155716,percent_hispanic,2020,North 81 Group,0,100
+northeast,Northeast,0.09018241809735383,percent_hispanic,2020,Northeast Group,0,100
+siouxland,Siouxland,0.26616524538358477,percent_hispanic,2020,Siouxland Group,0,100
+north_81,North 81,-0.04130435326094195,households_with_children_growth,2020,North 81 Group,0,100
+northeast,Northeast,-0.014927847833984991,households_with_children_growth,2020,Northeast Group,0,100
+siouxland,Siouxland,-0.07977432548509494,households_with_children_growth,2020,Siouxland Group,0,100
+north_81,North 81,31.475,hs_attainment,2020,North 81 Group,0,100
+northeast,Northeast,34.154545454545456,hs_attainment,2020,Northeast Group,0,100
+siouxland,Siouxland,33.35,hs_attainment,2020,Siouxland Group,0,100
+north_81,North 81,16.075,associates_attainment,2020,North 81 Group,0,100
+northeast,Northeast,13.718181818181819,associates_attainment,2020,Northeast Group,0,100
+siouxland,Siouxland,10.2,associates_attainment,2020,Siouxland Group,0,100
+north_81,North 81,16.525,bachelors_attainment,2020,North 81 Group,0,100
+northeast,Northeast,14.218181818181819,bachelors_attainment,2020,Northeast Group,0,100
+siouxland,Siouxland,13.85,bachelors_attainment,2020,Siouxland Group,0,100
+north_81,North 81,69.675,labor_force_participation,2020,North 81 Group,0,100
+northeast,Northeast,67.18181818181819,labor_force_participation,2020,Northeast Group,0,100
+siouxland,Siouxland,71.69999999999999,labor_force_participation,2020,Siouxland Group,0,100
+north_81,North 81,0.02789811100569762,telecommuters_share,2020,North 81 Group,0,100
+northeast,Northeast,0.02572829762344943,telecommuters_share,2020,Northeast Group,0,100
+siouxland,Siouxland,0.0240154558440496,telecommuters_share,2020,Siouxland Group,0,100
+north_81,North 81,17.2,commute_time,2020,North 81 Group,0,100
+northeast,Northeast,18.845454545454547,commute_time,2020,Northeast Group,0,100
+siouxland,Siouxland,18.35,commute_time,2020,Siouxland Group,0,100
+north_81,North 81,39.275,housing_pre_1960,2020,North 81 Group,0,100
+northeast,Northeast,49.79090909090909,housing_pre_1960,2020,Northeast Group,0,100
+siouxland,Siouxland,44.849999999999994,housing_pre_1960,2020,Siouxland Group,0,100
+north_81,North 81,323318000,nonfarm_proprietor_income,2020,North 81 Group,0,100
+northeast,Northeast,446058000,nonfarm_proprietor_income,2020,Northeast Group,0,100
+siouxland,Siouxland,82363000,nonfarm_proprietor_income,2020,Siouxland Group,0,100
+north_81,North 81,0,dir_income_share,2020,North 81 Group,0,100
+northeast,Northeast,0,dir_income_share,2020,Northeast Group,0,100
+siouxland,Siouxland,0,dir_income_share,2020,Siouxland Group,0,100
+north_81,North 81,0.05762014705051111,dir_income_growth,2020,North 81 Group,0,100
+northeast,Northeast,0.014847163396071944,dir_income_growth,2020,Northeast Group,0,100
+siouxland,Siouxland,0.06247492670884123,dir_income_growth,2020,Siouxland Group,0,100
+north_81,North 81,0.004421740222761913,total_employment_growth,2020,North 81 Group,0,100
+northeast,Northeast,0.007064251733822434,total_employment_growth,2020,Northeast Group,0.9679765319145736,196.79765319145736
+panhandle,Panhandle,-0.028686051052650263,total_employment_growth,2020,Northeast Group,-1.029209391049644,-2.920939104964404
+sandhills,Sandhills,0.01775027598628784,total_employment_growth,2020,Sandhills Group,0,100
+siouxland,Siouxland,0.025721099250511015,total_employment_growth,2020,Siouxland Group,0,100
+southeast,Southeast,0.0013540785105136384,total_employment_growth,2020,Southeast Group,0,100
+southwest,Southwest,-0.009166766359612393,total_employment_growth,2020,Northeast Group,0.06123285913507061,106.12328591350706
+tri_cities,Tri-Cities,0.005480321319892124,total_employment_growth,2020,Panhandle Group,0,100
+north_81,North 81,36808,private_employment,2020,North 81 Group,0,100
+northeast,Northeast,35113,private_employment,2020,Northeast Group,0.781482542686665,178.1482542686665
+panhandle,Panhandle,26526,private_employment,2020,Northeast Group,-1.1269231623234006,-12.692316232340062
+sandhills,Sandhills,13722,private_employment,2020,Sandhills Group,0,100
+siouxland,Siouxland,12832,private_employment,2020,Siouxland Group,0,100
+southeast,Southeast,37534,private_employment,2020,Southeast Group,0,100
+southwest,Southwest,33151,private_employment,2020,Northeast Group,0.34544061963673495,134.5440619636735
+tri_cities,Tri-Cities,82516,private_employment,2020,Panhandle Group,0,100
+north_81,North 81,0.10186305396035675,private_wage_growth,2020,North 81 Group,0,100
+northeast,Northeast,0.11031516244654586,private_wage_growth,2020,Northeast Group,0.7565046380316519,175.6504638031652
+panhandle,Panhandle,0.07523389476673771,private_wage_growth,2020,Northeast Group,-1.1337492081407579,-13.374920814075779
+sandhills,Sandhills,0.06340879528450488,private_wage_growth,2020,Sandhills Group,0,100
+siouxland,Siouxland,0.12165489671991546,private_wage_growth,2020,Siouxland Group,0,100
+southeast,Southeast,0.08252484185110552,private_wage_growth,2020,Southeast Group,0,100
+southwest,Southwest,0.1032764655064527,private_wage_growth,2020,Northeast Group,0.3772445701091053,137.72445701091053
+tri_cities,Tri-Cities,0.09020963217170107,private_wage_growth,2020,Panhandle Group,0,100
+north_81,North 81,0.004203027165606665,entrepreneurial_activity,2020,North 81 Group,0,100
+northeast,Northeast,0.0037713876198154617,entrepreneurial_activity,2020,Northeast Group,-0.8425929307439888,15.740706925601117
+panhandle,Panhandle,0.004668512447435794,entrepreneurial_activity,2020,Northeast Group,1.1050565583835645,210.50565583835646
+sandhills,Sandhills,0.0051426000128565,entrepreneurial_activity,2020,Sandhills Group,0,100
+siouxland,Siouxland,0.002548109834943333,entrepreneurial_activity,2020,Siouxland Group,0,100
+southeast,Southeast,0.0038578511019455902,entrepreneurial_activity,2020,Southeast Group,0,100
+southwest,Southwest,0.004038606338558423,entrepreneurial_activity,2020,Northeast Group,-0.26246362763957853,73.75363723604215
+tri_cities,Tri-Cities,0.003923314369016578,entrepreneurial_activity,2020,Panhandle Group,0,100
+north_81,North 81,134.05378853002577,nonfarm_proprietors_per_capita,2020,North 81 Group,0,100
+northeast,Northeast,125.43925702811245,nonfarm_proprietors_per_capita,2020,Northeast Group,-1.1317296596472008,-13.172965964720078
+panhandle,Panhandle,133.64218269264774,nonfarm_proprietors_per_capita,2020,Northeast Group,0.3673932119380209,136.73932119380208
+sandhills,Sandhills,203.21602854870264,nonfarm_proprietors_per_capita,2020,Sandhills Group,0,100
+siouxland,Siouxland,86.62059325982295,nonfarm_proprietors_per_capita,2020,Siouxland Group,0,100
+southeast,Southeast,131.01711646895444,nonfarm_proprietors_per_capita,2020,Southeast Group,0,100
+southwest,Southwest,135.81418334568818,nonfarm_proprietors_per_capita,2020,Northeast Group,0.7643364477091851,176.4336447709185
+tri_cities,Tri-Cities,134.9103641593374,nonfarm_proprietors_per_capita,2020,Panhandle Group,0,100
+north_81,North 81,35.625690777354784,employer_establishments_per_capita,2020,North 81 Group,0,100
+northeast,Northeast,33.13253012048193,employer_establishments_per_capita,2020,Northeast Group,-1.1540231123960507,-15.40231123960507
+panhandle,Panhandle,37.92245759215381,employer_establishments_per_capita,2020,Northeast Group,0.6112605275957294,161.12605275957293
+sandhills,Sandhills,46.21966162908184,employer_establishments_per_capita,2020,Sandhills Group,0,100
+siouxland,Siouxland,24.654449448672153,employer_establishments_per_capita,2020,Siouxland Group,0,100
+southeast,Southeast,34.24966955008617,employer_establishments_per_capita,2020,Southeast Group,0,100
+southwest,Southwest,37.73659500864838,employer_establishments_per_capita,2020,Northeast Group,0.5427625848003187,154.27625848003186
+tri_cities,Tri-Cities,36.11804290604719,employer_establishments_per_capita,2020,Panhandle Group,0,100
+north_81,North 81,0.14013074893909852,nonemployer_worker_share,2020,North 81 Group,0,100
+northeast,Northeast,0.18426027493173383,nonemployer_worker_share,2020,Northeast Group,-1.1473122111449672,-14.73122111449672
+panhandle,Panhandle,0.1901260832837969,nonemployer_worker_share,2020,Northeast Group,0.6865986467969254,168.65986467969253
+sandhills,Sandhills,0.30207338315446425,nonemployer_worker_share,2020,Sandhills Group,0,100
+siouxland,Siouxland,0.10992071994857511,nonemployer_worker_share,2020,Siouxland Group,0,100
+southeast,Southeast,0.18586719318299907,nonemployer_worker_share,2020,Southeast Group,0,100
+southwest,Southwest,0.1894035843697973,nonemployer_worker_share,2020,Northeast Group,0.4607135643480417,146.07135643480416
+tri_cities,Tri-Cities,0.1571184092575992,nonemployer_worker_share,2020,Panhandle Group,0,100
+north_81,North 81,0.16284341046330572,industry_diversity,2020,North 81 Group,0,100
+northeast,Northeast,0.14574391421715285,industry_diversity,2020,Northeast Group,1.148226091126602,214.8226091126602
+panhandle,Panhandle,0.11622328361756129,industry_diversity,2020,Northeast Group,-0.6798610135915063,32.013898640849376
+sandhills,Sandhills,0.13219937872386087,industry_diversity,2020,Sandhills Group,0,100
+siouxland,Siouxland,0.3969589132798615,industry_diversity,2020,Siouxland Group,0,100
+southeast,Southeast,0.19305548621652371,industry_diversity,2020,Southeast Group,0,100
+southwest,Southwest,0.11963859866766059,industry_diversity,2020,Northeast Group,-0.4683650775350931,53.16349224649069
+tri_cities,Tri-Cities,0.12319310591494657,industry_diversity,2020,Panhandle Group,0,100
+north_81,North 81,0.09418877768124378,occupation_diversity,2020,North 81 Group,0,100
+northeast,Northeast,0.06715604687626989,occupation_diversity,2020,Northeast Group,0.4540440578175812,145.40440578175813
+panhandle,Panhandle,0.047812458709717204,occupation_diversity,2020,Northeast Group,-1.1464691427605926,-14.646914276059263
+sandhills,Sandhills,0.11584661245123092,occupation_diversity,2020,Sandhills Group,0,100
+siouxland,Siouxland,0.15822305398803327,occupation_diversity,2020,Siouxland Group,0,100
+southeast,Southeast,0.069734634871599685,occupation_diversity,2020,Southeast Group,0,100
+southwest,Southwest,0.07003708804092158,occupation_diversity,2020,Northeast Group,0.6924250849430119,169.2425084943012
+tri_cities,Tri-Cities,0.05916729572952589,occupation_diversity,2020,Panhandle Group,0,100
+north_81,North 81,0.0033873299049342245,personal_income_volatility,2020,North 81 Group,0,100
+northeast,Northeast,0.012844526587436044,personal_income_volatility,2020,Northeast Group,0.5243818605722813,152.43818605722814
+panhandle,Panhandle,0.007824437605692224,personal_income_volatility,2020,Northeast Group,-1.1531273748359547,-15.31273748359547
+sandhills,Sandhills,0.030477876664009904,personal_income_volatility,2020,Sandhills Group,0,100
+siouxland,Siouxland,0.0037089552176310953,personal_income_volatility,2020,Siouxland Group,0,100
+southeast,Southeast,0.0069107060390085516,personal_income_volatility,2020,Southeast Group,0,100
+southwest,Southwest,0.013156843692422468,personal_income_volatility,2020,Northeast Group,0.6287455142636741,162.87455142636742
+tri_cities,Tri-Cities,0.005297208449874072,personal_income_volatility,2020,Panhandle Group,0,100
+north_81,North 81,80.07867080806588,life_expectancy,2020,North 81 Group,0,100
+northeast,Northeast,79.80532186688167,life_expectancy,2020,Northeast Group,1.006130662366002,200.61306623660022
+panhandle,Panhandle,78.7015886843599,life_expectancy,2020,Northeast Group,-0.9937544564804873,0.6245543519512609
+sandhills,Sandhills,80.09105294735264,life_expectancy,2020,Sandhills Group,0,100
+siouxland,Siouxland,78.78246025709288,life_expectancy,2020,Siouxland Group,0,100
+southeast,Southeast,79.45758188559763,life_expectancy,2020,Southeast Group,0,100
+southwest,Southwest,79.24320966527483,life_expectancy,2020,Northeast Group,-0.01237620588554046,98.76237941144595
+tri_cities,Tri-Cities,79.6434104461914,life_expectancy,2020,Panhandle Group,0,100
+north_81,North 81,-8.374384236453202e-4,population_change,2020,North 81 Group,0,100
+northeast,Northeast,-0.056820582146930844,population_change,2020,Northeast Group,-0.9470667143877969,5.2933285612203065
+panhandle,Panhandle,-0.045205176418537774,population_change,2020,Northeast Group,-0.09856670300014375,90.14332969998563
+sandhills,Sandhills,-0.10073800026976511,population_change,2020,Sandhills Group,0,100
+siouxland,Siouxland,-0.011206377858002407,population_change,2020,Siouxland Group,0,100
+southeast,Southeast,-0.05455333228296833,population_change,2020,Southeast Group,0,100
+southwest,Southwest,-0.029541831156999696,population_change,2020,Northeast Group,1.0456334173879411,204.56334173879412
+tri_cities,Tri-Cities,0.05055452200100729,population_change,2020,Panhandle Group,0,100
+north_81,North 81,0.05441633619467712,millennial_genz_change,2020,North 81 Group,0,100
+northeast,Northeast,0.057393488672208004,millennial_genz_change,2020,Northeast Group,0.7642140162061399,176.421401620614
+panhandle,Panhandle,0.05640850288275878,millennial_genz_change,2020,Northeast Group,0.3675480479564208,136.7548047956421
+sandhills,Sandhills,0.05669872135412668,millennial_genz_change,2020,Sandhills Group,0,100
+siouxland,Siouxland,0.0666930611902582,millennial_genz_change,2020,Siouxland Group,0,100
+southeast,Southeast,0.05718040310786093,millennial_genz_change,2020,Southeast Group,0,100
+southwest,Southwest,0.05268547324920825,millennial_genz_change,2020,Northeast Group,-1.1317620641625636,-13.176206416256363
+tri_cities,Tri-Cities,0.060818713272071945,millennial_genz_change,2020,Panhandle Group,0,100
+north_81,North 81,0.30278456058603465,knowledge_workers_share,2020,North 81 Group,0,100
+northeast,Northeast,0.32933895631900156,knowledge_workers_share,2020,Northeast Group,-0.029049415818802122,97.09505841811979
+panhandle,Panhandle,0.3447152294233173,knowledge_workers_share,2020,Northeast Group,1.0142082071132421,201.4208207113242
+sandhills,Sandhills,0.33118338773744443,knowledge_workers_share,2020,Sandhills Group,0,100
+siouxland,Siouxland,0.2588394639292843,knowledge_workers_share,2020,Siouxland Group,0,100
+southeast,Southeast,0.34095520273099095,knowledge_workers_share,2020,Southeast Group,0,100
+southwest,Southwest,0.31524713608998434,knowledge_workers_share,2020,Northeast Group,-0.9851587912944437,1.4841208705556284
+tri_cities,Tri-Cities,0.3314197691184768,knowledge_workers_share,2020,Panhandle Group,0,100
+north_81,North 81,76.85420450623675,broadband_access,2020,North 81 Group,0,100
+northeast,Northeast,45.021469766191885,broadband_access,2020,Northeast Group,-0.9783447572681022,2.1655242731897744
+panhandle,Panhandle,78.28372820685102,broadband_access,2020,Northeast Group,1.0203325728735229,202.03325728735228
+sandhills,Sandhills,12.448929696372325,broadband_access,2020,Sandhills Group,0,100
+siouxland,Siouxland,70.45560355974747,broadband_access,2020,Siouxland Group,0,100
+southeast,Southeast,53.551504145315164,broadband_access,2020,Southeast Group,0,100
+southwest,Southwest,60.60444862755835,broadband_access,2020,Northeast Group,-0.04198781560542071,95.80121843945793
+tri_cities,Tri-Cities,72.83702327083097,broadband_access,2020,Panhandle Group,0,100
+north_81,North 81,0,interstate_presence,2020,North 81 Group,0,100
+northeast,Northeast,0,interstate_presence,2020,Northeast Group,-0.8212027562548647,17.87972437451353
+panhandle,Panhandle,0.18072819526661493,interstate_presence,2020,Northeast Group,-0.2924061074938516,70.75938925061484
+sandhills,Sandhills,0,interstate_presence,2020,Sandhills Group,0,100
+siouxland,Siouxland,0,interstate_presence,2020,Siouxland Group,0,100
+southeast,Southeast,0.1152522601341499,interstate_presence,2020,Southeast Group,0,100
+southwest,Southwest,0.6612655603688529,interstate_presence,2020,Northeast Group,1.1136088637487165,211.36088637487165
+tri_cities,Tri-Cities,0.5831943214671826,interstate_presence,2020,Panhandle Group,0,100
+north_81,North 81,812.4036631661984,weekly_wage_rate,2020,North 81 Group,0,100
+northeast,Northeast,707.9413867239989,weekly_wage_rate,2020,Northeast Group,-0.8983725360491198,10.162746395088021
+panhandle,Panhandle,725.7965084624028,weekly_wage_rate,2020,Northeast Group,1.0774339022059427,207.74339022059428
+sandhills,Sandhills,639.4266858085667,weekly_wage_rate,2020,Sandhills Group,0,100
+siouxland,Siouxland,824.187114931163,weekly_wage_rate,2020,Siouxland Group,0,100
+southeast,Southeast,721.611773528309,weekly_wage_rate,2020,Southeast Group,0,100
+southwest,Southwest,714.4417140119104,weekly_wage_rate,2020,Northeast Group,-0.17906136615682278,82.09386338431773
+tri_cities,Tri-Cities,739.894603730573,weekly_wage_rate,2020,Panhandle Group,0,100
+north_81,North 81,0.0684,top_marginal_tax_rate,2020,North 81 Group,0,100
+northeast,Northeast,0.0684,top_marginal_tax_rate,2020,Northeast Group,0,100
+panhandle,Panhandle,0.0684,top_marginal_tax_rate,2020,Northeast Group,0,100
+sandhills,Sandhills,0.06840000000000002,top_marginal_tax_rate,2020,Sandhills Group,0,100
+siouxland,Siouxland,0.0684,top_marginal_tax_rate,2020,Siouxland Group,0,100
+southeast,Southeast,0.0684,top_marginal_tax_rate,2020,Southeast Group,0,100
+southwest,Southwest,0.06840000000000002,top_marginal_tax_rate,2020,Northeast Group,0,100
+tri_cities,Tri-Cities,0.0684,top_marginal_tax_rate,2020,Panhandle Group,0,100
+north_81,North 81,0,four_year_colleges,2020,North 81 Group,0,100
+northeast,Northeast,0.41194123443518765,four_year_colleges,2020,Northeast Group,1.1202115196854228,212.02115196854226
+panhandle,Panhandle,0.10393522004564253,four_year_colleges,2020,Northeast Group,-0.3175266730007972,68.24733269992028
+sandhills,Sandhills,0,four_year_colleges,2020,Sandhills Group,0,100
+siouxland,Siouxland,0,four_year_colleges,2020,Siouxland Group,0,100
+southeast,Southeast,0.2932800066658334,four_year_colleges,2020,Southeast Group,0,100
+southwest,Southwest,0,four_year_colleges,2020,Northeast Group,-0.8026848466846255,19.73151533153745
+tri_cities,Tri-Cities,0.3933000357109662,four_year_colleges,2020,Panhandle Group,0,100
+north_81,North 81,0.8643198737859291,opportunity_zones,2020,North 81 Group,0,100
+northeast,Northeast,0.813607453193586,opportunity_zones,2020,Northeast Group,0.3584056253469452,135.84056253469453
+panhandle,Panhandle,0.4229347914229116,opportunity_zones,2020,Northeast Group,-1.1298126463012068,-12.981264630120677
+sandhills,Sandhills,0.13306477533266195,opportunity_zones,2020,Sandhills Group,0,100
+siouxland,Siouxland,0.780748459724652,opportunity_zones,2020,Siouxland Group,0,100
+southeast,Southeast,0.1152522601341499,opportunity_zones,2020,Southeast Group,0,100
+southwest,Southwest,0.9220245836715136,opportunity_zones,2020,Northeast Group,0.7714070209542618,177.14070209542618
+tri_cities,Tri-Cities,1.269583551431129,opportunity_zones,2020,Panhandle Group,0,100
+north_81,North 81,0.9457551375625125,relative_weekly_wage,2020,North 81 Group,0,100
+northeast,Northeast,0.8241459682467974,relative_weekly_wage,2020,Northeast Group,-0.8983725360491234,10.162746395087666
+panhandle,Panhandle,0.8449319074067553,relative_weekly_wage,2020,Northeast Group,1.0774339022059394,207.74339022059394
+sandhills,Sandhills,0.7443849660169579,relative_weekly_wage,2020,Sandhills Group,0,100
+siouxland,Siouxland,0.959472776404148,relative_weekly_wage,2020,Siouxland Group,0,100
+southeast,Southeast,0.8400602718606625,relative_weekly_wage,2020,Southeast Group,0,100
+southwest,Southwest,0.8317132875575209,relative_weekly_wage,2020,Northeast Group,-0.17906136615682647,82.09386338431736
+tri_cities,Tri-Cities,0.8613441254139385,relative_weekly_wage,2020,Panhandle Group,0,100
+north_81,North 81,0.07055581584593001,healthcare_access,2020,North 81 Group,0,100
+northeast,Northeast,0.04928039524559645,healthcare_access,2020,Northeast Group,-0.9719446214570938,2.8055378542906197
+panhandle,Panhandle,0.05314983501417484,healthcare_access,2020,Northeast Group,-0.05392836496603698,94.60716350339631
+sandhills,Sandhills,0.0572262648378303,healthcare_access,2020,Sandhills Group,0,100
+siouxland,Siouxland,0.024288075016332962,healthcare_access,2020,Siouxland Group,0,100
+southeast,Southeast,0.059714981464590255,healthcare_access,2020,Southeast Group,0,100
+southwest,Southwest,0.057701199177594364,healthcare_access,2020,Northeast Group,1.0258729864231324,202.58729864231324
+tri_cities,Tri-Cities,0.07310151468526686,healthcare_access,2020,Panhandle Group,0,100
+north_81,North 81,-0.3171221924764581,climate_amenities,2020,North 81 Group,0,100
+northeast,Northeast,-0.3369137335169758,climate_amenities,2020,Northeast Group,-0.9744584203726592,2.554157962734081
+panhandle,Panhandle,0.2957603635473744,climate_amenities,2020,Northeast Group,1.0237206735141409,202.3720673514141
+sandhills,Sandhills,-0.25985532039469456,climate_amenities,2020,Sandhills Group,0,100
+siouxland,Siouxland,-0.30859372784665706,climate_amenities,2020,Siouxland Group,0,100
+southeast,Southeast,-0.3305146695621381,climate_amenities,2020,Southeast Group,0,100
+southwest,Southwest,-0.043973200057694374,climate_amenities,2020,Northeast Group,-0.04926225314148167,95.07377468585183
+tri_cities,Tri-Cities,-0.17714687319916445,climate_amenities,2020,Panhandle Group,0,100
+north_81,North 81,0,national_parks_access,2020,North 81 Group,0,100
+northeast,Northeast,0.45454545454545453,national_parks_access,2020,Northeast Group,0.5773502691896255,157.73502691896255
+panhandle,Panhandle,0.45454545454545453,national_parks_access,2020,Northeast Group,0.5773502691896255,157.73502691896255
+sandhills,Sandhills,0.3125,national_parks_access,2020,Sandhills Group,0,100
+siouxland,Siouxland,1,national_parks_access,2020,Siouxland Group,0,100
+southeast,Southeast,0.38461538461538464,national_parks_access,2020,Southeast Group,0,100
+southwest,Southwest,0.3333333333333333,national_parks_access,2020,Northeast Group,-1.1547005383792517,-15.470053837925164
+tri_cities,Tri-Cities,0.5714285714285714,national_parks_access,2020,Panhandle Group,0,100
+north_81,North 81,124.03291170330345,violent_crime_rate,2020,North 81 Group,0,100
+northeast,Northeast,158.67039586919105,violent_crime_rate,2020,Northeast Group,-0.8569829206826923,14.30170793173076
+panhandle,Panhandle,165.03400879395505,violent_crime_rate,2020,Northeast Group,-0.2417213455969011,75.82786544030989
+sandhills,Sandhills,90.28957155448546,violent_crime_rate,2020,Sandhills Group,0,100
+siouxland,Siouxland,264.0161515763317,violent_crime_rate,2020,Siouxland Group,0,100
+southeast,Southeast,155.60426322217947,violent_crime_rate,2020,Southeast Group,0,100
+southwest,Southwest,178.89794909809734,violent_crime_rate,2020,Northeast Group,1.0987042662795963,209.87042662795963
+tri_cities,Tri-Cities,226.59237301792717,violent_crime_rate,2020,Panhandle Group,0,100
+north_81,North 81,1286.994965000614,property_crime_rate,2020,North 81 Group,0,100
+northeast,Northeast,825.175702811245,property_crime_rate,2020,Northeast Group,-1.0719026965203644,-7.190269652036434
+panhandle,Panhandle,1414.5772182339003,property_crime_rate,2020,Northeast Group,0.1641066805637388,116.41066805637388
+sandhills,Sandhills,425.65083732828856,property_crime_rate,2020,Sandhills Group,0,100
+siouxland,Siouxland,1985.9450225190246,property_crime_rate,2020,Siouxland Group,0,100
+southeast,Southeast,1136.078437933977,property_crime_rate,2020,Southeast Group,0,100
+southwest,Southwest,1769.2117617988633,property_crime_rate,2020,Northeast Group,0.907796015956626,190.7796015956626
+tri_cities,Tri-Cities,1919.686677442827,property_crime_rate,2020,Panhandle Group,0,100
+north_81,North 81,9.89807196364976,nonprofit_density,2020,North 81 Group,0,100
+northeast,Northeast,12.245410212277681,nonprofit_density,2020,Northeast Group,-1.1344486342038071,-13.444863420380713
+panhandle,Panhandle,13.308813994883947,nonprofit_density,2020,Northeast Group,0.38075790654805247,138.07579065480525
+sandhills,Sandhills,18.853322441258033,nonprofit_density,2020,Sandhills Group,0,100
+siouxland,Siouxland,8.153439975151421,nonprofit_density,2020,Siouxland Group,0,100
+southeast,Southeast,14.67364933826359,nonprofit_density,2020,Southeast Group,0,100
+southwest,Southwest,13.570546083518655,nonprofit_density,2020,Northeast Group,0.7536907276557547,175.36907276557548
+tri_cities,Tri-Cities,11.061028553569074,nonprofit_density,2020,Panhandle Group,0,100
+north_81,North 81,40.5,volunteer_hours,2020,North 81 Group,0,100
+northeast,Northeast,40.500000000000014,volunteer_hours,2020,Northeast Group,0,100
+panhandle,Panhandle,40.5,volunteer_hours,2020,Northeast Group,0,100
+sandhills,Sandhills,40.49999999999999,volunteer_hours,2020,Sandhills Group,0,100
+siouxland,Siouxland,40.5,volunteer_hours,2020,Siouxland Group,0,100
+southeast,Southeast,40.50000000000001,volunteer_hours,2020,Southeast Group,0,100
+southwest,Southwest,40.5,volunteer_hours,2020,Northeast Group,0,100
+tri_cities,Tri-Cities,40.499999999999986,volunteer_hours,2020,Panhandle Group,0,100
+north_81,North 81,0.3373,volunteer_rate,2020,North 81 Group,0,100
+northeast,Northeast,0.33729999999999993,volunteer_rate,2020,Northeast Group,0,100
+panhandle,Panhandle,0.33730000000000004,volunteer_rate,2020,Northeast Group,0,100
+sandhills,Sandhills,0.3373,volunteer_rate,2020,Sandhills Group,0,100
+siouxland,Siouxland,0.33730000000000004,volunteer_rate,2020,Siouxland Group,0,100
+southeast,Southeast,0.3373,volunteer_rate,2020,Southeast Group,0,100
+southwest,Southwest,0.3373,volunteer_rate,2020,Northeast Group,0,100
+tri_cities,Tri-Cities,0.3373,volunteer_rate,2020,Panhandle Group,0,100
+north_81,North 81,0.44094384824915495,voter_turnout,2020,North 81 Group,0,100
+northeast,Northeast,0.4767305669758103,voter_turnout,2020,Northeast Group,0.9246459498807829,192.4645949880783
+panhandle,Panhandle,0.459333416241761,voter_turnout,2020,Northeast Group,-1.06129910178252,-6.12991017825199
+sandhills,Sandhills,0.5755683727181096,voter_turnout,2020,Sandhills Group,0,100
+siouxland,Siouxland,0.37244678563749734,voter_turnout,2020,Siouxland Group,0,100
+southeast,Southeast,0.5080748442553561,voter_turnout,2020,Southeast Group,0,100
+southwest,Southwest,0.46982764210772043,voter_turnout,2020,Northeast Group,0.13665315190174337,113.66531519017434
+tri_cities,Tri-Cities,0.45763894722557885,voter_turnout,2020,Panhandle Group,0,100
+north_81,North 81,1,tree_city_share,2020,North 81 Group,0,100
+northeast,Northeast,0.9200394159276181,tree_city_share,2020,Northeast Group,0.19993009378410084,119.99300937841008
+panhandle,Panhandle,0.8941417698643468,tree_city_share,2020,Northeast Group,-1.0848614720046663,-8.486147200466633
+sandhills,Sandhills,0.5734427564336069,tree_city_share,2020,Sandhills Group,0,100
+siouxland,Siouxland,1,tree_city_share,2020,Siouxland Group,0,100
+southeast,Southeast,0.8446860809065533,tree_city_share,2020,Southeast Group,0,100
+southwest,Southwest,0.9338470414519425,tree_city_share,2020,Northeast Group,0.8849313782205654,188.49313782205655
+tri_cities,Tri-Cities,0.8943297834350037,tree_city_share,2020,Panhandle Group,0,100

@@ -19,4 +19,40 @@ measures:
   dir_income_share: 1
   dir_income_growth: 1
   nonfarm_proprietor_income: 1
+  total_employment_growth: 1
+  private_employment: 1
+  private_wage_growth: 1
+  entrepreneurial_activity: 1
+  nonfarm_proprietors_per_capita: 1
+  employer_establishments_per_capita: 1
+  nonemployer_worker_share: 1
+  industry_diversity: 1
+  occupation_diversity: 1
+  personal_income_volatility: 1
+  life_expectancy: 1
+  dependency_ratio: 1
+  population_change: 1
+  millennial_genz_change: 1
+  percent_nonwhite: 1
+  percent_hispanic: 1
+  knowledge_workers_share: 1
+  broadband_access: 1
+  interstate_presence: 1
+  weekly_wage_rate: 1
+  top_marginal_tax_rate: 1
+  four_year_colleges: 1
+  opportunity_zones: 1
+  commute_time: 1
+  housing_pre_1960: 1
+  relative_weekly_wage: 1
+  healthcare_access: 1
+  climate_amenities: 1
+  national_parks_access: 1
+  violent_crime_rate: 1
+  property_crime_rate: 1
+  nonprofit_density: 1
+  volunteer_hours: 1
+  volunteer_rate: 1
+  voter_turnout: 1
+  tree_city_share: 1
 # Add measure-specific overrides here when needed.

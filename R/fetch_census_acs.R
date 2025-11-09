@@ -16,7 +16,11 @@ acs_get <- function(table, variables, year = 2020, state_fips = "31", county = "
   if (ti_offline()) {
     return(acs_fake(table, variables, year))
   }
-  base_url <- sprintf("https://api.census.gov/data/%s/acs/acs5/%s", year, dataset)
+  base_url <- if (dataset == "detail") {
+    sprintf("https://api.census.gov/data/%s/acs/acs5", year)
+  } else {
+    sprintf("https://api.census.gov/data/%s/acs/acs5/%s", year, dataset)
+  }
   vars <- unique(c("NAME", variables))
   query <- list(
     get = paste(vars, collapse = ","),
@@ -95,3 +99,22 @@ acs_fetch_telecommuters <- function(year = 2020) {
   acs_get("B08128", c("B08128_001E", "B08128_061E", "B08128_064E", "B08128_069E", "B08128_070E"), year = year)
 }
 
+acs_fetch_dependency <- function(year = 2020) {
+  acs_get("S0101", c("S0101_C01_001E", "S0101_C01_022E", "S0101_C01_030E"), year = year)
+}
+
+acs_fetch_race <- function(year = 2020) {
+  acs_get("B02001", c("B02001_001E", "B02001_002E"), year = year)
+}
+
+acs_fetch_hispanic <- function(year = 2020) {
+  acs_get("B03003", c("B03003_001E", "B03003_003E"), year = year)
+}
+
+acs_fetch_commute <- function(year = 2020) {
+  acs_get("S0801", c("S0801_C01_046E"), year = year)
+}
+
+acs_fetch_housing_age <- function(year = 2020) {
+  acs_get("DP04", c("DP04_0024PE", "DP04_0025PE", "DP04_0026PE"), year = year)
+}

@@ -103,15 +103,25 @@ ti_region_config <- function() {
     )
   }) %>%
     dplyr::mutate(county_clean = ti_clean_county_name(county))
-  counties <- ti_county_reference() %>% dplyr::select(county_clean, county_fips)
-  regions %>% dplyr::left_join(counties, by = "county_clean")
+  counties <- ti_county_reference() %>%
+    dplyr::select(region_name = zone_name, county_clean, county_fips) %>%
+    dplyr::distinct(region_name, county_clean, .keep_all = TRUE)
+  regions %>% dplyr::left_join(counties, by = c("region_name", "county_clean"))
 }
 
 ti_assign_regions <- function(df, county_col = "county_name") {
   regions <- ti_region_config()
-  df %>%
-    dplyr::mutate(county_clean = ti_clean_county_name(.data[[county_col]])) %>%
-    dplyr::left_join(regions, by = "county_clean")
+  if ("county_fips" %in% names(df)) {
+    df %>%
+      dplyr::mutate(county_fips = stringr::str_pad(as.character(.data$county_fips), 5, pad = "0")) %>%
+      dplyr::left_join(regions %>% dplyr::select(county_fips, region_id, region_name), by = "county_fips") %>%
+      dplyr::distinct(county_fips, .keep_all = TRUE)
+  } else {
+    df %>%
+      dplyr::mutate(county_clean = ti_clean_county_name(.data[[county_col]])) %>%
+      dplyr::left_join(regions, by = "county_clean") %>%
+      dplyr::distinct(county_clean, .keep_all = TRUE)
+  }
 }
 
 ti_assign_regions_by_fips <- function(df, fips_col = "county_fips") {
@@ -121,7 +131,8 @@ ti_assign_regions_by_fips <- function(df, fips_col = "county_fips") {
     fips_col <- "county_fips"
   }
   df %>%
-    dplyr::left_join(regions, by = setNames("county_fips", fips_col))
+    dplyr::left_join(regions, by = setNames("county_fips", fips_col)) %>%
+    dplyr::distinct(county_fips, .keep_all = TRUE)
 }
 
 ti_region_summarise <- function(df, value_col, measure_id, year, weight_col = NULL, agg = c("mean", "weighted_mean", "sum")) {
@@ -182,17 +193,38 @@ ti_workbook_path <- function() {
   path
 }
 
+ti_clean_colnames <- function(cols) {
+  cols <- tolower(cols)
+  cols <- gsub("[^a-z0-9]+", "_", cols)
+  cols <- gsub("^_+|_+$", "", cols)
+  cols <- gsub("__+", "_", cols)
+  cols
+}
+
+ti_zone_table <- local({
+  cache <- NULL
+  function() {
+    if (!is.null(cache)) return(cache)
+    raw <- readxl::read_excel(ti_workbook_path(), sheet = "ZONE TABLES", skip = 1)
+    names(raw) <- ti_clean_colnames(names(raw))
+    raw <- raw %>%
+      dplyr::mutate(
+        zone_name = stringr::str_trim(zone_name),
+        zone_group = stringr::str_trim(zone_group)
+      )
+    cache <<- raw
+    raw
+  }
+})
+
 ti_zone_lookup <- local({
   cache <- NULL
   function() {
     if (!is.null(cache)) return(cache)
-    path <- ti_workbook_path()
-    df <- readxl::read_excel(path, sheet = "ZONE TABLES", range = "A2:C40", col_names = TRUE)
-    df <- df %>%
-      dplyr::rename(zone_name = `Zone Name`, zone_label = `Zone #`) %>%
-      dplyr::mutate(zone_number = readr::parse_number(zone_label)) %>%
-      dplyr::filter(!is.na(zone_number), stringr::str_detect(zone_label, "Nebraska")) %>%
-      dplyr::distinct(zone_number, .keep_all = TRUE)
+    df <- ti_zone_table() %>%
+      dplyr::select(zone_name, zone = zone, zone_group) %>%
+      dplyr::mutate(zone_number = readr::parse_number(zone)) %>%
+      dplyr::filter(!is.na(zone_number))
     cache <<- df
     df
   }
@@ -207,12 +239,40 @@ ti_county_reference <- local({
     df <- df %>%
       dplyr::filter(state == "Nebraska", !is.na(fips)) %>%
       dplyr::mutate(
-        county_fips = stringr::str_pad(as.character(fips), 5, pad = "0"),
+        county_fips = stringr::str_pad(as.integer(fips), 5, pad = "0"),
         county_clean = ti_clean_county_name(county),
         zone_number = readr::parse_number(zone_label)
       ) %>%
-      dplyr::left_join(ti_zone_lookup() %>% dplyr::select(zone_number, zone_name), by = "zone_number")
+      dplyr::left_join(ti_zone_lookup() %>% dplyr::select(zone_number, zone_name), by = "zone_number", relationship = "many-to-many") %>%
+      dplyr::mutate(zone_name = stringr::str_trim(zone_name)) %>%
+      dplyr::distinct(county_fips, .keep_all = TRUE)
     cache <<- df
     df
   }
 })
+
+ti_region_zone_data <- local({
+  cache <- NULL
+  function() {
+    if (!is.null(cache)) return(cache)
+    regions <- ti_region_config() %>% dplyr::distinct(region_id, region_name)
+    zone <- ti_zone_table() %>% dplyr::rename(region_name = zone_name)
+    joined <- regions %>% dplyr::left_join(zone, by = "region_name") %>% dplyr::distinct(region_id, region_name, .keep_all = TRUE)
+    cache <<- joined
+    joined
+  }
+})
+
+ti_zone_column <- function(column_name) {
+  data <- ti_region_zone_data()
+  if (!column_name %in% names(data)) {
+    stop(sprintf("Column '%s' not found in zone table", column_name))
+  }
+  data %>%
+    dplyr::select(region_id, region_name, value = dplyr::all_of(column_name))
+}
+
+ti_zone_measure_df <- function(measure_id, column_name, year = 2020) {
+  ti_zone_column(column_name) %>%
+    dplyr::mutate(measure = measure_id, year = year)
+}

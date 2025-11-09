@@ -4,6 +4,7 @@ source(file.path("R", "compute_measures_demo.R"))
 source(file.path("R", "compute_measures_education.R"))
 source(file.path("R", "compute_measures_growth.R"))
 source(file.path("R", "compute_measures_other_prosperity.R"))
+source(file.path("R", "compute_measures_zone.R"))
 source(file.path("R", "compute_index.R"))
 
 ti_build_indexes <- function(year = 2020) {
@@ -15,13 +16,19 @@ ti_build_indexes <- function(year = 2020) {
   measures <- dplyr::bind_rows(
     compute_median_age(year),
     compute_poverty_rate(year),
+    compute_dependency_ratio(year),
+    compute_percent_nonwhite(year),
+    compute_percent_hispanic(year),
     compute_households_with_children_growth(current_year = year, base_year = 2015),
     compute_education_attainment(year),
     compute_labor_force_participation(year),
     compute_telecommuters_share(year),
+    compute_commute_time(year),
+    compute_housing_pre1960(year),
     compute_nonfarm_proprietor_income(year),
     compute_dir_income_share(year),
-    compute_dir_income_growth(current_year = year, base_year = 2017)
+    compute_dir_income_growth(current_year = year, base_year = 2017),
+    compute_zone_based_measures(year)
   )
 
   ti_write_csv(measures, file.path(paths$data_intermediate, sprintf("measures_%s.csv", year)))
