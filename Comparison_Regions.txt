@@ -1,0 +1,807 @@
+2 0 2 0 NEB RA S K A T H R I V I NG INDE X
+
+
+
+COMPARISON
+PEER REGIONS
+2   Nebraska Thriving Index
+
+
+
+
+    Contents
+    03       Introduction
+    04       Methodology
+    06       North 81 Region
+    08       Northeast Region
+    10       Panhandle Region
+                                 The Nebraska Thriving Index
+    12       Sandhills Region    provides economic developers,
+    14       Siouxland Region    local elected officials and
+    16       Southeast Region    community leaders with economic
+    18       Southwest Region
+                                 and quality of life indicators
+    20       Tri-Cities Region
+                                 to identify thriving and lagging
+                                 regions so strategic, future-
+                                 focused investments can be made.
+                                                        Comparison Peer Regions   3
+
+
+
+
+Introduction
+Recent projects from the University of Nebraska–
+Lincoln Bureau of Business Research have bench-
+marked economic growth and resources in the
+state’s two largest metropolitan areas — Lincoln,
+Neb., and Omaha, Neb. Research into the sources
+of growth has examined how growth is influenced
+by amenities enjoyed by both business and
+households and linkages between industries
+located throughout the state.
+
+Now, the Rural Futures Institute (RFI) at the
+University of Nebraska (NU) has convened and
+funded an expanded research team from the
+University of Nebraska–Lincoln, the University
+of Nebraska at Kearney and Nebraska Extension
+Community Vitality Initiative to bring this analysis
+to all regions of Nebraska.
+
+The first initial report was delivered online and in
+print in 2019. Now the second edition of this report
+was released in August 2020. Funding to sustain this
+work is a top priority.
+
+Ultimately, the goal is to provide community and
+state leaders with the ability to compare Nebraska
+regions with like peers located primarily in other
+states to better understand where a particular region
+excels or lags and to create action where needed.
+4   Nebraska Thriving Index
+
+
+
+
+    Methodology
+
+
+
+
+    The research team identified relevant comparison      process, there is often a bias in measuring effects
+    regions against which Nebraska regions could          against a control group (Feng, Jun, & Xu, 2006). To
+    benchmark. The regions selected were the most         counteract this bias, Mahalanobis distance matching
+    similar to each of the eight Nebraska regions         was created. The Mahalanobis distance itself is
+    identified; comparison regions might be in Nebraska   similar to the Euclidean distance, but it controls for
+    or in another state in the region.                    covariances among variables, too. The Euclidean
+                                                          distance is the ordinary straight-line distance
+    Rather than take an ad-hoc approach to finding        between two points in space (think distance formula
+    the most comparable region, the team used             or the Pythagorean Theorem).
+    Mahalanobis distance matching, a technique often
+    used in statistical analysis to find comparable       In total, the team considered 85 regions located in
+    samples in observational studies. In observational    Colorado, Illinois, Iowa, Kansas, Minnesota, Missouri,
+    studies, unlike randomized studies, there is often    Montana, Nebraska, South Dakota and Wyoming.
+    a difference between the studied groups and           Outside of Nebraska, USDA Economic Development
+    the control groups. Without a random selection        Administration regions were utilized.
+                                                                                        Comparison Peer Regions   5
+
+
+
+
+Six variables were used to compare each Nebraska        Distance to Small MSA – Interaction with a
+region to the 85 other regions:                         nearby metropolitan area influences the growth
+                                                        patterns, demographic make-up, wealth, education
+Population in Region – Regions with larger              attainment and age structure of a region.
+populations have some advantage for capturing
+more retail and service activity and have sufficient    Distance to Large MSA – The above discussed
+labor force to capture larger manufacturing firms.      patterns can be especially pronounced for rural
+                                                        areas in proximity to a Large MSA.
+Percent of Population in Micropolitan Statistical
+Area – Micropolitan counties (tied to a population      To start off our matching, each region and their
+center of at least 10,000) can differ systematically    calculated variables were used to develop a 7x7
+in terms of economic structure than smaller non-        covariance matrix, which shows how each variable
+metropolitan counties.                                  varies with one another. This sets up a baseline
+                                                        on how each variable interacts and impacts other
+Percent Farm Income (of Total Income in Region)         studied variables. Using R Statistical programming,
+and % Ranch Income (of Total Income in Region) –        researchers took each Nebraska region separately
+These two measures capture the degree to which          and processed each of the other 84 regions through
+the regional economy and its population trends are      the Mahalanobis distance formula. The output is
+tied to trends in the agricultural sector. A focus on   a list of the 94 other regions and each region’s
+agricultural production also influences the diversity   corresponding Mahalanobis distance value, which
+and entrepreneurial nature of the economy.              indicates how similar each region is to the Nebraska
+                                                        region we seek to study. Investigators retained the
+Percent Manufacturing Employment (of Total              top 5-7 smallest Mahalanobis distances (most similar
+Employment in Region) – Regional specialization in      regions) as matches to the Nebraska region studied.
+manufacturing influences economic growth and the        The same process and calculations were repeated
+demographic characteristics of the population.          for each of the Nebraska regions.
+
+
+
+
+Reference:
+Feng, Wuwei Wayne, Yu Jun, and Rong Xu. 2006. “A Method/Macro Based on Propensity Score and Mahalano-
+bis Distance to Reduce Bias in Treatment Comparison in Observational Study.”
+https://pdfs.semanticscholar.org/4851/27f2a7a73aed4cdba4c2e8db33dfa00a78a6.pdf
+6   Nebraska Thriving Index
+
+
+
+
+    NORTH 81 REGION
+
+                                                                 COUNTIES
+                                                                 Madison, Pierce, Platte and
+                                                                 Stanton
+
+
+
+
+    Comparison Peer Regions
+
+
+    IOWA                        ILLINOIS                         MISSOURI
+    Area 15 Regional Planning   Blackhawk Hills Resource         Pioneer Trails Regional Planning
+    Commission                  Conservation and Development     Commission
+    www.area15rpc.com           www.blackhawkhills.com           www.trailsrpc.org
+
+
+
+
+    MINNESOTA                   MISSOURI
+    Mid-Minnesota Development   Mark Twain Regional Council of
+    Commission                  Governments
+    www.mmrdc.org               www.marktwaincog.com
+                                                                                              Comparison Peer Regions   7
+
+
+Comparison Region Economic Characteristics
+
+                                          Distance (Miles) To Large                 Distance (Miles) To Small
+     Population Of Region                 Metropolitan Statistical Area             Metropolitan Statistical Area
+     (2017)                               (Population > 250,000)                    (Population < 250,000)
+
+1      81,445                         1                           86.18         1                               85.65
+2         101,977                     2                        75.21            2                     61.25
+
+3                           222,753   3          37.46                          3                        69.91
+
+4                 151,756             4         34.04                           4                             80.58
+
+5           116,403                   5                        75.32            5         33.77
+
+6               137,895               6                                102.72   6                       67.04
+
+
+
+
+                                            1              2              3         4             5             6
+
+
+Percent Of Population
+In A Micropolitan Area
+                                          100%           83.03%        83.79%   78.49%      67.55%        64.86%
+
+
+Farm Income Percent
+Of Total Personal Income
+                                       15.77%            11.72%        11.92%   7.82%       16.53%        10.08%
+
+
+Ranch Income Percent Of Total
+Personal Income
+                                          22.9%          10.65%        4.87%    5.57%       10.36%            5.67%
+
+
+Percent Of Employment In The
+Manufacturing Industry
+                                       18.16%            16.40%        16.89%   16.08%      18.99%        13.88%
+
+
+
+
+Comparison Peer Region Key
+1.    NEBRASKA: North 81 Region
+2.    IOWA: Area 15 Regional Planning Commission
+3.    ILLINOIS: Blackhawk Hills Resource Conservation and Development
+4. MISSOURI: Pioneer Trails Regional Planning Commission
+5.    MINNESOTA: Mid-Minnesota Development Commission
+6.    MISSOURI: Mark Twain Regional Council of Governments
+8   Nebraska Thriving Index
+
+
+
+
+    NORTHEAST REGION
+
+                                                          COUNTIES
+                                                          Antelope, Boone, Burt, Cedar,
+                                                          Colfax, Cuming, Dodge, Knox,
+                                                          Nance, Thurston and Wayne
+
+
+
+
+    Comparison Peer Regions
+
+
+    IOWA                      IOWA                        NEBRASKA
+    Region XII Council of     Northwest Iowa Planning &   Panhandle Region
+    Governments               Development Commission
+    www.region12cog.org       www.nwipdc.org
+
+
+
+
+    IOWA                      NEBRASKA
+    Mid-Iowa Development      Southwest Region
+    Association Council of
+    Governments
+    www.midascog.net
+                                                                                          Comparison Peer Regions   9
+
+
+Comparison Region Economic Characteristics
+
+                                           Distance (Miles) To Large            Distance (Miles) To Small
+     Population Of Region                  Metropolitan Statistical Area        Metropolitan Statistical Area
+     (2017)                                (Population > 250,000)               (Population < 250,000)
+
+1                     111,733          1          31.98                     1           64.08
+2            72,422                    2          71.15                     2                65.41
+
+3                           138,501    3     50.93                          3         48.07
+
+4              85,293                  4                96.21               4             62.65
+
+5               90,660                 5        60.53                       5        45.63
+
+6                 101,354              6                           193.36   6                            117.90
+
+
+
+
+                                            1               2        3          4            5           6
+
+
+Percent Of Population
+In A Micropolitan Area
+                                       32.85%             28.06%   38.61%   44.91%      40.38%        61.45%
+
+
+Farm Income Percent
+Of Total Personal Income
+                                       30.31%             29.01%   22.61%   14.32%      24.03%        22.84%
+
+
+Ranch Income Percent Of Total
+Personal Income
+                                       53.18%             33.01%   47.22%   35.22%      23.17%       48.62%
+
+
+Percent Of Employment In The
+Manufacturing Industry
+                                       12.08%             14.26%   18.28%   5.08%       13.71%        10.27%
+
+
+
+
+Comparison Peer Region Key
+1.    NEBRASKA: Northeast Region
+2.    IOWA: Region XII Council of Governments
+3.    IOWA: Northwest Iowa Planning & Development Commission
+4. NEBRASKA: Panhandle Region
+5.    IOWA: Mid-Iowa Development Association Council of Governments
+6.    NEBRASKA: Southwest Region
+10   Nebraska Thriving Index
+
+
+
+
+     PANHANDLE REGION
+
+                                                             COUNTIES
+                                                             Banner, Box Butte, Cheyenne,
+                                                             Dawes, Deuel, Garden, Kimball,
+                                                             Morrill, Scottsbluff, Sheridan
+                                                             and Sioux
+
+
+
+
+     Comparison Peer Regions
+
+
+     NEBRASKA                  WYOMING                       COLORADO
+     Northeast Region          Southeast Wyoming Economic    Southern Colorado Economic
+                               Development District          Development District
+                               www.southeastwyomingedd.org   www.scedd.com
+
+
+
+
+     NEBRASKA                  IOWA                          NEBRASKA
+     Southwest Region          Mid-Iowa Development          Tri-Cities Region
+                               Association Council of
+                               Governments
+                               www.midascog.net
+                                                                                                     Comparison Peer Regions   11
+
+
+Comparison Region Economic Characteristics
+                                          Distance (Miles) To Large                       Distance (Miles) To Small
+     Population Of Region                 Metropolitan Statistical Area                   Metropolitan Statistical Area
+     (2017)                               (Population > 250,000)                          (Population < 250,000)
+
+1           85,293                    1           96.21                               1             62.65
+2      111,733                        2         31.98                                 2              64.08
+3          158,599                    3               52.93                           3 0.00
+4                           314,306   4           45.42                               4 0.00
+5                101,354              5                             193.36            5                             117.90
+6            90,660                   6       60.53                                   6          45.63
+7                 205,568             7               94.77                           7 0.00
+
+
+
+
+                                          1             2       3              4             5             6         7
+
+
+Percent Of Population
+In A Micropolitan Area
+                                      44.91%      32.85%      24.17%         15.13%       61.45%         40.38%   42.78%
+
+
+Farm Income Percent
+Of Total Personal Income
+                                      14.32%      30.31%      1.27%          1.63%        22.84%         24.03%   17.31%
+
+
+Ranch Income Percent Of Total
+Personal Income
+                                      35.22%       53.18%     5.95%          6.23%        48.62%         23.17%   22.44%
+
+
+Percent Of Employment In The
+Manufacturing Industry
+                                      5.08%       12.08%      3.38%          5.77%        10.27%         13.71%   13.07%
+
+
+
+
+Comparison Peer Region Key
+1.    NEBRASKA: Panhandle Region
+2.    NEBRASKA: Northeast Region
+3.    WYOMING: Southeast Wyoming Economic Development District
+4. COLORADO: Southern Colorado Economic Development District
+5.    NEBRASKA: Southwest Region
+6.    IOWA: Mid-Iowa Development Association Council of Governments
+7.    NEBRASKA: Tri-Cities Region
+12   Nebraska Thriving Index
+
+
+
+
+     SANDHILLS REGION
+
+                                                               COUNTIES
+                                                               Blaine, Boyd, Brown, Cherry,
+                                                               Custer, Garfield, Grant, Greeley,
+                                                               Holt, Hooker, Keya Paha, Loup,
+                                                               Rock, Thomas, Valley and
+                                                               Wheeler
+
+
+
+
+     Comparison Peer Regions
+
+
+     NEBRASKA                  IOWA                            NEBRASKA
+     Northeast Region          Northwest Iowa Planning &       Southwest Region
+                               Development Commission
+                               www.nwipdc.org
+
+
+
+
+     NEBRASKA                  KANSAS
+     Panhandle Region          Great Plains Development Inc.
+                               www.gpdionline.com
+                                                                                                 Comparison Peer Regions   13
+
+
+Comparison Region Economic Characteristics
+
+                                           Distance (Miles) To Large              Distance (Miles) To Small
+     Population Of Region                  Metropolitan Statistical Area          Metropolitan Statistical Area
+     (2017)                                (Population > 250,000)                 (Population < 250,000)
+
+1          46,693                     1                        163.73         1         73.62
+2           111,733                   2          31.98                        2         64.08
+
+3                 138,501             3       50.93                           3       48.07
+
+4         101,354                     4                             193.36    4                   117.90
+
+5        85,293                       5               96.21                   5         62.65
+
+6                           210,852   6                           180.70      6                                 199.30
+
+
+
+
+                                            1              2            3         4               5             6
+
+
+Percent Of Population
+In A Micropolitan Area
+                                          0.00%          32.85%    38.61%    61.45%           44.91%        58.84%
+
+
+Farm Income Percent
+Of Total Personal Income
+                                       31.01%            30.31%    22.61%    22.84%           14.32%         18.57%
+
+
+Ranch Income Percent Of Total
+Personal Income
+                                       89.49%            53.18%     47.22%   48.62%           35.22%         81.50%
+
+
+Percent Of Employment In The
+Manufacturing Industry
+                                          5.48%          12.08%    18.28%    10.27%             5.08%        11.74%
+
+
+
+
+Comparison Peer Region Key
+1.    NEBRASKA: Sandhills Region
+2.    NEBRASKA: Northeast Region
+3.    IOWA: Northwest Iowa Planning & Development Commission
+4. NEBRASKA: Southwest Region
+5.    NEBRASKA: Panhandle Region
+6.    KANSAS: Great Plains Development Inc.
+14   Nebraska Thriving Index
+
+
+
+
+     SIOUXLAND REGION
+
+
+                                                                       COUNTIES
+                                                                       Dakota and Dixon
+
+
+
+
+     Comparison Peer Regions
+
+
+     IOWA                         MINNESOTA                            IOWA
+     Southeast Iowa Regional      Northwest Minnesota Regional         Iowa Northland Regional
+     Planning Commission          Development Commission               Council of Governments
+     www.seirpc.com               www.nwrdc.org                        www.inrcog.org
+
+
+
+
+     IOWA                         ILLINOIS
+     North Iowa Area Council of   Southwestern Illinois Metropolitan
+     Governments                  & Regional Planning Commission
+     www.niacog.org               www.simapc.org
+                                                                                          Comparison Peer Regions   15
+
+
+Comparison Region Economic Characteristics
+
+                                            Distance (Miles) To Large           Distance (Miles) To Small
+     Population Of Region                   Metropolitan Statistical Area       Metropolitan Statistical Area
+     (2017)                                 (Population > 250,000)              (Population < 250,000)
+
+1       25,940                         1           78.42                    1        25.99
+2         104,759                      2         58.12                      2                       56.08
+
+3        85,417                        3                           183.57   3                    49.84
+
+4                           217,705    4     45.34                          4 0.00
+
+5            123,371                   5                 97.47              5                            63.48
+
+6         101,015                      6         55.26                      6                             66.19
+
+
+
+
+                                             1              2        3          4            5           6
+
+
+Percent Of Population
+In A Micropolitan Area
+                                           0.00%         70.36%    0.00%    0.00%       40.91%        0.00%
+
+
+Farm Income Percent
+Of Total Personal Income
+                                       18.86%             7.07%    33.10%   11.02%      21.86%        11.97%
+
+
+Ranch Income Percent Of Total
+Personal Income
+                                           9.90%         4.02%     2.75%    8.24%       19.56%        4.34%
+
+
+Percent Of Employment In The
+Manufacturing Industry
+                                       33.82%            22.77%    17.49%   17.23%      18.26%        15.92%
+
+
+
+
+Comparison Peer Region Key
+1.    NEBRASKA: Siouxland Region
+2.    IOWA: Southeast Iowa Regional Planning Commission
+3.    MINNESOTA: Northwest Minnesota Regional Development Commission
+4. IOWA: Iowa Northland Regional Council of Governments
+5.    IOWA: North Iowa Area Council of Governments
+6.    ILLINOIS: Southwestern Illinois Metropolitan & Regional Planning Commission
+16   Nebraska Thriving Index
+
+
+
+
+     SOUTHEAST REGION
+
+                                                                            COUNTIES
+                                                                            Butler, Fillmore, Gage, Jefferson,
+                                                                            Johnson, Nemaha, Otoe,
+                                                                            Pawnee, Polk, Richardson,
+                                                                            Saline, Thayer and York
+
+
+
+
+     Comparison Peer Regions
+
+
+     MINNESOTA                 MINNESOTA                SOUTH DAKOTA                  IOWA
+     Southwest Regional        Upper Minnesota Valley   Planning &                    Southern Iowa Council
+     Development               Regional Development     Development District III      of Governments
+     Commission                Commission               www.districtiii.org           www.sicog.com
+     www.swrdc.org             www.umvrdc.org
+
+
+
+
+     IOWA                      IOWA                     IOWA                          IOWA
+     Region XII Council of     Southwest Iowa           Mid-Iowa Development          North Iowa Area Council
+     Governments               Planning Council         Association Council of        of Governments
+     www.region12cog.org       www.swipco.org           Governments                   www.niacog.org
+                                                        www.midascog.net
+                                                                                                               Comparison Peer Regions   17
+
+
+Comparison Region Economic Characteristics
+                                                Distance (Miles) To Large                         Distance (Miles) To Small
+     Population Of Region                       Metropolitan Statistical Area                     Metropolitan Statistical Area
+     (2017)                                     (Population > 250,000)                            (Population < 250,000)
+
+1             119,805                      1         36.50                                   1                      66.65
+2                 116,889                  2                        69.61                    2                                  91.94
+3           42,965                         3                                     102.04      3                  58.93
+4            102,695                       4                 54.51                           4                               79.95
+5        67,739                            5         33.59                                   5                    56.47
+6        72,422                            6                         71.15                   6                       65.41
+7                            179,672       7         31.75                                   7                              77.32
+8           90,660                         8                     60.53                       8              45.63
+9                  123,371                 9                                     97.47       9                      63.48
+
+
+
+
+                                       1         2           3             4         5        6         7            8              9
+
+
+Percent Of Population
+                                  18.03%   40.87%        0.00%       44.59%        0.00%    28.06%    0.00%       40.38%      40.91%
+In A Micropolitan Area
+
+
+Farm Income Percent
+                                  30.95%       29.70%   41.30%       29.19%        18.64%   29.01%    17.26%      24.03%      21.86%
+Of Total Personal Income
+
+
+Ranch Income Percent Of
+                                  15.02%       27.59%   15.97%       21.61%        15.80%   33.01%     5.97%       23.17%     19.56%
+Total Personal Income
+
+
+Percent Of Employment In
+                                  17.40%   16.38%       12.18%       11.78%        14.21%   14.26%    11.66%       13.71%     18.26%
+The Manufacturing Industry
+
+
+
+
+Comparison Peer Region Key
+1.    NEBRASKA: Southeast Region                                      5.       IOWA: Southern Iowa Council of Governments
+2.    MINNESOTA: Southwest Regional Development                       6.       IOWA: Region XII Council of Governments
+      Commission                                                      7.       IOWA: Southwest Iowa Planning Council
+3.    MINNESOTA: Upper Minnesota Valley Regional                      8. IOWA: Mid-Iowa Development Association
+      Development Commission                                             Council of Governments
+4. SOUTH DAKOTA: Planning & Development                               9.       IOWA: North Iowa Area Council of Governments
+   District III
+18   Nebraska Thriving Index
+
+
+
+
+     SOUTHWEST REGION
+
+                                                         COUNTIES
+                                                         Arthur, Chase, Dawson, Dundy,
+                                                         Frontier, Furnas, Gosper, Hayes,
+                                                         Hitchcock, Keith, Lincoln, Logan,
+                                                         McPherson, Perkins and Red
+                                                         Willow
+
+
+
+
+     Comparison Peer Regions
+
+
+     IOWA                       NEBRASKA                 NEBRASKA
+     Northwest Iowa Planning    Panhandle Region         Northeast Region
+     & Development Commission
+     www.nwipdc.org
+
+
+
+
+     IOWA                       MINNESOTA                IOWA
+     Region XII Council of      Southwest Regional       Mid-Iowa Development
+     Governments                Development Commission   Association Council
+     www.region12cog.org        www.swrdc.org            of Governments
+                                                         www.midascog.net
+                                                                                                    Comparison Peer Regions   19
+
+
+Comparison Region Economic Characteristics
+
+                                           Distance (Miles) To Large                     Distance (Miles) To Small
+     Population Of Region                  Metropolitan Statistical Area                 Metropolitan Statistical Area
+     (2017)                                (Population > 250,000)                        (Population < 250,000)
+
+1               101,354                1                           193.36            1                              117.90
+2                          138,501     2       50.93                                 2          48.07
+3              85,293                  3                96.21                        3              62.65
+4                     111,733          4          31.98                              4              64.08
+5            72,422                    5          71.15                              5                  65.41
+6                     116,889          6          69.61                              6                          91.94
+7               90,660                 7        60.53                                7          45.63
+
+
+
+
+                                           1              2        3         4              5             6             7
+
+
+Percent Of Population
+In A Micropolitan Area
+                                      61.45%           38.61%    44.91 %   32.85 %       28.06 %    40.87 %        40.38 %
+
+
+Farm Income Percent
+Of Total Personal Income
+                                      22.84%           22.61%    14.32 %   30.31 %       29.01 %        29.70 %    24.03 %
+
+
+Ranch Income Percent Of Total
+Personal Income
+                                      48.62%            47.22%   35.22 %   53.18 %       33.01 %        27.59 %    23.17 %
+
+
+Percent Of Employment In The
+Manufacturing Industry
+                                      10.27%           18.28%    5.08 %    12.08 %       14.26 %    16.38 %        13.71 %
+
+
+
+
+Comparison Peer Region Key
+1.    NEBRASKA: Southwest Region
+2.    IOWA: Northwest Iowa Planning & Development Commission
+3.    NEBRASKA: Panhandle Region
+4. NEBRASKA: Northeast Region
+5.    IOWA: Region XII Council of Governments
+6.    MINNESOTA: Southwest Regional Development Commission
+7.    IOWA: Mid-Iowa Development Association Council of Governments
+20   Nebraska Thriving Index
+
+
+
+
+     TRI-CITIES REGION
+
+                                                                        COUNTIES
+                                                                        Adams, Buffalo, Clay, Franklin,
+                                                                        Hall, Hamilton, Harlan, Howard,
+                                                                        Kearney, Merrick, Nuckolls,
+                                                                        Phelps, Sherman and Webster
+
+
+
+
+     Comparison Peer Regions
+
+
+     MINNESOTA                         IOWA                             IOWA
+     Region Nine Development           East Central Intergovernmental   Mid-Iowa Development
+     Commission                        Association                      Association
+     www.rndc.org                      www.ecia.org                     www.midascog.net
+
+
+
+
+     KANSAS                            IOWA                             MINNESOTA
+     North Central Regional Planning   Region 6 Planning Commission     Minnesota West Central
+     Commission                        www.region6planning.org          Initiative
+     www.ncrpc.org                                                      www.wcif.org
+                                                                                                    Comparison Peer Regions    21
+
+
+Comparison Region Economic Characteristics
+
+                                           Distance (Miles) To Large                      Distance (Miles) To Small
+     Population Of Region                  Metropolitan Statistical Area                  Metropolitan Statistical Area
+     (2017)                                (Population > 250,000)                         (Population < 250,000)
+
+1                   205,568            1       94.77                                  1   0.00
+2                          232,374     2        72.89                                 2 0.00
+3                      199,113         3          45.39                               3 0.00
+4       90,660                         4       60.53                                  4                       45.63
+5            134,720                   5         76.88                                5                                60.57
+6        92,708                        6          39.07                               6          24.87
+7                         229,775      7                            194.92            7                  35.81
+
+
+
+
+                                           1             2      3              4             5            6             7
+
+
+Percent Of Population
+In A Micropolitan Area
+                                       42.78%      19.38%    23.61%      40.38%           44.99%     43.46%       44.50%
+
+
+Farm Income Percent
+Of Total Personal Income
+                                       17.31%      14.96%     8.76%        24.03%         15.30%     16.82%       14.87%
+
+
+Ranch Income Percent Of Total
+Personal Income
+                                       22.44%       13.97%   10.05%          23.17%        8.63%     13.88%           6.52%
+
+
+Percent Of Employment In The
+Manufacturing Industry
+                                       13.07%      16.63%     15.17%         13.71%       14.16%     18.44%       12.35%
+
+
+
+
+Comparison Peer Region Key
+1.    NEBRASKA: Tri-Cities Region
+2.    MINNESOTA: Region Nine Development Commission
+3.    IOWA: East Central Intergovernmental Association
+4. IOWA: Mid-Iowa Development Association
+5.    KANSAS: North Central Regional Planning Commission
+6.    IOWA: Region 6 Planning Commission
+7.    MINNESOTA: Minnesota West Central Initiative
+

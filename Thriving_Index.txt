@@ -1,0 +1,3554 @@
+  2022
+  NEBRASKA
+THRIVING INDEX
+                                RESEARCH TEAM
+                                Eric Thompson, Ph.D.
+                                Chair and Professor of Economics
+                                Director of Bureau of Business Research
+                                University of Nebraska–Lincoln
+                                College of Business
+
+                                Mitch Herian, Ph.D.
+                                Project Director, Bureau of Business Research
+                                University of Nebraska–Lincoln
+                                College of Business
+
+                                Bree Dority, Ph.D.
+                                Associate Dean and Professor of Finance
+                                University of Nebraska at Kearney
+                                College of Business and Technology
+
+
+
+
+                                   The University of Nebraska does not discriminate
+                                       based upon any protected status. Please see
+      RURALPROSPERITY.UNL.EDU                         go.unl.edu/nondiscrimination
+TABLE OF CONTENTS
+
+FOREWORD
+02 Letter from Project Team
+03 Thriving Index Component Measures and Details
+08 Thriving Index Regions and Comparison Regions
+
+2022 RESULTS
+10 Regional Results
+11 Regional Patterns
+16 North 81 Region
+23 Northeast Region
+29 Panhandle Region
+36 Sandhills Region
+42 Siouxland Region
+48 Southeast Region
+55 Southwest Region
+62 Tri-Cities Region
+
+THE RESEARCH TEAM
+68 Eric Thompson, Ph.D.
+68 Mitchel Herian, Ph.D.
+69 Bree Dority, Ph.D.
+
+
+
+
+                                             1
+LETTER FROM PROJECT TEAM
+
+The 2022 Nebraska Thriving Index provides economic developers, local elected officials and community
+leaders with economic outcome and resource indicators to identify thriving and lagging regions, support
+policy decisions and economic development strategies, and answer the basic question: “How is our
+economy doing?” In all, there are 47 individual measures. The Nebraska Thriving Index is calculated for
+eight non-metropolitan or small metropolitan regions of Nebraska, including all counties outside of the
+Omaha and Lincoln metropolitan areas.
+
+The 2022 Nebraska Thriving Index marks the third year that the index has been developed and released.
+The 2022 edition includes the same measures that were used in the 2020 Nebraska Thriving Index and
+the revised 2019 Nebraska Thriving Index. There is an online interactive comparison tool
+(RuralProsperityNE.unl.edu/thriving-index) that allows for year-to-year comparisons.
+
+Compared to 2020, the 2022 Nebraska Thriving Index result show that four of the eight non-
+metropolitan and small metropolitan regions improved by one ranking. These include the Panhandle,
+Sandhills, Siouxland, and Tri-Cities regions. Three regions – the North 81, Northeast, and Southeast –
+maintained their 2020 ranking in 2022. The Southwest region was the only Nebraska region to drop in
+ranking.
+
+When examining the regional patterns, we identified three areas of strength: growth, quality of life, and
+social capital. That is, across all the eight Nebraska regions, the average rank for these areas was at or
+above 3rd place. There are also three areas of concern: infrastructure & cost of doing business,
+education and skill, and other prosperity. Across all the eight Nebraska regions, the average rank for
+these areas was below 4th place.
+
+Although each region has its own strengths and concerns, overall, the Nebraska regions are performing
+well relative to similarly situated peer regions. Five of the eight regions rank at the 3rd place or above
+with North 81 and Tri-Cities ranking 1st.
+
+We hope you enjoy this latest version of the Nebraska Thriving Index.
+
+Sincerely,
+
+The Nebraska Thriving Index Project Team
+
+
+
+
+                                                     2
+THRIVING INDEX COMPONTENT MEASURES and DETAILS
+Nebraska regions are compared with peers according to three indexes of economic prosperity and five
+indexes of economic conditions.
+
+Economic Prosperity Indexes
+
+The Growth Index includes multiple measures of growth, primarily over the 2017 to 2020 period,
+including growth in total employment, private employment, growth in private wages per job, growth in
+households with children, and growth in dividends, interest and rent income. Table 1 includes measure
+descriptions.
+
+Table 1: Measures of the Growth Index
+ Growth in Total       Percent change in jobs (both wage and salary and self-employed) in the region.
+ Employment            Job growth is a key measure of economic growth. Source: Bureau of Economic
+                       Analysis, Table CAINC5, 2017 and 2020.
+ Private               Measure of the number of the private sector wage and salary jobs within a
+ Employment            region. Larger economies have advantages for growth. Source: Bureau of Labor
+                       Statistics, Quarterly Census of Employment and Wages, Private Employment,
+                       2020.
+ Growth in Private     Percent change in private sector wages earned per job in the region each
+ Wages Per Job         quarter. Reflects growth due to changes in hours worked per quarter as well as
+                       changes in hourly wages. Source: Bureau of Labor Statistics, Quarterly Census of
+                       Employment and Wages, Private Wages and Private Employment, 2017 and
+                       2020.
+ Growth in             Percent change in households with children. Implies sustainable regional
+ Households with       growth, including future growth in the labor force. Source: Census Bureau,
+ Children              American Community Survey, Table S1101, 2011-2015 period and 2016-2020
+                       period.
+ Growth in             Percent change in dividends, interest and rent income. Implies growing wealth
+ Dividends, Interest in a community and provides a complementary source of private sector income
+ and Rent (DIR)        along with employment income. Source: Bureau of Economic Analysis, Table
+ Income                CAINC5, 2017 and 2020.
+
+
+The Economic Opportunity & Diversity Index measures entrepreneurial activity, industry diversity,
+occupation diversity and share of telecommuters. Table 2 includes measure descriptions.
+
+Table 2: Measures of the Economic Opportunity & Diversity Index
+ Entrepreneurial       Business births and deaths per person. Measures entrepreneurial vigor. Source:
+ Activity              Census Bureau, Business Dynamics Statistics, 2019.
+ Non-Farm              The number of proprietor businesses (with or without employees) per 1,000
+ Proprietors Per       persons. Reflects the formation and survival rate of businesses except
+ 1,000 Persons         corporations. Source: Bureau of Economic Analysis, Table CAEMP25, and
+                       Census Bureau, Annual Estimates of the Resident Population for Counties, 2020.
+ Employer              Number of establishments large enough to have employees per 1,000 persons.
+ Establishments Per Reflects the formation and survival rate of employer establishments and
+ 1,000 Residents       transitions between employer and non-employer status. Source: Bureau of
+
+
+                                                   3
+                       Labor Statistics, Quarterly Census of Employment and Wages, Private Annual
+                       Average Establishments, and Census Bureau, Annual Estimates of the Resident
+                       Population for Counties, 2020.
+ Share of Workers      Self-employed individuals (in non-employer establishments) divided by total
+ in Non- Employer      employed, whether in employer or non-employer establishment. Measures the
+ Establishment         frequency of self-employment. Source: Census Bureau, County Business
+                       Patterns and Nonemployer Statistics Combined Report, 2018.
+ Industry Diversity    An index capturing the degree to which the allocation of employment among
+                       industries in the regional economy matches the allocation in the U.S. economy.
+                       Measures the diversity of opportunities for a region’s workers by product
+                       market. Source: Census Bureau, County Business Patterns, 2019.
+ Occupation            An index capturing the degree to which the allocation of employment among
+ Diversity             occupations in the regional economy matches the allocation in the U.S.
+                       economy. Measures the diversity of opportunities for a region’s workers by
+                       type of work. Source: Census Bureau, American Community Survey, Table
+                       S2401, 2016-2020 period.
+ Share of              Share of the population which works at home but is not self-employed (or an
+ Telecommuters         unpaid family worker). Reflects opportunities to work remotely. Source: Census
+                       Bureau, American Community Survey, Table B08128, 2016-2020 period.
+
+
+The Other Prosperity Index measures non-farm proprietor personal income, personal income stability,
+life span, poverty rate and share of income from dividends, interest and rent. Table 3 includes measure
+descriptions.
+
+Table 3: Measures of the Other Prosperity Index
+ Non-Farm              The amount of non-farm proprietor income in the region. Reflects the level of
+ Proprietor Personal proprietor activity in the region outside of agriculture. Source: Bureau of
+ Income                Economic Analysis, Table CAINC5, 2020.
+ Personal Income       A measure capturing the stability in total personal income in a region during a
+ Stability             15-year period. Stability in personal income is important along with the level of
+                       personal income in influencing the standard of living. Source: Bureau of
+                       Economic Analysis, Table CAINC5, 2006-2020.
+ Life Span             Measures life expectancy at birth. Reflects the expected length of life given
+                       characteristics of the region and its population. Source: University of
+                       Washington, Institute for Health Metrics and Evaluation, 1980-2014.
+ Poverty Rate          The share of the population in poverty. Reflects the share of the population
+                       concentrated at the lowest end of the income distribution. Source: Census
+                       Bureau, American Community Survey, Table S1701, 2016-2020 period.
+ Share of Income       Dividends, interest and rent income divided by total personal income. Income
+ from Dividends,       derived from wealth reflects the ability of the economy to supplement income
+ Interest and Rent     from current work. Source: Bureau of Economic Analysis, Table CAINC5, 2020.
+
+
+
+
+                                                    4
+Economic Conditions Indexes
+
+The Demographic Growth & Renewal Index measures long-run population growth, dependency ratio,
+median age, millennial and Gen Z balance change and population diversity. Table 4 includes measure
+descriptions.
+
+Table 4: Measures of the Demographic Growth & Renewal Index
+ Long-Run              Growth in the population since the year 2000. Captures long-run trends in
+ Population Growth population change. Source: Census Bureau, County Population Totals, 2000,
+                       and American Community Survey, Table S0101, 2016-2020 period.
+ Dependency Ratio      Ratio of the dependent population (below age 15 and above age 64) to the
+                       prime working age population (age 15 to 64). Reflects the concentration of the
+                       dependent population. Source: Census Bureau, American Community Survey,
+                       Table S0101, 2016-2020 period.
+ Median Age            Fifty percent of the population is younger than the median age. A younger
+                       median age is consistent with faster natural population growth due to more
+                       births and fewer deaths. Source: Census Bureau, American Community Survey,
+                       Table S0101, 2016-2020 period.
+ Millennial and Gen Five-year change in the share of the population born in 1985 or after. Reflects
+ Z Balance Change      the rate of concentration of younger cohorts in the regional population. Source:
+                       Census Bureau, American Community Survey, Tables S0101 and B01001, 2016-
+                       2020 and 2011-2015 periods.
+ Percent Hispanic      Percent of the population that is Hispanic. A more diverse population and
+                       workforce brings a larger set of perspectives and experience to solving
+                       problems. Source: Census Bureau, American Community Survey, Table B03003,
+                       2016-2020 period.
+ Percent Non-White Percent of the population that is non-white. A more diverse population and
+                       workforce brings a larger set of perspectives and experience to solving
+                       problems. Source: Census Bureau, American Community Survey, Table B02001,
+                       2016-2020 period.
+
+
+The Education & Skill Index measures high school, community college and 4-year college attainment,
+labor force participation and employment in knowledge-based occupations. Table 5 includes measure
+descriptions.
+
+Table 5: Measures of the Education & Skill Index
+ High School           Share of population age 25 and over with a high school degree (or GED) as their
+ Attainment Rate       highest level of education. High school graduates are better able to adjust to a
+                       changing economy than non- graduates. Source: Census Bureau, American
+                       Community Survey, Table S1501, 2016-2020 period.
+ Associate’s Degree Share of population age 25 and over with an Associate’s degree as their highest
+ Attainment Rate       level of education. Associate’s degree graduates meet critical workforce needs
+                       throughout the economy. Source: Census Bureau, American Community Survey,
+                       Table S1501, 2016-2020 period.
+ College Attainment Share of population age 25 and over with a Bachelor’s degree as their highest
+ Rate                  level of education. College graduates have opportunities for careers in a variety
+
+
+                                                    5
+                       of higher paying, knowledge-intensive occupations. Source: Census Bureau,
+                       American Community Survey, Table S1501, 2016-2020 period.
+ Labor Force           Share of the population age 16 and over who are in the labor force. Workers
+ Participation Rate    gain job experience fastest in regions where a larger share of the population
+                       participates in the workforce. Source: Census Bureau, American Community
+                       Survey, Table DP03, 2016-2020 period.
+ Percent of            Share of labor force employed in the information, financial services,
+ Knowledge             professional and business services or health care and education industries.
+ Workers               Workers in industries which employ a larger share of knowledge workers better
+                       maintain and grow their skills. Source: Census Bureau, American Community
+                       Survey, Table DP03, 2016-2020 period.
+
+
+The Infrastructure & Cost of Doing Business Index measures access to broadband, interstate highways
+and 4-year colleges as well as wage rates, marginal income tax rates and the presence of opportunity
+zones. Table 6 includes measure descriptions.
+
+Table 6: Measures of the Infrastructure & Cost of Doing Business Index
+ Broadband             Percent of the population with one or more broadband providers with
+ Internet Access       100/10Mbps capacity. Broadband infrastructure is critical for the efficient
+                       operation of business and attracting business and people to an area. Source:
+                       Federal Communications Commission, Broadband Availability in Different Areas
+                       (Broadband Technology=ADSL, Cable, Fiber, Fixed Wireless, Satellite, Other and
+                       Broadband Speed≥100/10 Mbps), December 2020.
+ Presence of           Share of the population in a county that contains an interstate highway.
+ Interstate            Presence of an interstate increases the access of local business and residents to
+                       the regional economy and enhances the potential location of manufacturing
+                       facilities. Source: Google Maps Interstate Map, 2018.
+ Count of 4-Year       Average number of 4-year colleges in the counties where regional residents
+ Colleges              live. Presence of 4-year colleges influences the probability of attracting or
+                       retaining young people in a region post- graduation. Source: National Center for
+                       Education Statistics, College Navigator, 2020-2021.
+ Weekly Wage Rate Average weekly wage rate in the region, reflecting both the hourly wage rate
+                       and hours worked per week. Hourly wage rates influence the competitive
+                       conditions for business. Source: Bureau of Labor Statistics, Quarterly Census of
+                       Employment and Wages, Average Weekly Wage (all industries, total covered, all
+                       establishment sizes), Quarter 2 2021.
+ Top Marginal          The highest marginal income tax rate in the state where the region is located.
+ Income Tax Rate       Tax rates influence the competitive conditions for business unless tax revenue
+                       is devoted primarily to the most essential public services. Source: Tax
+                       Foundation, 2022.
+ Count of Qualified    Average number of qualified opportunity zones in the counties where regional
+ Opportunity Zones residents live. Qualified opportunity zones are helpful in attracting capital
+                       investment to a region. Source: U.S. Department of the Treasury, Community
+                       Development Financial Institutions Fund, 2018.
+
+
+
+
+                                                    6
+The Quality of Life Index measures the appeal of living and working in a region including commute
+times, age of housing stock, relative wage rates, public safety, climate amenities, access to healthcare
+and national parks. Table 7 includes measure descriptions.
+
+Table 7: Measures of the Quality of Life Index
+ Commute Time          Average commuting time to work. Represents the cost of living in terms of
+                       time, providing insight into travel times to important destinations within a
+                       region. Source: Census Bureau, American Community Survey, Table S0801,
+                       2016-2020 period.
+ Percent of Housing Share of housing units built before 1960. Older housing units may lack
+ Built Pre-1960        contemporary design and are subject to depreciation. Source: Census Bureau,
+                       American Community Survey, Table DP04, 2016-2020 period.
+ Relative Weekly       The ratio of regional quarterly wages per job to statewide quarterly wages per
+ Wage                  job. The measure reflects the relative earnings opportunities in the region.
+                       Source: Bureau of Labor Statistics, Quarterly Census of Employment and Wages,
+                       Average Weekly Wage (all industries, total covered, all establishment sizes),
+                       Quarter 2 2021.
+ Violent Crime Rate Annual violent crimes per 100,000 population. Personal safety is a critical factor
+                       in enjoying life. Source: FBI Uniform Crime Reporting, Crime in the United
+                       States, 2018.
+ Property Crime        Annual property crimes per 100,000 population. The safety of personal
+ Rate                  property is a critical component of enjoying life. Source: FBI Uniform Crime
+                       Reporting, Crime in the United States, 2018.
+ Climate Amenities     An index capturing average temperatures in January and July, sunny days in
+                       January, and humidity in July. A more comfortable climate can reduce utility
+                       costs and increase the enjoyment of outdoor activities. Source: United States
+                       Department of Agriculture Economic Research Service, Natural Amenities Scale,
+                       1941-1970, last updated 1999.
+ Healthcare Access     Number of healthcare practitioners per person. Measures access to medical
+                       care or key institutions like hospitals where physicians work in large numbers.
+                       Source: Census Bureau, County Business Patterns and Annual Estimates of the
+                       Resident Population for Counties, 2019.
+ Count of National     Share of regional counties with one or more national parks, monuments, trails
+ Parks                 or other protected areas. A measure of local recreation options. Source:
+                       National Park Service, Find a Park, 2018.
+
+
+The Social Capital Index measures involvement with volunteer organizations, programs to build the
+community environment, and voter participation. Table 8 includes measure descriptions.
+
+Table 8: Measures of the Social Capital Index
+ Number of 501c3       A count of non-profit organizations per 1,000 persons. Measures opportunities
+ Organizations Per     for volunteering and building a social capital network. Source: Tax Exempt
+ 1,000 Persons         World, 2022.
+ Volunteer Rate        The share of the population volunteering time to non-profit organizations in the
+ (State)               state where the region is located. Measures participation in networking
+
+
+
+                                                    7
+                       opportunities related to volunteering. Source: Corporation for National &
+                       Community Service, 2017.
+ Volunteer Hours       The number of volunteer hours per person. Represents the intensity of
+ Per Person (State)    participation in networking opportunities related to volunteering. Source:
+                       Corporation for National & Community Service, 2017.
+ Voter Turnout         Percentage of registered voters who participated in the fall 2018 general
+                       election. Measures involvement in the community short of formally
+                       volunteering. Source: State by State Voter Turnout, 2018.
+ Share of Tree City    Share of the regional population living in a county with at least one community
+ USA Counties          enrolled in the Arbor Day Foundation’s Tree City USA program. Measures social
+                       involvement related to the built environment. Source: Arbor Day Foundation,
+                       Tree City USA Communities, 2022.
+
+
+THRIVING INDEX REGIONS and COMPARISON REGIONS
+The Nebraska regions (Figure 1) were selected in an iterative process, which considered Nebraska
+Extension’s Community Vitality Initiative Accountability Regions, Nebraska Economic Development
+Regions, Nebraska Economic Development Districts, information from the Nebraska Department of
+Labor and the expertise of project participants.
+
+Douglas, Sarpy, Cass, Saunders, Washington, Lancaster and Seward counties are not included in any of
+the eight regions. Benchmarking comparisons for these metropolitan areas have been produced by the
+Bureau of Business Research in reports for the Greater Omaha Chamber and the Lincoln Partnership for
+Economic Development.
+
+Western and central Nebraska regions largely follow Nebraska Economic Development Districts, as seen
+in the regional definitions for the Panhandle, Sandhills and Southwest regions. The Tri-Cities region also
+largely follows the Nebraska Economic Development District definition and contains the counties of the
+Grand Island metropolitan area, the Kearney micropolitan area, the Hastings micropolitan area and
+surrounding counties. The Southeast region excludes the Lincoln metropolitan area but includes
+adjacent counties as well as counties bordering Kansas, Iowa and Missouri. The Siouxland region
+includes Dakota and Dixon counties, which are part of the Sioux City, Iowa, metropolitan area. The North
+81 region includes the counties within the Norfolk and Columbus micropolitan areas. Adjacent counties
+to the east were not part of the North 81 as these are influenced by the Omaha and Sioux City
+metropolitan areas. The Northeast region includes these counties as well as counties directly north and
+west of the North 81 region.
+
+Each Nebraska region was compared to a set of benchmarking regions, either other Nebraska regions or
+U.S. Economic Development Administration regions located in another northern Plains state such as
+Iowa, South Dakota, Kansas, Minnesota, (western) Illinois, (northern) Missouri, (eastern) Colorado and
+(eastern) Wyoming. Benchmarking regions were not selected in an ad hoc manner but via the
+Mahalanobis matching technique. The technique compares all regions according to the fundamental
+economic characteristics of each region such as total population, economic structure (ratio of farm
+revenue to total personal income, ratio of ranch revenue to total personal income, and manufacturing
+share of employment), and urban orientation (percent of population in a micropolitan area, distance to
+a small MSA (population <250,000) and distance to a large MSA (population >250,000)). A list of 5 to 8
+benchmarking regions was selected based on the similarity according to these characteristics.
+
+
+                                                    8
+Figure 1: Eight Non-Metropolitan and Small Metropolitan Nebraska Regions
+
+
+
+
+                                            9
+2022 RESULTS: REGIONAL RESULTS
+Figure 2 shows the aggregate index value and rank for each of the eight Nebraska regions within their
+respective peer group in the 2022 Nebraska Thriving Index. The aggregate index value is the average of
+eight component indexes. Three indexes reflect measures of economic prosperity: the Growth Index,
+the Economic Opportunity & Diversity Index and the Other Prosperity Index. Five indexes reflect the
+underlying economic conditions, that is, economic resources and sources of comparative advantage.
+These are the Demographic Growth & Renewal Index, the Education & Skill Index, the Infrastructure &
+Cost of Doing Business Index, the Quality of Life Index and the Social Capital Index.
+
+A Thriving Index value of 100 means that the Nebraska region is at the average value of its peers, while a
+value of 0 means that a Nebraska region is one standard deviation behind its peers and a value of 200
+means that a Nebraska region is one standard deviation ahead of its peers.
+
+Figure 2: Nebraska Thriving Index Value & Rank within Peer Group
+
+
+       1st                                                                                         1st
+
+       130                                                                                        131
+                   2nd                       3rd                           4th                           100
+                   105                       105
+                                                                           99
+                                                                                       6th
+                                 5th                           4th
+                                                                                       82
+                                 76                            73
+
+
+
+
+     North 81    Northeast   Panhandle     Sandhills        Siouxland   Southeast   Southwest   Tri-Cities
+
+
+The micropolitan and small metropolitan North 81 and Tri-Cities regions both rank 1st among their
+peers. North 81 has a 2022 Nebraska Thriving Index value of 130 indicating that, on average, across all
+measures North 81 is 0.30 standard deviations above its peers. The Tri-Cities region is 0.31 standard
+deviations above its peers.
+
+Three other non-metropolitan Nebraska regions had index values near their peer average. The
+Northeast region had an index value of 105 and ranked 2nd among its peers. The Sandhills region had a
+2022 Nebraska Thriving Index value of 105 and ranked 3rd among its peers. The Southeast region, which
+had an index value of 99, ranked 4th.
+
+The remaining three Nebraska regions ranked lower among their peers and had 2022 Nebraska Thriving
+Index values below their peer average. The Panhandle and Siouxland regions had index values of 76 and
+73, respectively. These indicate that on average, the Panhandle and Siouxland regions are about one-
+quarter of a standard deviation below their peers. The Southwest region had an index value of 82 and
+ranked near the lowest of all regions among its peers at 6th of seven places.
+
+
+                                                       10
+2022 RESULTS: REGIONAL PATTERNS
+Table 9 shows region ranks for each component index: the Growth Index, the Economic Opportunity &
+Diversity Index, the Other Prosperity Index, the Demographic Growth & Renewal Index, the Education &
+Skill Index, the Infrastructure & Cost of Doing Business Index, the Quality of Life Index and the Social
+Capital Index. There is great variation in the rankings of each component. Table 9 also shows the
+statewide average rank for each Index.
+
+Table 9: Nebraska Thriving Index Rank by Component & Region
+                                Economic Prosperity
+                                      Indexes                                                                                           Economic Conditions Indexes
+
+
+
+
+                                                                                       & Diversity Index
+
+
+
+
+                                                                                                                                              Education & Skill
+                                                                                                           Other Prosperity
+
+
+
+
+                                                                                                                                                                  & Cost of Doing
+                                                                                                                              Renewal Index
+
+
+
+
+                                                                                                                                                                  Business Index
+                                                       Thriving Index
+
+
+
+
+                                                                                                                                                                                    Quality of Life
+                                                                                                                                                                  Infrastructure
+                                                                        Growth Index
+
+
+
+
+                                                                                                                              Demographic
+
+
+
+
+                                                                                                                                                                                                      Social Capital
+                                                                                       Opportunity
+
+
+
+
+                                                                                                                              Growth &
+                                                                                       Economic
+
+
+
+
+                                                                                                           Index
+
+
+
+
+                                                                                                                                              Index
+
+
+
+
+                                                                                                                                                                                    Index
+
+
+                                                                                                                                                                                                      Index
+                                                       Rank
+
+
+
+
+                                          North 81
+                                                            1              1                  5                  4                 2                2                   4                1                 2
+                                               (6)
+                                         Northeast
+                                                            2              1                  5                  3                 2                2                   3                5                 6
+                                               (6)
+ Region (Number of Comparison Regions)
+
+
+
+
+                                         Panhandle
+                                                            5              7                  2                  6                 5                5                   3                3                 2
+                                               (7)
+                                          Sandhills
+                                                            3              5                  1                  4                 6                2                   6                5                 1
+                                               (6)
+                                         Siouxland
+                                                            4              2                  6                  6                 1                6                   6                1                 4
+                                                (6)
+                                         Southeast
+                                                            4              1                  7                  7                 5                8                   6                4                 3
+                                               (9)
+                                         Southwest
+                                                            6              4                  2                  7                 6                7                   2                3                 3
+                                               (7)
+                                          Tri-Cities
+                                                            1              1                  2                  4                 1                4                   3                1                 3
+                                                 (7)
+                                         Statewide
+                                                         3.25           2.75               3.75              5.13                3.50           4.50                 4.13             2.88              3.00
+                                           Average
+
+
+Several patterns emerge when the statewide average ranking of each component index is considered.
+
+Strengths
+Nebraska regions are relatively strong for the Growth Index, the Quality of Life Index, and the Social
+Capital Index. That is, the average rank for this index is at or above 3rd place.
+
+Strength #1: Growth
+Nebraska regions from the Tri-Cities to the eastern border of the state had the highest ranks and values
+for the Growth Index (see Figure 3). The North 81, Northeast, Southeast, and Tri-Cities regions all ranked
+
+
+                                                                                                               11
+1st among their peers for growth and the Siouxland region ranked 2nd. Regions in the western part of
+the state (Panhandle, Sandhills, and Southwest) were below the peer average and the Panhandle ranked
+last (see Figure 3).
+
+Figure 3: Growth Index, Rank and Value by Region
+
+
+                    1st                                                    1st
+       1st
+                    181                                                    163
+                                                                                                   1st
+       150                                                    2nd
+                                                                                                  151
+                                                              136                                            100
+
+                                                                                      4th
+                                             5th                                       81
+                                              60
+
+                                7th
+
+
+
+
+                                 -69
+
+     North 81    Northeast   Panhandle     Sandhills        Siouxland   Southeast   Southwest   Tri-Cities
+
+
+Strength #2: Quality of Life
+Micropolitan and small metropolitan regions had the highest ranks and values for the Quality of Life
+Index. The North 81, Siouxland and Tri-Cities regions all ranked 1st among their peers for quality of life.
+The Panhandle and Southwest regions ranked 3rd, while the Southeast region had a Quality of Life Index
+value near the peer average. The Northeast and Sandhills regions were just slightly below the peer
+average (see Figure 4).
+
+
+
+
+                                                       12
+Figure 4: Quality of Life, Rank and Value by Region
+
+
+       1st
+       196
+                                                              1st                                  1st
+
+                                                              155                                 158
+
+                                                                                       3rd
+                                3rd                                        4th
+                                112                                                   114                100
+                    5th                      5th                           104
+                    92
+                                              87
+
+
+
+
+     North 81    Northeast   Panhandle     Sandhills        Siouxland   Southeast   Southwest   Tri-Cities
+
+
+
+
+Strength #3: Social Capital
+The Sandhills region had the highest rank and value for the Social Capital Index and is the only region to
+rank 1st among the peers. The North 81 and Panhandle regions ranked 2nd and the Southeast,
+Southwest, and Tri-Cities ranked 3rd among peers. The Northeast region was the only region to rank last
+on social capital (see Figure 5).
+
+Figure 5: Social Capital, Rank and Value by Region
+
+                                             1st
+
+                                             223
+
+
+
+                                2nd
+       2nd
+                                156                                        3rd
+       149
+                                                                           136
+                                                                                      3rd
+                                                                                                         100
+                                                               4th                    107         3rd
+                    6th                                        88
+                                                                                                   81
+                    69
+
+
+
+
+     North 81    Northeast   Panhandle     Sandhills        Siouxland   Southeast   Southwest   Tri-Cities
+
+
+
+
+                                                       13
+Concerns
+Nebraska regions are relatively weak for the Infrastructure & Cost of Doing Business Index, Education &
+Skill Index, and the Other Prosperity Index. That is, the average rank for these indexes is below 4th
+place.
+
+Concern #1: Infrastructure & Cost of Doing Business
+A majority of Nebraska regions are below their peer average for the Infrastructure & Cost of Doing
+Business Index, with the Siouxland region one standard deviation below its peer average and the
+Sandhills region two-thirds of a standard deviation below its peer average. On the positive side, the
+Northeast, Southwest, and Tri-Cities regions have values above 100 and rank either 2nd or 3rd among
+their peers (see Figure 6).
+
+Figure 6: Infrastructure & Cost of Doing Business, Rank and Value by Region
+
+                                                                                                  3rd
+                                                                                     2nd
+                   3rd                                                                           136
+                                                                                     130
+                   123
+                                                                                                            100
+                                3rd
+                                                                          6th
+                                90
+       4th                                                                79
+       68
+
+
+                                            6th
+
+                                             33
+                                                             6th
+                                                              0
+
+     North 81    Northeast   Panhandle    Sandhills        Siouxland   Southeast   Southwest   Tri-Cities
+
+
+Concern #2: Education & Skill
+Most regions of Nebraska are below their peer average for the Education & Skill Index. The Siouxland
+and Southwest regions are nearly one standard deviation below their peers and rank last among their
+peers. The Southeast, Panhandle and Tri Cities regions have index values below 100 and rank at or
+below the 4th place ranking. On the positive side, the North 81, Northeast, and Sandhills regions have
+Education & Skill Index values above 100 and rank 2nd among their peers (see Figure 7).
+
+
+
+
+                                                      14
+Figure 7: Education & Skill, Rank and Value by Region
+
+                                             2nd
+
+                                             170
+
+
+       2nd
+
+       126
+                    2nd                                                                              100
+                    103          5th
+                                 83                                                                4th
+                                                                           8th
+                                                                                                   66
+                                                                           60
+                                                              6th
+
+                                                               31                     7th
+                                                                                       18
+
+     North 81    Northeast    Panhandle    Sandhills        Siouxland   Southeast   Southwest   Tri-Cities
+
+
+
+
+Concern #3: Other Prosperity
+All of Nebraska’s regions, except for the Tri-Cities, are below their peer average for the Other Prosperity
+Index. The Siouxland region is more than one-and-a-half standard deviations below its peer average and
+ranks last. The Panhandle and Southwest regions rank last or second last and are more than one-half of
+a standard deviation below their peer average. The Northeast region has the highest ranking at 3rd
+place but is below 100 (see Figure 8).
+
+Figure 8: Other Prosperity, Rank and Value by Region
+                                                                                                  4th
+       4th                                                                                                 100
+                    3rd
+                                                                                                  101
+       96
+                    92                                                     7th
+                                              4th
+                                                                           72
+                                              65
+                                 6th
+                                 38
+                                                                                       7th
+                                                               6th                     11
+
+
+
+
+                                                               -55
+
+     North 81    Northeast    Panhandle    Sandhills        Siouxland   Southeast   Southwest   Tri-Cities
+
+
+
+
+                                                       15
+RESULTS BY REGION
+
+NORTH 81 REGION
+The North 81 region includes the counties within the Norfolk and Columbus micropolitan areas. The
+North 81 region is manufacturing-oriented and is located in proximity to the large metropolitan area of
+Omaha, Nebraska. There are five peer comparison regions for North 81, all located outside of the state
+of Nebraska. The comparison regions are located in Missouri (2), Illinois (1), Iowa (1) and Minnesota (1).
+(See Figure 9.)
+
+                                       Figure 9: North 81 Region and Comparison Peer Regions
+
+ Results at a Glance
+ Nebraska Thriving Index: 130
+ Ranks 1st Among Peers
+
+      1st Growth
+      1st Quality of Life
+      2nd Demographic Growth
+       & Renewal
+      2nd Social Capital
+      2nd Education & Skill
+
+
+
+
+                                                1. NEBRASKA: North 81 Region
+                                                2. IOWA: Area 15 Regional Planning Commission
+                                                3. ILLINOIS: Blackhawk Hills Resource Conservation and
+                                                   Development
+                                                4. MISSOURI: Pioneer Trails Regional Planning Commission
+                                                5. MINNESOTA: Mid-Minnesota Development Commission
+                                                6. MISSOURI: Mark Twain Regional Council of Governments
+
+
+
+
+                                                    16
+Figure 10 shows the value and ranking of the Nebraska Thriving Component Indexes for the North 81
+region compared to its peers. The North 81 region’s 1st place ranking and 130 value on the aggregate
+2022 Nebraska Thriving Index is driven by strong performance in several of the economic prosperity
+indexes and the economic conditions indexes. Specifically, the North 81 region performs well relative to
+its peers on one of the three economic prosperity indexes, ranking 1st for the Growth Index. For the
+economic conditions indexes, the North 81 region performs well on four of the five measures, ranking
+1st for the Quality of Life Index and 2nd for the Demographic Growth & Renewal, Social Capital, and
+Education & Skill Indexes.
+
+Figure 10: Nebraska Thriving Component Index Rank and Value for the North 81 Region
+                                                 1st
+                                                 196
+       1st
+       150                                                      2nd           2nd
+                                                                153           149
+                                                                                             2nd
+                                                                                             126
+                    5th            4th
+                    101            96                                                                            100
+                                                                                                           4th
+                                                                                                           68
+
+
+
+
+     Growth       Economic        Other      Quality of Life Demographic Social Capital   Education & Infrastructure
+                Opportunity &   Prosperity                    Growth &                       Skill       & Cost of
+                  Diversity                                    Renewal                                Doing Business
+
+Index Interpretation
+<100 = BELOW the average of its peers
+ 100 = AT the average of its peers
+>100 = ABOVE the average of its peers
+Example: A value of 196 for Quality of Life indicates that quality of life is 0.96 of a standard deviation
+above the average quality of life among the peer regions.
+
+Strengths
+This section focuses on the underlying indicators of the Nebraska Thriving Component Indexes where
+the North 81 region is recognized as having an area of strength. An area of strength is identified as the
+North 81 region ranking in one of the top three of six places among its peers.
+
+Growth Index
+The North 81 region ranks 1st among its peers for the Growth Index, which measures growth in
+employment, wages, population and returns on wealth. Within this index, the North 81 region ranks 1st
+for growth in dividend, interest, and rent income and total employment growth and ranks 2nd for
+growth in households with children (see Figure 11).
+
+
+
+
+                                                         17
+Figure 11: Growth Index indicator rankings for the North 81 Region
+
+ Growth in Dividends, Interest,
+                                                                                          1st
+    and Rent (DIR) Income
+
+                Growth in
+                                                                                          1st
+            Total Employment
+
+        Growth in Households
+                                                                              2nd
+           with Children
+
+             Growth in Private
+                                                           4th
+              Wages per Job
+
+
+          Private Employment                    5th
+
+
+
+
+Quality of Life
+The North 81 region ranks 1st among its peers and is nearly one standard deviation above its peers for
+the Quality of Life Index. The Index measures the appeal of living and working in a region. Within this
+index, the North 81 region ranks in one of the top three places for seven of the eight indicators of
+quality of life (see Figure 12).
+
+Figure 12: Quality of Life Index indicator rankings for the North 81 Region
+
+     Violent Crime Rate                                                                         1st
+
+
+ Relative Weekly Wages                                                                          1st
+
+
+        Commute Time                                                                            1st
+
+
+   Property Crime Rate                                                              2nd
+
+
+      Healthcare Access                                                             2nd
+
+           Count of
+                                                                       3rd
+         National Parks
+
+      Climate Amenities                                                3rd
+
+     Percent of Housing
+                                                            4th
+       Built Pre-1960
+
+
+
+
+                                                      18
+Demographic Growth & Renewal Index
+The North 81 region ranks 2nd among its peers for the Demographic Growth & Renewal Index, which
+measures long-term population growth, age structure and diversity. Within this index, the North 81
+region ranks in one of the top three places for four of six indicators (see Figure 13).
+
+Figure 13: Demographic Growth & Renewal Index indicator rankings for the North 81 Region
+
+    Percent Hispanic                                                               1st
+
+
+         Median Age                                                          2nd
+
+      Long-Run
+                                                                 3rd
+  Population Growth
+
+   Dependency Ratio                                              3rd
+
+ Millennial and Gen Z
+                                                     4th
+  Balance Change
+
+  Percent Non-White                                  4th
+
+
+Social Capital Index
+The North 81 region ranks 2nd among its peers for the Social Capital Index, which captures social
+networks and a shared sense of identity within the region. Within this index, the North 81 region ranks
+1st for the share of Tree City USA counties and volunteer hours per person and 3rd for the volunteer
+rate. However, it ranks last on voter turnout (see Figure 14).
+
+Figure 14: Social Capital Index indicator rankings for the North 81 Region
+
+       Share of Tree
+                                                                                           1st
+     City USA Counties
+
+      Volunteer Hours
+                                                                                           1st
+     per Person (State)
+
+
+ Volunteer Rate (State)                                                3rd
+
+     Number of 501c3
+     Organizations per                                     4th
+      1,000 Persons
+
+        Voter Turnout             6th
+
+
+Education & Skill Index
+The North 81 region ranks 2nd among its peers for the Education & Skill Index and is above the peer
+region average. Results are mixed within this index as the North 81 region ranks 1st for college
+attainment and labor force participation, and 2nd for associate’s degree attainment. However, the
+North 81 region also ranks last for both the share of the workforce in knowledge occupations (e.g.,
+
+
+
+                                                    19
+STEM occupations, financial occupations, management occupations, teachers and health care
+occupations) and high school attainment (see Figure 15).
+
+Figure 15: Education & Skill Index indicator rankings for the North 81 Region
+
+         College
+                                                                                      1st
+    Attainment Rate
+
+      Labor Force
+                                                                                      1st
+   Participation Rate
+
+  Associate's Degree
+                                                                               2nd
+   Attainment Rate
+
+     Percent of
+                                6th
+ Knowledge Workers
+
+      High School
+                                6th
+    Attainment Rate
+
+
+Considerations
+This section focuses on the underlying indicators of the Nebraska Thriving Component Indexes where
+the North 81 region is identified as having neither an area of strength or concern. An area of
+consideration is identified as the North 81 region ranking 4th among its peers.
+
+Other Prosperity Index
+The North 81 region ranks 4th among its peers and is slightly below the peer region average for the
+Other Prosperity Index, which measures life span, non-wage sources of income, income stability and the
+poverty rate. Within this index, the North 81 region ranks 1st for share of income from dividends,
+interest and rent and ranks 2nd for both poverty rate and life span; however, it ranks more poorly on
+the remaining two indicators (see Figure 16).
+
+Figure 16: Other Prosperity Index indicator rankings for the North 81 Region
+
+    Share of Income from
+                                                                                      1st
+ Dividends, Interest and Rent
+
+                Poverty Rate                                                    2nd
+
+
+                    Life Span                                                   2nd
+
+        Non-Farm Proprietor
+                                               5th
+         Personal Income
+
+    Personal Income Stability         6th
+
+
+
+
+                                                     20
+Infrastructure & Cost of Doing Business Index
+The North 81 region ranks 4th among its peers and is below the peer average for the Infrastructure &
+Cost of Doing Business Index, which measures the cost of operating businesses in a region. Within this
+index, the North 81 region ranks 1st on broadband internet access but ranks more poorly on four of the
+six indicators. Particularly, it ranks last on the weekly wage rate which indicates that North 81 region
+employers pay relatively higher wage rates than employers in similarly situated peer regions (see Figure
+17).
+
+Figure 17: Infrastructure & Cost of Doing Business Index indicator rankings for the North 81 Region
+
+      Broadband
+                                                                                   1st
+    Internet Access
+ Count of Qualified
+                                                              3rd
+ Opportunity Zones
+       Count of
+                                                    4th
+    4-Year Colleges
+     Top Marginal
+                                                    4th
+   Income Tax Rate
+       Presence of
+                                                    4th
+        Interstate
+
+ Weekly Wage Rate              6th
+
+
+
+
+Concerns
+This section focuses on the underlying indicators of the Nebraska Thriving Component Indexes where
+the North 81 region is recognized as having an area of concern. An area of concern is identified as the
+North 81 region ranking in one of the bottom two of six places among its peers.
+
+Economic Opportunity & Diversity Index
+The North 81 region ranks 5th among its peers but is at the peer region average for the Economic
+Opportunity & Diversity Index, which measures entrepreneurial activity, industry and occupation
+diversity and telecommuting. Results are mixed within this index as the North 81 region ranks 1st or 2nd
+on three of seven indicators but also ranks last on two of seven indicators (see Figure 18).
+
+
+
+
+                                                   21
+Figure 18: Economic Opportunity & Diversity Index indicator rankings for the North 81 Region
+
+        Non-Farm Proprietors
+                                                                                         1st
+         per 1,000 Persons
+
+     Employer Establishments
+                                                                                         1st
+       per 1,000 Persons
+
+      Entrepreneurial Activity                                                 2nd
+
+
+      Share of Telecommuters                               4th
+
+
+            Industry Diversity                   5th
+
+     Share of Workers in
+                                       6th
+ Non-Employer Establishments
+
+         Occupation Diversity          6th
+
+
+
+
+                                                  22
+NORTHEAST REGION
+The Northeast region includes the counties directly to the west and north of the Columbus and Norfolk
+micropolitan areas, as well as counties along the eastern border of Nebraska between the Sioux City and
+Omaha metropolitan areas. The Northeast region and peers receive a large share of income from
+farming and ranching and have a large share of employment in manufacturing. There are five peer
+comparison regions for the Northeast region including two Nebraska regions. The Nebraska regions are
+the Southwest and Panhandle regions. The remaining three comparison regions are located in Iowa.
+(See Figure 19.)
+
+ Results at a Glance                    Figure 19: Northeast Region and Comparison Peer Regions
+ Nebraska Thriving Index: 105
+ Ranks 2nd Among Peers
+
+  1st Growth
+  2nd Demographic Growth
+   & Renewal
+  2nd Education & Skill
+  3rd Other Prosperity
+  3rd Infrastructure & Cost
+   of Doing Business
+
+                                1. NEBRASKA: Northeast Region
+                                2. IOWA: Region XII Council of Governments
+                                3. IOWA: Northwest Iowa Planning & Development Commission
+                                4. NEBRASKA: Panhandle Region
+                                5. IOWA: Mid-Iowa Development Association Council of Governments
+                                6. NEBRASKA: Southwest Region
+
+Figure 20 shows the value and ranking of the Nebraska Thriving Component Indexes for the Northeast
+region compared to its peers. The Northeast region’s 2nd place ranking and 105 value on the aggregate
+2022 Nebraska Thriving Index is driven by strong performance in several of the economic prosperity
+indexes and the economic conditions indexes. Specifically, the Northeast region performs well relative
+to its peers on two of the three economic prosperity indexes, ranking 1st for the Growth Index and 3rd
+for the Other Prosperity Index. Demographic Growth & Renewal, Infrastructure & Cost of Doing Business
+and Education & Skill are other areas of strength for the Northeast region as it ranks 2nd and 3rd for
+these indexes.
+
+
+
+
+                                                  23
+Figure 20: Nebraska Thriving Component Index Rank and Value for the Northeast Region
+       1st
+       181
+
+                                                2nd
+                                                143
+                                                              3rd
+                                                              123
+                                                                            2nd
+                    3rd                                                     103           5th
+                                                                                                              100
+                    92                                                                    92
+                                                                                                        6th
+                                                                                                        69
+                                   5th
+                                   38
+
+
+
+
+     Growth        Other        Economic   Demographic Infrastructure Education & Quality of Life Social Capital
+                 Prosperity   Opportunity & Growth &      & Cost of      Skill
+                                Diversity    Renewal Doing Business
+
+Index Interpretation
+<100 = BELOW the average of its peers
+ 100 = AT the average of its peers
+>100 = ABOVE the average of its peers
+Example: A value of 181 for Growth indicates that growth is 0.81 of a standard deviation above the
+average growth among the peer regions.
+
+Strengths
+This section focuses on the underlying indicators of the Nebraska Thriving Component Indexes where
+the Northeast region is recognized as having an area of strength. An area of strength is identified as the
+Northeast region ranking in one of the top three of six places among its peers.
+
+Growth Index
+The Northeast region ranks 1st among its peers for the Growth Index, which measures growth in
+employment, wages, population and returns on wealth. Within this index, the Northeast region ranks in
+1st or 2nd place for all five indicators (see Figure 21).
+
+
+
+
+                                                        24
+Figure 21: Growth Index indicator rankings for the Northeast Region
+
+        Growth in Households
+                                                                                             1st
+           with Children
+
+             Growth in Private
+                                                                                             1st
+              Wages per Job
+
+                Growth in
+                                                                                             1st
+            Total Employment
+
+ Growth in Dividends, Interest,
+                                                                                      2nd
+    and Rent (DIR) Income
+
+          Private Employment                                                          2nd
+
+
+
+
+Other Prosperity Index
+The Northeast region ranks 3rd among its peers but is below the peer region average for the Other
+Prosperity Index, which measures life span, non-wage sources of income, income stability and the
+poverty rate. Within this index, the Northeast region ranks 2nd or 3rd for non-farm proprietor personal
+income, share of income from dividends, interest and rent, poverty rate, and life span. However, it ranks
+5th on personal income stability (see Figure 22).
+
+Figure 22: Other Prosperity Index indicator rankings for the Northeast Region
+
+        Non-Farm Proprietor
+                                                                                            2nd
+         Personal Income
+    Share of Income from
+                                                                                3rd
+ Dividends, Interest and Rent
+
+                Poverty Rate                                                    3rd
+
+
+                    Life Span                                                   3rd
+
+
+    Personal Income Stability                        5th
+
+
+
+
+Demographic Growth & Renewal Index
+The Northeast region ranks 2nd among its peers and is nearly one-half of a standard deviation above the
+peer average for the Demographic Growth & Renewal Index, which measures long-term population
+growth, age structure and diversity. Within this index, the Northeast region ranks in one of the top three
+places for five of six indicators. It ranks 5th on the dependency ratio (see Figure 23).
+
+
+
+
+                                                   25
+Figure 23: Demographic Growth & Renewal Index indicator rankings for the Northeast Region
+
+  Percent Non-White                                                                         1st
+
+         Median Age                                                               2nd
+
+ Millennial and Gen Z
+                                                                     3rd
+   Balance Change
+       Long-Run
+                                                                     3rd
+  Population Growth
+
+    Percent Hispanic                                                 3rd
+
+   Dependency Ratio                          5th
+
+
+
+Education & Skill Index
+The Northeast region ranks 2nd among its peers for the Education & Skill Index and is above the peer
+region average. The region ranks 2nd on labor force participation and 3rd on associate’s degree and high
+school attainment. However, it ranks lower (5th) on the share of the workforce in knowledge
+occupations (e.g., STEM occupations, financial occupations, management occupations, teachers and
+health care occupations) and last on college attainment (see Figure 24).
+
+Figure 24: Education & Skill Index indicator rankings for the Northeast Region
+
+      Labor Force
+                                                                                          2nd
+   Participation Rate
+
+  Associate's Degree
+                                                                            3rd
+   Attainment Rate
+
+      High School
+                                                                            3rd
+    Attainment Rate
+
+     Percent of
+                                                   5th
+ Knowledge Workers
+
+         College
+                                   6th
+    Attainment Rate
+
+
+
+Infrastructure & Cost of Doing Business Index
+The Northeast region ranks 3rd among its peers and is above the peer region average for the
+Infrastructure & Cost of Doing Business Index, which measures the cost of operating businesses in a
+region. Results are mixed within this index as the Northeast region ranks in one of the top three places
+for four of the six indicators but 4th for broadband internet access and 5th for presence of an interstate
+(see Figure 25).
+
+
+
+
+                                                         26
+Figure 25: Infrastructure & Cost of Doing Business Index indicator rankings for the Northeast Region
+
+     Top Marginal
+                                                                                           1st
+   Income Tax Rate
+ Count of Qualified
+                                                                               2nd
+ Opportunity Zones
+       Count of
+                                                                   3rd
+    4-Year Colleges
+
+ Weekly Wage Rate                                                  3rd
+
+      Broadband
+                                                        4th
+    Internet Access
+       Presence of
+                                            5th
+        Interstate
+
+
+
+Considerations
+An area of consideration would be identified as the Northeast region ranking 4th among its peers and
+having neither an area of strength or concern. However, the Northeast region did not have a 4th place
+ranking on any of the eight Nebraska Thriving Component Indexes.
+
+Concerns
+This section focuses on the underlying indicators of the Nebraska Thriving Component Indexes where
+the Northeast region is recognized as having an area of concern. An area of concern is identified as the
+Northeast region ranking in one of the bottom two of six places among its peers.
+
+Economic Opportunity & Diversity Index
+The Northeast region ranks 5th among its peers and is more than one-half of a standard deviation below
+the peer region average for the Economic Opportunity & Diversity Index, which measures
+entrepreneurial activity, industry and occupation diversity and telecommuting. Although the Northeast
+region ranks 3rd on industry diversity, it ranks much lower on the remaining six of seven indicators,
+particularly those related to the business and entrepreneurial environment (see Figure 26).
+
+Figure 26: Economic Opportunity & Diversity Index indicator rankings for the Northeast Region
+
+            Industry Diversity                                                3rd
+     Share of Workers in
+                                                                  4th
+ Non-Employer Establishments
+         Occupation Diversity                                     4th
+
+      Share of Telecommuters                          5th
+       Non-Farm Proprietors
+                                                      5th
+         per 1,000 Persons
+     Employer Establishments
+                                                      5th
+       per 1,000 Persons
+      Entrepreneurial Activity            6th
+
+
+
+
+                                                   27
+Quality of Life
+The Northeast region ranks 5th among its peers and is below the peer region average for the Quality of
+Life Index. The Index measures the appeal of living and working in a region. Within this index, the
+Northeast region ranks in one of the top three places for five of the eight indicators of quality of life.
+However, it ranks last on healthcare access and commute time (see Figure 27).
+
+Figure 27: Quality of Life Index indicator rankings for the Northeast Region
+
+           Count of
+                                                                                              1st
+         National Parks
+
+   Property Crime Rate                                                             2nd
+
+     Violent Crime Rate                                                            2nd
+
+     Climate Amenities                                                 3rd
+
+     Percent of Housing
+                                                                       3rd
+       Built Pre-1960
+
+ Relative Weekly Wages                                     4th
+
+      Healthcare Access             6th
+
+        Commute Time                6th
+
+
+
+Social Capital Index
+The Northeast region ranks last among its peers for the Social Capital Index, which captures social
+networks and a shared sense of identity within the region. The Northeast region ranks 1st on volunteer
+hours per person and 3rd on the share of Tree City USA counties but ranks much lower on the remaining
+three of five indicators and is last on the number of 501c3 organizations per 1,000 persons (see Figure
+28).
+
+Figure 28: Social Capital Index indicator rankings for the Northeast Region
+
+      Volunteer Hours
+                                                                                            1st
+     per Person (State)
+
+       Share of Tree
+                                                                     3rd
+     City USA Counties
+
+
+        Voter Turnout                                     4th
+
+
+ Volunteer Rate (State)                                   4th
+
+     Number of 501c3
+     Organizations per             6th
+      1,000 Persons
+
+
+
+
+                                                    28
+PANHANDLE REGION
+The Panhandle region contains the eleven most western Nebraska counties and includes the Scottsbluff-
+Gering micropolitan area as well as Alliance, Chadron, and Sidney. Nearly half of the regional population
+resides in a micropolitan area and ranching is a key component of the production economy. There are
+six peer comparison regions for the Panhandle region, including peer regions located in the state of
+Nebraska. The Nebraska peers are the Northeast, Southwest and Tri-Cities regions. The other
+comparison regions are located in Wyoming (1), Colorado (1) and Iowa (1). (See Figure 29.)
+
+ Figure 29: Panhandle Region and Comparison Peer Regions
+
+
+
+
+ Results at a Glance                     1. NEBRASKA: Panhandle Region
+ Nebraska Thriving Index: 76             2. NEBRASKA: Northeast Region
+ Ranks 5th Among Peers
+                                         3. WYOMING: Southeast Wyoming Economic Development District
+  2nd Economic Opportunity &            4. COLORADO: Southern Colorado Economic Development District
+   Diversity                             5. NEBRASKA: Southwest Region
+  2nd Social Capital
+  3rd Quality of Life                   6. IOWA: Mid-Iowa Development Association Council of
+  3rd Infrastructure & Cost of             Governments
+   Doing Business                        7. NEBRASKA: Tri-Cities Region
+
+
+
+
+                                                   29
+Figure 30 shows the value and ranking of the Nebraska Thriving Component Indexes for the Panhandle
+region compared to its peers. The Panhandle region’s 5th place ranking and 76 value on the aggregate
+2022 Nebraska Thriving Index is due to poor performance in several of the economic prosperity indexes
+and economic conditions indexes. Specifically, the Panhandle region is weak compared to its peers on
+two of the three economic prosperity indexes measures, ranking 6th for the Other Prosperity Index and
+last for the Growth Index. Other areas of poor performance for the Panhandle region are Education &
+Skill and Demographic Growth & Renewal as it ranks 5th for these two indexes. On a positive note, the
+Panhandle region ranks 2nd on the Economic Opportunity & Diversity Index and the Social Capital Index
+and 3rd on the Quality of Life Index and Infrastructure & Cost of Doing Business Index
+
+Figure 30: Nebraska Thriving Component Index Rank and Value for the Panhandle Region
+                                              2nd
+       2nd                                    156
+       141
+                                                            3rd
+                                                            112           3rd            5th                 100
+                                                                          90             83
+                                                                                                       5th
+                     6th                                                                               53
+                     38
+
+
+
+
+                                 7th
+                                 -69
+    Economic        Other      Growth     Social Capital Quality of Life Infrastructure Education & Demographic
+  Opportunity &   Prosperity                                                & Cost of      Skill     Growth &
+    Diversity                                                            Doing Business               Renewal
+
+Index Interpretation
+<100 = BELOW the average of its peers
+ 100 = AT the average of its peers
+>100 = ABOVE the average of its peers
+Example: A value of 156 for Social Capital indicates that social capital is 0.56 of a standard deviation
+above the average social capital among the peer regions.
+
+Strengths
+This section focuses on the underlying indicators of the Nebraska Thriving Component Indexes where
+the Panhandle region is recognized as having an area of strength. An area of strength is identified as the
+Panhandle region ranking in one of the top three of seven places among its peers.
+
+Economic Opportunity & Diversity Index
+The Panhandle region ranks 2nd among its peers and is above the peer average for the Economic
+Opportunity & Diversity Index, which measures entrepreneurial activity, industry and occupation
+diversity and telecommuting. Within this index, the Panhandle region ranks 2nd or 3rd for four of the
+seven indicators, and 4th for the remaining indicators (see Figure 31).
+
+
+
+
+                                                     30
+Figure 31: Economic Opportunity & Diversity Index indicator rankings for the Panhandle Region
+
+      Share of Telecommuters                                                         2nd
+
+          Occupation Diversity                                                       2nd
+
+       Entrepreneurial Activity                                                      2nd
+
+     Employer Establishments
+                                                                            3rd
+       per 1,000 Persons
+     Share of Workers in
+                                                                   4th
+ Non-Employer Establishments
+
+             Industry Diversity                                    4th
+
+         Non-Farm Proprietors
+                                                                   4th
+          per 1,000 Persons
+
+
+
+Social Capital Index
+The Panhandle region ranks 2nd among its peers and is more than a half of a standard deviation above
+the peer region average for the Social Capital Index, which captures social networks and a shared sense
+of identity within the region. Within this index, the Panhandle region ranks 1st or 2nd on four of the five
+indicators. However, it ranks 5th on voter turnout (see Figure 32).
+
+Figure 32: Social Capital Index indicator rankings for the Panhandle Region
+
+      Volunteer Hours
+                                                                                             1st
+     per Person (State)
+
+       Share of Tree
+                                                                                   2nd
+     City USA Counties
+
+
+ Volunteer Rate (State)                                                            2nd
+
+     Number of 501c3
+     Organizations per                                                             2nd
+      1,000 Persons
+
+        Voter Turnout                                5th
+
+
+
+
+Quality of Life
+The Panhandle region ranks 3rd among its peers and is slightly above the peer region average for the
+Quality of Life Index. The Index measures the appeal of living and working in a region. Results are mixed
+within this index as the Panhandle region ranks in one of the top three places for four of the eight
+indicators of quality of life; however, it ranks 6th for healthcare access, (low) relative weekly wages, and
+(older) housing (see Figure 33).
+
+
+
+
+                                                     31
+Figure 33: Quality of Life Index indicator rankings for the Panhandle Region
+
+        Commute Time                                                                              1st
+
+   Property Crime Rate                                                                2nd
+
+     Violent Crime Rate                                                               2nd
+
+     Climate Amenities                                                        3rd
+
+           Count of
+                                                                 4th
+         National Parks
+
+     Healthcare Access                         6th
+
+ Relative Weekly Wages                         6th
+
+     Percent of Housing
+                                               6th
+       Built Pre-1960
+
+
+
+Infrastructure & Cost of Doing Business Index
+The Panhandle region ranks 3rd among its peers and is slightly below the peer average for the
+Infrastructure & Cost of Doing Business Index, which measures the cost of operating businesses in a
+region. Within this index, the Panhandle region ranks 1st on weekly wage rate which indicates that
+Panhandle region employers pay relatively lower wage rates than employers in similarly situated peer
+regions. It also ranks 3rd on three other indicators, but last on the count of qualified opportunities zones
+(see Figure 34).
+
+Figure 34: Infrastructure & Cost of Doing Business Index indicator rankings for the Panhandle Region
+
+ Weekly Wage Rate                                                                           1st
+
+       Count of
+                                                                        3rd
+    4-Year Colleges
+
+     Top Marginal
+                                                                        3rd
+   Income Tax Rate
+
+      Broadband
+                                                                        3rd
+    Internet Access
+
+       Presence of
+                                         6th
+        Interstate
+
+ Count of Qualified
+                               7th
+ Opportunity Zones
+
+
+
+
+                                                     32
+Considerations
+An area of consideration would be identified as the Panhandle region ranking 4th among its peers and
+having neither an area of strength or concern. However, the Panhandle region did not have a 4th place
+ranking on any of the eight Nebraska Thriving Component Indexes.
+
+Concerns
+This section focuses on the underlying indicators of the Nebraska Thriving Component Indexes where
+the Panhandle region is recognized as having an area of concern. An area of concern is identified as the
+Panhandle region ranking in one of the bottom three of seven places among its peers.
+
+Other Prosperity Index
+The Panhandle region ranks 6th among its peers for the Other Prosperity Index, which measures life
+span, non-wage sources of income, income stability and the poverty rate. Within this index, the
+Panhandle region ranks 5th or lower on all the indicators, including last on non-farm proprietor personal
+income (see Figure 35).
+
+Figure 35: Other Prosperity Index indicator rankings for the Panhandle Region
+
+    Personal Income Stability                                          5th
+
+    Share of Income from
+                                                         6th
+ Dividends, Interest and Rent
+
+                Poverty Rate                             6th
+
+
+                    Life Span                            6th
+
+        Non-Farm Proprietor
+                                          7th
+         Personal Income
+
+
+
+Growth Index
+The Panhandle region ranks last and is nearly 1.75 standard deviations below its peer average for the
+Growth Index, which measures growth in employment, wages, population and returns on wealth. Within
+this index, the Panhandle region ranks 5th or lower on all the indicators, including last on three of the
+five indicators (see Figure 36).
+
+
+
+
+                                                   33
+Figure 36: Growth Index indicator rankings for the Panhandle Region
+
+        Growth in Households
+                                                                        5th
+           with Children
+
+ Growth in Dividends, Interest,
+                                                          6th
+    and Rent (DIR) Income
+
+             Growth in Private
+                                           7th
+              Wages per Job
+
+
+          Private Employment               7th
+
+
+                Growth in
+                                           7th
+            Total Employment
+
+
+
+Education & Skill Index
+The Panhandle region ranks 5th among its peers for the Education & Skill Index and is below the peer
+region average. Although the Panhandle region ranks 3rd for both the share of the workforce in
+knowledge occupations (e.g., STEM occupations, financial occupations, management occupations,
+teachers and health care occupations) and college attainment, it ranks lower on high school attainment
+(4th), labor force participation (5th), and associate’s degree attainment (last). (See Figure 37.)
+
+Figure 37: Education & Skill Index indicator rankings for the Panhandle Region
+
+     Percent of
+                                                                              3rd
+ Knowledge Workers
+
+         College
+                                                                              3rd
+    Attainment Rate
+
+      High School
+                                                                  4th
+    Attainment Rate
+
+      Labor Force
+                                                        5th
+   Participation Rate
+
+  Associate's Degree
+                                  7th
+   Attainment Rate
+
+
+
+Demographic Growth & Renewal Index
+The Panhandle region ranks 5th among its peers and nearly half of a standard deviation below the peer
+region average for the Demographic Growth & Renewal Index, which measures long-term population
+growth, age structure and diversity. Although the Panhandle region ranks 2nd for percent Hispanic, it
+ranks 4th or lower on the other five of six indicators (see Figure 38).
+
+
+
+                                                   34
+Figure 38: Demographic Growth & Renewal Index indicator rankings for the Panhandle Region
+
+    Percent Hispanic                                                        2nd
+
+ Millennial and Gen Z
+                                                         4th
+  Balance Change
+
+         Median Age                                      4th
+
+
+  Percent Non-White                             5th
+
+
+   Dependency Ratio                             5th
+
+      Long-Run
+                                      6th
+  Population Growth
+
+
+
+
+                                                35
+SANDHILLS REGION
+The Sandhills region contains the non-metropolitan counties of North Central Nebraska including Cherry,
+Holt, and Custer Counties. There are no micropolitan areas in the Sandhills region and ranching and
+tourism are key components of the regional economy. There are five peer comparison regions for the
+Sandhills region, including peer regions located in the state of Nebraska. The Nebraska peers are the
+Panhandle, Southwest, and Northeast regions. The other comparison regions are located in Kansas (1)
+and Iowa (1). (See Figure 39.)
+
+                                 Figure 39: Sandhills Region and Comparison Peer Regions
+
+
+ Results at a Glance
+ Nebraska Thriving Index: 105
+ Ranks 3rd Among Peers
+
+  1st Economic
+   Opportunity & Diversity
+  1st Social Capital
+  2nd Education & Skill
+
+
+
+
+          1. NEBRASKA: Sandhills Region
+                                                        4. NEBRASKA: Southwest Region
+          2. NEBRASKA: Northeast Region
+                                                        5. NEBRASKA: Panhandle Region
+          3. IOWA: Northwest Iowa Planning &
+             Development Commission                     6. KANSAS: Great Plains Development Inc.
+Figure 40 shows the value and ranking of the Nebraska Thriving Component Indexes for the Sandhills
+region compared to its peers. The Sandhills region’s 3rd place ranking and 105 value on the aggregate
+2022 Nebraska Thriving Index is due to a mixed performance in several of the economic prosperity
+indexes and the economic conditions indexes. Specifically, the Sandhills region performs well relative to
+its peers on one of the three economic prosperity indexes. It ranks 1st for the Economic Opportunity &
+Diversity Index and is more than one standard deviation above the peer average. Social Capital and
+Education & Skill are other areas of strength for the Sandhills region as it ranks 1st and 2nd for these
+indexes, respectively. However, areas of poor performance for the Sandhills region are Growth, Quality
+of Life, Infrastructure & Cost of Doing Business, and Demographic Growth & Renewal as it ranks 5th or
+last for these indexes.
+
+
+
+
+                                                   36
+Figure 40: Nebraska Thriving Component Index Rank and Value for the Sandhills Region
+
+       1st
+       238                                     1st
+                                               223
+                                                              2nd
+                                                              170
+
+                                                                             5th                               100
+                     4th         5th                                         87
+                     65          60                                                        6th
+                                                                                           33
+
+
+
+
+                                                                                                         6th
+                                                                                                         -38
+
+    Economic        Other      Growth     Social Capital   Education & Quality of Life Infrastructure Demographic
+  Opportunity &   Prosperity                                  Skill                       & Cost of    Growth &
+    Diversity                                                                          Doing Busness    Renewal
+
+Index Interpretation
+<100 = BELOW the average of its peers
+ 100 = AT the average of its peers
+>100 = ABOVE the average of its peers
+Example: A value of 223 for Social Capital indicates that social capital is 1.23 standard deviations above
+the average social capital among the peer regions.
+
+Strengths
+This section focuses on the underlying indicators of the Nebraska Thriving Component Indexes where
+the Sandhills region is recognized as having an area of strength. An area of strength is identified as the
+Sandhills region ranking in one of the top three of six places among its peers.
+
+Economic Opportunity & Diversity Index
+The Sandhills region ranks 1st among its peers and is 1.38 standard deviations above the peer average
+for the Economic Opportunity & Diversity Index, which measures entrepreneurial activity, industry and
+occupation diversity and telecommuting. Within this index, the Sandhills region ranks 1st for five of the
+seven indicators of economic opportunity and diversity; however, it ranks 5th for industry diversity and
+last for occupation diversity (see Figure 41).
+
+
+
+
+                                                       37
+Figure 41: Economic Opportunity & Diversity Index indicator rankings for the Sandhills Region
+
+     Share of Workers in
+                                                                                           1st
+ Non-Employer Establishments
+      Share of Telecommuters                                                               1st
+
+       Entrepreneurial Activity                                                            1st
+       Non-Farm Proprietors
+                                                                                           1st
+         per 1,000 Persons
+     Employer Establishments
+                                                                                           1st
+       per 1,000 Persons
+             Industry Diversity                  5th
+
+          Occupation Diversity          6th
+
+
+
+Social Capital Index
+The Sandhills region ranks 1st among its peers and is nearly one-and-one-quarter standard deviations
+above the peer average for the Social Capital Index, which captures social networks and a shared sense
+of identity within the region. Within this index, the Sandhills region ranks 1st or 2nd on four of the five
+indicators (see Figure 42).
+
+Figure 42: Social Capital Index indicator rankings for the Sandhills Region
+
+
+        Voter Turnout                                                                1st
+
+
+      Volunteer Hours
+                                                                                     1st
+     per Person (State)
+     Number of 501c3
+     Organizations per                                                               1st
+      1,000 Persons
+
+ Volunteer Rate (State)                                                   2nd
+
+
+       Share of Tree
+                                                        4th
+     City USA Counties
+
+
+
+Education & Skill Index
+The Sandhills region ranks 2nd among its peers and is above the peer region average for the Education &
+Skill Index. Within this index, the Sandhills region ranks 1st on college attainment and 2nd on both
+associate’s and high school attainment, and 4th for the remaining two indicators (see Figure 43).
+
+
+
+
+                                                       38
+Figure 43: Education & Skill Index indicator rankings for the Sandhills Region
+
+         College
+                                                                                     1st
+    Attainment Rate
+
+  Associate's Degree
+                                                                           2nd
+   Attainment Rate
+
+      High School
+                                                                           2nd
+    Attainment Rate
+
+     Percent of
+                                                     4th
+ Knowledge Workers
+
+      Labor Force
+                                                     4th
+   Participation Rate
+
+
+
+Considerations
+This section focuses on the underlying indicators of the Nebraska Thriving Component Indexes where
+the Sandhills region is identified as having neither an area of strength or concern. An area of
+consideration is identified as the Sandhills region ranking 4th among its peers.
+
+Other Prosperity Index
+The Sandhills region ranks 4th among its peers and is below the peer average for the Other Prosperity
+Index, which measures life span, non wage sources of income, income stability and the poverty rate.
+Results are mixed within this index as the Sandhills region ranks 2nd on three of the five indicators, but
+last for the remaining two indicators (see Figure 44).
+
+Figure 44: Other Prosperity Index indicator rankings for the Sandhills Region
+
+    Share of Income from
+                                                                                     2nd
+ Dividends, Interest and Rent
+
+                Poverty Rate                                                         2nd
+
+
+                    Life Span                                                        2nd
+
+
+    Personal Income Stability           6th
+
+        Non-Farm Proprietor
+                                        6th
+         Personal Income
+
+
+
+
+Concerns
+This section focuses on the underlying indicators of the Nebraska Thriving Component Indexes where
+the Sandhills region is recognized as having an area of concern. An area of concern is identified as the
+Sandhills region ranking in one of the bottom two of six places among its peers.
+
+
+
+
+                                                    39
+Growth Index
+The Sandhills region ranks 5th among its peers and is nearly one-half of a standard deviation below the
+peer region average for the Growth Index, which measures growth in employment, wages, population
+and returns on wealth. Although the Sandhills region ranks 3rd for growth in total employment, it ranks
+4th or lower on the remaining four of five indicators, including last on private employment (see Figure
+45).
+
+Figure 45: Growth Index indicator rankings for the Sandhills Region
+
+                Growth in
+                                                                                  3rd
+            Total Employment
+
+ Growth in Dividends, Interest,
+                                                                      4th
+    and Rent (DIR) Income
+
+             Growth in Private
+                                                                      4th
+              Wages per Job
+
+        Growth in Households
+                                                            5th
+           with Children
+
+          Private Employment               6th
+
+
+
+
+Quality of Life
+The Sandhills region ranks 5th among its peers and is below the peer average for the Quality of Life
+Index. The Index measures the appeal of living and working in a region. Within this index, the Sandhills
+region has a mix of rankings across the eight indicators, ranging from a 1st place ranking on property
+and violent crime rates (low) to last place rankings on relative weekly wages (lowest) and housing
+(oldest). (See Figure 46.)
+
+Figure 46: Quality of Life Index indicator rankings for the Sandhills Region
+
+    Property Crime Rate                                                                 1st
+
+     Violent Crime Rate                                                                 1st
+
+      Healthcare Access                                             3th
+
+        Commute Time                                                3th
+
+      Climate Amenities                                     4th
+
+           Count of
+                                                 5th
+         National Parks
+
+ Relative Weekly Wages             6th
+
+     Percent of Housing
+                                   6th
+       Built Pre-1960
+
+
+
+
+                                                       40
+Infrastructure & Cost of Doing Business Index
+The Sandhills region ranks last among its peers and is two-thirds of a standard deviation below the peer
+average for the Infrastructure & Cost of Doing Business Index, which measures the cost of operating
+businesses in a region. Results are mixed for the Sandhills region as it ranks 1st for weekly wage rate,
+2nd for top marginal income tax rate, and 3rd for presence of interstate, but ranks last on both the
+count of qualified opportunity zones and broadband internet access (see Figure 47).
+
+Figure 47: Infrastructure & Cost of Doing Business Index indicator rankings for the Sandhills Region
+
+ Weekly Wage Rate                                                                   1st
+
+     Top Marginal
+                                                                         2nd
+   Income Tax Rate
+       Presence of
+                                                               3rd
+        Interstate
+       Count of
+                                         5th
+    4-Year Colleges
+ Count of Qualified
+                               6th
+ Opportunity Zones
+      Broadband
+                               6th
+    Internet Access
+
+
+
+Demographic Growth & Renewal Index
+The Sandhills region ranks last among its peers and is more than one standard deviation below the peer
+region average for the Demographic Growth & Renewal Index, which measures long-term population
+growth, age structure and diversity. Although the Sandhills region ranks 1st for Millennial and Gen Z
+balance change, it ranks last on the remaining five of the six indicators (see Figure 48).
+
+Figure 48: Demographic Growth & Renewal Index indicator rankings for the Sandhills Region
+
+ Millennial and Gen Z
+                                                                                    1st
+   Balance Change
+       Long-Run
+                                6th
+  Population Growth
+    Percent Hispanic            6th
+
+  Percent Non-White             6th
+
+         Median Age             6th
+
+   Dependency Ratio             6th
+
+
+
+
+                                                   41
+SIOUXLAND REGION
+The Siouxland region contains Dakota and Dixon Counties, which are part of the Sioux City, Iowa
+metropolitan area. The Siouxland region and peers have an elevated share of employment in
+manufacturing but are not as heavily involved in farming and ranching. There are five peer comparison
+regions located in Iowa (3), Minnesota (1) and Illinois (1). (See Figure 49.)
+
+                                  Figure 49: Siouxland Region and Comparison Peer Regions
+
+
+ Results at a Glance
+ Nebraska Thriving Index: 73
+ Ranks 4th Among Peers
+
+  1st Demographic Growth
+   & Renewal
+  1st Quality of Life
+  2nd Growth
+
+
+
+
+                                          1. NEBRASKA: Siouxland Region
+                                          2. IOWA: Southeast Iowa Regional Planning Commission
+                                          3. MINNESOTA: Northwest Minnesota Regional Development
+                                             Commission
+                                          4. IOWA: Iowa Northland Regional Council of Governments
+                                          5. IOWA: North Iowa Area Council of Governments
+                                          6. ILLINOIS: Southwestern Illinois Metropolitan & Regional
+
+
+
+
+Figure 50 shows the value and ranking of the Nebraska Thriving Component Indexes for the Siouxland
+region compared to its peers. The Siouxland region’s 4th place ranking and 73 value on the aggregate
+2022 Nebraska Thriving Index is due to poor performance in two of the economic prosperity indexes as
+well as two economic conditions indexes. Specifically, the Siouxland region is weak compared to its
+peers for the Other Prosperity Index and Economic Opportunity & Diversity Index. Other areas of poor
+performance for the Siouxland region are Education & Skill and Infrastructure & Cost of Doing Business,
+
+
+
+
+                                                  42
+as it ranks last on these indexes. On a positive note, the Siouxland region ranks 1st for both the
+Demographic Growth & Renewal Index and the Quality of Life Index and ranks 2nd for the Growth Index.
+
+Figure 50: Nebraska Thriving Component Index Rank and Value for the Siouxland Region
+                                                  1st
+                                                  343
+
+
+
+
+                                                                1st
+       2nd                                                      155
+       136                                                                    4th
+                                                                              88                             100
+                                                                                             6th
+                                                                                             31           6th
+                                                                                                           0
+
+               6th
+               -55
+                               6th
+                              -110
+     Growth        Other         Economic   Demographic Quality of Life Social Capital   Education & Infrastructure
+                 Prosperity    Opportunity & Growth &                                       Skill       & Cost of
+                                 Diversity    Renewal                                                Doing Busness
+
+Index Interpretation
+<100 = BELOW the average of its peers
+ 100 = AT the average of its peers
+>100 = ABOVE the average of its peers
+Example: A value of 343 for Demographic Growth & Renewal indicates that demographic growth and
+renewal is 2.43 standard deviations above the average demographic growth and renewal among the
+peer regions.
+
+Strengths
+This section focuses on the underlying indicators of the Nebraska Thriving Component Indexes where
+the Siouxland region is recognized as having an area of strength. An area of strength is identified as the
+Siouxland region ranking in one of the top three of six places among its peers.
+
+Growth Index
+The Siouxland region ranks 2nd among its peers and is above the peer region average for the Growth
+Index, which measures growth in employment, wages, population and returns on wealth. Within this
+index, the Siouxland region ranks 1st on both growth in private wages per job and growth in total
+employment and 3rd on returns to wealth. However, it ranks last on both growth in households with
+children and the level of private employment (see Figure 51).
+
+
+
+
+                                                         43
+Figure 51: Growth Index indicator rankings for the Siouxland Region
+
+             Growth in Private
+                                                                                      1st
+              Wages per Job
+
+                Growth in
+                                                                                      1st
+            Total Employment
+
+ Growth in Dividends, Interest,
+                                                                      3rd
+    and Rent (DIR) Income
+
+        Growth in Households
+                                       6th
+           with Children
+
+          Private Employment           6th
+
+
+
+
+Demographic Growth & Renewal Index
+The Siouxland region ranks 1st among its peers and is nearly two-and-one-half standard deviations
+above the peer region average for the Demographic Growth & Renewal Index, which measures long-
+term population growth, age structure and diversity. Within this index, the Siouxland region ranks 1st on
+four of the six indicators, all of which are nearly three or more standard deviations above the peer
+average (see Figure 52).
+
+Figure 52: Demographic Growth & Renewal Index indicator rankings for the Siouxland Region
+
+ Millennial and Gen Z
+                                                                                     1st
+  Balance Change
+    Percent Hispanic                                                                 1st
+
+  Percent Non-White                                                                  1st
+
+         Median Age                                                                  1st
+      Long-Run
+                                                                3rd
+  Population Growth
+   Dependency Ratio                          5th
+
+
+
+Quality of Life
+The Siouxland region ranks 1st among its peers and is above the peer region average for the Quality of
+Life Index. The Index measures the appeal of living and working in a region. Within this index, the
+Siouxland region ranks in one of the top three places for five of the eight indicators of quality of life,
+three of which are 1st place. However, it ranks last on healthcare access (see Figure 53).
+
+
+
+
+                                                     44
+Figure 53: Quality of Life Index indicator rankings for the Siouxland Region
+
+           Count of
+                                                                                1st
+         National Parks
+
+ Relative Weekly Wages                                                          1st
+
+
+        Commute Time                                                            1st
+
+
+     Climate Amenities                                                    2nd
+
+     Percent of Housing
+                                                                3rd
+       Built Pre-1960
+
+     Violent Crime Rate                               4th
+
+
+   Property Crime Rate                      5th
+
+
+      Healthcare Access           6th
+
+
+Considerations
+This section focuses on the underlying indicators of the Nebraska Thriving Component Indexes where
+the Siouxland region is identified as having neither an area of strength or concern. An area of
+consideration is identified as the Siouxland region ranking 4th among its peers.
+
+Social Capital Index
+The Siouxland region ranks 4th among its peers and is below the peer average for the Social Capital
+Index, which captures social networks and a shared sense of identity within the region. Results are
+mixed within this index as the Siouxland region ranks 1st on both the share of Tree City USA counties
+and volunteer hours per person, but last on both voter turnout and the number of 501c3 organizations
+per 1,000 persons (see Figure 54).
+
+Figure 54: Social Capital Index indicator rankings for the Siouxland Region
+
+       Share of Tree
+                                                                                  1st
+     City USA Counties
+
+      Volunteer Hours
+                                                                                  1st
+     per Person (State)
+
+
+ Volunteer Rate (State)                     5th
+
+
+        Voter Turnout             6th
+
+     Number of 501c3
+     Organizations per            6th
+      1,000 Persons
+
+
+
+
+                                                    45
+Concerns
+This section focuses on the underlying indicators of the Nebraska Thriving Component Indexes where
+the Siouxland region is recognized as having an area of concern. An area of concern is identified as the
+Siouxland region ranking in one of the bottom two of six places among its peers.
+
+Other Prosperity Index
+The Siouxland region ranks last among its peers and is more than one-and-one-half standard deviations
+below the peer average for the Other Prosperity Index, which measures life span, non-wage sources of
+income, income stability and the poverty rate. Within this index, the Siouxland ranks 5th or last on four
+of the five indicators (see Figure 55).
+
+Figure 55: Other Prosperity Index indicator rankings for the Siouxland Region
+
+    Personal Income Stability                                                   3rd
+
+                    Life Span                            5th
+
+    Share of Income from
+                                         6th
+ Dividends, Interest and Rent
+
+                Poverty Rate             6th
+
+        Non-Farm Proprietor
+                                         6th
+         Personal Income
+
+
+
+Economic Opportunity & Diversity Index
+The Siouxland region ranks last among its peers and is more than two standard deviations below the
+peer average for the Economic Opportunity & Diversity Index, which measures entrepreneurial activity,
+industry and occupation diversity and telecommuting. Within this index, the Siouxland region ranks last
+on four of the seven indicators and 5th on the other three indicators (see Figure 56).
+
+Figure 56: Economic Opportunity & Diversity Index indicator rankings for the Siouxland Region
+
+      Share of Telecommuters                             5th
+
+       Entrepreneurial Activity                          5th
+
+     Employer Establishments
+                                                         5th
+       per 1,000 Persons
+     Share of Workers in
+                                          6th
+ Non-Employer Establishments
+
+          Occupation Diversity            6th
+
+             Industry Diversity           6th
+
+         Non-Farm Proprietors
+                                          6th
+          per 1,000 Persons
+
+
+
+
+                                                    46
+Education & Skill Index
+The Siouxland region ranks last among its peers and is below the peer region average for the Education
+& Skill Index. Although the Siouxland region ranks 1st on labor force participation rate, it ranks 5th on
+high school attainment and last on the share of the workforce in knowledge occupations (e.g., STEM
+occupations, financial occupations, management occupations, teachers and health care occupations)
+and college and associate’s degree attainment (see Figure 57).
+
+Figure 57: Education & Skill Index indicator rankings for the Siouxland Region
+
+      Labor Force
+                                                                                   1st
+   Participation Rate
+
+      High School
+                                          5th
+    Attainment Rate
+
+     Percent of
+                               6th
+ Knowledge Workers
+
+         College
+                               6th
+    Attainment Rate
+
+  Associate's Degree
+                               6th
+   Attainment Rate
+
+
+
+Infrastructure & Cost of Doing Business Index
+The Siouxland region ranks last among its peers and is one standard deviation below the peer region
+average for the Infrastructure & Cost of Doing Business Index, which measures the cost of operating
+businesses in a region. Within this index, there are mixed results. The Siouxland region ranks 2nd for top
+marginal income tax rate (lower) and 3rd on broadband internet access; however, it ranks last on the
+count of 4-year colleges and weekly wage rate (highest). (See Figure 58.)
+
+Figure 58: Infrastructure & Cost of Doing Business Index indicator rankings for the Siouxland Region
+
+     Top Marginal
+                                                                         2nd
+   Income Tax Rate
+      Broadband
+                                                              3rd
+    Internet Access
+ Count of Qualified
+                                                    4th
+ Opportunity Zones
+       Presence of
+                                                    4th
+        Interstate
+       Count of
+                               6th
+    4-Year Colleges
+
+ Weekly Wage Rate              6th
+
+
+
+
+                                                    47
+SOUTHEAST REGION
+The Southeast region excludes the Lincoln metropolitan area but includes adjacent counties as well as
+counties bordering the nexus of Kansas, Iowa and Missouri. Many counties in the Southeast region
+benefit from commuting flows with the Lincoln metropolitan area, and Otoe County within the region
+also benefits from a commuting relationship with the Omaha metropolitan area. The Southeast region is
+manufacturing-oriented. There are eight peer comparison regions for the Southeast region, all located
+outside of the state of Nebraska. The comparison regions are located in Iowa (5), Minnesota (2) and
+South Dakota (1). (See Figure 59.)
+
+                                   Figure 59: Southeast Region and Comparison Peer Region
+
+
+ Results at a Glance
+ Nebraska Thriving Index: 99
+ Ranks 4th Among Peers
+
+  1st Growth
+  3rd Social Capital
+
+
+
+
+                                           1. NEBRASKA: Southeast Region
+                                           2.   MINNESOTA: Southwest Regional Development Commission
+                                           3.   MINNESOTA: Upper Minnesota Valley Regional Development
+                                                Commission
+                                           4.   SOUTH DAKOTA: Planning & Development District III
+                                           5.   IOWA: Southern Iowa Council of Governments
+                                           6.   IOWA: Region XII Council of Governments
+                                           7.   IOWA: Southwest Iowa Planning Council
+                                           8.   IOWA: Mid-Iowa Development Association Council of
+                                                Governments
+                                           9.   IOWA: North Iowa Area Council of Governments
+
+
+
+
+                                                  48
+Figure 60 shows the value and ranking of the Nebraska Thriving Component Indexes for the Southeast
+region compared to its peers. The Southeast region’s 4th place ranking and 99 value on the aggregate
+2022 Nebraska Thriving Index is due to a mixed performance in several of the economic prosperity
+indexes and the economic conditions indexes. Specifically, the Southeast region performs well relative
+to its peers on one of the three economic prosperity indexes, ranking 1st for the Growth Index. Social
+Capital is another area of strength for the Southeast region as it ranks 3rd for this index. However, areas
+of poor performance for the Southeast region are Economic Opportunity & Growth, Other Prosperity,
+Infrastructure & Cost of Doing Business, and Education & Skill, as it ranks 6th or lower for these indexes.
+
+Figure 60: Nebraska Thriving Component Index Rank and Value for the Southeast Region
+       1st
+       163
+
+                                                3rd
+                                                136
+                                                              5th           4th
+                                                              106           104
+                                                                                           6th                 100
+                    7th           7th
+                    76                                                                     79
+                                  72                                                                     8th
+                                                                                                         60
+
+
+
+
+     Growth      Economic        Other      Social Capital Demographic Quality of Life Infrastructure Education &
+               Opportunity &   Prosperity                   Growth &                      & Cost of      Skill
+                 Diversity                                   Renewal                   Doing Busness
+
+Index Interpretation
+<100 = BELOW the average of its peers
+ 100 = AT the average of its peers
+>100 = ABOVE the average of its peers
+Example: A value of 163 for Growth indicates that growth is 0.63 of a standard deviation above the
+average growth among the peer regions.
+
+Strengths
+This section focuses on the underlying indicators of the Nebraska Thriving Component Indexes where
+the Southeast region is recognized as having an area of strength. An area of strength is identified as the
+Southeast region ranking in one of the top three of nine places among its peers.
+
+Growth Index
+The Southeast region ranks 1st among its peers and is above the peer region average for the Growth
+Index, which measures growth in employment, wages, population and returns on wealth. Within this
+index, the Southeast region ranks 1st on growth in dividends, interest and rent income and 2nd on both
+growth in households with children and growth in private wages per job. It ranks 4th on the remaining
+indicators (see Figure 61).
+
+
+
+
+                                                       49
+Figure 61: Growth Index indicator rankings for the Southeast Region
+
+ Growth in Dividends, Interest,
+                                                                                               1st
+    and Rent (DIR) Income
+
+        Growth in Households
+                                                                                   2nd
+           with Children
+
+             Growth in Private
+                                                                                   2nd
+              Wages per Job
+
+
+          Private Employment                                            4th
+
+
+                Growth in
+                                                  7th
+            Total Employment
+
+
+
+Social Capital Index
+The Southeast region ranks 3rd among its peers and is above the peer region average for the Social
+Capital Index, which captures social networks and a shared sense of identity within the region. Results
+are mixed within this index as the Southeast region ranks 1st on both share of Tree City USA counties
+and volunteer hours per person but second-to last and last on volunteer rate and voter turnout,
+respectively (see Figure 62).
+
+Figure 62: Social Capital Index indicator rankings for the Southeast Region
+
+       Share of Tree
+                                                                                         1st
+     City USA Counties
+
+      Volunteer Hours
+                                                                                         1st
+     per Person (State)
+     Number of 501c3
+     Organizations per                                            4th
+      1,000 Persons
+
+ Volunteer Rate (State)                 8th
+
+
+         Voter Turnout            9th
+
+
+
+
+Considerations
+This section focuses on the underlying indicators of the Nebraska Thriving Component Indexes where
+the Southeast region is identified as having neither an area of strength or concern. An area of
+consideration is identified as the Southeast region ranking 4th among its peers.
+
+
+
+
+                                                    50
+Quality of Life
+The Southeast region ranks 4th among its peers and is at the peer region average for the Quality of Life
+Index. The Index measures the appeal of living and working in a region. Within this index, the Southeast
+region has a mix of rankings across the eight indicators, ranging from a 1st place ranking on climate
+amenities to a second-to-last place ranking on healthcare access (see Figure 63).
+
+Figure 63: Quality of Life Index indicator rankings for the Southeast Region
+
+     Climate Amenities                                                                      1st
+
+           Count of
+                                                                               3rd
+         National Parks
+
+   Property Crime Rate                                        5th
+
+
+     Violent Crime Rate                               6th
+
+
+ Relative Weekly Wages                                6th
+
+     Percent of Housing
+                                                      6th
+       Built Pre-1960
+
+        Commute Time                           7th
+
+
+     Healthcare Access                 8th
+
+
+
+Concerns
+This section focuses on the underlying indicators of the Nebraska Thriving Component Indexes where
+the Southeast region is recognized as having an area of concern. An area of concern is identified as the
+Southeast region ranking in one of the bottom five of nine places among its peers.
+
+Economic Opportunity & Diversity Index
+The Southeast region ranks 7th among its peers for the Economic Opportunity & Diversity Index, which
+measures entrepreneurial activity, industry and occupation diversity and telecommuting. Although the
+Southeast region ranks 3rd on the share of workers in non employer establishments, it ranks much
+lower on the other indicators, including second-to-last on industry diversity (see Figure 64).
+
+
+
+
+                                                     51
+Figure 64: Economic Opportunity & Diversity Index indicator rankings for the Southeast Region
+
+     Share of Workers in
+                                                                           3rd
+ Non-Employer Establishments
+         Non-Farm Proprietors
+                                                                     4th
+          per 1,000 Persons
+     Employer Establishments
+                                                                     4th
+       per 1,000 Persons
+
+       Entrepreneurial Activity                               5th
+
+      Share of Telecommuters                            6th
+
+          Occupation Diversity                          6th
+
+             Industry Diversity           8th
+
+
+
+Other Prosperity Index
+The Southeast region ranks 7th among its peers and is below the peer average for the Other Prosperity
+Index, which measures life span, non-wage sources of income, income stability and the poverty rate.
+Although the Southeast region ranks 2nd on share of income from dividends, interest and rent, it ranks
+6th or lower for the other four indicators (see Figure 65).
+
+Figure 65: Other Prosperity Index indicator rankings for the Southeast Region
+
+    Share of Income from
+                                                                                 2nd
+ Dividends, Interest and Rent
+
+                Poverty Rate                            6th
+
+
+                    Life Span                           6th
+
+        Non-Farm Proprietor
+                                                        6th
+         Personal Income
+
+    Personal Income Stability            8th
+
+
+
+
+Demographic Growth & Renewal Index
+The Southeast region ranks 5th among its peers and is at the peer region average for the Demographic
+Growth & Renewal Index, which measures long-term population growth, age structure and diversity.
+Although the Southeast region ranks 3rd on percent Hispanic and the dependency ratio, it ranks lower
+on the remaining four of the six indicators (see Figure 66).
+
+
+
+
+                                                   52
+Figure 66: Demographic Growth & Renewal Index indicator rankings for the Southeast Region
+
+    Percent Hispanic                                                     3rd
+
+
+   Dependency Ratio                                                      3rd
+
+ Millennial and Gen Z
+                                                                  4th
+  Balance Change
+
+      Long-Run
+                                                          5th
+  Population Growth
+
+  Percent Non-White                                6th
+
+
+         Median Age                                6th
+
+
+
+
+Infrastructure & Cost of Doing Business Index
+The Southeast region ranks 6th among its peers and is below the peer average for the Infrastructure &
+Cost of Doing Business Index, which measures the cost of operating businesses in a region. There are
+mixed results for this index. The Southeast region ranks 2nd for both count of 4-year colleges and top
+marginal income tax rate (low) and 3rd weekly wage rage. However, it ranks 6th on broadband internet
+access, 8th on presence of interstate, and last on count of qualified opportunity zones (see Figure 67).
+
+Figure 67: Infrastructure & Cost of Doing Business Index indicator rankings for the Southeast Region
+
+       Count of
+                                                                                 2nd
+    4-Year Colleges
+
+     Top Marginal
+                                                                                 2nd
+   Income Tax Rate
+
+ Weekly Wage Rate                                                        3rd
+
+      Broadband
+                                                  6th
+    Internet Access
+
+       Presence of
+                                   8th
+        Interstate
+
+ Count of Qualified
+                           9th
+ Opportunity Zones
+
+
+
+Education & Skill Index
+The Southeast region ranks 8th among its peers and is below the peer region average for the Education
+& Skill Index. Within this index, the Southeast region is at a 4th place ranking or lower for all five
+indicators except college attainment where it ranks 3rd (see Figure 68).
+
+
+
+
+                                                   53
+Figure 68: Education & Skill Index indicator rankings for the Southeast Region
+
+         College
+                                                                          3rd
+    Attainment Rate
+
+  Associate's Degree
+                                                                  4th
+   Attainment Rate
+
+      Labor Force
+                                           7th
+   Participation Rate
+
+     Percent of
+                                    8th
+ Knowledge Workers
+
+      High School
+                                    8th
+    Attainment Rate
+
+
+
+
+                                                   54
+SOUTHWEST REGION
+The Southwest region contains the North Platte micropolitan area, larger towns such as Lexington and
+McCook and the non-metropolitan counties of Southwest Nebraska. A significant share of the regional
+population resides in a micropolitan area and ranching and farming are key components of the
+production economy. There are six peer comparison regions for the Southwest region, including peer
+regions located in the state of Nebraska. The Nebraska peers are the Panhandle and Northeast regions.
+The other comparison regions are located in Iowa (3) and Minnesota (1). (See Figure 69.)
+
+
+                                    Figure 69: Southwest Region and Comparison Peer Regions
+
+
+ Results at a Glance
+ Nebraska Thriving Index: 82
+ Ranks 6th Among Peers
+
+  2nd Economic Opportunity &
+   Diversity
+  2nd Infrastructure & Cost of
+   Doing Business
+  3rd Quality of Life
+  3rd Social Capital
+
+
+
+
+                                            1. NEBRASKA: Southwest Region
+                                            2. IOWA: Northwest Iowa Planning & Development Commission
+                                            3. NEBRASKA: Panhandle Region
+                                            4. NEBRASKA: Northeast Region
+                                            5. IOWA: Region XII Council of Governments
+                                            6. MINNESOTA: Southwest Regional Development Commission
+                                            7. IOWA: Mid-Iowa Development Association Council of
+                                               Governments
+
+
+Figure 70 shows the value and ranking of the Nebraska Thriving Component Indexes for the Southwest
+region compared to its peers. The Southwest region’s 6th place ranking and 82 value on the aggregate
+2022 Nebraska Thriving Index is due to mixed performance in several of the economic prosperity
+
+                                                  55
+indexes and the economic conditions indexes. Specifically, the Southwest region performs well relative
+to its peers on one of the three economic prosperity indexes, ranking 2nd for the Economic Opportunity
+& Diversity Index. Infrastructure & Cost of Doing Business, Quality of Life, and Social Capital are other
+areas of strength for the Southwest region as it ranks 2nd and 3rd for these indexes, respectively.
+However, areas of poor performance for the Southwest region are Other Prosperity, Demographic
+Growth & Renewal, and Education & Skill, as it ranks at or below the 6th place for these indexes.
+
+Figure 70: Nebraska Thriving Component Index Rank and Value for the Southwest Region
+       2nd
+       142                                     2nd
+                                               130
+                                                              3rd
+                                                              114           3th
+                                                                            107
+                                                                                                              100
+                    4th
+                    81
+                                                                                          6th
+                                                                                          50
+
+                                                                                                        7th
+                                 7th                                                                    18
+                                 11
+
+
+    Economic      Growth        Other      Infrastructure Quality of Life Social Capital Demographic Education &
+  Opportunity &               Prosperity      & Cost of                                   Growth &      Skill
+    Diversity                              Doing Busness                                   Renewal
+
+Index Interpretation
+<100 = BELOW the average of its peers
+ 100 = AT the average of its peers
+>100 = ABOVE the average of its peers
+Example: A value of 142 for Economic Opportunity & Diversity indicates that economic opportunity and
+diversity is 0.42 of a standard deviation above the average economic opportunity and diversity among
+the peer regions.
+
+Strengths
+This section focuses on the underlying indicators of the Nebraska Thriving Component Indexes where
+the Southwest region is recognized as having an area of strength. An area of strength is identified as the
+Southwest region ranking in one of the top three of seven places among its peers.
+
+Economic Opportunity & Diversity Index
+The Southwest region ranks 2nd among its peers and is above the peer average for the Economic
+Opportunity & Diversity Index, which measures entrepreneurial activity, industry and occupation
+diversity and telecommuting. Within this index, the Southwest region ranks in one of the top three
+places for five of the seven indicators, including 1st on both the share of workers in non-employer
+establishments and industry diversity (see Figure 71).
+
+
+
+
+                                                       56
+Figure 71: Economic Opportunity & Diversity Index indicator rankings for the Southwest Region
+
+     Share of Workers in
+                                                                                              1st
+ Non-Employer Establishments
+            Industry Diversity                                                                1st
+     Employer Establishments
+                                                                                    2nd
+       per 1,000 Persons
+         Occupation Diversity                                              3rd
+        Non-Farm Proprietors
+                                                                           3rd
+         per 1,000 Persons
+      Entrepreneurial Activity                                    4th
+
+      Share of Telecommuters           7th
+
+
+
+Infrastructure & Cost of Doing Business Index
+The Southwest region ranks 2nd among its peers and is above the peer average for the Infrastructure &
+Cost of Doing Business Index, which measures the cost of operating businesses in a region. Within this
+index, the Southwest region ranks 1st for three of the six indicators and 2nd for weekly wage rate.
+However, it ranks 5th on the count of 4-year colleges and last on broadband internet access (see Figure
+72).
+
+Figure 72: Infrastructure & Cost of Doing Business Index indicator rankings for the Southwest Region
+
+ Count of Qualified
+                                                                                             1st
+ Opportunity Zones
+     Top Marginal
+                                                                                             1st
+   Income Tax Rate
+       Presence of
+                                                                                             1st
+        Interstate
+
+ Weekly Wage Rate                                                                 2nd
+
+       Count of
+                                                   5th
+    4-Year Colleges
+      Broadband
+                                 7th
+    Internet Access
+
+
+
+Quality of Life
+The Southwest region ranks 3rd among its peers and is above the peer region average for the Quality of
+Life Index. The Index measures the appeal of living and working in a region. Results are mixed within this
+index as the Southwest region ranks in one of the top three places for four of the eight indicators of
+quality of life; however, it ranks much lower on the remaining indicators, including a last place ranking
+on property crime rate (highest). (See Figure 73.)
+
+
+
+
+                                                   57
+Figure 73: Quality of Life Index indicator rankings for the Southwest Region
+
+     Percent of Housing
+                                                                                             1st
+       Built Pre-1960
+
+     Climate Amenities                                                             2nd
+
+
+        Commute Time                                                               2nd
+
+           Count of
+                                                                         3rd
+         National Parks
+
+     Violent Crime Rate                               5th
+
+
+      Healthcare Access                               5th
+
+
+ Relative Weekly Wages                                5th
+
+
+   Property Crime Rate            7th
+
+
+
+Social Capital Index
+The Southwest region ranks 3rd among its peers and is just above the peer region average for the Social
+Capital Index, which captures social networks and a shared sense of identity within the region. Within
+this index, the Southwest region has a mix of rankings across the five indicators, ranging from a 1st place
+ranking for volunteer hours per person to a 6th place ranking on voter turnout (see Figure 74).
+
+Figure 74: Social Capital Index indicator rankings for the Southwest Region
+
+      Volunteer Hours
+                                                                                              1st
+     per Person (State)
+
+       Share of Tree
+                                                                                    2nd
+     City USA Counties
+     Number of 501c3
+     Organizations per                                                    3rd
+      1,000 Persons
+
+ Volunteer Rate (State)                              5th
+
+
+        Voter Turnout                      6th
+
+
+
+
+Considerations
+This section focuses on the underlying indicators of the Nebraska Thriving Component Indexes where
+the Southwest region is identified as having neither an area of strength or concern. An area of
+consideration is identified as the Southwest region ranking 4th among its peers.
+
+
+                                                    58
+Growth Index
+The Southwest region ranks 4th among its peers and is below its peer average for the Growth Index,
+which measures growth in employment, wages, population and returns on wealth. Although it ranks 3rd
+on both growth in households with children and growth in private wages per job, it ranks lower on the
+remaining three indicators (see Figure 75).
+
+Figure 75: Growth Index indicator rankings for the Southwest Region
+
+        Growth in Households
+                                                                           3rd
+           with Children
+
+             Growth in Private
+                                                                           3rd
+              Wages per Job
+
+
+          Private Employment                                      4th
+
+                Growth in
+                                                        5th
+            Total Employment
+
+ Growth in Dividends, Interest,
+                                      7th
+    and Rent (DIR) Income
+
+
+
+Concerns
+This section focuses on the underlying indicators of the Nebraska Thriving Component Indexes where
+the Southwest region is recognized as having an area of concern. An area of concern is identified as the
+Southwest region ranking in one of the bottom three of seven places among its peers.
+
+
+Other Prosperity Index
+The Southwest region ranks last among its peers for the Other Prosperity Index, which measures life
+span, non-wage sources of income, income stability and the poverty rate. Although the Southwest
+region ranks 2nd on poverty rate (low), it has much lower rankings on the remaining four of five
+indicators, one of which is a last place ranking (see Figure 76).
+
+
+
+
+                                                   59
+Figure 76: Other Prosperity Index indicator rankings for the Southwest Region
+
+                Poverty Rate                                                        2nd
+
+        Non-Farm Proprietor
+                                                                    4th
+         Personal Income
+
+                    Life Span                                 5th
+
+    Share of Income from
+                                                  6th
+ Dividends, Interest and Rent
+
+    Personal Income Stability         7th
+
+
+Demographic Growth & Renewal Index
+The Southwest region ranks 6th among its peers and is one-half of a standard deviation below the peer
+region average for the Demographic Growth & Renewal Index, which measures long-term population
+growth, age structure and diversity. Although the Southwest region ranks 2nd for long-run population
+growth and percent Hispanic, it ranks at or below the 5th place on the other four of six indicators (see
+Figure 77).
+
+Figure 77: Demographic Growth & Renewal Index indicator rankings for the Southwest Region
+
+      Long-Run
+                                                                                  2nd
+  Population Growth
+
+    Percent Hispanic                                                              2nd
+
+  Percent Non-White                                     5th
+
+         Median Age                         6th
+
+   Dependency Ratio                         6th
+
+ Millennial and Gen Z
+                                7th
+  Balance Change
+
+
+
+Education & Skill Index
+The Southwest region ranks last among its peers and is more than three-quarters of a standard
+deviation below the peer average for the Education & Skill Index. Within this index, the Southwest
+region ranks at or below 4th place for all the indicators (see Figure 78).
+
+
+
+
+                                                        60
+Figure 78: Education & Skill Index indicator rankings for the Southwest Region
+
+  Associate's Degree
+                                                             4rd
+   Attainment Rate
+
+      Labor Force
+                                                             4th
+   Participation Rate
+
+         College
+                                                   5th
+    Attainment Rate
+
+     Percent of
+                               7th
+ Knowledge Workers
+
+      High School
+                               7th
+    Attainment Rate
+
+
+
+
+                                                   61
+TRI-CITIES REGION
+The Tri-Cities region contains the counties of the Grand Island metropolitan area, the Kearney
+micropolitan area, the Hastings micropolitan area as well as surrounding counties. The Tri-Cities region
+is manufacturing-oriented and has a large share of its population residing in micropolitan and small
+metropolitan areas. There are six peer comparison regions for the Tri-Cities region, all located outside of
+the state of Nebraska. The comparison regions are located in Iowa (3), Minnesota (2) and Kansas (1).
+(See Figure 79.)
+
+                                       Figure 79: Tri-Cities Region and Comparison Peer Regions
+
+
+ Results at a Glance
+ Nebraska Thriving Index: 131
+ Ranks 1st Among Peers
+
+  1st Growth
+  1st Demographic Growth &
+   Renewal
+  1st Quality of Life
+  2nd Economic Opportunity &
+   Diversity
+  3rd Infrastructure & Cost of
+   Doing Business
+  3rd Social Capital
+
+
+
+
+                                               1. NEBRASKA: Tri-Cities Region
+                                               2. MINNESOTA: Region Nine Development Commission
+                                               3. IOWA: East Central Intergovernmental Association
+                                               4. IOWA: Mid-Iowa Development Association
+                                               5. KANSAS: North Central Regional Planning Commission
+                                               6. IOWA: Region 6 Planning Commission
+                                               7. MINNESOTA: Minnesota West Central Initiative
+
+
+
+
+                                                    62
+Figure 80 shows the value and ranking of the Nebraska Thriving Component Indexes for the Tri-Cities
+region compared to its peers. The Tri-Cities region’s 1st place ranking and 131 value on the aggregate
+2022 Nebraska Thriving Index is driven by strong performance in several of the economic prosperity
+indexes and the economic conditions indexes. Specifically, the Tri-Cities region performs well relative to
+its peers on two of the three economic prosperity indexes, ranking 1st for the Growth Index and 2nd for
+the Economic Opportunity & Diversity Index. Demographic Growth & Renewal, Quality of Life, and
+Infrastructure & Cost of Doing Business are other areas of strength for the Tri-Cities region as it ranks 1st
+and 3rd for these indexes.
+
+Figure 80: Nebraska Thriving Component Index Rank and Value for the Tri-Cities Region
+                                                1st
+                                                202
+
+
+       1st                                                     1st
+                    2nd
+       151                                                     158
+                    152                                                       3rd
+                                                                              136
+
+                                  4th
+                                  101
+                                                                                            3rd
+                                                                                            81                   100
+                                                                                                           4th
+                                                                                                           66
+
+
+
+
+     Growth      Economic        Other      Demographic Quality of Life Infrastructure Social Capital   Education &
+               Opportunity &   Prosperity    Growth &                      & Cost of                       Skill
+                 Diversity                    Renewal                   Doing Business
+
+Index Interpretation
+<100 = BELOW the average of its peers
+ 100 = AT the average of its peers
+>100 = ABOVE the average of its peers
+Example: A value of 202 for Demographic Growth & Renewal indicates that demographic growth and
+renewal is 1.02 standard deviations above the average demographic growth and renewal among the
+peer regions.
+
+Strengths
+This section focuses on the underlying indicators of the Nebraska Thriving Component Indexes where
+the Tri-Cities region is recognized as having an area of strength. An area of strength is identified as the
+Tri-Cities region ranking in one of the top three of seven places among its peers.
+
+Growth Index
+The Tri-Cities region ranks 1st among its peers for the Growth Index, which measures growth in
+employment, wages, population and returns on wealth. Within this index, the Tri-Cities region ranks 2nd
+for both growth in households with children and total employment growth and 3rd for both growth in
+dividends, interest and rent income and private employment. However, it ranks 5th for private wage
+growth (see Figure 81).
+
+
+
+                                                        63
+Figure 81: Growth Index indicator rankings for the Tri-Cities Region
+
+        Growth in Households
+                                                                                       2nd
+           with Children
+
+                Growth in
+                                                                                       2nd
+            Total Employment
+
+ Growth in Dividends, Interest,
+                                                                           3rd
+    and Rent (DIR) Income
+
+
+          Private Employment                                               3rd
+
+
+             Growth in Private
+                                                            5th
+              Wages per Job
+
+
+
+Economic Opportunity & Diversity Index
+The Tri-Cities region ranks 2nd among its peers for the Economic Opportunity & Diversity Index, which
+measures entrepreneurial activity, industry and occupation diversity and telecommuting. Within this
+index, the Tri-Cities region ranks 1st on three of seven indicators and 2nd on industry diversity.
+However, it ranks last on share of telecommuters (see Figure 82).
+
+Figure 82: Economic Opportunity & Diversity Index indicator rankings for the Tri-Cities Region
+
+       Entrepreneurial Activity                                                          1st
+       Non-Farm Proprietors
+                                                                                         1st
+         per 1,000 Persons
+     Employer Establishments
+                                                                                         1st
+       per 1,000 Persons
+             Industry Diversity                                                  2nd
+     Share of Workers in
+                                                                  4th
+ Non-Employer Establishments
+          Occupation Diversity                        5th
+
+      Share of Telecommuters         7th
+
+
+Demographic Growth & Renewal Index
+The Tri-Cities region ranks 1st among its peers for the Demographic Growth & Renewal Index, which
+measures long-term population growth, age structure and diversity. This index is more than one
+standard deviation above the peer average. Within this index, the Tri-Cities region ranks in one of the
+top three places for all six indicators, two of which are 1st (see Figure 83).
+
+
+
+
+                                                    64
+Figure 83: Demographic Growth & Renewal Index indicator rankings for the Tri-Cities Region
+
+    Percent Hispanic                                                                   1st
+
+
+         Median Age                                                                    1st
+
+ Millennial and Gen Z
+                                                                                 2nd
+  Balance Change
+
+      Long-Run
+                                                                                 2nd
+  Population Growth
+
+  Percent Non-White                                                              2nd
+
+
+   Dependency Ratio                                                 3rd
+
+
+Quality of Life
+The Tri-Cities region ranks 1st among its peers for the Quality of Life Index. The Index measures the
+appeal of living and working in a region. Within this index, the Tri-Cities region ranks in one of the top
+three places for five of the eight indicators of quality of life (see Figure 84).
+
+Figure 84: Quality of Life Index indicator rankings for the Tri-Cities Region
+
+           Count of
+                                                                                                 1st
+         National Parks
+
+     Climate Amenities                                                                 2nd
+
+     Percent of Housing
+                                                                                       2nd
+       Built Pre-1960
+
+        Commute Time                                                                   2nd
+
+      Healthcare Access                                                         3rd
+
+     Violent Crime Rate                                           4th
+
+ Relative Weekly Wages                                            4th
+
+    Property Crime Rate                                 5th
+
+
+Infrastructure & Cost of Doing Business Index
+The Tri-Cities region ranks 3rd among its peers for the Infrastructure & Cost of Doing Business Index,
+which measures the cost of operating businesses in a region. Within this index, the Tri-Cities region
+ranks 2nd or 3rd for four of the six indicators. However, it ranks 5th for the count of 4-year colleges and
+for broadband internet access (see Figure 85).
+
+
+
+
+                                                     65
+Figure 85: Infrastructure & Cost of Doing Business Index indicator rankings for the Tri-Cities Region
+
+ Count of Qualified
+                                                                                   2nd
+ Opportunity Zones
+     Top Marginal
+                                                                                   2nd
+   Income Tax Rate
+
+ Weekly Wage Rate                                                                  2nd
+
+        Presence of
+                                                                          3rd
+         Interstate
+       Count of
+                                                     5th
+    4-Year Colleges
+      Broadband
+                                                     5th
+    Internet Access
+
+
+
+Social Capital Index
+The Tri-Cities region ranks 3rd among its peers for the Social Capital Index but is below the peer region
+average. This index captures social networks and a shared sense of identity within the region. Results
+are mixed within this index as the Tri-Cities region ranks 1st for share of Tree City USA counties and
+volunteer hours per person but 6th for both volunteer rate and non-profit organizations per person and
+ranks last on voter turnout (see Figure 86).
+
+Figure 86: Social Capital Index indicator rankings for the Tri-Cities Region
+
+       Share of Tree
+                                                                                      1st
+     City USA Counties
+
+      Volunteer Hours
+                                                                                      1st
+     per Person (State)
+
+
+ Volunteer Rate (State)                   6th
+
+     Number of 501c3
+     Organizations per                    6th
+      1,000 Persons
+
+        Voter Turnout           7th
+
+
+
+
+Considerations
+This section focuses on the underlying indicators of the Nebraska Thriving Component Indexes where
+the Tri-Cities region is identified as having neither an area of strength or concern. An area of
+consideration is identified as the Tri-Cities region ranking 4th among its peers.
+
+Other Prosperity Index
+The Tri-Cities region ranks 4th among its peers for the Other Prosperity Index, which measures life span,
+non-wage sources of income, income stability and the poverty rate. Within this index, the Tri-Cities
+region ranks 1st and 2nd for the share of income from dividends, interest and rent income and non-farm
+
+                                                     66
+proprietor personal income, respectively. However, it ranks 4th on poverty rate and life span, and last
+on personal income stability (see Figure 87).
+
+Figure 87: Other Prosperity Index indicator rankings for the Tri-Cities Region
+
+    Share of Income from
+                                                                                            1st
+ Dividends, Interest and Rent
+
+        Non-Farm Proprietor
+                                                                                   2nd
+         Personal Income
+
+                Poverty Rate                                     4th
+
+
+                    Life Span                                    4th
+
+
+    Personal Income Stability        7th
+
+
+
+
+Education & Skill Index
+The Tri-Cities region ranks 4th among its peers for the Education & Skill Index and is below the peer
+region average. Although the region ranks 2nd for labor force participation, the region ranks 4th for
+college attainment, 5th for both the share of the workforce in knowledge occupations (e.g., STEM
+occupations, financial occupations, management occupations, teachers and health care occupations)
+and associate’s degree attainment, and 6th for high school attainment (see Figure 88).
+
+Figure 88: Education & Skill Index indicator rankings for the Tri-Cities Region
+
+      Labor Force
+                                                                                  2nd
+   Participation Rate
+
+         College
+                                                               4th
+    Attainment Rate
+
+     Percent of
+                                                    5th
+ Knowledge Workers
+
+  Associate's Degree
+                                                    5th
+   Attainment Rate
+
+      High School
+                                           6th
+    Attainment Rate
+
+
+
+Concerns
+An area of concern would be identified as the Tri-Cities region ranking in one of the bottom three of
+seven places among its peers. However, the Tri-Cities region did not have a ranking below 4th place on
+any of the eight Nebraska Thriving Component Indexes.
+
+
+
+
+                                                    67
+THE RESEARCH TEAM
+
+
+Dr. Eric Thompson
+
+                               Dr. Eric Thompson is the department chair and Karl H. Nelson
+                               Professor of Economics, and the director of the Bureau of Business
+                               Research at the University of Nebraska-Lincoln. Dr. Thompson has
+                               conducted a broad group of economic impact studies including
+                               impact studies of Nebraska agriculture, Sandhill Cranes migration,
+                               the Nebraska childcare industry, the Omaha Zoo, the Nebraska
+                               horseracing industry, Husker Harvest Days, and the UNL Athletic
+                               Department. Dr. Thompson also works on demographic projections
+                               and analyses of economic development programs for Nebraska and
+                               cities in Nebraska. He also has conducted numerous economic
+                               impact studies for the Lincoln Department of Economic
+                               Development, the Omaha Chamber of Commerce, the Nebraska
+Department of Economic Development, various Nebraska industries, and Nebraska tourism attractions.
+
+Dr. Thompson’s research has received support from the United States Department of Labor, the Robert
+Wood Johnson Foundation, the Center for Economic Analysis, the Nebraska Health, and Human Services
+System, as well as Lincoln, Omaha, and Nebraska organizations and agencies. In his previous
+employment, Dr. Thompson served as the Director of the Center for Business and Economic Research
+and a Research Associate Professor of Economics at the University of Kentucky. Dr. Thompson received
+his Ph.D. in agricultural economics from the University of Wisconsin-Madison in 1992. His research fields
+include regional economics, economic forecasting, and state and local economic development. His
+research has been published in Regional Science and Urban Economics, the Journal of Regional Science,
+the American Journal of Agricultural Economics, and the Journal of Cultural Economics.
+
+
+Dr. Mitchel Herian
+
+                                    Dr. Mitchel Herian serves as a project director through the Bureau of
+                                    Business Research, a faculty fellow at the University of Nebraska
+                                    Public Policy Center, and an adjunct professor in the Political Science
+                                    department at the University of Nebraska-Lincoln. Dr. Herian has
+                                    worked for agencies such as the U.S. Army, the U.S. Air Force, the
+                                    National Aeronautics and Space Administration (NASA), the
+                                    Nebraska Supreme Court, the Nebraska Department of Education,
+                                    and the Kansas Department of Corrections.
+
+                                    His research has received support from agencies including the
+                                    National Science Foundation and the National Institute of Justice. Dr.
+                                    Herian’s research has been published in a variety of peer reviewed
+journals including the Journal of Public Administration Research and Theory, American Review of Public
+Administration, Policy Studies Journal, State and Local Government Review, and Ecology & Society.
+
+
+
+                                                    68
+Dr. Bree Dority
+
+                                    Dr. Bree Dority is the associate dean of curriculum and operations in
+                                    the College of Business & Technology at the University of Nebraska
+                                    at Kearney. In this role, her responsibilities are focused on
+                                    curriculum management and assessment of undergraduate and
+                                    graduate programs, accreditation reports and processes, transfer
+                                    opportunities with community colleges and international schools,
+                                    college recruitment and retention efforts, and college
+                                    communications. She is a professor of finance and has taught a
+                                    variety of classes for the economics, finance, and construction
+                                    management programs.
+
+                                     Her research is primarily Nebraska focused. She has conducted
+economic impact, labor availability, and community revitalization studies, and has presented and
+published research on school consolidation and tobacco free laws. More recently her research has
+focused on private credit availability, equity crowdfunding, and relationship conflict in construction. Her
+research has been published in Energy Economics, Contemporary Economic Policy, Journal of Public
+Policy and Marketing, Studies in Economics and Finance, and Conflict Resolution Quarterly.
+
+
+
+
+                                                    69
+

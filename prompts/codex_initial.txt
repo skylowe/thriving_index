@@ -1,0 +1,190 @@
+Copy-Paste Prompt
+  You are in the thriving_index repo. Use the local docs as the
+  source of truth:
+
+  - PROJECT_PLAN.md:1
+  - AGENTS.md:1
+  - Thriving_Index.pdf (use pdftotext if needed)
+  - Comparison_Regions.pdf (use pdftotext if needed)
+  - Thriving_Index_Calculations.xlsx (for formulas/structure)
+  - .Renviron:1 for API keys
+
+  Your task: scaffold and implement the first runnable iteration
+  of the Nebraska Thriving Index R project, prioritizing API-
+  accessible data and creating placeholders where APIs are not
+  straightforward. Follow AGENTS.md conventions, keep changes
+  minimal and focused, and keep the project cross‑platform
+  (Linux/Windows) with the Linux library path requirement.
+
+  Constraints and setup
+
+  - Always set .libPaths(c("/home/skylowe/R/x86_64-pc-linux-gnu-
+    library/4.3.3", .libPaths())) on Linux. On Windows, use the
+    default R user library.
+  - Read API keys via Sys.getenv() only (do not print the
+    values).
+  - Prefer API data for Census (ACS, CBP, BDS), BEA, BLS
+    QCEW. Use placeholders for FCC broadband, OZs, interstate
+    presence, crime, NPS, Tree City, climate amenities, NCES
+    colleges, voter turnout, volunteering, and any other hard-
+    to-API sources.
+  - If network is unavailable, support offline via environment
+    variable THRIVING_INDEX_OFFLINE=1 to force use of
+    placeholders.
+
+  Plan and deliverables
+
+  1. Create repo structure
+
+  - R/ modules:
+      - fetch_census_acs.R, fetch_bea.R, fetch_bls_qcew.R,
+        fetch_census_cbp.R, fetch_census_bds.R,
+        fetch_other_sources.R
+      - compute_measures_growth.R, compute_measures_demo.R,
+        compute_measures_education.R
+      - compute_diversity.R, compute_peers.R, compute_index.R,
+        utils.R
+  - scripts/: run_all.R, fetch_all.R, build_indexes.R,
+    validate.R
+  - config/: regions.yml, comparison_candidates.yml, weights.yml
+  - data/: raw/, intermediate/, processed/, fake/
+  - tests/testthat/: unit tests for transforms and index scaling
+
+  2. Implement minimal, working code
+
+  - R/utils.R:
+      - Set .libPaths per OS, provide ti_paths() for
+        directories, ti_read_key(name), ti_write_csv(df, path),
+        small zscore() helper.
+  - R/fetch_census_acs.R:
+      - acs_get(table, vars, year, state_fips, county_fips)
+        using httr + jsonlite with Sys.getenv("CENSUS_KEY").
+      - Include helpers to fetch S0101 (median age), S1501
+        (education rates), DP03 (labor force participation),
+        B08128 (telecommuters).
+  - R/fetch_bea.R:
+      - bea_get(table, line_code, geo, year) using
+        Sys.getenv("BEA_API_KEY"). Support CAINC5, CAEMP25
+        minimally.
+  - R/fetch_bls_qcew.R:
+      - Minimal functions to retrieve average weekly wage
+        (Q2 2021) and private employment, using BLS/QCEW API
+        and Sys.getenv("BLS_API_KEY"). If offline, return
+        placeholder frames with correct schema.
+  - R/fetch_census_cbp.R, R/fetch_census_bds.R:
+      - Skeletons that fetch CBP (industry employment) and BDS
+        (births/deaths) if online; otherwise return mocked data.
+  - R/fetch_other_sources.R:
+      - Functions that read placeholder CSVs from data/fake/
+        for: broadband, interstate presence, 4-year colleges,
+        OZs, crime, climate amenities, NPS, Tree City,
+        volunteering, voter turnout. Ensure consistent columns:
+        county_fips, year, measure, value, source="placeholder".
+  - R/compute_measures_*.R:
+      - Implement a first subset of measures end-to-end:
+        median age (S0101), high school/associate’s/bachelor’s
+        attainment (S1501), labor force participation (DP03),
+        growth in total employment (BEA jobs or BLS total),
+        growth in households with children (S1101), poverty
+        rate (S1701).
+      - Aggregate from county to region using config/
+        regions.yml.
+  - R/compute_diversity.R:
+      - Implement industry/occupation similarity: similarity
+        = 1 - 0.5 * sum(abs(p_region - p_us)) (adjust later if
+        workbook shows different).
+  - R/compute_peers.R:
+      - Implement Mahalanobis matching skeleton using stats::cov
+        and stats::mahalanobis on the seven structural
+        variables; read candidate regions from config/
+        comparison_candidates.yml. If unavailable, stub with
+        TODO and return self-only peers.
+  - R/compute_index.R:
+      - Standardize each measure within peer groups (z-scores),
+        rescale index = 100 + 100*z. Average measures into
+        components, then average components → Thriving Index.
+        Equal weights by default; read optional overrides from
+        weights.yml.
+
+  3. Configs (minimal but real)
+
+  - config/regions.yml:
+      - Add the eight Nebraska regions and their county FIPS.
+        If exact lists are not readily available, parse from
+        PDFs with pdftotext and transcribe. If still ambiguous,
+        create a stub with TODOs and a small example (e.g., 2–3
+        counties per region) so the pipeline runs.
+  - config/comparison_candidates.yml:
+      - Stub structure documenting expected fields (region_id,
+        name, state, county_fips_list, centroid_lat/lon,
+        small_msa_distance, large_msa_distance, %farm_income,
+        %ranch_income, %mfg_employment, %micropolitan,
+        population). Populate with a few sample candidates;
+        mark TODO.
+  - config/weights.yml:
+      - Default to equal weights; include keys for each
+        component and measure for future refinement.
+
+  4. Scripts
+
+  - scripts/fetch_all.R:
+      - Orchestrate fetching API-backed sources (ACS, BEA, BLS,
+        CBP, BDS) with THRIVING_INDEX_OFFLINE guard, and write
+        to data/raw/.
+  - scripts/build_indexes.R:
+      - Run compute_measures_* to produce data/intermediate/,
+        standardize+aggregate in compute_index.R to data/
+        processed/.
+  - scripts/validate.R:
+      - Basic checks: non-empty outputs, expected columns,
+        finite indices.
+  - scripts/run_all.R:
+      - Call fetch_all → build_indexes → validate; print a
+        summary of produced files.
+
+  5. Placeholders
+
+  - Add CSVs under data/fake/ for each hard-to-API dataset with
+    schemas that match expected future inputs. Populate with
+    plausible but clearly fake values and source="placeholder".
+
+  6. Tests (testthat)
+
+  - tests/testthat/test_index_scaling.R: verify z→100+100z
+    mapping and component/aggregate means.
+  - tests/testthat/test_diversity.R: check the similarity
+    function with small made-up distributions.
+  - tests/testthat/test_aggregation.R: verify county→region
+    aggregation sums/means as appropriate.
+
+  7. Housekeeping
+
+  - Update PROJECT_PLAN.md:1 Change Log with “Scaffolded
+    code, configs, scripts, tests; first subset of measures
+    implemented; placeholders created.”
+  - Keep changes minimal, aligned with AGENTS.md. Do not expose
+    secrets. Use file.path() everywhere.
+
+  Execution targets
+
+  - After scaffolding, run a smoke pipeline using offline
+    mode (THRIVING_INDEX_OFFLINE=1) to produce files in data/
+    processed/.
+  - If network is available, enable a small real pull: ACS
+    S0101 median age and S1501 education metrics for Nebraska
+    counties.
+
+  Definition of done (for this pass)
+
+  - Repo structure created.
+  - Scripts run end-to-end with placeholders and produce non-
+    empty outputs.
+  - At least 6–8 measures implemented via real APIs (ACS/BEA/
+    BLS) with region aggregation, standardization, and index
+    scaling.
+  - Basic tests pass.
+
+  Please proceed: summarize your plan briefly using the CLI
+  plan tool, then implement in focused patches, and run a smoke
+  validation. Ask for clarification only if region county lists
+  cannot be reasonably derived from the PDFs.
