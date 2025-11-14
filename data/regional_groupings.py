@@ -50,9 +50,10 @@ VIRGINIA_REGIONS = {
     'VA-3': {
         'name': 'Southside & Danville',
         'description': 'South-central rural Virginia',
-        'counties': ['Brunswick', 'Charlotte', 'Franklin', 'Halifax', 'Henry',
-                     'Lunenburg', 'Mecklenburg', 'Patrick', 'Pittsylvania'],
-        'cities': ['Danville', 'Martinsville', 'South Boston'],
+        'counties': ['Brunswick', 'Charlotte', 'Franklin', 'Greensville', 'Halifax', 'Henry',
+                     'Lunenburg', 'Mecklenburg', 'Nottoway', 'Patrick', 'Pittsylvania',
+                     'Prince Edward', 'Sussex'],
+        'cities': ['Danville', 'Emporia', 'Martinsville', 'South Boston'],
         'characteristics': ['Rural', 'Tobacco heritage', 'Declining manufacturing']
     },
     'VA-4': {
@@ -65,14 +66,15 @@ VIRGINIA_REGIONS = {
     'VA-5': {
         'name': 'Shenandoah Valley',
         'description': 'Valley and ridge region',
-        'counties': ['Augusta', 'Frederick', 'Page', 'Rockingham', 'Shenandoah', 'Warren'],
+        'counties': ['Augusta', 'Clarke', 'Frederick', 'Highland', 'Page', 'Rockingham',
+                     'Shenandoah', 'Warren'],
         'cities': ['Harrisonburg', 'Staunton', 'Waynesboro', 'Winchester'],
         'characteristics': ['Agriculture', 'Tourism', 'Growing urban areas']
     },
     'VA-6': {
         'name': 'Charlottesville-Central Virginia',
         'description': 'Central Piedmont region',
-        'counties': ['Albemarle', 'Amherst', 'Appomattox', 'Bedford', 'Campbell',
+        'counties': ['Albemarle', 'Amherst', 'Appomattox', 'Bedford', 'Buckingham', 'Campbell',
                      'Fluvanna', 'Greene', 'Louisa', 'Madison', 'Nelson', 'Orange'],
         'cities': ['Charlottesville', 'Lynchburg'],
         'characteristics': ['University', 'Wine country', 'Mixed economy']
@@ -80,8 +82,9 @@ VIRGINIA_REGIONS = {
     'VA-7': {
         'name': 'Richmond Metro',
         'description': 'State capital region',
-        'counties': ['Charles City', 'Chesterfield', 'Goochland', 'Hanover',
-                     'Henrico', 'New Kent', 'Powhatan'],
+        'counties': ['Amelia', 'Charles City', 'Chesterfield', 'Cumberland', 'Dinwiddie',
+                     'Goochland', 'Hanover', 'Henrico', 'New Kent', 'Powhatan', 'Prince George',
+                     'Spotsylvania'],
         'cities': ['Colonial Heights', 'Hopewell', 'Petersburg', 'Richmond'],
         'characteristics': ['Urban', 'Government', 'Finance', 'Manufacturing']
     },
@@ -95,9 +98,9 @@ VIRGINIA_REGIONS = {
     'VA-9': {
         'name': 'Rappahannock',
         'description': 'Northern Neck and Middle Peninsula',
-        'counties': ['Caroline', 'Essex', 'Gloucester', 'King and Queen', 'King George',
+        'counties': ['Caroline', 'Culpeper', 'Essex', 'King and Queen', 'King George',
                      'King William', 'Lancaster', 'Mathews', 'Middlesex', 'Northumberland',
-                     'Richmond', 'Westmoreland'],
+                     'Rappahannock', 'Richmond', 'Westmoreland'],
         'cities': ['Fredericksburg'],
         'characteristics': ['Rural', 'Coastal', 'Tourism', 'Retirement']
     },
