@@ -262,6 +262,39 @@ Starting a new project to replicate the Nebraska Thriving Index methodology for 
 
 ---
 
+### Decision 6: High School Graduation Rate Measurement
+
+**Status**: ✅ **DECIDED**
+**Decision Date**: 2025-11-14
+
+**Decision**: Use **Census ACS Educational Attainment** (percent of adults 25+ with high school diploma or higher) instead of traditional 4-year cohort graduation rates.
+
+**Context**: The Nebraska study used high school graduation rates from state departments of education (4-year cohort graduation rates tracking what percent of 9th graders graduate within 4 years). However, these data are:
+- Not available via API at county level
+- Reported by school districts, not counties
+- Not consistently available across multiple states
+- Require complex aggregation from districts to counties
+
+**Rationale**:
+1. **API Availability**: Census ACS provides educational attainment data via API for all counties
+2. **Consistent Coverage**: Available for Virginia and all peer states (MD, WV, NC, TN, KY, DC)
+3. **Better Regional Metric**: Educational attainment of the adult population (25+) is actually more relevant for assessing workforce quality and regional economic conditions than current student graduation rates
+4. **Data Quality**: High-quality, standardized data from Census Bureau
+5. **Annual Updates**: Available annually with ACS 5-year estimates
+
+**Implementation**:
+- **Variable**: S1501_C02_014E (Percent high school graduate or higher, population 25+)
+- **Alternative**: B15003 table for detailed educational attainment by grade level
+- **API**: Census ACS 5-year estimates API
+- **Confidence Level**: HIGH (promoted from LOW)
+
+**Impact**:
+- Increases HIGH-confidence measures from 28 to 29 (61.7% of total)
+- Education & Skill component index now has 3/5 measures (60%) instead of 2/5 (40%)
+- Provides more meaningful assessment of regional educational outcomes
+
+---
+
 ## API Integration Strategy
 
 ### API Sources Identified
@@ -734,6 +767,9 @@ None at this time.
 | 2025-11-14 PM | Created BLS API client | Provides access to unemployment rates and labor force data via LAUS |
 | 2025-11-14 PM | Defined Virginia PDC regions | Created comprehensive region definitions with all 21 PDCs and 11 consolidated regions |
 | 2025-11-14 PM | Mapped all Virginia FIPS codes | Complete mapping of 95 counties and 38 independent cities with FIPS codes |
+| 2025-11-14 PM | Promoted High School Graduation Rate to HIGH | Use Census ACS educational attainment data (% adults 25+ with HS diploma); now 29 HIGH-confidence measures |
+| 2025-11-14 PM | Updated API_MAPPING.md measure 5.1 | Changed from traditional graduation rates to educational attainment proxy |
+| 2025-11-14 PM | Starting Phase 3 | Region Definition & Geographic Data for peer states |
 
 ---
 

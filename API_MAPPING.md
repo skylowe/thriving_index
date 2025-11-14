@@ -245,15 +245,23 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 
 ### 5.1 High School Graduation Rate
 
-- **Nebraska Source**: State Department of Education, NCES
-- **Virginia API Source**: ⚠️ **PROBLEMATIC**
-- **Confidence**: ❌ **LOW**
+- **Nebraska Source**: State Department of Education, NCES (4-year cohort graduation rate)
+- **Virginia API Source**: Census ACS API (Educational Attainment - Proxy Measure)
+- **API Endpoint**: `https://api.census.gov/data/[year]/acs/acs5`
+- **Variables**:
+  - S1501_C02_014E (Percent high school graduate or higher, age 25+)
+  - Or B15003 table for detailed educational attainment
+- **Confidence**: ✅ **HIGH** (Updated from LOW)
 - **Notes**:
-  - National Center for Education Statistics (NCES) has data
-  - Virginia Department of Education publishes school data
-  - No standardized API across states for peer regions
-  - Data organized by school district, not county
-- **Decision**: **INVESTIGATE** - May need to exclude or aggregate from school district data
+  - Traditional graduation rates (NCES 4-year cohort) not available via API at county level
+  - Using educational attainment as proxy: percent of adults 25+ with HS diploma or higher
+  - This is actually superior for regional analysis:
+    - Consistently available across all states via Census API
+    - Reflects actual educational outcomes of adult population
+    - County-level data for all counties
+    - Updated annually with ACS 5-year estimates
+  - Captures workforce educational quality better than current student graduation rates
+- **Decision**: **USE EDUCATIONAL ATTAINMENT** - Percent of adults 25+ with high school diploma or higher
 
 ### 5.2 Percent of Adults with Some College
 
@@ -513,9 +521,9 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 
 | Confidence | Count | Percentage |
 |------------|-------|------------|
-| ✅ HIGH | 28 | 59.6% |
+| ✅ HIGH | 29 | 61.7% |
 | 🟡 MEDIUM | 10 | 21.3% |
-| ❌ LOW | 9 | 19.1% |
+| ❌ LOW | 8 | 17.0% |
 | **TOTAL** | **47** | **100%** |
 
 ### By Component Index
@@ -526,7 +534,7 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 | 2. Economic Opportunity & Diversity | 6 | 1 | 0 | 7 |
 | 3. Other Economic Prosperity | 0 | 2 | 2 | 4 |
 | 4. Demographic Growth & Renewal | 4 | 0 | 0 | 4 |
-| 5. Education & Skill | 2 | 0 | 3 | 5 |
+| 5. Education & Skill | 3 | 0 | 2 | 5 |
 | 6. Infrastructure & Cost | 3 | 2 | 1 | 6 |
 | 7. Quality of Life | 4 | 2 | 2 | 8 |
 | 8. Social Capital | 4 | 1 | 2 | 7 |
@@ -536,14 +544,15 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 1. Retail Sales Growth Rate (1.6)
 2. Per Capita Retail Sales (3.1)
 3. Business Survival Rate (3.4)
-4. High School Graduation Rate (5.1) - *May be possible with effort*
-5. Student-Teacher Ratio (5.4) - *May be possible with effort*
-6. School District Spending Per Pupil (5.5) - *May be possible with effort*
-7. Highway Accessibility Index (6.6)
-8. Life Expectancy at Birth (7.1) - *Available from County Health Rankings*
-9. Mental Health Providers Per Capita (7.5) - *Available from County Health Rankings*
-10. Voter Participation Rate (8.1)
-11. Religious Congregations Per Capita (8.3)
+4. Student-Teacher Ratio (5.4) - *May be possible with effort*
+5. School District Spending Per Pupil (5.5) - *May be possible with effort*
+6. Highway Accessibility Index (6.6)
+7. Life Expectancy at Birth (7.1) - *Available from County Health Rankings*
+8. Mental Health Providers Per Capita (7.5) - *Available from County Health Rankings*
+9. Voter Participation Rate (8.1)
+10. Religious Congregations Per Capita (8.3)
+
+**Note**: High School Graduation Rate (5.1) has been PROMOTED to HIGH confidence using Census ACS educational attainment data.
 
 ### Measures Requiring Further Investigation (MEDIUM Confidence)
 
@@ -582,7 +591,7 @@ Based on HIGH and MEDIUM confidence measures:
 
 ## Recommended Initial Implementation
 
-### Phase 1: Core Measures (28 HIGH confidence measures)
+### Phase 1: Core Measures (29 HIGH confidence measures)
 
 Include only measures with HIGH confidence API availability. This ensures:
 - Complete data coverage across all regions
@@ -595,7 +604,7 @@ Include only measures with HIGH confidence API availability. This ensures:
 - Economic Opportunity: 6/7 measures (86%)
 - Other Prosperity: 0/4 measures (0%) ⚠️
 - Demographics: 4/4 measures (100%)
-- Education: 2/5 measures (40%)
+- Education: 3/5 measures (60%)
 - Infrastructure: 3/6 measures (50%)
 - Quality of Life: 4/8 measures (50%)
 - Social Capital: 4/7 measures (57%)
