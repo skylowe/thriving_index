@@ -60,7 +60,7 @@ VIRGINIA_REGIONS = {
         'name': 'Roanoke Valley & Alleghany Highlands',
         'description': 'Western Virginia urban corridor',
         'counties': ['Alleghany', 'Bath', 'Botetourt', 'Craig', 'Rockbridge', 'Roanoke'],
-        'cities': ['Buena Vista', 'Clifton Forge', 'Covington', 'Lexington', 'Roanoke', 'Salem'],
+        'cities': ['Bedford', 'Buena Vista', 'Clifton Forge', 'Covington', 'Lexington', 'Roanoke', 'Salem'],
         'characteristics': ['Urban center', 'Manufacturing', 'Healthcare']
     },
     'VA-5': {
@@ -297,7 +297,7 @@ NORTH_CAROLINA_REGIONS = {
     'NC-8': {
         'name': 'Eastern Piedmont',
         'description': 'Eastern transition zone',
-        'counties': ['Edgecombe', 'Halifax', 'Johnston', 'Nash', 'Northampton',
+        'counties': ['Edgecombe', 'Halifax', 'Hertford', 'Johnston', 'Nash', 'Northampton',
                      'Wayne', 'Wilson'],
         'cities': [],
         'characteristics': ['Agriculture', 'Tobacco', 'Rural', 'Manufacturing']
@@ -383,7 +383,7 @@ TENNESSEE_REGIONS = {
         'description': 'Mississippi River region',
         'counties': ['Benton', 'Carroll', 'Crockett', 'Decatur', 'Dyer',
                      'Gibson', 'Hardin', 'Haywood', 'Henderson', 'Henry',
-                     'Lake', 'Lauderdale', 'McNairy', 'Obion', 'Tipton', 'Weakley'],
+                     'Lake', 'Lauderdale', 'Madison', 'McNairy', 'Obion', 'Tipton', 'Weakley'],
         'cities': [],
         'characteristics': ['Agriculture', 'Rural', 'Manufacturing']
     },
@@ -411,8 +411,8 @@ KENTUCKY_REGIONS = {
     'KY-1': {
         'name': 'Northern Kentucky',
         'description': 'Cincinnati metro area',
-        'counties': ['Boone', 'Bracken', 'Campbell', 'Gallatin', 'Grant',
-                     'Kenton', 'Pendleton'],
+        'counties': ['Boone', 'Bracken', 'Campbell', 'Carroll', 'Gallatin', 'Grant',
+                     'Kenton', 'Owen', 'Pendleton'],
         'cities': [],
         'characteristics': ['Urban', 'Cincinnati suburbs', 'Growing', 'Wealthy']
     },
@@ -428,7 +428,7 @@ KENTUCKY_REGIONS = {
     'KY-3': {
         'name': 'Louisville Metro',
         'description': 'Major urban center',
-        'counties': ['Bullitt', 'Henry', 'Jefferson', 'Oldham', 'Shelby',
+        'counties': ['Bullitt', 'Henry', 'Jefferson', 'Nelson', 'Oldham', 'Shelby',
                      'Spencer', 'Trimble'],
         'cities': [],
         'characteristics': ['Urban', 'Manufacturing', 'Logistics', 'Derby']
@@ -439,7 +439,7 @@ KENTUCKY_REGIONS = {
         'counties': ['Bell', 'Breathitt', 'Clay', 'Floyd', 'Harlan', 'Johnson',
                      'Knott', 'Knox', 'Laurel', 'Lee', 'Leslie', 'Letcher',
                      'McCreary', 'Magoffin', 'Martin', 'Owsley', 'Perry',
-                     'Pike', 'Rockcastle', 'Whitley', 'Wolfe'],
+                     'Pike', 'Powell', 'Rockcastle', 'Whitley', 'Wolfe'],
         'cities': [],
         'characteristics': ['Coal', 'Appalachian', 'High poverty', 'Rural']
     },
@@ -447,7 +447,7 @@ KENTUCKY_REGIONS = {
         'name': 'Northeast',
         'description': 'Ohio River valley',
         'counties': ['Bath', 'Boyd', 'Carter', 'Elliott', 'Fleming', 'Greenup',
-                     'Lewis', 'Mason', 'Menifee', 'Montgomery', 'Morgan',
+                     'Lawrence', 'Lewis', 'Mason', 'Menifee', 'Montgomery', 'Morgan',
                      'Robertson', 'Rowan'],
         'cities': [],
         'characteristics': ['Ohio River', 'Manufacturing', 'Rural']
@@ -456,9 +456,9 @@ KENTUCKY_REGIONS = {
         'name': 'South Central',
         'description': 'Bowling Green region',
         'counties': ['Adair', 'Allen', 'Barren', 'Butler', 'Casey', 'Clinton',
-                     'Cumberland', 'Edmonson', 'Grayson', 'Green', 'Hart',
+                     'Cumberland', 'Edmonson', 'Grayson', 'Green', 'Hardin', 'Hart',
                      'Larue', 'Marion', 'Metcalfe', 'Monroe', 'Russell',
-                     'Simpson', 'Taylor', 'Warren', 'Washington'],
+                     'Simpson', 'Taylor', 'Warren', 'Washington', 'Wayne'],
         'cities': [],
         'characteristics': ['Caves', 'Tourism', 'Manufacturing', 'University']
     },
@@ -466,7 +466,7 @@ KENTUCKY_REGIONS = {
         'name': 'Pennyrile',
         'description': 'Western coal fields',
         'counties': ['Caldwell', 'Christian', 'Crittenden', 'Hopkins', 'Livingston',
-                     'Lyon', 'McLean', 'Muhlenberg', 'Todd', 'Trigg', 'Webster'],
+                     'Logan', 'Lyon', 'McLean', 'Muhlenberg', 'Todd', 'Trigg', 'Webster'],
         'cities': [],
         'characteristics': ['Coal', 'Agriculture', 'Military', 'Rural']
     },
