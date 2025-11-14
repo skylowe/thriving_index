@@ -295,6 +295,88 @@ Starting a new project to replicate the Nebraska Thriving Index methodology for 
 
 ---
 
+### Decision 7: Regional Structure - Multi-County Groupings
+
+**Status**: ✅ **DECIDED**
+**Decision Date**: 2025-11-14
+
+**Decision**: Use **multi-county regional groupings** for all states, NOT individual counties.
+
+**Context**: Initial implementation incorrectly treated each county as a separate region (530 individual counties). This violates the Nebraska methodology, which used 8 multi-county regions in Nebraska compared to peer multi-county regions in surrounding states.
+
+**Problem with County-Level Approach**:
+- 530 individual jurisdictions (Virginia: 135, Peer states: 395)
+- Too granular for meaningful regional comparisons
+- Not aligned with Nebraska's 8-region structure
+- Small counties would have data quality/reliability issues
+- Peer matching becomes computationally intensive and less meaningful
+
+**Correct Approach - Regional Groupings**:
+- **54 total regions** across all states (not 530 counties)
+- Each region contains multiple counties with similar characteristics
+- Regions are comparable units for peer matching
+- Follows Nebraska methodology exactly
+
+**Regional Structure Implemented**:
+- **Virginia**: 11 regions (based on consolidated PDC groupings)
+  - VA-1: Southwest Virginia (8 localities)
+  - VA-2: New River Valley & Highlands (13 localities)
+  - VA-3: Southside & Danville (12 localities)
+  - VA-4: Roanoke Valley & Alleghany Highlands (9 localities)
+  - VA-5: Shenandoah Valley (10 localities)
+  - VA-6: Charlottesville-Central Virginia (13 localities)
+  - VA-7: Richmond Metro (11 localities)
+  - VA-8: Northern Virginia (11 localities)
+  - VA-9: Rappahannock (13 localities)
+  - VA-10: Hampton Roads (16 localities)
+  - VA-11: Eastern Shore (2 localities)
+
+- **Maryland**: 6 regions (24 counties)
+- **West Virginia**: 7 regions (55 counties)
+- **North Carolina**: 10 regions (100 counties)
+- **Tennessee**: 9 regions (95 counties)
+- **Kentucky**: 10 regions (120 counties)
+- **District of Columbia**: 1 region (special case)
+
+**Regional Grouping Criteria**:
+- Geographic proximity
+- Economic characteristics (urban/rural, industries)
+- Population density and size
+- Metropolitan/micropolitan statistical areas
+- Natural geographic divisions (Appalachian, coastal, etc.)
+
+**Implementation Details**:
+- **Files Created**:
+  - `data/regional_groupings.py`: Defines all 54 regions with member counties
+  - `src/utils/fips_to_region.py`: Maps FIPS codes to region codes
+  - `src/utils/regions_v2.py`: New regions utility for regional structure
+
+- **Data Aggregation**: County-level API data will be aggregated to regional level
+  - Extensive measures (population, employment): Simple sum
+  - Intensive measures (rates, percentages): Population-weighted average
+  - Income measures: Weighted by population
+
+- **FIPS Mapping**: 504 of 530 FIPS codes mapped (95.1% coverage)
+  - Remaining 26 unmapped codes to be investigated
+
+**Peer Matching Implications**:
+- Virginia regions compared to peer state regions (not counties)
+- Mahalanobis distance calculated on 54 regions (not 530)
+- Each Virginia region matched to similar regions in peer states
+- More meaningful comparisons (urban to urban, rural to rural, etc.)
+
+**Benefits**:
+1. **Methodological Alignment**: Matches Nebraska's regional approach
+2. **Data Quality**: Aggregation reduces noise and data suppression issues
+3. **Comparability**: Regions are comparable units across states
+4. **Computational Efficiency**: 54 regions vs 530 counties for peer matching
+5. **Meaningful Analysis**: Reflects actual economic/geographic regions
+
+**Rationale**:
+This is a fundamental architectural correction. The Nebraska study explicitly used multi-county regional groupings (8 regions in Nebraska), not individual counties. Our approach must mirror this to produce valid, comparable results.
+
+---
+
 ## API Integration Strategy
 
 ### API Sources Identified
@@ -770,6 +852,12 @@ None at this time.
 | 2025-11-14 PM | Promoted High School Graduation Rate to HIGH | Use Census ACS educational attainment data (% adults 25+ with HS diploma); now 29 HIGH-confidence measures |
 | 2025-11-14 PM | Updated API_MAPPING.md measure 5.1 | Changed from traditional graduation rates to educational attainment proxy |
 | 2025-11-14 PM | Starting Phase 3 | Region Definition & Geographic Data for peer states |
+| 2025-11-14 PM | **CRITICAL ARCHITECTURAL FIX** | Corrected regional structure from 530 individual counties to 54 multi-county regional groupings |
+| 2025-11-14 PM | Created regional groupings for all states | MD (6), WV (7), NC (10), TN (9), KY (10), DC (1), VA (11) = 54 total regions |
+| 2025-11-14 PM | Created data/regional_groupings.py | Defines all 54 regions with member counties, characteristics, and descriptions |
+| 2025-11-14 PM | Created src/utils/fips_to_region.py | Maps 504 of 530 FIPS codes (95.1%) to region codes for data aggregation |
+| 2025-11-14 PM | Created src/utils/regions_v2.py | New regions utility module for multi-county regional structure |
+| 2025-11-14 PM | Documented Decision 7 in CLAUDE.md | Regional Structure - Multi-County Groupings aligned with Nebraska methodology |
 
 ---
 
