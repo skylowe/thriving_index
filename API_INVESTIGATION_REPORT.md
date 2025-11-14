@@ -15,12 +15,12 @@ This document provides detailed findings from investigating MEDIUM-confidence AP
 
 | API Source | Status | Measures Affected | Confidence Level | Ready to Implement |
 |------------|--------|-------------------|------------------|-------------------|
-| USDA NASS QuickStats | ✅ Verified | Farm income (matching variable) | HIGH | ✅ Yes |
-| FBI Crime Data Explorer | ✅ Verified | Property & violent crime rates | HIGH | ✅ Yes |
-| FCC Broadband Map | ⏳ Pending Key | Broadband access | MEDIUM | Placeholder only |
-| CMS Provider Data | 🔄 Investigating | Physicians per capita | TBD | TBD |
-| CDC WONDER | 🔄 Not Started | Infant mortality | TBD | TBD |
-| IRS Exempt Orgs | 🔄 Not Started | Nonprofit orgs per capita | TBD | TBD |
+| USDA NASS QuickStats | ✅ Verified | Farm income (matching variable) | HIGH | ✅ Yes (API) |
+| FBI Crime Data Explorer | ✅ Verified | Property & violent crime rates | HIGH | ✅ Yes (API) |
+| CMS NPPES NPI | ✅ Verified | Physicians per capita | HIGH | ✅ Yes (Bulk Download) |
+| IRS EO BMF | ✅ Verified | Nonprofit orgs per capita | HIGH | ✅ Yes (Bulk Download) |
+| CDC WONDER | ❌ Excluded | Infant mortality | EXCLUDED | ❌ No (API Limitation) |
+| FCC Broadband Map | ⏳ Pending Key | Broadband access | MEDIUM | ⏳ Placeholder only |
 
 ---
 
@@ -324,62 +324,454 @@ class FCCBroadbandAPI(BaseAPIClient):
 
 ---
 
-## 4. CMS Provider Data API 🔄
+## 4. CMS NPPES NPI API ✅
 
-### Status: **INVESTIGATION IN PROGRESS**
+### Status: **VERIFIED - Bulk Download Approach Recommended**
 
 ### Overview
-Centers for Medicare & Medicaid Services (CMS) provides healthcare provider data that could support physician per capita measures.
+The Centers for Medicare & Medicaid Services (CMS) maintains the National Plan and Provider Enumeration System (NPPES), which contains information about healthcare providers including the National Provider Identifier (NPI) registry.
 
 ### Measure Affected
 - **7.4**: Primary care physicians per capita (Quality of Life index)
 
-### Investigation Tasks
-- [ ] Identify CMS API endpoints
-- [ ] Determine if county-level physician counts available
-- [ ] Check if API key required
-- [ ] Assess data quality and coverage
-- [ ] Verify definition of "primary care physician"
+### API Details
 
-### Preliminary Resources
-- CMS Data API: https://data.cms.gov/
-- National Provider Index (NPI)
-- Medicare Provider Enrollment data
+**Base URL**: `https://npiregistry.cms.hhs.gov/api/`
 
-### Status: **TO BE CONTINUED**
+**Authentication**: No API key required for public NPI Registry API
+
+**Alternative APIs**:
+1. **CMS NPPES API**: Official registry at npiregistry.cms.hhs.gov
+2. **NLM Clinical Tables API**: `https://clinicaltables.nlm.nih.gov/apidoc/npi_org/v3/doc.html`
+   - Uses NPI data from CMS
+   - Includes Healthcare Provider Taxonomy from NUCC
+   - Provides crosswalk data
+
+### Data Format & Availability
+
+**Geographic Granularity**:
+- Provider-level records with **ZIP codes** (not direct county assignment)
+- Requires ZIP-to-county crosswalk for aggregation
+- Address fields: street, city, state, ZIP code
+
+**Data Volume**:
+- As of November 2025: 9.3 GB raw CSV file when extracted
+- 947.84 MB compressed download
+- Updated **weekly** by CMS
+- Contains all active provider NPIs
+
+**Download Source**: https://download.cms.gov/nppes/NPI_Files.html
+
+### Implementation Approach
+
+**Recommended Strategy**: **Bulk Download + Local Processing**
+
+**Rationale**:
+- API designed for individual provider lookups, not bulk county aggregation
+- Large dataset (~10GB) better handled as bulk download
+- Weekly updates available - download once, use repeatedly
+- No rate limiting concerns with bulk data
+
+**Processing Pipeline**:
+1. Download NPPES bulk data file (weekly or monthly refresh)
+2. Filter to relevant states (VA, MD, WV, NC, TN, KY, DC)
+3. Use ZIP-to-county crosswalk to assign counties
+4. Filter by provider taxonomy codes for "primary care physicians":
+   - Family Medicine
+   - General Practice
+   - Internal Medicine
+   - Pediatrics
+5. Count unique NPIs per county
+6. Calculate per capita rates using Census population
+
+**ZIP-to-County Crosswalk**:
+- HUD USPS ZIP Code Crosswalk Files: https://www.huduser.gov/portal/datasets/usps_crosswalk.html
+- Maps ZIP codes to counties with residential/business allocation ratios
+- Updated quarterly
+
+### Provider Taxonomy Codes
+
+**Primary Care Physician Codes** (from NUCC taxonomy):
+- `207Q00000X` - Family Medicine
+- `208D00000X` - General Practice
+- `207R00000X` - Internal Medicine
+- `2080P0216X` - Pediatrics
+
+**Data Fields Available**:
+- Provider name, credentials
+- Business address (street, city, state, ZIP)
+- Primary taxonomy code
+- License information
+- Active status
+
+### Data Quality Considerations
+
+**Strengths**:
+- Comprehensive coverage of Medicare/Medicaid providers
+- Regularly updated (weekly)
+- Authoritative government source
+- Includes taxonomy classification
+
+**Limitations**:
+- May not capture all physicians (only those billing Medicare/Medicaid)
+- ZIP-to-county assignment adds complexity
+- Urban ZIP codes may span multiple counties
+- Rural providers may serve multiple counties
+
+**Data Suppression**: No population-based suppression like Census; all providers included
+
+### Alternative: API-Based Approach
+
+**If Bulk Download Not Feasible**:
+- Query NPPES API by state and taxonomy code
+- Paginate through results (API supports pagination)
+- Filter and aggregate locally
+- Much slower but avoids large file downloads
+
+**API Query Example**:
+```
+https://npiregistry.cms.hhs.gov/api/?version=2.1&state=VA&taxonomy_description=Family%20Medicine&limit=200
+```
+
+### Implementation Complexity
+
+**Estimated Effort**: Medium-High
+- Bulk download: Simple (wget or API download)
+- Data parsing: Medium (9GB CSV)
+- ZIP-to-county mapping: Medium (requires crosswalk file)
+- Taxonomy filtering: Low (simple field match)
+- Aggregation: Low (group by county and count)
+
+### Rate Limits
+- **Bulk Download**: No limits (public data)
+- **API**: Not explicitly documented; assume reasonable use
+
+### Confidence Assessment: ✅ **HIGH - Bulk Download Method**
+
+**Promoted to HIGH because**:
+- Data is publicly accessible and comprehensive
+- No API key required
+- Weekly updates ensure freshness
+- Clear methodology for county aggregation
+- Provider taxonomy allows precise physician definition
+
+**Implementation Notes**:
+- Use bulk download approach for efficiency
+- Implement as initial data pipeline step (not real-time API)
+- Cache processed county-level aggregations
+- Refresh monthly or quarterly (weekly updates likely unnecessary)
+- Document ZIP-to-county methodology clearly
+
+### Status: ✅ **INVESTIGATION COMPLETE - READY TO IMPLEMENT**
 
 ---
 
-## 5. CDC WONDER API 🔄
+## 5. CDC WONDER API ⚠️
 
-### Status: **NOT YET INVESTIGATED**
+### Status: **CRITICAL LIMITATION IDENTIFIED - API RESTRICTED TO NATIONAL DATA ONLY**
 
 ### Measure Affected
 - **7.2**: Infant mortality rate (Quality of Life index)
 
-### Known Information
-- CDC WONDER provides vital statistics
-- County-level data may be suppressed for small populations
-- API access unclear
+### Overview
+CDC WONDER (Wide-ranging OnLine Data for Epidemiologic Research) provides access to vital statistics including the Linked Birth/Infant Death Records dataset.
 
-### Status: **TO BE INVESTIGATED**
+### API Details
+
+**Base URL**: `https://wonder.cdc.gov/controller/datarequest/`
+
+**Data Available**:
+- Linked Birth/Infant Death Records
+- Infant mortality counts and rates
+- Available since 1995
+- County-level data available in web interface
+
+### CRITICAL LIMITATION ⚠️
+
+**Geographic Restriction in API**:
+> "Only national data are available for query by the API, and queries for mortality and births statistics from the National Vital Statistics System cannot limit or group results by any location field, such as Region, Division, State or County."
+
+**Translation**:
+- Web interface at wonder.cdc.gov allows county-level queries
+- **API is restricted to national-level data only**
+- This is a policy decision by CDC for vital statistics data
+- No workaround via API parameters
+
+### Additional Restrictions
+
+**Population Threshold**:
+- Only counties with total population ≥ 250,000 are listed in infant death queries
+- This excludes most Virginia counties (only ~10-15 counties meet threshold)
+- Small-population suppression for privacy
+
+**Web Interface Access**:
+- Interactive queries: https://wonder.cdc.gov/lbd.html
+- Can download county-level data manually
+- No automation possible via API
+
+### Alternative Approaches
+
+**Option 1: Manual Web Interface Queries** ❌
+- Download data manually from CDC WONDER web interface
+- Not scalable or automatable
+- Violates project requirement for API-accessible data
+- **Not recommended**
+
+**Option 2: Alternative Data Source - State Health Departments** 🤔
+- Virginia Department of Health may provide county-level infant mortality
+- Would need to collect from each state separately
+- Non-standardized formats
+- Likely no APIs available
+- **Complex, not recommended**
+
+**Option 3: Use State-Level Data Only** ⚠️
+- Query API for state-level infant mortality rates
+- Apply same rate to all counties within state
+- Loss of geographic variation
+- Poor methodology for county comparisons
+- **Not ideal but possible fallback**
+
+**Option 4: Exclude Measure from Index** ✅
+- Drop infant mortality from Component Index 7 (Quality of Life)
+- Component would have 7 measures instead of 8
+- Cleanest approach given API limitation
+- **Recommended approach**
+
+### Implementation Recommendation
+
+**Decision**: **EXCLUDE MEASURE 7.2 (Infant Mortality) from Index**
+
+**Rationale**:
+1. API limitation is policy-based, not technical - unlikely to change
+2. Manual data collection violates project principles
+3. State-level rates don't provide county variation needed
+4. Component Index 7 still has 7 other measures (4 currently HIGH confidence)
+5. Maintains data quality and automation standards
+
+**Impact on Quality of Life Index**:
+- Before: 4/8 HIGH-confidence measures (50%)
+- After excluding 7.2: 4/7 HIGH-confidence measures (57%)
+- Improves percentage while maintaining quality
+
+### CDC WONDER API Capabilities (What It Can Do)
+
+Despite geographic limitations, the API can provide:
+- National-level vital statistics
+- Trend analysis over time
+- Demographic breakdowns (age, race, sex)
+- Useful for research but not for our county comparison needs
+
+### Example API Structure
+
+```python
+# Pseudo-code - what the API CAN do
+import requests
+url = "https://wonder.cdc.gov/controller/datarequest/D76"
+# Can only get national data:
+params = {
+    "year": "2022",
+    "measure": "infant_deaths",
+    # Cannot include: "county": "Fairfax"  <- Not allowed
+}
+```
+
+### GitHub Resources
+
+**Community API Wrappers**:
+- https://github.com/alipphardt/cdc-wonder-api
+- Provides Python examples for API usage
+- Confirms geographic limitation
+
+### Confidence Assessment: ❌ **EXCLUDED - API Limitation**
+
+**Status Change**: MEDIUM → **EXCLUDED**
+
+**Rationale for Exclusion**:
+- API restriction is intentional CDC policy, not technical limitation
+- County-level data not accessible via automated means
+- Alternative approaches violate project requirements or compromise quality
+- Component index remains robust with remaining measures
+
+**Documentation Note**:
+- Clearly document why infant mortality excluded in methodology notes
+- Explain CDC API limitation in dashboard
+- Consider adding in future if CDC policy changes
+
+### Status: ✅ **INVESTIGATION COMPLETE - MEASURE EXCLUDED**
 
 ---
 
-## 6. IRS Exempt Organizations 🔄
+## 6. IRS Exempt Organizations ✅
 
-### Status: **NOT YET INVESTIGATED**
+### Status: **VERIFIED - Bulk Download Approach Recommended**
 
 ### Measure Affected
 - **8.2**: Nonprofit organizations per capita (Social Capital index)
 
-### Known Information
-- IRS publishes Exempt Organizations Business Master File
-- Available as bulk download (monthly)
-- Direct API unclear
-- Can filter by county
+### Overview
+The Internal Revenue Service (IRS) maintains the Exempt Organizations Business Master File (EO BMF), which contains information on all active tax-exempt organizations recognized under Section 501(c) of the tax code.
 
-### Status: **TO BE INVESTIGATED**
+### Data Details
+
+**Official IRS Source**:
+- **Tax Exempt Organization Search**: https://www.irs.gov/charities-non-profits/tax-exempt-organization-search
+- **Bulk Data Downloads**: https://www.irs.gov/charities-non-profits/tax-exempt-organization-search-bulk-data-downloads
+- **Update Frequency**: Monthly
+
+**Authentication**: No API key required for bulk downloads
+
+### Data Format & Availability
+
+**Geographic Granularity**:
+- Organization-level records with full address
+- Fields: EIN, NAME, STREET, CITY, STATE, ZIP
+- Requires aggregation to county level using:
+  - City name matching (less reliable)
+  - ZIP-to-county crosswalk (more reliable)
+
+**File Structure**:
+- Available as regional CSV files or by state
+- Regional files cover 4 areas:
+  - Region 1: Northeast (CT, ME, MA, NH, NJ, NY, RI, VT)
+  - Region 2: Mid-Atlantic and Great Lakes
+  - Region 3: Gulf Coast and Pacific Coast
+  - Includes all states needed: VA, MD, WV, NC, TN, KY, DC
+
+**Data Size**: Moderate (millions of organizations nationally, manageable when filtered by region)
+
+### Implementation Approach
+
+**Recommended Strategy**: **Bulk Download + Local Processing**
+
+**Rationale**:
+- No real-time API provided by IRS for bulk queries
+- Monthly updates sufficient for index calculation
+- Bulk download more efficient than individual queries
+- Avoids potential rate limiting issues
+
+**Processing Pipeline**:
+1. Download EO BMF regional files (monthly refresh)
+2. Filter to relevant states (VA, MD, WV, NC, TN, KY, DC)
+3. Use ZIP-to-county crosswalk to assign counties
+4. Filter to relevant exempt organization types:
+   - 501(c)(3) public charities (most common nonprofits)
+   - Potentially exclude private foundations, churches
+5. Count unique EINs per county
+6. Calculate per capita rates using Census population
+
+**ZIP-to-County Crosswalk**:
+- Same HUD USPS crosswalk as used for CMS physician data
+- https://www.huduser.gov/portal/datasets/usps_crosswalk.html
+
+### Organization Type Filtering
+
+**501(c) Categories** (from IRS):
+- **501(c)(3)**: Charitable organizations (recommended focus)
+  - Public charities
+  - Private foundations
+  - Religious organizations
+- **501(c)(4)**: Social welfare organizations
+- **501(c)(5)**: Labor unions
+- **501(c)(6)**: Business leagues, chambers of commerce
+- Many others (up to 501(c)(29))
+
+**Recommendation**: Focus on **501(c)(3) public charities** as primary "nonprofits"
+- Most closely aligns with community-serving organizations
+- Excludes private foundations (often family foundations)
+- May include or exclude religious organizations based on preference
+
+### Alternative API: ProPublica Nonprofit Explorer
+
+**ProPublica API**: https://projects.propublica.org/nonprofits/api
+
+**Features**:
+- Programmatic access to nonprofit data
+- Includes organization profiles with addresses
+- Merges with IRS filing data (Form 990)
+- Free for non-commercial use
+
+**Advantages**:
+- RESTful API interface (easier than bulk downloads)
+- Enhanced data with Form 990 information
+- Search by geography and organization name
+- JSON responses
+
+**Limitations**:
+- Rate limiting (need to verify limits)
+- May not include all organizations in IRS database
+- Third-party service (not official IRS)
+
+**Recommendation**: Use as **alternative** if IRS bulk download proves challenging
+
+### Example ProPublica API Query
+```
+# Search by state
+GET https://projects.propublica.org/nonprofits/api/v2/search.json?state[id]=VA
+
+# Get organization details
+GET https://projects.propublica.org/nonprofits/api/v2/organizations/{EIN}.json
+```
+
+### Data Quality Considerations
+
+**Strengths**:
+- Comprehensive registry of all tax-exempt organizations
+- Official government source
+- Monthly updates
+- Includes active status
+
+**Limitations**:
+- ZIP-to-county assignment adds complexity
+- Definition of "nonprofit" varies (need to filter organization types)
+- Some organizations may be inactive but still in database
+- Address may be headquarters, not service location
+
+**Filtering Recommendations**:
+- Use only organizations with NTEE codes (National Taxonomy of Exempt Entities)
+- Exclude organizations with revoked tax-exempt status
+- Consider revenue thresholds to focus on active organizations
+
+### Implementation Complexity
+
+**Estimated Effort**: Medium
+- Bulk download: Simple (direct HTTP download)
+- Data parsing: Low (CSV format)
+- ZIP-to-county mapping: Medium (requires crosswalk file, same as CMS)
+- Organization type filtering: Medium (need to understand taxonomy)
+- Aggregation: Low (group by county and count)
+
+### Alternative: Third-Party APIs
+
+**GuideStar (Candid)**: https://www.guidestar.org/
+- Commercial API with more features
+- Requires subscription/API key
+- Enhanced nonprofit profiles
+- Not recommended for free project
+
+### Confidence Assessment: ✅ **HIGH - Bulk Download Method**
+
+**Promoted to HIGH because**:
+- Data is publicly accessible and comprehensive
+- No API key required for IRS bulk downloads
+- Monthly updates sufficient for project needs
+- Clear methodology for county aggregation
+- ProPublica API available as alternative
+
+**Implementation Notes**:
+- Use IRS bulk download as primary source
+- ProPublica API as backup option
+- Implement as initial data pipeline step (not real-time)
+- Cache processed county-level aggregations
+- Refresh quarterly (monthly updates likely unnecessary)
+- Document organization type filtering clearly
+- Same ZIP-to-county crosswalk as CMS physician data
+
+**Organization Type Decision Needed**:
+- Recommend focusing on 501(c)(3) public charities
+- User may prefer broader definition (all 501(c) types)
+- Should document choice in methodology
+
+### Status: ✅ **INVESTIGATION COMPLETE - READY TO IMPLEMENT**
 
 ---
 
@@ -388,41 +780,141 @@ Centers for Medicare & Medicaid Services (CMS) provides healthcare provider data
 ### Promoted to HIGH Confidence ✅
 1. **USDA NASS** - Farm income data (matching variable)
 2. **FBI UCR** - Violent and property crime rates (Measures 6.4, 6.5)
+3. **CMS NPPES** - Primary care physicians per capita (Measure 7.4) - Bulk download method
+4. **IRS EO BMF** - Nonprofit organizations per capita (Measure 8.2) - Bulk download method
 
-**Impact**: Increases HIGH-confidence measures from 28 to 30
+**Impact**: Increases HIGH-confidence measures from 28 to **32**
+
+### Excluded Due to API Limitations ❌
+1. **CDC WONDER** - Infant mortality (Measure 7.2) - API restricted to national data only
+
+**Rationale**:
+- CDC policy restricts API to national-level queries only
+- County-level data only available via manual web interface
+- Violates project requirement for API-accessible data
+- Maintaining data quality standards over measure quantity
 
 ### FCC Broadband ⏳
 - **Recommendation**: Implement placeholder
 - **Strategy**: Exclude from initial index calculation; add when key available
 - **Impact**: Component Index 6 (Infrastructure) will have 4/6 measures instead of 5/6
 
-### Remaining Investigations 🔄
-- **CMS** (physicians per capita) - Priority: MEDIUM
-- **CDC WONDER** (infant mortality) - Priority: MEDIUM
-- **IRS** (nonprofits per capita) - Priority: LOW
-
 ### Updated Measure Count
 
-**By Component Index** (after promotions):
+**By Component Index** (after all investigations):
 - Growth: 5/6 (83%)
 - Economic Opportunity & Diversity: 6/7 (86%)
-- Other Economic Prosperity: 0/4 (0%) ⚠️
+- Other Economic Prosperity: 0/4 (0%) ⚠️ *Still needs attention*
 - Demographic Growth & Renewal: 4/4 (100%)
 - Education & Skill: 2/5 (40%)
 - Infrastructure & Cost: **5/6** (83%) ⬆ was 3/6
-- Quality of Life: 4/8 (50%)
-- Social Capital: 4/7 (57%)
+- Quality of Life: **4/7** (57%) ⬆ was 4/8 (measure 7.2 excluded)
+- Social Capital: **5/7** (71%) ⬆ was 4/7
 
-**Total HIGH-Confidence**: 30/47 (64%)
+**Total HIGH-Confidence**: **32/46** (69.6%)
+- Note: Total measures reduced from 47 to 46 due to exclusion of 7.2
 
-### Next Steps
-1. ✅ Update API_MAPPING.md with promoted measures
-2. ✅ Update API_KEYS_STATUS.md with findings
-3. ✅ Update CLAUDE.md change log
-4. 🔄 Continue CMS investigation
-5. ⏳ Design FCC placeholder implementation
-6. ⏳ Document dashboard requirements
+### Implementation Approach Summary
+
+**Traditional API Clients** (real-time queries):
+- Census Bureau (ACS, CBP)
+- Bureau of Economic Analysis (BEA)
+- Bureau of Labor Statistics (BLS)
+- USDA NASS QuickStats
+- FBI Crime Data Explorer
+- Federal Reserve (FRED) - bonus data source
+
+**Bulk Download Pipeline** (batch processing):
+- CMS NPPES NPI Registry (~9GB CSV, weekly updates)
+- IRS Exempt Organizations (~regional CSV, monthly updates)
+- Both require ZIP-to-county crosswalk
+
+**Placeholder Implementations**:
+- FCC Broadband (pending API key)
+
+**Excluded**:
+- CDC WONDER (API limitation, not data availability)
+
+### Key Implementation Dependencies
+
+**ZIP-to-County Crosswalk File**:
+- Required for: CMS physician data, IRS nonprofit data
+- Source: HUD USPS ZIP Code Crosswalk Files
+- URL: https://www.huduser.gov/portal/datasets/usps_crosswalk.html
+- Update frequency: Quarterly
+- **Action Item**: Download and integrate into data pipeline
+
+**Taxonomy/Classification Files**:
+- NUCC Healthcare Provider Taxonomy (for CMS physician filtering)
+- IRS NTEE Codes (for nonprofit organization filtering)
+- **Action Item**: Document filtering criteria for both
+
+### Data Quality Flags Needed
+
+Implement data quality indicators for:
+1. **FBI Crime Data**: Flag counties with < 80% agency reporting
+2. **CMS Physician Data**: Note that only Medicare/Medicaid providers included
+3. **IRS Nonprofit Data**: Document organization type filtering (501(c)(3) vs all)
+4. **Census Data**: Flag suppressed values for small populations
+5. **FCC Broadband**: Mark as "Data Pending" until API key obtained
+
+### Next Steps - Phase 2 Implementation
+
+**Immediate (This Session)**:
+1. ✅ Update API_INVESTIGATION_REPORT.md (COMPLETE)
+2. ⏳ Update API_MAPPING.md with promoted/excluded measures
+3. ⏳ Create base API client architecture
+4. ⏳ Implement BaseAPIClient class
+5. ⏳ Create project directory structure
+
+**Short Term (Next Session)**:
+1. Implement Census API client (highest priority - most measures)
+2. Implement BEA API client
+3. Implement BLS API client
+4. Download and process ZIP-to-county crosswalk
+5. Test all API connections
+
+**Medium Term**:
+1. Implement USDA NASS client
+2. Implement FBI UCR client with aggregation logic
+3. Create bulk download pipeline for CMS NPPES
+4. Create bulk download pipeline for IRS EO BMF
+5. Implement FCC placeholder
+
+### Critical Decision Points
+
+**Decision Needed: Component Index 3 (Other Economic Prosperity)**
+- Currently 0/4 HIGH-confidence measures (0%)
+- All 4 measures (self-employment, business formations, etc.) are LOW confidence
+- **Options**:
+  1. Investigate additional APIs for these measures
+  2. Exclude Component Index 3 entirely from Overall Index
+  3. Proceed with incomplete component using available measures
+- **Recommendation**: Investigate before proceeding to Phase 3
+
+**Decision Needed: IRS Nonprofit Filtering**
+- Should we include all 501(c) organizations or only 501(c)(3) public charities?
+- **Recommendation**: 501(c)(3) public charities only (most closely matches "nonprofits" concept)
+
+### Investigation Status Summary
+
+| API Source | Status | Measures | Implementation Method | Priority |
+|------------|--------|----------|----------------------|----------|
+| Census ACS | ✅ Verified | 15+ measures | API Client | **HIGH** |
+| BEA | ✅ Verified | 6 measures | API Client | **HIGH** |
+| BLS | ✅ Verified | 4 measures | API Client | **HIGH** |
+| USDA NASS | ✅ Verified | 1 measure | API Client | MEDIUM |
+| FBI UCR | ✅ Verified | 2 measures | API Client (w/ aggregation) | MEDIUM |
+| FCC | ⏳ Pending Key | 1 measure | Placeholder | LOW |
+| CMS NPPES | ✅ Verified | 1 measure | Bulk Download | MEDIUM |
+| IRS EO BMF | ✅ Verified | 1 measure | Bulk Download | MEDIUM |
+| CDC WONDER | ❌ Excluded | 0 measures | Not Applicable | N/A |
 
 ---
 
-*Investigation report will be updated as additional APIs are researched.*
+**Phase 1 Complete**: All API investigations finished
+**Next Phase**: Phase 2 - Data Collection Infrastructure
+
+---
+
+*Investigation report updated: 2025-11-14 (evening session)*
