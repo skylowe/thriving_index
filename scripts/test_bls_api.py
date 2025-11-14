@@ -48,22 +48,26 @@ def test_bls_api():
             logger.info(f"\n  Fetching data for {name} (FIPS: {fips})...")
 
             unemp_data = client.get_unemployment_rate(
-                year=2023,
                 state_fips=fips[:2],
-                county_fips=fips[2:]
+                county_fips=fips[2:],
+                start_year=2022,
+                end_year=2023
             )
 
-            if unemp_data:
-                logger.info(f"    ✓ Retrieved {len(unemp_data)} monthly records")
+            # Parse response
+            if unemp_data and unemp_data.get('Results'):
+                parsed = client.parse_series_data(unemp_data)
 
-                # Show annual average
-                rates = [float(record.get('value', 0)) for record in unemp_data
-                        if record.get('value') and record.get('value') != 'N/A']
+                for series_id, data in parsed.items():
+                    logger.info(f"    ✓ Retrieved {len(data)} monthly records")
 
-                if rates:
-                    avg_rate = sum(rates) / len(rates)
-                    logger.info(f"    Average unemployment rate: {avg_rate:.1f}%")
-                    logger.info(f"    Range: {min(rates):.1f}% to {max(rates):.1f}%")
+                    # Calculate annual average
+                    annual_avg = client.get_annual_average(data)
+
+                    if annual_avg:
+                        for year, rate in sorted(annual_avg.items()):
+                            logger.info(f"      {year} average: {rate:.1f}%")
+                    break  # Only show first series
             else:
                 logger.warning(f"    No data returned for {name}")
 
@@ -83,21 +87,33 @@ def test_bls_api():
 
         logger.info(f"\n  Fetching labor force data for {name}...")
 
-        lf_data = client.get_labor_force(
-            year=2023,
+        lf_data = client.get_labor_force_data(
             state_fips='51',
-            county_fips='059'
+            county_fips='059',
+            start_year=2022,
+            end_year=2023
         )
 
-        if lf_data:
-            logger.info(f"    ✓ Retrieved {len(lf_data)} monthly records")
+        if lf_data and lf_data.get('Results'):
+            parsed = client.parse_series_data(lf_data)
 
-            # Show recent month
-            if lf_data:
-                recent = lf_data[-1]
-                period = recent.get('period', 'Unknown')
-                value = recent.get('value', 'N/A')
-                logger.info(f"    Most recent ({period}): {value:,} people in labor force")
+            logger.info(f"    ✓ Retrieved data for {len(parsed)} series:")
+            for series_id, data in parsed.items():
+                # Decode series type from ID
+                measure = series_id[-2:]
+                measure_name = {
+                    '03': 'Unemployment Rate',
+                    '04': 'Unemployment',
+                    '05': 'Employment',
+                    '06': 'Labor Force'
+                }.get(measure, 'Unknown')
+
+                if data:
+                    recent = data[0]  # Most recent is first
+                    value = recent.get('value', 'N/A')
+                    period = recent.get('period', '')
+                    year = recent.get('year', '')
+                    logger.info(f"      {measure_name}: {value} ({year}-{period})")
         else:
             logger.warning(f"    No labor force data returned")
 
@@ -109,20 +125,27 @@ def test_bls_api():
     logger.info("Test 3: Get employment data")
 
     try:
-        emp_data = client.get_employment(
-            year=2023,
-            state_fips='51',
-            county_fips='059'
+        # Use labor force data method with employment measure
+        emp_series_id = client.build_laus_series_id('51', '059', '05')  # Employment
+
+        emp_data = client.get_multiple_series(
+            series_ids=[emp_series_id],
+            start_year=2022,
+            end_year=2023
         )
 
-        if emp_data:
-            logger.info(f"  ✓ Retrieved {len(emp_data)} monthly employment records")
+        if emp_data and emp_data.get('Results'):
+            parsed = client.parse_series_data(emp_data)
 
-            if emp_data:
-                recent = emp_data[-1]
-                period = recent.get('period', 'Unknown')
-                value = recent.get('value', 'N/A')
-                logger.info(f"    Most recent ({period}): {value:,} employed")
+            for series_id, data in parsed.items():
+                logger.info(f"  ✓ Retrieved {len(data)} monthly employment records")
+
+                if data:
+                    recent = data[0]  # Most recent is first
+                    value = recent.get('value', 'N/A')
+                    period = recent.get('period', '')
+                    year = recent.get('year', '')
+                    logger.info(f"    Most recent ({year}-{period}): {value:,} employed")
         else:
             logger.warning("  No employment data returned")
 
@@ -138,12 +161,12 @@ def test_bls_api():
 
         # First call
         start = time.time()
-        _ = client.get_unemployment_rate(year=2023, state_fips='51', county_fips='059')
+        _ = client.get_unemployment_rate(state_fips='51', county_fips='059', start_year=2022, end_year=2023)
         first_call_time = time.time() - start
 
         # Second call (should use cache)
         start = time.time()
-        _ = client.get_unemployment_rate(year=2023, state_fips='51', county_fips='059')
+        _ = client.get_unemployment_rate(state_fips='51', county_fips='059', start_year=2022, end_year=2023)
         second_call_time = time.time() - start
 
         logger.info(f"  First call: {first_call_time:.3f} seconds")

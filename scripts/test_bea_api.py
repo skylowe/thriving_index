@@ -31,97 +31,114 @@ def test_bea_api():
         logger.error(f"✗ Failed to initialize BEA API client: {e}")
         return
 
-    # Test 1: Get personal income for Virginia counties
-    logger.info("\nTest 1: Get Virginia personal income (2022)")
+    # Test 1: Get personal income per capita for Virginia counties
+    logger.info("\nTest 1: Get Virginia per capita income (2022)")
     try:
-        va_income = client.get_personal_income(
+        va_income = client.get_personal_income_per_capita(
             year=2022,
-            state_fips='51',
-            geo_level='county'
+            state='51'
         )
 
-        if va_income:
-            logger.info(f"✓ Retrieved income data for {len(va_income)} Virginia localities")
+        # Parse response
+        if va_income and va_income.get('BEAAPI'):
+            results = va_income['BEAAPI'].get('Results', {})
+            data = results.get('Data', [])
 
-            # Show first 5 records
-            logger.info("  Sample records:")
-            for record in va_income[:5]:
-                geo_name = record.get('GeoName', 'Unknown')
-                value = record.get('DataValue', 'N/A')
-                if value != 'N/A':
-                    try:
-                        value_millions = float(value)
-                        logger.info(f"    {geo_name}: ${value_millions:.1f} million")
-                    except:
-                        logger.info(f"    {geo_name}: {value}")
-                else:
-                    logger.info(f"    {geo_name}: {value}")
+            if data:
+                logger.info(f"✓ Retrieved per capita income for {len(data)} Virginia localities")
+
+                # Show first 5 records
+                logger.info("  Sample records:")
+                for record in data[:5]:
+                    geo_name = record.get('GeoName', 'Unknown')
+                    value = record.get('DataValue', 'N/A')
+                    if value not in ['N/A', '(NA)', '(D)']:
+                        try:
+                            value_dollars = float(value)
+                            logger.info(f"    {geo_name}: ${value_dollars:,.0f}")
+                        except:
+                            logger.info(f"    {geo_name}: {value}")
+            else:
+                logger.warning("  No data returned")
         else:
-            logger.warning("  No data returned")
+            logger.warning("  No valid response")
 
     except Exception as e:
         logger.error(f"✗ Failed to get Virginia personal income: {e}")
         import traceback
         traceback.print_exc()
 
-    # Test 2: Get per capita income
-    logger.info("\nTest 2: Get Virginia per capita income (2022)")
+    # Test 2: Get farm proprietors income
+    logger.info("\nTest 2: Get Virginia farm proprietors income (2022)")
     try:
-        va_per_capita = client.get_per_capita_income(
+        va_farm = client.get_farm_proprietors_income(
             year=2022,
-            state_fips='51',
-            geo_level='county'
+            state='51'
         )
 
-        if va_per_capita:
-            logger.info(f"✓ Retrieved per capita income for {len(va_per_capita)} localities")
+        # Parse response
+        if va_farm and va_farm.get('BEAAPI'):
+            results = va_farm['BEAAPI'].get('Results', {})
+            data = results.get('Data', [])
 
-            # Show first 5 records
-            logger.info("  Sample records:")
-            for record in va_per_capita[:5]:
-                geo_name = record.get('GeoName', 'Unknown')
-                value = record.get('DataValue', 'N/A')
-                if value != 'N/A':
-                    try:
-                        value_dollars = float(value)
-                        logger.info(f"    {geo_name}: ${value_dollars:,.0f}")
-                    except:
-                        logger.info(f"    {geo_name}: {value}")
-                else:
-                    logger.info(f"    {geo_name}: {value}")
+            if data:
+                logger.info(f"✓ Retrieved farm income for {len(data)} localities")
+
+                # Show first 5 records
+                logger.info("  Sample records:")
+                for record in data[:5]:
+                    geo_name = record.get('GeoName', 'Unknown')
+                    value = record.get('DataValue', 'N/A')
+                    if value not in ['N/A', '(NA)', '(D)']:
+                        try:
+                            value_thousands = float(value)
+                            logger.info(f"    {geo_name}: ${value_thousands:,.0f} thousand")
+                        except:
+                            logger.info(f"    {geo_name}: {value}")
+            else:
+                logger.warning("  No data returned")
         else:
-            logger.warning("  No data returned")
+            logger.warning("  No valid response")
 
     except Exception as e:
-        logger.error(f"✗ Failed to get per capita income: {e}")
+        logger.error(f"✗ Failed to get farm income: {e}")
 
-    # Test 3: Get wage and salary data
-    logger.info("\nTest 3: Get Virginia wages and salaries (2022)")
+    # Test 3: Get employment by industry
+    logger.info("\nTest 3: Get Virginia employment by industry (2022)")
     try:
-        va_wages = client.get_wages_salaries(
+        va_employment = client.get_employment_by_industry(
             year=2022,
-            state_fips='51',
-            geo_level='county'
+            state='51',
+            industry_codes=[10, 310]  # Total and Manufacturing
         )
 
-        if va_wages:
-            logger.info(f"✓ Retrieved wage data for {len(va_wages)} localities")
+        # Parse response
+        if va_employment and va_employment.get('BEAAPI'):
+            results = va_employment['BEAAPI'].get('Results', {})
+            data = results.get('Data', [])
 
-            logger.info("  Sample records:")
-            for record in va_wages[:5]:
-                geo_name = record.get('GeoName', 'Unknown')
-                value = record.get('DataValue', 'N/A')
-                if value != 'N/A':
-                    try:
-                        value_millions = float(value)
-                        logger.info(f"    {geo_name}: ${value_millions:.1f} million")
-                    except:
-                        logger.info(f"    {geo_name}: {value}")
+            if data:
+                logger.info(f"✓ Retrieved employment data ({len(data)} records)")
+
+                # Show sample manufacturing employment
+                logger.info("  Sample manufacturing employment records:")
+                mfg_records = [r for r in data if r.get('LineCode') == '310'][:5]
+                for record in mfg_records:
+                    geo_name = record.get('GeoName', 'Unknown')
+                    value = record.get('DataValue', 'N/A')
+                    if value not in ['N/A', '(NA)', '(D)']:
+                        try:
+                            emp_count = float(value)
+                            logger.info(f"    {geo_name}: {emp_count:,.0f} jobs")
+                        except:
+                            logger.info(f"    {geo_name}: {value}")
+            else:
+                logger.warning("  No data returned")
         else:
-            logger.warning("  No data returned")
+            logger.warning("  No valid response")
 
     except Exception as e:
-        logger.error(f"✗ Failed to get wages: {e}")
+        logger.error(f"✗ Failed to get employment data: {e}")
 
     # Test 4: Test caching
     logger.info("\nTest 4: Test caching (should be faster on second call)")
@@ -130,12 +147,12 @@ def test_bea_api():
 
         # First call (should hit API or use existing cache)
         start = time.time()
-        _ = client.get_personal_income(year=2022, state_fips='51', geo_level='county')
+        _ = client.get_personal_income_per_capita(year=2022, state='51')
         first_call_time = time.time() - start
 
         # Second call (should use cache)
         start = time.time()
-        _ = client.get_personal_income(year=2022, state_fips='51', geo_level='county')
+        _ = client.get_personal_income_per_capita(year=2022, state='51')
         second_call_time = time.time() - start
 
         logger.info(f"  First call: {first_call_time:.3f} seconds")
