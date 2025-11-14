@@ -25,6 +25,8 @@ build/
 data/cache/
 data/raw/
 data/processed/
+data/crime/raw/asr-2024/
+data/crime/raw/help/
 logs/
 *.log
 
