@@ -56,14 +56,25 @@ Starting a new project to replicate the Nebraska Thriving Index methodology for 
 - ✅ `BEA_API_KEY` - Available (Bureau of Economic Analysis income/GDP data)
 - ✅ `BLS_API_KEY` - Available (Bureau of Labor Statistics employment/wages)
 - ✅ `FRED_API_KEY` - Available (Bonus - Federal Reserve Economic Data)
+- ✅ `NASSQS_TOKEN` - Available (USDA NASS agricultural statistics)
+- ✅ `FBI_UCR_KEY` - Available (FBI Uniform Crime Reporting data)
+- ⏳ `FCC_API_KEY` - NOT YET AVAILABLE (placeholder implementation planned)
 
-**Key Finding**: All three essential API keys are available. This enables immediate implementation of 28 high-confidence measures covering all 8 component indexes (though "Other Economic Prosperity" index has limited coverage).
+**Key Finding**: All essential API keys are available, plus USDA NASS and FBI UCR keys that were classified as MEDIUM-confidence. This significantly expands available measures beyond the initial 28 HIGH-confidence measures. FCC broadband data will use placeholder implementation until API key is obtained.
+
+**Updated Status (Evening Session)**:
+- ✅ Investigated MEDIUM-confidence measures
+- ✅ Promoted 2 measures to HIGH confidence (crime rates via FBI UCR)
+- ✅ Created FCC broadband placeholder implementation design
+- ✅ Documented comprehensive dashboard requirements
+- ✅ Decided on multi-county regional groupings for Virginia
 
 **Next Steps**:
-1. Test API connections with sample requests
-2. Investigate MEDIUM-confidence measures for potential inclusion
-3. Make decision on Component Index 3 (Other Economic Prosperity) which has 0/4 HIGH-confidence measures
-4. Begin Phase 2 (Data Collection Infrastructure)
+1. Begin Phase 2 (Data Collection Infrastructure)
+2. Implement base API client class
+3. Create Census, BEA, BLS API clients
+4. Define Virginia Planning District Commission regions
+5. Make decision on Component Index 3 (Other Economic Prosperity)
 
 #### Key Observations from Nebraska Study
 
@@ -92,61 +103,51 @@ Starting a new project to replicate the Nebraska Thriving Index methodology for 
 
 ### Decision 1: Region Definition Approach
 
-**Status**: 🤔 PENDING
-**Decision Date**: TBD
+**Status**: ✅ **DECIDED**
+**Decision Date**: 2025-11-14
 
-**Options Considered**:
+**Decision**: **Multi-County Regional Groupings**
 
-1. **County-Level Analysis**
-   - Each Virginia county and independent city as separate region
-   - Pros: Maximum granularity, matches typical Census data geography
-   - Cons: 133 regions is unwieldy; some cities/counties very small
-   - Virginia has 95 counties + 38 independent cities = 133 localities
+**Rationale**:
+- More comparable to Nebraska's 8-region approach
+- Provides meaningful economic regions rather than fragmented small localities
+- Virginia's 21 Planning District Commissions (PDCs) provide natural regional boundaries
+- Reduces complexity while maintaining geographic coverage
+- Avoids data quality issues with very small independent cities
 
-2. **Multi-County Regional Groupings**
-   - Group localities into 8-12 economic regions
-   - Could use Virginia's Planning District Commissions (PDCs) as template
-   - Pros: More comparable to Nebraska's 8-region approach
-   - Cons: Requires aggregation methodology; some arbitrariness in grouping
-
-3. **MSA/Micropolitan Statistical Areas**
-   - Use Census-defined Core-Based Statistical Areas (CBSAs)
-   - Pros: Standardized definitions, functional economic areas
-   - Cons: Not all counties included; some overlap with adjacent states
+**Implementation Plan**:
+- Use Virginia's 21 Planning District Commissions as base regions (may consolidate to 8-12)
+- Aggregate county-level data to PDC regions
+- Independent cities will be included with their associated PDC
+- For peer states (MD, WV, NC, TN, KY): use county-level data initially, may group later
 
 **Implications**:
-- Affects peer region matching (need similar units across states)
-- Impacts data aggregation requirements
-- Determines dashboard granularity
-
-**Preliminary Recommendation**: Start with county-level analysis for Virginia, then allow dashboard users to view aggregated regional views. This preserves maximum flexibility.
-
-**Next Steps**:
-- Examine data availability at county vs regional level
-- Review Virginia Planning District Commission boundaries
-- Consult with user on preferred granularity
+- Need data aggregation module to sum/average county-level data to regions
+- Population-weighted averages for intensive measures (rates, percentages)
+- Simple sums for extensive measures (total population, employment)
+- Peer region matching will compare Virginia regions to multi-county groups in other states
 
 ---
 
 ### Decision 2: Handling Independent Cities
 
-**Status**: 🤔 PENDING
-**Decision Date**: TBD
+**Status**: ✅ **DECIDED**
+**Decision Date**: 2025-11-14
+
+**Decision**: Independent cities will be included within their associated Planning District Commission regions.
 
 **Context**: Virginia has 38 independent cities that are not part of any county. This is unique among US states.
 
-**Options**:
-1. Treat each independent city as a separate region
-2. Merge cities with adjacent counties for analysis
-3. Create city-county combined units where appropriate
-4. Analyze cities separately from counties (two different region types)
+**Rationale**:
+- Consistent with multi-county regional grouping approach (Decision 1)
+- Each independent city is already assigned to a PDC for planning purposes
+- Solves data quality issues with small cities (< 20,000 population)
+- Creates more comparable regions for peer matching
 
-**Implications**:
-- Affects peer region matching (do other states have comparable city structures?)
-- Impacts data availability and comparability
-- Some cities very small (< 20,000 population) may not have reliable ACS estimates
-
-**Preliminary Recommendation**: TBD after reviewing data availability
+**Implementation**:
+- Data for independent cities will be aggregated with their PDC
+- Population-weighted calculations will include city populations
+- Documentation will list which cities are included in each region
 
 ---
 
@@ -214,30 +215,50 @@ Starting a new project to replicate the Nebraska Thriving Index methodology for 
 
 ### Decision 5: Dashboard Technology Stack
 
-**Status**: 🤔 PENDING
-**Decision Date**: TBD
+**Status**: ✅ **DECIDED**
+**Decision Date**: 2025-11-14
 
-**Options Considered**:
+**Decision**: **Plotly Dash with Dash Bootstrap Components**
 
-1. **Plotly Dash**
-   - Pros: Python-native, excellent charts, good for data apps
-   - Cons: Can be slower for large datasets, limited styling flexibility
+**Rationale**:
+- Python-native framework aligns with data processing pipeline
+- Excellent charting capabilities via Plotly
+- Good performance for our data volume (~600 regions)
+- Active community and extensive documentation
+- Dash Bootstrap Components provides responsive design out-of-box
 
-2. **Streamlit**
-   - Pros: Very fast development, simple API, great for prototypes
-   - Cons: Limited customization, some performance issues
+**Dashboard Requirements** (detailed in DASHBOARD_REQUIREMENTS.md):
+1. **Interactive Multi-State Map**:
+   - Choropleth showing index scores across VA, MD, WV, NC, TN, KY, DC
+   - Hover tooltips with region details
+   - Click navigation to regional profiles
+   - Layer selection (overall index vs component indexes)
 
-3. **Flask + Plotly.js**
-   - Pros: Maximum flexibility, lightweight, standard web tech
-   - Cons: More code needed, template management
+2. **Comparison Charts**:
+   - Peer region bar charts (horizontal bars comparing regions)
+   - Component index radar charts (8-axis spider charts)
+   - Cross-state heatmap (Virginia regions × components)
+   - Measure-level detail charts
 
-4. **Django + Plotly**
-   - Pros: Full-featured, good for scaling, admin interface
-   - Cons: Overkill for this project, steeper learning curve
+3. **Regional Profile Pages**:
+   - Overall index score and ranking
+   - Peer region identification and map
+   - Component breakdowns
+   - Measure-level detail tables
 
-**Preliminary Recommendation**: Start with Plotly Dash for rapid development. Can migrate to Flask if customization needs exceed Dash capabilities.
+4. **Filters and Controls**:
+   - Index selector (overall vs components)
+   - Region multi-select
+   - State filtering
+   - Virginia emphasis toggle
 
-**Map Visualization**: Use Plotly's choropleth maps or Folium for interactive geographic displays.
+**Map Visualization**: Plotly Choropleth with GeoJSON boundaries
+
+**Implementation Phases**:
+- Phase 1: Core functionality (Virginia-only, basic map and charts)
+- Phase 2: Enhanced interactivity (peer states, drill-down)
+- Phase 3: Advanced features (heatmaps, exports)
+- Phase 4: Polish and deployment
 
 ---
 
@@ -658,12 +679,21 @@ None at this time.
 
 | Date | Change | Rationale |
 |------|--------|-----------|
-| 2025-11-14 | Created CLAUDE.md | Initial project setup and documentation |
-| 2025-11-14 | Created PROJECT_PLAN.md | Comprehensive project roadmap |
-| 2025-11-14 | Created API_MAPPING.md | Detailed analysis of all 47 measures and API availability |
-| 2025-11-14 | Created API_KEYS_STATUS.md | Documentation of available API keys and coverage |
-| 2025-11-14 | Verified API keys in environment | Confirmed CENSUS_KEY, BEA_API_KEY, BLS_API_KEY, FRED_API_KEY available |
-| 2025-11-14 | Completed Phase 1 initial analysis | 28 HIGH-confidence measures identified; ready for Phase 2 |
+| 2025-11-14 AM | Created CLAUDE.md | Initial project setup and documentation |
+| 2025-11-14 AM | Created PROJECT_PLAN.md | Comprehensive project roadmap |
+| 2025-11-14 AM | Created API_MAPPING.md | Detailed analysis of all 47 measures and API availability |
+| 2025-11-14 AM | Created API_KEYS_STATUS.md | Documentation of available API keys and coverage |
+| 2025-11-14 AM | Verified API keys in environment | Confirmed CENSUS_KEY, BEA_API_KEY, BLS_API_KEY, FRED_API_KEY available |
+| 2025-11-14 AM | Completed Phase 1 initial analysis | 28 HIGH-confidence measures identified; ready for Phase 2 |
+| 2025-11-14 PM | Discovered additional API keys | Found NASSQS_TOKEN and FBI_UCR_KEY in environment |
+| 2025-11-14 PM | Decided on multi-county regions | Virginia will use Planning District Commission groupings |
+| 2025-11-14 PM | Investigated USDA NASS API | Confirmed county-level farm income data available via QuickStats API |
+| 2025-11-14 PM | Investigated FBI UCR API | Confirmed crime data available, requires agency-level aggregation |
+| 2025-11-14 PM | Investigated CMS/NPPES API | Physician data available but may require bulk download approach |
+| 2025-11-14 PM | Created API_INVESTIGATION_REPORT.md | Detailed findings for MEDIUM-confidence measures |
+| 2025-11-14 PM | Created DASHBOARD_REQUIREMENTS.md | Comprehensive dashboard specification with maps and charts |
+| 2025-11-14 PM | Created FCC_PLACEHOLDER_DESIGN.md | Placeholder implementation strategy for pending FCC API |
+| 2025-11-14 PM | Promoted measures to HIGH confidence | Crime rates (6.4, 6.5) now HIGH; total 30 HIGH-confidence measures |
 
 ---
 

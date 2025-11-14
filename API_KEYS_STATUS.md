@@ -1,13 +1,13 @@
 # API Keys Status - Virginia Thriving Index
 
 **Last Updated**: 2025-11-14
-**Status**: ✅ All essential API keys available
+**Status**: ✅ All essential API keys available + MEDIUM-confidence sources
 
 ---
 
 ## Summary
 
-All three essential API keys required for the Virginia Thriving Index project are available in the environment. This enables immediate implementation of the high-confidence measures identified in the API mapping analysis.
+All essential API keys required for the Virginia Thriving Index project are available in the environment, plus additional MEDIUM-confidence sources (USDA NASS, FBI UCR). This enables immediate implementation of high-confidence measures and expands coverage to several MEDIUM-confidence measures. FCC broadband API key is pending but placeholder implementation will be created.
 
 ---
 
@@ -20,6 +20,19 @@ All three essential API keys required for the Virginia Thriving Index project ar
 | `CENSUS_KEY` | ✅ Available | Census Bureau ACS, CBP, Population Estimates | **CRITICAL** |
 | `BEA_API_KEY` | ✅ Available | Bureau of Economic Analysis - Income, GDP data | **CRITICAL** |
 | `BLS_API_KEY` | ✅ Available | Bureau of Labor Statistics - Employment, Unemployment | **CRITICAL** |
+
+### MEDIUM-Confidence Keys (Now Available) ✅
+
+| API Key Variable | Status | Purpose | Impact |
+|-----------------|--------|---------|--------|
+| `NASSQS_TOKEN` | ✅ Available | USDA NASS Agricultural Statistics | Enables farm/ranch income measures |
+| `FBI_UCR_KEY` | ✅ Available | FBI Uniform Crime Reporting | Enables crime rate measures (violent, property) |
+
+### Pending Keys ⏳
+
+| API Key Variable | Status | Purpose | Workaround |
+|-----------------|--------|---------|------------|
+| `FCC_API_KEY` | ⏳ Pending | FCC Broadband Map | Placeholder implementation for future |
 
 ### Bonus Keys (Potentially Useful) ✅
 
@@ -102,7 +115,18 @@ With the available API keys, we can access:
 
 ## Measures Confirmed Accessible
 
-Based on available API keys, the following **28 HIGH-confidence measures** are confirmed accessible:
+Based on available API keys, the following measures are confirmed accessible:
+- **28 HIGH-confidence measures** (original assessment)
+- **Additional measures promoted from MEDIUM to HIGH** with NASSQS_TOKEN and FBI_UCR_KEY
+
+### Newly Promoted Measures (MEDIUM → HIGH)
+
+With NASSQS_TOKEN and FBI_UCR_KEY now available:
+1. **Property Crime Rate** (6.4) - FBI UCR API ✅
+2. **Violent Crime Rate** (6.5) - FBI UCR API ✅
+3. **Farm/Ranch Income** data - USDA NASS ✅ (used in matching variables)
+
+**Updated Total**: 30 HIGH-confidence measures (up from 28)
 
 ### Growth Index (5/6)
 - ✅ Population growth rate (5-year)
@@ -140,12 +164,12 @@ Based on available API keys, the following **28 HIGH-confidence measures** are c
 - ❌ Student-teacher ratio (no API)
 - ❌ School district spending per pupil (no API)
 
-### Infrastructure & Cost (3/6)
-- 🟡 Broadband access (FCC - investigate)
+### Infrastructure & Cost (5/6)
+- 🟡 Broadband access (FCC - API key pending, placeholder planned)
 - ✅ Housing affordability index
 - ✅ Percent housing built in last 10 years
-- 🟡 Property crime rate (FBI - investigate)
-- 🟡 Violent crime rate (FBI - investigate)
+- ✅ Property crime rate (FBI UCR API - KEY NOW AVAILABLE)
+- ✅ Violent crime rate (FBI UCR API - KEY NOW AVAILABLE)
 - ❌ Highway accessibility (no API)
 
 ### Quality of Life (4/8)
@@ -167,9 +191,14 @@ Based on available API keys, the following **28 HIGH-confidence measures** are c
 - ✅ Income inequality (Gini coefficient)
 - 🟡 Social capital index composite (depends on components)
 
-**Total Confirmed**: 28 HIGH-confidence measures
-**Total Requires Investigation**: 10 MEDIUM-confidence measures
+**Total Confirmed**: 30 HIGH-confidence measures (28 original + 2 promoted)
+**Total Requires Investigation**: 8 MEDIUM-confidence measures (2 promoted to HIGH)
 **Total Cannot Access**: 9 LOW-confidence measures
+
+**Updated Assessment**:
+- Property Crime Rate (6.4): MEDIUM → ✅ HIGH (FBI_UCR_KEY available)
+- Violent Crime Rate (6.5): MEDIUM → ✅ HIGH (FBI_UCR_KEY available)
+- Farm Income for matching: MEDIUM → ✅ HIGH (NASSQS_TOKEN available)
 
 ---
 
