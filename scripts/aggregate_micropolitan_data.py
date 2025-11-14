@@ -56,7 +56,7 @@ def get_cbsa_codes_and_populations(census: CensusAPI, logger):
                 # Parse response - get_population() returns list of dicts
                 for row in response:
                     name = row.get('NAME', '')
-                    population = row.get('B01003_001E', 0)
+                    population = row.get('B01001_001E', 0)  # Fixed: was B01003_001E
                     state = row.get('state', '')
                     county = row.get('county', '')
 
