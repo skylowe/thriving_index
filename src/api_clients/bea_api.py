@@ -12,6 +12,18 @@ from ..utils.config import APIConfig, CacheConfig
 from ..utils.logging_setup import setup_logger
 
 
+# State FIPS to abbreviation mapping for BEA API
+FIPS_TO_ABBR = {
+    '01': 'AL', '02': 'AK', '04': 'AZ', '05': 'AR', '06': 'CA', '08': 'CO', '09': 'CT', '10': 'DE',
+    '11': 'DC', '12': 'FL', '13': 'GA', '15': 'HI', '16': 'ID', '17': 'IL', '18': 'IN', '19': 'IA',
+    '20': 'KS', '21': 'KY', '22': 'LA', '23': 'ME', '24': 'MD', '25': 'MA', '26': 'MI', '27': 'MN',
+    '28': 'MS', '29': 'MO', '30': 'MT', '31': 'NE', '32': 'NV', '33': 'NH', '34': 'NJ', '35': 'NM',
+    '36': 'NY', '37': 'NC', '38': 'ND', '39': 'OH', '40': 'OK', '41': 'OR', '42': 'PA', '44': 'RI',
+    '45': 'SC', '46': 'SD', '47': 'TN', '48': 'TX', '49': 'UT', '50': 'VT', '51': 'VA', '53': 'WA',
+    '54': 'WV', '55': 'WI', '56': 'WY'
+}
+
+
 class BEAAPI(BaseAPIClient):
     """
     BEA API client for Regional Economic Accounts.
@@ -83,13 +95,21 @@ class BEAAPI(BaseAPIClient):
             # Default to key income measures
             line_codes = [1, 10, 35]  # Personal income, Wages, Farm earnings
 
+        # Convert FIPS code to abbreviation if needed
+        geo_param = 'COUNTY'
+        if state:
+            if state in FIPS_TO_ABBR:
+                geo_param = FIPS_TO_ABBR[state]
+            else:
+                geo_param = state
+
         params = {
             'method': 'GetData',
             'datasetname': 'Regional',
             'TableName': 'CAINC1',  # County and MSA personal income summary
             'LineCode': ','.join(str(code) for code in line_codes),
             'Year': str(year),
-            'GeoFips': state or 'COUNTY',
+            'GeoFips': geo_param,
             'ResultFormat': 'JSON'
         }
 
@@ -105,18 +125,26 @@ class BEAAPI(BaseAPIClient):
 
         Args:
             year: Year or 'LAST5' for last 5 years
-            state: State FIPS code or None for all states
+            state: State FIPS code (2-digit) or state abbreviation, or None for all states
 
         Returns:
             API response with per capita income data
         """
+        # Convert FIPS code to abbreviation if needed
+        geo_param = 'COUNTY'
+        if state:
+            if state in FIPS_TO_ABBR:
+                geo_param = FIPS_TO_ABBR[state]
+            else:
+                geo_param = state
+
         params = {
             'method': 'GetData',
             'datasetname': 'Regional',
             'TableName': 'CAINC1',
             'LineCode': '2',  # Per capita personal income
             'Year': str(year),
-            'GeoFips': state or 'COUNTY',
+            'GeoFips': geo_param,
             'ResultFormat': 'JSON'
         }
 
@@ -132,18 +160,28 @@ class BEAAPI(BaseAPIClient):
 
         Args:
             year: Year or 'LAST5' for last 5 years
-            state: State FIPS code or None for all states
+            state: State FIPS code (2-digit) or state abbreviation, or None for all states
 
         Returns:
             API response with farm income data
         """
+        # Convert FIPS code to abbreviation if needed
+        geo_param = 'COUNTY'
+        if state:
+            # If it's a 2-digit FIPS code, convert to abbreviation
+            if state in FIPS_TO_ABBR:
+                geo_param = FIPS_TO_ABBR[state]
+            else:
+                # Assume it's already an abbreviation
+                geo_param = state
+
         params = {
             'method': 'GetData',
             'datasetname': 'Regional',
             'TableName': 'CAINC4',  # Personal income and employment by major component
             'LineCode': '50',  # Farm proprietors' income
             'Year': str(year),
-            'GeoFips': state or 'COUNTY',
+            'GeoFips': geo_param,
             'ResultFormat': 'JSON'
         }
 
@@ -159,18 +197,26 @@ class BEAAPI(BaseAPIClient):
 
         Args:
             year: Year or 'LAST5' for last 5 years
-            state: State FIPS code or None for all states
+            state: State FIPS code (2-digit) or state abbreviation, or None for all states
 
         Returns:
             API response with nonfarm income data
         """
+        # Convert FIPS code to abbreviation if needed
+        geo_param = 'COUNTY'
+        if state:
+            if state in FIPS_TO_ABBR:
+                geo_param = FIPS_TO_ABBR[state]
+            else:
+                geo_param = state
+
         params = {
             'method': 'GetData',
             'datasetname': 'Regional',
             'TableName': 'CAINC4',
             'LineCode': '60',  # Nonfarm proprietors' income
             'Year': str(year),
-            'GeoFips': state or 'COUNTY',
+            'GeoFips': geo_param,
             'ResultFormat': 'JSON'
         }
 
@@ -205,13 +251,21 @@ class BEAAPI(BaseAPIClient):
                 820   # Health care and social assistance
             ]
 
+        # Convert FIPS code to abbreviation if needed
+        geo_param = 'COUNTY'
+        if state:
+            if state in FIPS_TO_ABBR:
+                geo_param = FIPS_TO_ABBR[state]
+            else:
+                geo_param = state
+
         params = {
             'method': 'GetData',
             'datasetname': 'Regional',
             'TableName': 'CAINC5N',  # Personal income by major component and earnings by NAICS industry
             'LineCode': ','.join(str(code) for code in industry_codes),
             'Year': str(year),
-            'GeoFips': state or 'COUNTY',
+            'GeoFips': geo_param,
             'ResultFormat': 'JSON'
         }
 
@@ -243,13 +297,21 @@ class BEAAPI(BaseAPIClient):
                 820   # Health care and social assistance
             ]
 
+        # Convert FIPS code to abbreviation if needed
+        geo_param = 'COUNTY'
+        if state:
+            if state in FIPS_TO_ABBR:
+                geo_param = FIPS_TO_ABBR[state]
+            else:
+                geo_param = state
+
         params = {
             'method': 'GetData',
             'datasetname': 'Regional',
-            'TableName': 'CAEMP25N',  # Total full-time and part-time employment by NAICS industry
+            'TableName': 'CAEMP25',  # Total full-time and part-time employment by industry
             'LineCode': ','.join(str(code) for code in industry_codes),
             'Year': str(year),
-            'GeoFips': state or 'COUNTY',
+            'GeoFips': geo_param,
             'ResultFormat': 'JSON'
         }
 
@@ -265,18 +327,26 @@ class BEAAPI(BaseAPIClient):
 
         Args:
             year: Year or 'LAST5' for last 5 years
-            state: State FIPS code or None for all states
+            state: State FIPS code (2-digit) or state abbreviation, or None for all states
 
         Returns:
             API response with GDP data
         """
+        # Convert FIPS code to abbreviation if needed
+        geo_param = 'COUNTY'
+        if state:
+            if state in FIPS_TO_ABBR:
+                geo_param = FIPS_TO_ABBR[state]
+            else:
+                geo_param = state
+
         params = {
             'method': 'GetData',
             'datasetname': 'Regional',
             'TableName': 'CAGDP1',  # GDP by county
             'LineCode': '1',  # All industry total
             'Year': str(year),
-            'GeoFips': state or 'COUNTY',
+            'GeoFips': geo_param,
             'ResultFormat': 'JSON'
         }
 
@@ -294,7 +364,7 @@ class BEAAPI(BaseAPIClient):
         Args:
             start_year: Starting year
             end_year: Ending year
-            state: State FIPS code or None for all states
+            state: State FIPS code (2-digit) or state abbreviation, or None for all states
 
         Returns:
             API response with income data for both years
@@ -302,13 +372,21 @@ class BEAAPI(BaseAPIClient):
         # Fetch data for year range
         year_range = f"{start_year},{end_year}"
 
+        # Convert FIPS code to abbreviation if needed
+        geo_param = 'COUNTY'
+        if state:
+            if state in FIPS_TO_ABBR:
+                geo_param = FIPS_TO_ABBR[state]
+            else:
+                geo_param = state
+
         params = {
             'method': 'GetData',
             'datasetname': 'Regional',
             'TableName': 'CAINC1',
             'LineCode': '1',  # Personal income
             'Year': year_range,
-            'GeoFips': state or 'COUNTY',
+            'GeoFips': geo_param,
             'ResultFormat': 'JSON'
         }
 
