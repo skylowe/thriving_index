@@ -1,0 +1,55 @@
+region_code,population,num_counties,region_name,state
+DC-1,670587,1,District of Columbia,DC
+KY-1,455201,7,Northern Kentucky,KY
+KY-10,154727,4,East Central,KY
+KY-2,805409,15,Bluegrass,KY
+KY-3,1021606,7,Louisville Metro,KY
+KY-4,416550,20,Eastern Mountains,KY
+KY-5,251085,13,Northeast,KY
+KY-6,464090,20,South Central,KY
+KY-7,236598,11,Pennyrile,KY
+KY-8,196820,8,Purchase,KY
+KY-9,244513,7,Western,KY
+MD-1,251662,3,Western Maryland,MD
+MD-2,2201580,5,Central Maryland,MD
+MD-3,2287928,3,Capital Region,MD
+MD-4,962202,4,Southern Maryland,MD
+MD-5,244464,5,Upper Eastern Shore,MD
+MD-6,213871,4,Lower Eastern Shore,MD
+NC-1,390909,14,Western Mountains,NC
+NC-10,876002,15,Coast,NC
+NC-2,385918,2,Asheville Metro,NC
+NC-3,868161,13,Western Piedmont,NC
+NC-4,2208509,7,Charlotte Metro,NC
+NC-5,1610658,9,Triad,NC
+NC-6,1911144,9,Triangle,NC
+NC-7,812266,9,Sandhills,NC
+NC-8,625571,7,Eastern Piedmont,NC
+NC-9,759443,14,Coastal Plain,NC
+TN-1,518378,8,First Tennessee,TN
+TN-2,1262694,16,Knoxville Metro,TN
+TN-3,709337,11,Southeast Tennessee,TN
+TN-4,373741,15,Upper Cumberland,TN
+TN-5,2105705,13,Nashville Metro,TN
+TN-6,382868,10,South Central,TN
+TN-7,417677,15,Northwest Tennessee,TN
+TN-8,968668,2,Memphis Metro,TN
+TN-9,86060,4,Southern Middle Tennessee,TN
+VA-1,184086,8,Southwest Virginia,VA
+VA-10,1746362,16,Hampton Roads,VA
+VA-11,45499,2,Eastern Shore,VA
+VA-2,368341,13,New River Valley & Highlands,VA
+VA-3,409220,16,Southside & Danville,VA
+VA-4,321586,11,Roanoke Valley & Alleghany Highlands,VA
+VA-5,507173,12,Shenandoah Valley,VA
+VA-6,589168,14,Charlottesville-Central Virginia,VA
+VA-7,1431547,16,Richmond Metro,VA
+VA-8,2770137,11,Northern Virginia,VA
+VA-9,251392,14,Rappahannock,VA
+WV-1,138420,5,Northern Panhandle,WV
+WV-2,308973,8,North Central,WV
+WV-3,280234,8,Eastern Panhandle,WV
+WV-4,307182,11,Central,WV
+WV-5,313405,8,Western,WV
+WV-6,408808,13,Southern Coalfields,WV
+WV-7,35945,2,Randolph-Pocahontas,WV
