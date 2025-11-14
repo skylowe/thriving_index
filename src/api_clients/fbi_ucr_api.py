@@ -34,7 +34,7 @@ class FBIUCRAPI(BaseAPIClient):
             api_key: FBI UCR API key (defaults to config value)
         """
         if api_key is None:
-            api_key = APIConfig.FBI_UCR_KEY
+            api_key = APIConfig.FBI_UCR_API_KEY
 
         super().__init__(
             api_key=api_key,
@@ -88,8 +88,8 @@ class FBIUCRAPI(BaseAPIClient):
 
         # Check cache first
         if use_cache:
-            cache_key = self._get_cache_key(url, params)
-            cached = self._load_cache(cache_key)
+            cache_key = self._generate_cache_key(endpoint, params)
+            cached = self._load_from_cache(cache_key)
             if cached is not None:
                 return cached
 
@@ -107,7 +107,7 @@ class FBIUCRAPI(BaseAPIClient):
 
             # Cache the response
             if use_cache:
-                self._save_cache(cache_key, data)
+                self._save_to_cache(cache_key, data)
 
             return data
 

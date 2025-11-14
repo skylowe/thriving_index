@@ -22,43 +22,89 @@ from data.regional_groupings import ALL_REGIONS
 from src.utils.logging_setup import setup_logger
 
 
-# County centroid data (subset - would normally load from Census Gazetteer file)
-# Format: {FIPS: {'lat': float, 'lon': float, 'population': int}}
-COUNTY_CENTROIDS = {
-    # Virginia - Major counties/cities (examples)
-    '51013': {'lat': 38.8816, 'lon': -77.0910, 'population': 238643},  # Arlington
-    '51059': {'lat': 38.8462, 'lon': -77.3064, 'population': 1150309},  # Fairfax
-    '51107': {'lat': 39.0738, 'lon': -77.6469, 'population': 456599},  # Loudoun
-    '51153': {'lat': 38.7235, 'lon': -77.4610, 'population': 470335},  # Prince William
-    '51510': {'lat': 38.8048, 'lon': -77.0469, 'population': 159467},  # Alexandria City
-    '51087': {'lat': 37.5538, 'lon': -77.4428, 'population': 334389},  # Henrico
-    '51041': {'lat': 37.3771, 'lon': -77.6050, 'population': 364548},  # Chesterfield
-    '51760': {'lat': 37.5407, 'lon': -77.4360, 'population': 226610},  # Richmond City
-    '51810': {'lat': 36.8529, 'lon': -76.0859, 'population': 459470},  # Virginia Beach
-    '51710': {'lat': 36.8468, 'lon': -76.2852, 'population': 238005},  # Norfolk
-    '51650': {'lat': 37.0299, 'lon': -76.3452, 'population': 137148},  # Hampton
+def load_county_data(logger):
+    """
+    Load county centroids and population data.
 
-    # Maryland - Major counties
-    '24031': {'lat': 39.1434, 'lon': -77.2014, 'population': 1062061},  # Montgomery
-    '24033': {'lat': 38.8277, 'lon': -76.8730, 'population': 967201},  # Prince George's
-    '24005': {'lat': 39.4145, 'lon': -76.6093, 'population': 854535},  # Baltimore County
-    '24510': {'lat': 39.2904, 'lon': -76.6122, 'population': 585708},  # Baltimore City
+    Returns:
+        Dict mapping FIPS to {lat, lon, population}
+    """
+    # Load county centroids from gazetteer file
+    centroids_file = project_root / 'data' / 'processed' / 'county_centroids.json'
 
-    # DC
-    '11001': {'lat': 38.9072, 'lon': -77.0369, 'population': 670587},  # District of Columbia
+    if not centroids_file.exists():
+        logger.error(f"County centroids file not found: {centroids_file}")
+        logger.info("Run: python scripts/get_county_centroids.py")
+        return {}
 
-    # TODO: Add remaining 515 counties
-    # This should be loaded from Census Gazetteer file:
-    # https://www.census.gov/geographies/reference-files/time-series/geo/gazetteer-files.html
-}
+    with open(centroids_file) as f:
+        centroids = json.load(f)
+
+    logger.info(f"Loaded {len(centroids)} county centroids")
+
+    # Load population data from Census API
+    from src.api_clients.census_api import CensusAPI
+
+    census = CensusAPI()
+    state_fips_codes = {
+        'VA': '51', 'MD': '24', 'WV': '54',
+        'NC': '37', 'TN': '47', 'KY': '21', 'DC': '11'
+    }
+
+    county_populations = {}
+
+    for state_abbr, state_fips in state_fips_codes.items():
+        try:
+            response = census.get_population(year=2022, state=state_fips)
+
+            if response and len(response) > 0:
+                for row in response:
+                    state = row.get('state', '')
+                    county = row.get('county', '')
+                    # get_population() uses B01001_001E (total pop by sex)
+                    population = row.get('B01001_001E', row.get('B01003_001E', 0))
+
+                    if state and county:
+                        fips = f"{state}{county}"
+                        try:
+                            county_populations[fips] = int(population)
+                        except (ValueError, TypeError):
+                            pass
+
+        except Exception as e:
+            logger.warning(f"Failed to get population for {state_abbr}: {e}")
+
+    logger.info(f"Loaded population data for {len(county_populations)} counties")
+
+    # Combine centroids and population
+    county_data = {}
+    for fips, centroid in centroids.items():
+        if fips in county_populations:
+            county_data[fips] = {
+                'lat': centroid['lat'],
+                'lon': centroid['lon'],
+                'population': county_populations[fips]
+            }
+        else:
+            # Use default population of 1 if not found
+            county_data[fips] = {
+                'lat': centroid['lat'],
+                'lon': centroid['lon'],
+                'population': 1
+            }
+
+    logger.info(f"✓ Combined data for {len(county_data)} counties")
+
+    return county_data
 
 
-def calculate_weighted_centroid(fips_list: list, logger) -> dict:
+def calculate_weighted_centroid(fips_list: list, county_data: dict, logger) -> dict:
     """
     Calculate population-weighted centroid for a region.
 
     Args:
         fips_list: List of FIPS codes in the region
+        county_data: Dict mapping FIPS to {lat, lon, population}
         logger: Logger instance
 
     Returns:
@@ -70,8 +116,8 @@ def calculate_weighted_centroid(fips_list: list, logger) -> dict:
     counties_found = 0
 
     for fips in fips_list:
-        if fips in COUNTY_CENTROIDS:
-            county = COUNTY_CENTROIDS[fips]
+        if fips in county_data:
+            county = county_data[fips]
             pop = county['population']
 
             weighted_lat += county['lat'] * pop
@@ -102,10 +148,17 @@ def main():
     logger.info("=" * 70)
     logger.info(f"\nTarget: {len(ALL_REGIONS)} regions\n")
 
+    # Load county data (centroids + population)
+    county_data = load_county_data(logger)
+
+    if not county_data:
+        logger.error("Failed to load county data")
+        return
+
     regional_centroids = {}
 
     for region_code, region_info in ALL_REGIONS.items():
-        logger.info(f"Processing {region_code}: {region_info['name']}")
+        logger.info(f"\nProcessing {region_code}: {region_info['name']}")
 
         # Get all FIPS codes for this region
         fips_list = get_all_fips_in_region(region_code)
@@ -115,7 +168,7 @@ def main():
             continue
 
         # Calculate weighted centroid
-        centroid = calculate_weighted_centroid(fips_list, logger)
+        centroid = calculate_weighted_centroid(fips_list, county_data, logger)
 
         if centroid:
             regional_centroids[region_code] = centroid

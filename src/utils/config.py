@@ -47,7 +47,7 @@ class APIConfig:
 
     # FBI Uniform Crime Reporting
     FBI_UCR_API_KEY: Optional[str] = os.getenv('FBI_UCR_KEY')
-    FBI_UCR_BASE_URL: str = "https://api.usa.gov/crime/fbi/sapi/api"
+    FBI_UCR_BASE_URL: str = "https://api.usa.gov/crime/fbi/sapi"
 
     # FCC Broadband (pending)
     FCC_API_KEY: Optional[str] = os.getenv('FCC_API_KEY')

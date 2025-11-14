@@ -34,12 +34,12 @@ class USDANASSAPI(BaseAPIClient):
             api_key: USDA NASS API key (defaults to config value)
         """
         if api_key is None:
-            api_key = APIConfig.NASSQS_TOKEN
+            api_key = APIConfig.NASSQS_API_KEY
 
         super().__init__(
             api_key=api_key,
-            base_url=APIConfig.NASS_BASE_URL,
-            cache_expiry=CacheConfig.NASS_CACHE_EXPIRY,
+            base_url=APIConfig.NASSQS_BASE_URL,
+            cache_expiry=CacheConfig.NASSQS_CACHE_EXPIRY,
             rate_limit=None,  # No explicit rate limit documented
             service_name="USDA_NASS"
         )
