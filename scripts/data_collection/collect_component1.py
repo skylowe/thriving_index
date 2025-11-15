@@ -22,7 +22,7 @@ sys.path.append(str(Path(__file__).resolve().parent.parent))
 
 from config import STATE_FIPS, RAW_DATA_DIR, PROCESSED_DATA_DIR
 from api_clients.bea_client import BEAClient
-from api_clients.bls_client import BLSClient
+from api_clients.qcew_client import QCEWClient
 from api_clients.census_client import CensusClient
 
 
@@ -155,77 +155,43 @@ def get_county_list_for_state(state_fips):
         return []
 
 
-def collect_bls_qcew_data(client, state_fips_list, years, data_type='employment'):
+def collect_qcew_data(client, state_fips_list, years):
     """
-    Collect BLS QCEW data for multiple states and years.
+    Collect QCEW employment and wages data for multiple states and years.
 
     Args:
-        client: BLSClient instance
+        client: QCEWClient instance
         state_fips_list: List of state FIPS codes
         years: List of years
-        data_type: 'employment' or 'wages'
 
     Returns:
-        DataFrame with QCEW data
+        DataFrame with QCEW data (employment and wages combined)
     """
-    print(f"\nCollecting BLS QCEW {data_type.title()} Data...")
+    print("\nCollecting QCEW Employment and Wages Data...")
     print("-" * 60)
+    print("Note: This will download large ZIP files (~500MB per year)")
+    print("Files will be cached for future use.")
+    print()
 
-    all_data = []
-    start_year = min(years)
-    end_year = max(years)
+    # Collect data for all years
+    df = client.collect_multi_year_data(years, state_fips_list)
 
-    for state_fips in state_fips_list:
-        print(f"  Processing state {state_fips}...")
+    if not df.empty:
+        # Save the combined data
+        client.save_data(df, f"qcew_private_employment_wages_{min(years)}_{max(years)}.csv")
 
-        # Get county list
-        counties = get_county_list_for_state(state_fips)
-        if not counties:
-            print(f"    Skipping state {state_fips} - no counties found")
-            continue
-
-        try:
-            # Collect data in batches (API limit is 50 series)
-            responses = client.get_state_counties_data(
-                state_fips,
-                counties,
-                start_year,
-                end_year,
-                data_type=data_type
-            )
-
-            # Save raw responses
-            for i, response in enumerate(responses):
-                filename = f"bls_qcew_{data_type}_{state_fips}_batch{i+1}_{start_year}_{end_year}.json"
-                client.save_response(response, filename)
-
-                # Extract data from response
-                if response.get('status') == 'REQUEST_SUCCEEDED':
-                    for series in response['Results']['series']:
-                        series_id = series['seriesID']
-                        for datapoint in series['data']:
-                            all_data.append({
-                                'series_id': series_id,
-                                'state_fips': state_fips,
-                                'year': datapoint['year'],
-                                'period': datapoint['period'],
-                                'value': datapoint['value'],
-                                'footnotes': str(datapoint.get('footnotes', ''))
-                            })
-
-            print(f"    ✓ Collected {len(responses)} batch(es)")
-
-        except Exception as e:
-            print(f"    ✗ Error: {e}")
-
-    df = pd.DataFrame(all_data)
     print(f"✓ Total records: {len(df)}")
 
     return df
 
 
-def main():
-    """Main data collection function for Component Index 1"""
+def main(skip_bls=False):
+    """
+    Main data collection function for Component Index 1
+
+    Args:
+        skip_bls: If True, skip BLS QCEW data collection
+    """
 
     print("=" * 80)
     print("COMPONENT INDEX 1: GROWTH INDEX - DATA COLLECTION")
@@ -246,7 +212,7 @@ def main():
 
     # Initialize API clients
     bea_client = BEAClient()
-    bls_client = BLSClient()
+    qcew_client = QCEWClient()
     census_client = CensusClient()
 
     # Collection results
@@ -307,45 +273,35 @@ def main():
         results['census_households'] = {'success': False, 'error': str(e)}
 
     # ======================
-    # 4. BLS QCEW Private Employment (Measure 1.2)
+    # 4. QCEW Private Employment and Wages (Measures 1.2 & 1.3)
     # ======================
     print("\n" + "=" * 80)
-    print("NOTE: BLS QCEW data collection may take significant time due to API rate limits")
-    print("Consider collecting BLS data separately or implementing caching")
+    print("NOTE: QCEW data collection will download large files (~500MB per year)")
+    print("Files will be cached for future use")
     print("=" * 80)
 
-    collect_bls = input("\nCollect BLS QCEW data now? (y/n): ").lower().strip() == 'y'
+    collect_qcew = not skip_bls
 
-    if collect_bls:
+    if collect_qcew:
         try:
-            # Private employment (annual average)
-            df_emp = collect_bls_qcew_data(bls_client, state_fips_list, bea_years, data_type='employment')
-            results['bls_employment'] = {
+            # Collect employment and wages data (combined in one dataset)
+            df_qcew = collect_qcew_data(qcew_client, state_fips_list, bea_years)
+            results['qcew'] = {
                 'success': True,
-                'records': len(df_emp),
-                'file': 'bls_qcew_employment_processed.csv'
+                'records': len(df_qcew),
+                'file': f'qcew_private_employment_wages_{min(bea_years)}_{max(bea_years)}.csv'
             }
-            output_file = PROCESSED_DATA_DIR / 'bls_qcew_employment_processed.csv'
-            df_emp.to_csv(output_file, index=False)
-            print(f"  Saved to: {output_file}")
-
-            # Private wages (for wages per job calculation)
-            df_wages = collect_bls_qcew_data(bls_client, state_fips_list, bea_years, data_type='wages')
-            results['bls_wages'] = {
-                'success': True,
-                'records': len(df_wages),
-                'file': 'bls_qcew_wages_processed.csv'
-            }
-            output_file = PROCESSED_DATA_DIR / 'bls_qcew_wages_processed.csv'
-            df_wages.to_csv(output_file, index=False)
+            # Also save to processed directory
+            output_file = PROCESSED_DATA_DIR / f'qcew_private_employment_wages_{min(bea_years)}_{max(bea_years)}.csv'
+            df_qcew.to_csv(output_file, index=False)
             print(f"  Saved to: {output_file}")
 
         except Exception as e:
-            print(f"✗ Failed to collect BLS QCEW data: {e}")
-            results['bls_qcew'] = {'success': False, 'error': str(e)}
+            print(f"✗ Failed to collect QCEW data: {e}")
+            results['qcew'] = {'success': False, 'error': str(e)}
     else:
-        print("Skipping BLS QCEW data collection")
-        results['bls_qcew'] = {'success': False, 'error': 'Skipped by user'}
+        print("Skipping QCEW data collection")
+        results['qcew'] = {'success': False, 'error': 'Skipped by user'}
 
     # ======================
     # Summary
@@ -381,4 +337,10 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    import argparse
+    parser = argparse.ArgumentParser(description='Collect Component Index 1 data')
+    parser.add_argument('--skip-bls', action='store_true',
+                       help='Skip BLS QCEW data collection (faster)')
+    args = parser.parse_args()
+
+    main(skip_bls=args.skip_bls)

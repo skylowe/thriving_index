@@ -157,7 +157,7 @@ class BEAClient:
 
     def get_dir_income_data(self, years, state_fips_list=None):
         """
-        Get Dividends, Interest, and Rent income data (Line Code 40).
+        Get Dividends, Interest, and Rent income data (Line Code 46).
 
         Args:
             years: List of years or comma-separated string
@@ -169,7 +169,7 @@ class BEAClient:
         if isinstance(years, list):
             years = ','.join(str(y) for y in years)
 
-        return self.get_cainc5_data(years, line_code=40, state_fips_list=state_fips_list)
+        return self.get_cainc5_data(years, line_code=46, state_fips_list=state_fips_list)
 
     def save_response(self, data, filename):
         """
