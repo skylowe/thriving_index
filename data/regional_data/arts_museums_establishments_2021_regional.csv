@@ -1,0 +1,36 @@
+region_code,arts_museums_establishments,num_counties,region_name,state,arts_museums_per_10k
+DC-1,38,1,District of Columbia,DC,0.57
+KY-1,3,1,Northern Kentucky,KY,0.07
+KY-2,10,1,Bluegrass,KY,0.12
+KY-3,23,2,Louisville Metro,KY,0.23
+KY-6,9,2,South Central,KY,0.19
+KY-9,5,1,Western,KY,0.2
+MD-1,3,1,Western Maryland,MD,0.12
+MD-2,44,4,Central Maryland,MD,0.2
+MD-3,27,3,Capital Region,MD,0.12
+MD-4,9,1,Southern Maryland,MD,0.09
+MD-5,5,1,Upper Eastern Shore,MD,0.2
+MD-6,9,2,Lower Eastern Shore,MD,0.42
+NC-1,11,3,Western Mountains,NC,0.28
+NC-10,19,3,Coast,NC,0.22
+NC-2,13,2,Asheville Metro,NC,0.34
+NC-3,8,2,Western Piedmont,NC,0.09
+NC-4,35,5,Charlotte Metro,NC,0.16
+NC-5,33,4,Triad,NC,0.2
+NC-6,27,3,Triangle,NC,0.14
+NC-7,4,1,Sandhills,NC,0.05
+TN-2,36,4,Knoxville Metro,TN,0.29
+TN-3,17,1,Southeast Tennessee,TN,0.24
+TN-5,32,4,Nashville Metro,TN,0.15
+TN-8,19,1,Memphis Metro,TN,0.2
+VA-10,11,2,Hampton Roads,VA,0.06
+VA-11,3,1,Eastern Shore,VA,0.66
+VA-2,5,1,New River Valley & Highlands,VA,0.14
+VA-4,9,2,Roanoke Valley & Alleghany Highlands,VA,0.28
+VA-5,14,4,Shenandoah Valley,VA,0.28
+VA-6,28,7,Charlottesville-Central Virginia,VA,0.48
+VA-7,36,4,Richmond Metro,VA,0.25
+VA-8,32,6,Northern Virginia,VA,0.12
+VA-9,5,1,Rappahannock,VA,0.2
+WV-1,4,1,Northern Panhandle,WV,0.29
+WV-2,6,2,North Central,WV,0.19

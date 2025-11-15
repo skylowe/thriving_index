@@ -1,281 +1,167 @@
+#!/usr/bin/env python3
 """
-Collect BEA Data for Matching Variables
+Collect BEA (Bureau of Economic Analysis) data for economic measures.
 
-Collects farm income and manufacturing employment data from BEA API
-for all 54 regions.
-
-Variables collected:
-- Variable 3: % Farm Income (farm proprietors income / total personal income)
-- Variable 4: % Manufacturing Employment (manufacturing jobs / total employment)
+Collects:
+- Per capita personal income (level)
+- Farm proprietors income
+- Nonfarm proprietors income  
 """
 
 import sys
 from pathlib import Path
-import json
+import pandas as pd
+from datetime import datetime
 
-# Add project root to path
 project_root = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(project_root))
 
 from src.api_clients.bea_api import BEAAPI
-from src.data_processing.aggregate_data import DataAggregator
-from src.utils.fips_to_region import get_region_for_fips
-from data.regional_groupings import ALL_REGIONS
+from src.processing.regional_aggregator import RegionalAggregator
 from src.utils.logging_setup import setup_logger
 
-
-def collect_farm_income_percentage(bea: BEAAPI, agg: DataAggregator, logger):
-    """
-    Collect % farm income for all regions.
-
-    Returns:
-        Dict mapping region code to % farm income
-    """
-    logger.info("=" * 70)
-    logger.info("Collecting Variable 3: % Farm Income")
-    logger.info("=" * 70)
-
-    state_fips_codes = {'VA': '51', 'MD': '24', 'WV': '54', 'NC': '37', 'TN': '47', 'KY': '21', 'DC': '11'}
-
-    farm_income_pct = {}
-
-    for state_abbr, state_fips in state_fips_codes.items():
-        logger.info(f"\nProcessing {state_abbr}...")
-
-        try:
-            # Get farm proprietors income
-            logger.info(f"  Fetching farm income...")
-            farm_data = bea.get_farm_proprietors_income(year=2022, state=state_fips)
-
-            # Get total personal income
-            logger.info(f"  Fetching total income...")
-            total_data = bea.get_regional_income(year=2022, state=state_fips, line_codes=[1])
-
-            # Parse responses
-            farm_dict = {}
-            total_dict = {}
-
-            if farm_data and farm_data.get('BEAAPI'):
-                for record in farm_data['BEAAPI'].get('Results', {}).get('Data', []):
-                    geo_fips = record.get('GeoFips')
-                    value = record.get('DataValue')
-
-                    if geo_fips and value and value not in ['(D)', '(NA)', '(NM)']:
-                        try:
-                            # GeoFips format: 'XX' + 'YYY' (state + county)
-                            if len(geo_fips) == 5:
-                                farm_dict[geo_fips] = float(value)
-                        except (ValueError, TypeError):
-                            pass
-
-            if total_data and total_data.get('BEAAPI'):
-                for record in total_data['BEAAPI'].get('Results', {}).get('Data', []):
-                    geo_fips = record.get('GeoFips')
-                    value = record.get('DataValue')
-
-                    if geo_fips and value and value not in ['(D)', '(NA)', '(NM)']:
-                        try:
-                            if len(geo_fips) == 5:
-                                total_dict[geo_fips] = float(value)
-                        except (ValueError, TypeError):
-                            pass
-
-            logger.info(f"  Parsed {len(farm_dict)} farm income records")
-            logger.info(f"  Parsed {len(total_dict)} total income records")
-
-            # Calculate percentages at county level
-            county_pct = {}
-            for fips in farm_dict.keys():
-                if fips in total_dict and total_dict[fips] > 0:
-                    pct = (farm_dict[fips] / total_dict[fips]) * 100
-                    county_pct[fips] = pct
-
-            # Aggregate to regional level (use population weighting)
-            # For simplicity, use simple average since we're dealing with percentages
-            from collections import defaultdict
-            regional_sums = defaultdict(float)
-            regional_counts = defaultdict(int)
-
-            for fips, pct in county_pct.items():
-                region = get_region_for_fips(fips)
-                if region:
-                    regional_sums[region] += pct
-                    regional_counts[region] += 1
-
-            for region in regional_sums:
-                if regional_counts[region] > 0:
-                    farm_income_pct[region] = regional_sums[region] / regional_counts[region]
-
-            logger.info(f"  ✓ Calculated % farm income for {len(farm_income_pct)} regions")
-
-        except Exception as e:
-            logger.error(f"  ✗ Failed for {state_abbr}: {e}")
-            import traceback
-            traceback.print_exc()
-
-    return farm_income_pct
-
-
-def collect_manufacturing_percentage(bea: BEAAPI, agg: DataAggregator, logger):
-    """
-    Collect % manufacturing employment for all regions.
-
-    Returns:
-        Dict mapping region code to % manufacturing employment
-    """
-    logger.info("\n" + "=" * 70)
-    logger.info("Collecting Variable 4: % Manufacturing Employment")
-    logger.info("=" * 70)
-
-    state_fips_codes = {'VA': '51', 'MD': '24', 'WV': '54', 'NC': '37', 'TN': '47', 'KY': '21', 'DC': '11'}
-
-    mfg_employment_pct = {}
-
-    for state_abbr, state_fips in state_fips_codes.items():
-        logger.info(f"\nProcessing {state_abbr}...")
-
-        try:
-            # Get manufacturing + total wages (as proxy for employment share)
-            logger.info(f"  Fetching wages data (proxy for employment)...")
-            wages_data = bea.get_wages_by_industry(
-                year=2022,
-                state=state_fips,
-                industry_codes=[200, 310]  # 200 = Farm, 310 = Manufacturing
-            )
-
-            # Also get total earnings
-            logger.info(f"  Fetching total earnings...")
-            total_data = bea.get_regional_income(
-                year=2022,
-                state=state_fips,
-                line_codes=[10]  # 10 = Wages and salaries (total)
-            )
-
-            # Parse manufacturing wages
-            mfg_dict = {}
-            if wages_data and wages_data.get('BEAAPI'):
-                for record in wages_data['BEAAPI'].get('Results', {}).get('Data', []):
-                    geo_fips = record.get('GeoFips')
-                    line_code = record.get('LineCode')
-                    value = record.get('DataValue')
-
-                    if geo_fips and value and value not in ['(D)', '(NA)', '(NM)']:
-                        try:
-                            if len(geo_fips) == 5 and str(line_code) == '310':
-                                mfg_dict[geo_fips] = float(value)
-                        except (ValueError, TypeError):
-                            pass
-
-            # Parse total wages
-            total_dict = {}
-            if total_data and total_data.get('BEAAPI'):
-                for record in total_data['BEAAPI'].get('Results', {}).get('Data', []):
-                    geo_fips = record.get('GeoFips')
-                    value = record.get('DataValue')
-
-                    if geo_fips and value and value not in ['(D)', '(NA)', '(NM)']:
-                        try:
-                            if len(geo_fips) == 5:
-                                total_dict[geo_fips] = float(value)
-                        except (ValueError, TypeError):
-                            pass
-
-            logger.info(f"  Parsed {len(mfg_dict)} manufacturing wage records")
-            logger.info(f"  Parsed {len(total_dict)} total wage records")
-
-            # Calculate percentages at county level
-            county_pct = {}
-            for fips in mfg_dict.keys():
-                if fips in total_dict and total_dict[fips] > 0:
-                    pct = (mfg_dict[fips] / total_dict[fips]) * 100
-                    county_pct[fips] = pct
-
-            # Aggregate to regional level
-            from collections import defaultdict
-            regional_sums = defaultdict(float)
-            regional_counts = defaultdict(int)
-
-            for fips, pct in county_pct.items():
-                region = get_region_for_fips(fips)
-                if region:
-                    regional_sums[region] += pct
-                    regional_counts[region] += 1
-
-            for region in regional_sums:
-                if regional_counts[region] > 0:
-                    mfg_employment_pct[region] = regional_sums[region] / regional_counts[region]
-
-            logger.info(f"  ✓ Calculated % manufacturing for {len(mfg_employment_pct)} regions")
-
-        except Exception as e:
-            logger.error(f"  ✗ Failed for {state_abbr}: {e}")
-            import traceback
-            traceback.print_exc()
-
-    return mfg_employment_pct
+STATES = {'VA': '51', 'MD': '24', 'WV': '54', 'NC': '37', 'TN': '47', 'KY': '21', 'DC': '11'}
 
 
 def main():
     """Main execution."""
-    logger = setup_logger('collect_bea_data')
-
-    logger.info("=" * 70)
-    logger.info("COLLECTING BEA DATA FOR MATCHING VARIABLES 3 & 4")
-    logger.info("=" * 70)
-    logger.info(f"\nTarget: {len(ALL_REGIONS)} regions across 7 states\n")
-
-    # Initialize clients
+    
+    logger = setup_logger('bea_collection')
     bea = BEAAPI()
-    agg = DataAggregator()
-
-    # Collect farm income percentage
-    farm_income_pct = collect_farm_income_percentage(bea, agg, logger)
-
-    # Collect manufacturing employment percentage
-    mfg_employment_pct = collect_manufacturing_percentage(bea, agg, logger)
-
-    # Load existing matching variables
-    existing_file = project_root / 'data' / 'processed' / 'matching_variables.json'
-    if existing_file.exists():
-        with open(existing_file) as f:
-            matching_vars = json.load(f)
-    else:
-        matching_vars = {
-            'metadata': {
-                'collection_date': '2025-11-14',
-                'regions': len(ALL_REGIONS),
-                'description': 'Matching variables for peer region identification'
-            },
-            'variables': {}
-        }
-
-    # Update with new data
-    matching_vars['variables']['pct_farm_income'] = farm_income_pct
-    matching_vars['variables']['pct_manufacturing'] = mfg_employment_pct
-
-    # Save results
-    output_path = project_root / 'data' / 'processed' / 'matching_variables.json'
-    with open(output_path, 'w') as f:
-        json.dump(matching_vars, f, indent=2)
-
-    logger.info(f"\n✓ Saved updated matching variables to: {output_path}")
-
-    # Summary
-    logger.info("\n" + "=" * 70)
-    logger.info("COLLECTION SUMMARY")
-    logger.info("=" * 70)
-
-    coverage = {
-        'pct_farm_income': len(farm_income_pct),
-        'pct_manufacturing': len(mfg_employment_pct)
-    }
-
-    for var_name, count in coverage.items():
-        pct = (count / len(ALL_REGIONS) * 100) if ALL_REGIONS else 0
-        status = "✓ COMPLETE" if count >= len(ALL_REGIONS) * 0.9 else "⏳ PARTIAL"
-        logger.info(f"{var_name:25s}: {count:2d}/{len(ALL_REGIONS)} regions ({pct:5.1f}%) {status}")
-
-    logger.info("\n" + "=" * 70)
+    aggregator = RegionalAggregator()
+    
+    output_dir = project_root / 'data' / 'regional_data'
+    output_dir.mkdir(parents=True, exist_ok=True)
+    year = 2022
+    
+    logger.info("=" * 80)
+    logger.info("BEA ECONOMIC DATA COLLECTION")
+    logger.info(f"Year: {year}")
+    logger.info("=" * 80)
+    
+    measures = {}
+    start_time = datetime.now()
+    
+    # 1. Per capita personal income
+    logger.info("\n1/3: Per Capita Personal Income")
+    try:
+        all_data = []
+        for state_abbr, state_fips in STATES.items():
+            try:
+                data = bea.get_personal_income_per_capita(year=year, state=state_fips)
+                if data:
+                    df = pd.DataFrame(data)
+                    if 'GeoFips' in df.columns:
+                        df['fips'] = df['GeoFips']
+                    value_col = [c for c in df.columns if c not in ['GeoFips', 'GeoName', 'fips', 'TimePeriod', 'Year']][0]
+                    df['per_capita_personal_income'] = pd.to_numeric(df[value_col], errors='coerce')
+                    all_data.append(df)
+                    logger.debug(f"  {state_abbr}: {len(df)} records")
+            except Exception as e:
+                logger.error(f"  Error {state_abbr}: {str(e)}")
+        
+        if all_data:
+            combined = pd.concat(all_data, ignore_index=True)
+            regional = aggregator.aggregate_to_regions(
+                county_data=combined,
+                measure_type='intensive',
+                value_column='per_capita_personal_income',
+                fips_column='fips',
+                weight_column=None
+            )
+            regional = aggregator.add_region_metadata(regional)
+            measures['per_capita_personal_income'] = regional
+            logger.info(f"  Collected {len(regional)} regions")
+    except Exception as e:
+        logger.error(f"Per capita income error: {str(e)}")
+    
+    # 2. Farm proprietors income
+    logger.info("\n2/3: Farm Proprietors Income")
+    try:
+        all_data = []
+        for state_abbr, state_fips in STATES.items():
+            try:
+                data = bea.get_farm_proprietors_income(year=year, state=state_fips)
+                if data:
+                    df = pd.DataFrame(data)
+                    if 'GeoFips' in df.columns:
+                        df['fips'] = df['GeoFips']
+                    value_col = [c for c in df.columns if c not in ['GeoFips', 'GeoName', 'fips', 'TimePeriod', 'Year']][0]
+                    df['farm_proprietors_income'] = pd.to_numeric(df[value_col], errors='coerce')
+                    all_data.append(df)
+                    logger.debug(f"  {state_abbr}: {len(df)} records")
+            except Exception as e:
+                logger.error(f"  Error {state_abbr}: {str(e)}")
+        
+        if all_data:
+            combined = pd.concat(all_data, ignore_index=True)
+            regional = aggregator.aggregate_to_regions(
+                county_data=combined,
+                measure_type='extensive',
+                value_column='farm_proprietors_income',
+                fips_column='fips',
+                weight_column=None
+            )
+            regional = aggregator.add_region_metadata(regional)
+            measures['farm_proprietors_income'] = regional
+            logger.info(f"  Collected {len(regional)} regions")
+    except Exception as e:
+        logger.error(f"Farm income error: {str(e)}")
+    
+    # 3. Nonfarm proprietors income
+    logger.info("\n3/3: Nonfarm Proprietors Income")
+    try:
+        all_data = []
+        for state_abbr, state_fips in STATES.items():
+            try:
+                data = bea.get_nonfarm_proprietors_income(year=year, state=state_fips)
+                if data:
+                    df = pd.DataFrame(data)
+                    if 'GeoFips' in df.columns:
+                        df['fips'] = df['GeoFips']
+                    value_col = [c for c in df.columns if c not in ['GeoFips', 'GeoName', 'fips', 'TimePeriod', 'Year']][0]
+                    df['nonfarm_proprietors_income'] = pd.to_numeric(df[value_col], errors='coerce')
+                    all_data.append(df)
+                    logger.debug(f"  {state_abbr}: {len(df)} records")
+            except Exception as e:
+                logger.error(f"  Error {state_abbr}: {str(e)}")
+        
+        if all_data:
+            combined = pd.concat(all_data, ignore_index=True)
+            regional = aggregator.aggregate_to_regions(
+                county_data=combined,
+                measure_type='extensive',
+                value_column='nonfarm_proprietors_income',
+                fips_column='fips',
+                weight_column=None
+            )
+            regional = aggregator.add_region_metadata(regional)
+            measures['nonfarm_proprietors_income'] = regional
+            logger.info(f"  Collected {len(regional)} regions")
+    except Exception as e:
+        logger.error(f"Nonfarm income error: {str(e)}")
+    
+    end_time = datetime.now()
+    
+    # Save all
+    logger.info("\n" + "=" * 80)
+    logger.info("SAVING DATA")
+    logger.info("=" * 80)
+    
+    for name, df in measures.items():
+        if df is not None and not df.empty:
+            filepath = output_dir / f"{name}_{year}_regional.csv"
+            df.to_csv(filepath, index=False)
+            logger.info(f"  Saved: {filepath.name} ({len(df)} regions)")
+    
+    print()
+    print("=" * 80)
+    print("SUMMARY")
+    print("=" * 80)
+    print(f"Year: {year}")
+    print(f"Time: {end_time - start_time}")
+    print(f"Measures: {len([m for m in measures.values() if m is not None and not m.empty])}/3")
+    print("=" * 80)
 
 
 if __name__ == '__main__':

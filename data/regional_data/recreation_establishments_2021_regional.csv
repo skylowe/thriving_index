@@ -1,0 +1,55 @@
+region_code,recreation_establishments,num_counties,region_name,state,recreation_per_10k
+DC-1,435,1,District of Columbia,DC,6.49
+KY-1,143,6,Northern Kentucky,KY,3.14
+KY-10,23,2,East Central,KY,1.49
+KY-2,321,12,Bluegrass,KY,3.99
+KY-3,409,7,Louisville Metro,KY,4.0
+KY-4,43,8,Eastern Mountains,KY,1.03
+KY-5,40,7,Northeast,KY,1.59
+KY-6,138,15,South Central,KY,2.97
+KY-7,31,7,Pennyrile,KY,1.31
+KY-8,48,4,Purchase,KY,2.44
+KY-9,54,4,Western,KY,2.21
+MD-1,85,3,Western Maryland,MD,3.38
+MD-2,792,5,Central Maryland,MD,3.6
+MD-3,679,3,Capital Region,MD,2.97
+MD-4,389,4,Southern Maryland,MD,4.04
+MD-5,155,5,Upper Eastern Shore,MD,6.34
+MD-6,100,4,Lower Eastern Shore,MD,4.68
+NC-1,221,14,Western Mountains,NC,5.65
+NC-10,466,11,Coast,NC,5.32
+NC-2,250,2,Asheville Metro,NC,6.48
+NC-3,263,13,Western Piedmont,NC,3.03
+NC-4,1102,7,Charlotte Metro,NC,4.99
+NC-5,568,9,Triad,NC,3.53
+NC-6,827,9,Triangle,NC,4.33
+NC-7,189,9,Sandhills,NC,2.33
+NC-8,141,8,Eastern Piedmont,NC,2.25
+NC-9,197,13,Coastal Plain,NC,2.59
+TN-1,131,7,First Tennessee,TN,2.53
+TN-2,486,15,Knoxville Metro,TN,3.85
+TN-3,221,7,Southeast Tennessee,TN,3.12
+TN-4,74,10,Upper Cumberland,TN,1.98
+TN-5,1591,10,Nashville Metro,TN,7.56
+TN-6,64,7,South Central,TN,1.67
+TN-7,110,12,Northwest Tennessee,TN,2.63
+TN-8,268,2,Memphis Metro,TN,2.77
+TN-9,8,1,Southern Middle Tennessee,TN,0.93
+VA-1,18,4,Southwest Virginia,VA,0.98
+VA-10,589,15,Hampton Roads,VA,3.37
+VA-11,22,2,Eastern Shore,VA,4.84
+VA-2,111,9,New River Valley & Highlands,VA,3.01
+VA-3,117,12,Southside & Danville,VA,2.86
+VA-4,123,8,Roanoke Valley & Alleghany Highlands,VA,3.82
+VA-5,168,11,Shenandoah Valley,VA,3.31
+VA-6,269,13,Charlottesville-Central Virginia,VA,4.57
+VA-7,594,14,Richmond Metro,VA,4.15
+VA-8,1070,11,Northern Virginia,VA,3.86
+VA-9,117,11,Rappahannock,VA,4.65
+WV-1,85,5,Northern Panhandle,WV,6.14
+WV-2,156,6,North Central,WV,5.05
+WV-3,77,7,Eastern Panhandle,WV,2.75
+WV-4,102,5,Central,WV,3.32
+WV-5,135,5,Western,WV,4.31
+WV-6,139,11,Southern Coalfields,WV,3.4
+WV-7,19,2,Randolph-Pocahontas,WV,5.29

@@ -1,0 +1,49 @@
+region_code,arts_performing_establishments,num_counties,region_name,state,arts_performing_per_10k
+DC-1,211,1,District of Columbia,DC,3.15
+KY-1,34,3,Northern Kentucky,KY,0.75
+KY-2,131,8,Bluegrass,KY,1.63
+KY-3,157,6,Louisville Metro,KY,1.54
+KY-4,3,1,Eastern Mountains,KY,0.07
+KY-6,9,1,South Central,KY,0.19
+KY-8,13,3,Purchase,KY,0.66
+KY-9,9,1,Western,KY,0.37
+MD-1,16,2,Western Maryland,MD,0.64
+MD-2,238,5,Central Maryland,MD,1.08
+MD-3,229,3,Capital Region,MD,1.0
+MD-4,93,4,Southern Maryland,MD,0.97
+MD-5,39,4,Upper Eastern Shore,MD,1.6
+MD-6,10,2,Lower Eastern Shore,MD,0.47
+NC-1,29,6,Western Mountains,NC,0.74
+NC-10,89,6,Coast,NC,1.02
+NC-2,113,2,Asheville Metro,NC,2.93
+NC-3,63,9,Western Piedmont,NC,0.73
+NC-4,407,6,Charlotte Metro,NC,1.84
+NC-5,150,8,Triad,NC,0.93
+NC-6,258,5,Triangle,NC,1.35
+NC-7,25,3,Sandhills,NC,0.31
+NC-8,22,4,Eastern Piedmont,NC,0.35
+NC-9,26,4,Coastal Plain,NC,0.34
+TN-1,33,4,First Tennessee,TN,0.64
+TN-2,79,3,Knoxville Metro,TN,0.63
+TN-3,31,1,Southeast Tennessee,TN,0.44
+TN-4,7,2,Upper Cumberland,TN,0.19
+TN-5,1079,9,Nashville Metro,TN,5.12
+TN-6,11,2,South Central,TN,0.29
+TN-7,5,1,Northwest Tennessee,TN,0.12
+TN-8,67,1,Memphis Metro,TN,0.69
+VA-10,135,9,Hampton Roads,VA,0.77
+VA-11,4,1,Eastern Shore,VA,0.88
+VA-2,20,3,New River Valley & Highlands,VA,0.54
+VA-3,14,3,Southside & Danville,VA,0.34
+VA-4,30,4,Roanoke Valley & Alleghany Highlands,VA,0.93
+VA-5,30,6,Shenandoah Valley,VA,0.59
+VA-6,82,8,Charlottesville-Central Virginia,VA,1.39
+VA-7,158,7,Richmond Metro,VA,1.1
+VA-8,263,10,Northern Virginia,VA,0.95
+VA-9,25,5,Rappahannock,VA,0.99
+WV-1,11,2,Northern Panhandle,WV,0.79
+WV-2,11,3,North Central,WV,0.36
+WV-3,12,2,Eastern Panhandle,WV,0.43
+WV-4,13,1,Central,WV,0.42
+WV-5,12,2,Western,WV,0.38
+WV-6,6,2,Southern Coalfields,WV,0.15

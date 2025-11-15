@@ -1,0 +1,55 @@
+region_code,restaurants_establishments,num_counties,region_name,state,restaurants_per_10k
+DC-1,2551,1,District of Columbia,DC,38.04
+KY-1,912,9,Northern Kentucky,KY,20.04
+KY-10,192,4,East Central,KY,12.41
+KY-2,1504,15,Bluegrass,KY,18.67
+KY-3,2024,8,Louisville Metro,KY,19.81
+KY-4,525,21,Eastern Mountains,KY,12.6
+KY-5,385,12,Northeast,KY,15.33
+KY-6,848,22,South Central,KY,18.27
+KY-7,364,12,Pennyrile,KY,15.38
+KY-8,379,7,Purchase,KY,19.26
+KY-9,355,7,Western,KY,14.52
+MD-1,524,3,Western Maryland,MD,20.82
+MD-2,4371,5,Central Maryland,MD,19.85
+MD-3,3675,3,Capital Region,MD,16.06
+MD-4,1800,4,Southern Maryland,MD,18.71
+MD-5,430,5,Upper Eastern Shore,MD,17.59
+MD-6,617,4,Lower Eastern Shore,MD,28.85
+NC-1,815,14,Western Mountains,NC,20.85
+NC-10,2244,15,Coast,NC,25.62
+NC-2,968,2,Asheville Metro,NC,25.08
+NC-3,1426,13,Western Piedmont,NC,16.43
+NC-4,4598,7,Charlotte Metro,NC,20.82
+NC-5,2942,9,Triad,NC,18.27
+NC-6,3775,9,Triangle,NC,19.75
+NC-7,1366,9,Sandhills,NC,16.82
+NC-8,999,8,Eastern Piedmont,NC,15.97
+NC-9,1224,14,Coastal Plain,NC,16.12
+TN-1,893,8,First Tennessee,TN,17.23
+TN-2,2314,16,Knoxville Metro,TN,18.33
+TN-3,1303,11,Southeast Tennessee,TN,18.37
+TN-4,529,14,Upper Cumberland,TN,14.15
+TN-5,4464,13,Nashville Metro,TN,21.2
+TN-6,595,10,South Central,TN,15.54
+TN-7,797,16,Northwest Tennessee,TN,19.08
+TN-8,1842,2,Memphis Metro,TN,19.02
+TN-9,121,4,Southern Middle Tennessee,TN,14.06
+VA-1,232,8,Southwest Virginia,VA,12.6
+VA-10,3747,16,Hampton Roads,VA,21.46
+VA-11,103,2,Eastern Shore,VA,22.64
+VA-2,627,13,New River Valley & Highlands,VA,17.02
+VA-3,600,16,Southside & Danville,VA,14.66
+VA-4,648,11,Roanoke Valley & Alleghany Highlands,VA,20.15
+VA-5,965,11,Shenandoah Valley,VA,19.03
+VA-6,1119,14,Charlottesville-Central Virginia,VA,18.99
+VA-7,2696,15,Richmond Metro,VA,18.83
+VA-8,5536,11,Northern Virginia,VA,19.98
+VA-9,504,14,Rappahannock,VA,20.05
+WV-1,309,5,Northern Panhandle,WV,22.32
+WV-2,651,8,North Central,WV,21.07
+WV-3,445,8,Eastern Panhandle,WV,15.88
+WV-4,571,10,Central,WV,18.59
+WV-5,638,8,Western,WV,20.36
+WV-6,511,13,Southern Coalfields,WV,12.5
+WV-7,56,2,Randolph-Pocahontas,WV,15.58

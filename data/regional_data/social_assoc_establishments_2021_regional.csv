@@ -1,0 +1,55 @@
+region_code,social_assoc_establishments,num_counties,region_name,state,social_assoc_per_10k
+DC-1,3256,1,District of Columbia,DC,48.55
+KY-1,315,8,Northern Kentucky,KY,6.92
+KY-10,119,3,East Central,KY,7.69
+KY-2,963,15,Bluegrass,KY,11.96
+KY-3,1038,8,Louisville Metro,KY,10.16
+KY-4,285,19,Eastern Mountains,KY,6.84
+KY-5,243,13,Northeast,KY,9.68
+KY-6,543,22,South Central,KY,11.7
+KY-7,452,12,Pennyrile,KY,19.1
+KY-8,295,8,Purchase,KY,14.99
+KY-9,298,7,Western,KY,12.19
+MD-1,359,3,Western Maryland,MD,14.27
+MD-2,2014,5,Central Maryland,MD,9.15
+MD-3,2122,3,Capital Region,MD,9.27
+MD-4,723,4,Southern Maryland,MD,7.51
+MD-5,247,5,Upper Eastern Shore,MD,10.1
+MD-6,286,4,Lower Eastern Shore,MD,13.37
+NC-1,632,14,Western Mountains,NC,16.17
+NC-10,841,15,Coast,NC,9.6
+NC-2,506,2,Asheville Metro,NC,13.11
+NC-3,1285,13,Western Piedmont,NC,14.8
+NC-4,2030,7,Charlotte Metro,NC,9.19
+NC-5,1720,9,Triad,NC,10.68
+NC-6,1923,9,Triangle,NC,10.06
+NC-7,809,9,Sandhills,NC,9.96
+NC-8,692,8,Eastern Piedmont,NC,11.06
+NC-9,933,14,Coastal Plain,NC,12.29
+TN-1,629,7,First Tennessee,TN,12.13
+TN-2,1436,16,Knoxville Metro,TN,11.37
+TN-3,912,11,Southeast Tennessee,TN,12.86
+TN-4,337,14,Upper Cumberland,TN,9.02
+TN-5,2150,13,Nashville Metro,TN,10.21
+TN-6,381,10,South Central,TN,9.95
+TN-7,692,16,Northwest Tennessee,TN,16.57
+TN-8,932,2,Memphis Metro,TN,9.62
+TN-9,108,4,Southern Middle Tennessee,TN,12.55
+VA-1,160,8,Southwest Virginia,VA,8.69
+VA-10,1639,16,Hampton Roads,VA,9.39
+VA-11,67,2,Eastern Shore,VA,14.73
+VA-2,467,13,New River Valley & Highlands,VA,12.68
+VA-3,600,16,Southside & Danville,VA,14.66
+VA-4,501,11,Roanoke Valley & Alleghany Highlands,VA,15.58
+VA-5,711,12,Shenandoah Valley,VA,14.02
+VA-6,816,14,Charlottesville-Central Virginia,VA,13.85
+VA-7,1559,16,Richmond Metro,VA,10.89
+VA-8,2732,11,Northern Virginia,VA,9.86
+VA-9,373,14,Rappahannock,VA,14.84
+WV-1,240,5,Northern Panhandle,WV,17.34
+WV-2,386,8,North Central,WV,12.49
+WV-3,278,8,Eastern Panhandle,WV,9.92
+WV-4,466,10,Central,WV,15.17
+WV-5,452,8,Western,WV,14.42
+WV-6,426,13,Southern Coalfields,WV,10.42
+WV-7,56,2,Randolph-Pocahontas,WV,15.58
