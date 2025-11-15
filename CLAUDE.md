@@ -524,6 +524,106 @@ Together, these provide a comprehensive view of demographic health, diversity, a
 
 ---
 
+### Decision 10: Component Index 5 Measures - Correction to Nebraska Methodology
+
+**Status**: ✅ **DECIDED & IMPLEMENTED**
+**Decision Date**: 2025-11-15
+
+**Decision**: Use Nebraska's exact 5 measures for Component Index 5 (Education & Skill):
+1. High School Attainment Rate (% with HS/GED as HIGHEST level of education)
+2. Associate's Degree Attainment Rate (% with Associate's as HIGHEST level)
+3. College Attainment Rate (% with Bachelor's as HIGHEST level)
+4. Labor Force Participation Rate (% of population 16+ in labor force)
+5. Percent of Knowledge Workers (% in information, finance, professional, health/education industries)
+
+**Context**: Initial project documentation incorrectly listed different measures for Component Index 5:
+- High School Graduation Rate (using "or higher" metric) - WRONG APPROACH
+- Percent with Some College (cumulative category) - WRONG APPROACH
+- Percent with Bachelor's or Higher (cumulative category) - WRONG APPROACH
+- Student-Teacher Ratio - NOT in Nebraska
+- School District Spending Per Pupil - NOT in Nebraska
+
+Only the general concept was correct, but the implementation was wrong. We were using cumulative "or higher" categories instead of exclusive "as highest level" categories.
+
+**Problem Discovered**: When user provided the exact Nebraska measure definitions from Table S1501 and DP03, it became clear that Component Index 5 required:
+1. **Exclusive educational categories** (not cumulative "or higher")
+2. **Labor force participation and knowledge workers** (not school spending measures)
+
+**Key Difference - Cumulative vs. Exclusive**:
+- **OLD (Incorrect)**: "Percent with HS or higher" includes everyone with HS diploma, Associate's, Bachelor's, Master's, etc.
+- **NEW (Correct)**: "High School Attainment Rate" ONLY includes those whose highest degree is HS diploma/GED
+
+This distinction is critical for understanding workforce composition. Nebraska's approach distinguishes between:
+- Those with only HS education (5.1)
+- Those who stopped at Associate's degree (5.2)
+- Those who stopped at Bachelor's degree (5.3)
+- Not counted: Those with graduate degrees (Master's, Professional, Doctoral)
+
+**Corrective Actions Taken**:
+1. **Updated API_MAPPING.md**: Replaced 5 measures with correct Nebraska definitions
+   - Changed from cumulative "or higher" to exclusive "as highest level" categories
+   - Replaced Student-Teacher Ratio with Labor Force Participation Rate
+   - Replaced School District Spending with Percent of Knowledge Workers
+2. **Created collect_education_skill_data.py**: New comprehensive collection script with all 5 measures:
+   - Measure 5.1: High School Attainment Rate (B15003_017E + B15003_018E)
+   - Measure 5.2: Associate's Degree Attainment Rate (B15003_021E)
+   - Measure 5.3: College Attainment Rate (B15003_022E)
+   - Measure 5.4: Labor Force Participation Rate (B23025_002E / B23025_001E)
+   - Measure 5.5: Percent of Knowledge Workers (C24030 industry categories)
+3. **Updated summary statistics**: Increased HIGH-confidence measures from 35 to 37 (75.5%)
+4. **Updated total LOW-confidence measures**: Decreased from 5 to 3 (6.1%)
+
+**API Availability**:
+- ✅ **5/5 measures** (100%) available via API (HIGH confidence)
+- All measures use Census ACS 5-year estimates
+
+**Implementation Details**:
+- **High School Attainment Rate**:
+  - Table: B15003 (Detailed Educational Attainment)
+  - Variables: B15003_017E (Regular HS diploma) + B15003_018E (GED)
+  - Universe: B15003_001E (Total population 25+)
+  - Formula: `(HS_diploma + GED) / Total_25plus * 100`
+- **Associate's Degree Attainment Rate**:
+  - Table: B15003
+  - Variable: B15003_021E (Associate's degree only)
+  - Formula: `Associate / Total_25plus * 100`
+- **College Attainment Rate**:
+  - Table: B15003
+  - Variable: B15003_022E (Bachelor's degree only)
+  - Formula: `Bachelor / Total_25plus * 100`
+- **Labor Force Participation Rate**:
+  - Table: B23025 (Employment Status for Population 16+)
+  - Variables: B23025_002E (In labor force) / B23025_001E (Total 16+)
+  - Formula: `In_labor_force / Total_16plus * 100`
+- **Percent of Knowledge Workers**:
+  - Table: C24030 (Sex by Industry for Civilian Employed 16+)
+  - Industries: Information + Finance + Professional/Scientific + Education/Health
+  - Formula: `Knowledge_workers / Total_employed * 100`
+
+**Impact on Project**:
+- **Positive**: Component Index 5 now has 100% API coverage (was 60% with wrong measures)
+- **Positive**: Increased HIGH-confidence measures from 35 to 37 (75.5%)
+- **Positive**: Decreased LOW-confidence measures from 5 to 3 (6.1%)
+- **Positive**: All education measures now align perfectly with Nebraska methodology
+- **Better Data**: Exclusive categories provide clearer picture of workforce skill distribution
+- **Complete Index**: Can now calculate Component Index 5 with 100% measure availability
+
+**Rationale**:
+This correction is fundamental to matching Nebraska methodology. Component Index 5 (Education & Skill) measures workforce quality and skill composition. The key insights:
+
+1. **Exclusive Categories Are Better**: Nebraska's approach distinguishes workforce segments:
+   - HS-educated workers (entry-level skills)
+   - Associate's-educated workers (technical/vocational skills)
+   - Bachelor's-educated workers (professional skills)
+
+2. **Labor Force Participation Matters**: Regions where more people work gain collective experience and skills faster
+
+3. **Knowledge Workers Indicate Advanced Economy**: Higher share in information, finance, professional, and health/education sectors indicates skill-building opportunities
+
+Together, these 5 measures provide comprehensive assessment of regional human capital quality and workforce skill development potential - critical for economic growth and opportunity.
+
+---
+
 ## API Integration Strategy
 
 ### API Sources Identified
@@ -1030,6 +1130,16 @@ None at this time.
 | 2025-11-15 | Updated summary statistics | Increased total measures from 47 to 49; HIGH-confidence measures from 33 to 35 (71.4%) |
 | 2025-11-15 | Documented Decision 9 in CLAUDE.md | Component Index 4 Measures - Correction to Nebraska Methodology |
 | 2025-11-15 | Component Index 4 now 100% API coverage | All 6 demographic measures available via Census Decennial 2000 + ACS 5-year estimates |
+| 2025-11-15 | **MAJOR CORRECTION**: Component Index 5 measures | Discovered initial documentation used WRONG approach (cumulative vs exclusive categories) |
+| 2025-11-15 | Corrected Component Index 5 to Nebraska methodology | Changed from cumulative "or higher" to exclusive "as highest level" educational categories |
+| 2025-11-15 | Updated API_MAPPING.md Component Index 5 | Now shows: HS Attainment, Associate's Attainment, Bachelor's Attainment, Labor Force Participation, Knowledge Workers |
+| 2025-11-15 | Created collect_education_skill_data.py | New comprehensive collection script for all 5 Education & Skill measures using Census ACS |
+| 2025-11-15 | Removed Student-Teacher Ratio and School Spending | These measures were NOT in Nebraska study; replaced with Labor Force Participation and Knowledge Workers |
+| 2025-11-15 | Updated summary statistics | Increased HIGH-confidence measures from 35 to 37 (75.5%); decreased LOW from 5 to 3 (6.1%) |
+| 2025-11-15 | Updated NEBRASKA_VIRGINIA_COMPARISON.md | Component Index 5 now shows 5/5 measures ready (100% API coverage) |
+| 2025-11-15 | Updated total measure counts | Corrected from 47 to 49 total measures across all documentation |
+| 2025-11-15 | Documented Decision 10 in CLAUDE.md | Component Index 5 Measures - Correction to Nebraska Methodology (Exclusive vs Cumulative Categories) |
+| 2025-11-15 | Component Index 5 now 100% API coverage | All 5 education & skill measures available via Census ACS 5-year estimates |
 
 ---
 

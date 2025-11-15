@@ -1,10 +1,10 @@
 # Nebraska vs Virginia Thriving Index - Measure Comparison
 
 **Date**: 2025-11-15
-**Total Measures**: 47
-**Virginia Ready**: 29 (61.7%)
-**Virginia Needs Investigation**: 10 (21.3%)
-**Virginia Cannot Implement**: 8 (17.0%)
+**Total Measures**: 49
+**Virginia Ready (HIGH confidence)**: 37 (75.5%)
+**Virginia Needs Investigation (MEDIUM)**: 9 (18.4%)
+**Virginia Cannot Implement (LOW)**: 3 (6.1%)
 
 ---
 
@@ -82,13 +82,13 @@
 
 | # | Measure | Nebraska Source | Virginia Status | Virginia Source | Notes |
 |---|---------|----------------|----------------|-----------------|-------|
-| 5.1 | High School Graduation Rate | State Dept of Education | ✅ READY | Census ACS S1501_C02_014E | ⚠️ **MODIFIED**: Uses educational attainment instead of graduation rate |
-| 5.2 | Percent with Some College | Census ACS | ✅ READY | Census ACS B15003 | Identical to Nebraska |
-| 5.3 | Percent with Bachelor's or Higher | Census ACS | ✅ READY | Census ACS S1501_C02_015E | Identical to Nebraska |
-| 5.4 | Student-Teacher Ratio (inverse) | NCES, State DoE | ❌ NO API | N/A | District-level, not county; no API |
-| 5.5 | School District Spending Per Pupil | NCES, State DoE | ❌ NO API | N/A | District-level, not county; no API |
+| 5.1 | High School Attainment Rate | Census ACS S1501 | ✅ READY | Census ACS B15003_017E + B15003_018E | Identical to Nebraska - HS/GED as highest level only |
+| 5.2 | Associate's Degree Attainment Rate | Census ACS S1501 | ✅ READY | Census ACS B15003_021E | Identical to Nebraska - Associate's as highest level only |
+| 5.3 | College Attainment Rate (Bachelor's) | Census ACS S1501 | ✅ READY | Census ACS B15003_022E | Identical to Nebraska - Bachelor's as highest level only |
+| 5.4 | Labor Force Participation Rate | Census ACS DP03 | ✅ READY | Census ACS B23025_002E / B23025_001E | Identical to Nebraska |
+| 5.5 | Percent of Knowledge Workers | Census ACS DP03 | ✅ READY | Census ACS C24030 (industry by sex) | Identical to Nebraska |
 
-**Summary**: 3/5 measures ready (60%), 1 modified methodology
+**Summary**: 5/5 measures ready (100%)
 
 ---
 

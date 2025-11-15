@@ -5,6 +5,17 @@ Simplified Census ACS Data Collection - Using Detailed B-tables Only
 Collects HIGH-confidence ACS measures using only B-tables (Detailed Tables).
 S-tables (Subject Tables) have been removed as they cause 400 errors.
 
+IMPORTANT NOTE (2025-11-15):
+For Component Index 5 (Education & Skill) measures, use the dedicated script:
+    scripts/collect_education_skill_data.py
+
+The educational attainment measures in this script (pct_hs_or_higher, pct_some_college,
+pct_bachelors_or_higher) use CUMULATIVE "or higher" categories, which do NOT match
+Nebraska methodology. Nebraska uses EXCLUSIVE "as highest level" categories.
+
+This script is retained for other demographic and social measures (age, income, poverty,
+housing, health insurance, single-parent households, Gini coefficient).
+
 Usage:
     python scripts/collect_census_acs_simple.py --year 2022
 """

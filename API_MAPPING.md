@@ -444,57 +444,106 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 
 ## Component Index 5: Education & Skill (5 measures)
 
-### 5.1 High School Graduation Rate
+**Note**: This index measures educational attainment and workforce skill composition, following Nebraska Thriving Index methodology exactly.
 
-- **Nebraska Source**: State Department of Education, NCES (4-year cohort graduation rate)
-- **Virginia API Source**: Census ACS API (Educational Attainment - Proxy Measure)
+### 5.1 High School Attainment Rate
+
+- **Nebraska Source**: Census Bureau American Community Survey, Table S1501, 2016-2020 period
+- **Nebraska Metric**: Share of population age 25+ with high school degree (or GED) as their HIGHEST level of education
+- **Virginia API Source**: Census ACS API
 - **API Endpoint**: `https://api.census.gov/data/[year]/acs/acs5`
+- **Table**: B15003 (Detailed Tables - Educational Attainment for the Population 25 Years and Over)
 - **Variables**:
-  - S1501_C02_014E (Percent high school graduate or higher, age 25+)
-  - Or B15003 table for detailed educational attainment
-- **Confidence**: ✅ **HIGH** (Updated from LOW)
+  - B15003_001E (Total population 25 years and over)
+  - B15003_017E (Regular high school diploma) + B15003_018E (GED or alternative credential)
+- **Confidence**: ✅ **HIGH**
 - **Notes**:
-  - Traditional graduation rates (NCES 4-year cohort) not available via API at county level
-  - Using educational attainment as proxy: percent of adults 25+ with HS diploma or higher
-  - This is actually superior for regional analysis:
-    - Consistently available across all states via Census API
-    - Reflects actual educational outcomes of adult population
-    - County-level data for all counties
-    - Updated annually with ACS 5-year estimates
-  - Captures workforce educational quality better than current student graduation rates
-- **Decision**: **USE EDUCATIONAL ATTAINMENT** - Percent of adults 25+ with high school diploma or higher
+  - This is an EXCLUSIVE category: only those with HS/GED as highest level
+  - Does NOT include those with any college education (Associate's, Bachelor's, etc.)
+  - Formula: `(HS_diploma + GED) / Total_25plus * 100`
+  - High school graduates are better able to adjust to a changing economy than non-graduates
+  - Available at county level for all states
+- **Data Period for Virginia**: Use most recent 5-year ACS period (2018-2022)
 
-### 5.2 Percent of Adults with Some College
+### 5.2 Associate's Degree Attainment Rate
 
-- **Nebraska Source**: ACS 5-year estimates
+- **Nebraska Source**: Census Bureau American Community Survey, Table S1501, 2016-2020 period
+- **Nebraska Metric**: Share of population age 25+ with Associate's degree as their HIGHEST level of education
 - **Virginia API Source**: Census ACS API
-- **Variables**: B15003 table (Educational Attainment)
+- **API Endpoint**: `https://api.census.gov/data/[year]/acs/acs5`
+- **Table**: B15003 (Detailed Tables - Educational Attainment)
+- **Variables**:
+  - B15003_001E (Total population 25 years and over)
+  - B15003_021E (Associate's degree)
 - **Confidence**: ✅ **HIGH**
-- **Notes**: Sum "some college, no degree" + "Associate's degree"
+- **Notes**:
+  - This is an EXCLUSIVE category: only those with Associate's as highest level
+  - Does NOT include "some college, no degree"
+  - Does NOT include those with Bachelor's or higher degrees
+  - Formula: `Associate_degree / Total_25plus * 100`
+  - Associate's degree graduates meet critical workforce needs throughout the economy
+  - Available at county level for all states
+- **Data Period for Virginia**: Use most recent 5-year ACS period (2018-2022)
 
-### 5.3 Percent of Adults with Bachelor's Degree or Higher
+### 5.3 College Attainment Rate (Bachelor's Degree)
 
-- **Nebraska Source**: ACS 5-year estimates
+- **Nebraska Source**: Census Bureau American Community Survey, Table S1501, 2016-2020 period
+- **Nebraska Metric**: Share of population age 25+ with Bachelor's degree as their HIGHEST level of education
 - **Virginia API Source**: Census ACS API
-- **Variable**: S1501_C02_015E (Percent bachelor's degree or higher)
+- **API Endpoint**: `https://api.census.gov/data/[year]/acs/acs5`
+- **Table**: B15003 (Detailed Tables - Educational Attainment)
+- **Variables**:
+  - B15003_001E (Total population 25 years and over)
+  - B15003_022E (Bachelor's degree)
 - **Confidence**: ✅ **HIGH**
-- **Notes**: Readily available from ACS
+- **Notes**:
+  - This is an EXCLUSIVE category: only those with Bachelor's as highest level
+  - Does NOT include Master's, Professional, or Doctoral degrees
+  - Formula: `Bachelor_degree / Total_25plus * 100`
+  - College graduates have opportunities for careers in higher paying, knowledge-intensive occupations
+  - Available at county level for all states
+- **Data Period for Virginia**: Use most recent 5-year ACS period (2018-2022)
 
-### 5.4 Student-Teacher Ratio (Inverse)
+### 5.4 Labor Force Participation Rate
 
-- **Nebraska Source**: NCES, State Department of Education
-- **Virginia API Source**: ⚠️ **PROBLEMATIC**
-- **Confidence**: ❌ **LOW**
-- **Notes**: Same issues as 5.1
-- **Decision**: **INVESTIGATE** - May need to exclude
+- **Nebraska Source**: Census Bureau American Community Survey, Table DP03, 2016-2020 period
+- **Nebraska Metric**: Share of the population age 16 and over who are in the labor force
+- **Virginia API Source**: Census ACS API
+- **API Endpoint**: `https://api.census.gov/data/[year]/acs/acs5`
+- **Table**: B23025 (Employment Status for the Population 16 Years and Over)
+- **Variables**:
+  - B23025_001E (Total population 16 years and over)
+  - B23025_002E (In labor force)
+- **Confidence**: ✅ **HIGH**
+- **Notes**:
+  - Labor force = employed + unemployed (actively seeking work)
+  - Formula: `In_labor_force / Total_16plus * 100`
+  - Workers gain job experience fastest in regions where a larger share participates in the workforce
+  - Higher participation indicates economic vitality and opportunity
+  - Available at county level for all states
+- **Data Period for Virginia**: Use most recent 5-year ACS period (2018-2022)
 
-### 5.5 School District Spending Per Pupil
+### 5.5 Percent of Knowledge Workers
 
-- **Nebraska Source**: NCES, State Department of Education
-- **Virginia API Source**: ⚠️ **PROBLEMATIC**
-- **Confidence**: ❌ **LOW**
-- **Notes**: Same issues as 5.1
-- **Decision**: **INVESTIGATE** - May need to exclude
+- **Nebraska Source**: Census Bureau American Community Survey, Table DP03, 2016-2020 period
+- **Nebraska Metric**: Share of labor force employed in information, financial services, professional/business services, or health care/education industries
+- **Virginia API Source**: Census ACS API
+- **API Endpoint**: `https://api.census.gov/data/[year]/acs/acs5`
+- **Table**: C24030 (Sex by Industry for the Civilian Employed Population 16 Years and Over)
+- **Variables**:
+  - C24030_001E (Total civilian employed population 16 years and over)
+  - Information: C24030_029E (Male) + C24030_066E (Female)
+  - Finance/insurance/real estate: C24030_030E (Male) + C24030_067E (Female)
+  - Professional/scientific/management: C24030_031E (Male) + C24030_068E (Female)
+  - Educational/health/social services: C24030_032E (Male) + C24030_069E (Female)
+- **Confidence**: ✅ **HIGH**
+- **Notes**:
+  - Knowledge industries are those requiring higher skill levels and offering career development
+  - Formula: `(Information + Finance + Professional + Education_Health) / Total_employed * 100`
+  - Workers in knowledge industries better maintain and grow their skills
+  - Higher share indicates advanced economy with skill-building opportunities
+  - Available at county level for all states
+- **Data Period for Virginia**: Use most recent 5-year ACS period (2018-2022)
 
 ---
 
@@ -722,9 +771,9 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 
 | Confidence | Count | Percentage |
 |------------|-------|------------|
-| ✅ HIGH | 35 | 71.4% |
+| ✅ HIGH | 37 | 75.5% |
 | 🟡 MEDIUM | 9 | 18.4% |
-| ❌ LOW | 5 | 10.2% |
+| ❌ LOW | 3 | 6.1% |
 | **TOTAL** | **49** | **100%** |
 
 ### By Component Index
@@ -735,7 +784,7 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 | 2. Economic Opportunity & Diversity | 6 | 1 | 0 | 7 |
 | 3. Other Economic Prosperity | 4 | 1 | 0 | 5 |
 | 4. Demographic Growth & Renewal | 6 | 0 | 0 | 6 |
-| 5. Education & Skill | 3 | 0 | 2 | 5 |
+| 5. Education & Skill | 5 | 0 | 0 | 5 |
 | 6. Infrastructure & Cost | 3 | 2 | 1 | 6 |
 | 7. Quality of Life | 4 | 2 | 2 | 8 |
 | 8. Social Capital | 4 | 1 | 2 | 7 |
@@ -743,17 +792,16 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 **Notes**:
 - Component Index 3 (Other Economic Prosperity) updated to match Nebraska methodology exactly (5 measures, 4 HIGH confidence)
 - Component Index 4 (Demographic Growth & Renewal) updated to match Nebraska methodology exactly (6 measures, 6 HIGH confidence)
+- Component Index 5 (Education & Skill) updated to match Nebraska methodology exactly (5 measures, 5 HIGH confidence)
 
 ### Measures to Likely Exclude (LOW Confidence)
 
-1. Student-Teacher Ratio (5.4) - *May be possible with effort*
-2. School District Spending Per Pupil (5.5) - *May be possible with effort*
-3. Highway Accessibility Index (6.6)
-4. Mental Health Providers Per Capita (7.5) - *Available from County Health Rankings*
-5. Voter Participation Rate (8.1)
-6. Religious Congregations Per Capita (8.3)
+1. Highway Accessibility Index (6.6)
+2. Mental Health Providers Per Capita (7.5) - *Available from County Health Rankings*
+3. Voter Participation Rate (8.1)
+4. Religious Congregations Per Capita (8.3)
 
-**Note**: High School Graduation Rate (5.1) has been PROMOTED to HIGH confidence using Census ACS educational attainment data.
+**Note**: Component Index 5 now uses exclusive educational categories (HS as highest, Associate's as highest, Bachelor's as highest) plus labor force participation and knowledge workers, all via Census ACS API with HIGH confidence.
 
 ### Measures Requiring Further Investigation (MEDIUM Confidence)
 
@@ -792,7 +840,7 @@ Based on HIGH and MEDIUM confidence measures:
 
 ## Recommended Initial Implementation
 
-### Phase 1: Core Measures (35 HIGH confidence measures)
+### Phase 1: Core Measures (37 HIGH confidence measures)
 
 Include only measures with HIGH confidence API availability. This ensures:
 - Complete data coverage across all regions
@@ -805,7 +853,7 @@ Include only measures with HIGH confidence API availability. This ensures:
 - Economic Opportunity & Diversity: 6/7 measures (86%)
 - Other Prosperity: 4/5 measures (80%) ✅ - **Updated to match Nebraska methodology**
 - Demographics: 6/6 measures (100%) ✅ - **Updated to match Nebraska methodology**
-- Education: 3/5 measures (60%)
+- Education & Skill: 5/5 measures (100%) ✅ - **Updated to match Nebraska methodology**
 - Infrastructure: 3/6 measures (50%)
 - Quality of Life: 4/8 measures (50%)
 - Social Capital: 4/7 measures (57%)
@@ -813,6 +861,7 @@ Include only measures with HIGH confidence API availability. This ensures:
 **Notes**:
 - Component Index 3 (Other Economic Prosperity) has been corrected to use Nebraska methodology with 4/5 measures available via API (80% coverage). Only Life Span (3.3) requires bulk download from County Health Rankings.
 - Component Index 4 (Demographic Growth & Renewal) has been corrected to use Nebraska methodology with 6/6 measures available via API (100% coverage).
+- Component Index 5 (Education & Skill) has been corrected to use Nebraska methodology with 5/5 measures available via API (100% coverage). Uses exclusive educational categories plus labor force participation and knowledge workers.
 
 ### Phase 2: Add MEDIUM Confidence Measures (After Investigation)
 
