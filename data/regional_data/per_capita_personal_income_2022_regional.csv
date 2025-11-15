@@ -1,0 +1,55 @@
+region_code,total_weight,per_capita_personal_income,num_counties,region_name,state
+DC-1,0.0,,1,District of Columbia,DC
+KY-1,0.0,,9,Northern Kentucky,KY
+KY-10,0.0,,4,East Central,KY
+KY-2,0.0,,15,Bluegrass,KY
+KY-3,0.0,,8,Louisville Metro,KY
+KY-4,0.0,,21,Eastern Mountains,KY
+KY-5,0.0,,14,Northeast,KY
+KY-6,0.0,,22,South Central,KY
+KY-7,0.0,,12,Pennyrile,KY
+KY-8,0.0,,8,Purchase,KY
+KY-9,0.0,,7,Western,KY
+MD-1,0.0,,3,Western Maryland,MD
+MD-2,0.0,,5,Central Maryland,MD
+MD-3,0.0,,3,Capital Region,MD
+MD-4,0.0,,4,Southern Maryland,MD
+MD-5,0.0,,5,Upper Eastern Shore,MD
+MD-6,0.0,,4,Lower Eastern Shore,MD
+NC-1,0.0,,14,Western Mountains,NC
+NC-10,0.0,,15,Coast,NC
+NC-2,0.0,,2,Asheville Metro,NC
+NC-3,0.0,,13,Western Piedmont,NC
+NC-4,0.0,,7,Charlotte Metro,NC
+NC-5,0.0,,9,Triad,NC
+NC-6,0.0,,9,Triangle,NC
+NC-7,0.0,,9,Sandhills,NC
+NC-8,0.0,,8,Eastern Piedmont,NC
+NC-9,0.0,,14,Coastal Plain,NC
+TN-1,0.0,,8,First Tennessee,TN
+TN-2,0.0,,16,Knoxville Metro,TN
+TN-3,0.0,,11,Southeast Tennessee,TN
+TN-4,0.0,,15,Upper Cumberland,TN
+TN-5,0.0,,13,Nashville Metro,TN
+TN-6,0.0,,10,South Central,TN
+TN-7,0.0,,16,Northwest Tennessee,TN
+TN-8,0.0,,2,Memphis Metro,TN
+TN-9,0.0,,4,Southern Middle Tennessee,TN
+VA-1,0.0,,6,Southwest Virginia,VA
+VA-10,0.0,,10,Hampton Roads,VA
+VA-11,0.0,,2,Eastern Shore,VA
+VA-2,0.0,,7,New River Valley & Highlands,VA
+VA-3,0.0,,10,Southside & Danville,VA
+VA-4,0.0,,4,Roanoke Valley & Alleghany Highlands,VA
+VA-5,0.0,,5,Shenandoah Valley,VA
+VA-6,0.0,,10,Charlottesville-Central Virginia,VA
+VA-7,0.0,,10,Richmond Metro,VA
+VA-8,0.0,,5,Northern Virginia,VA
+VA-9,0.0,,13,Rappahannock,VA
+WV-1,0.0,,5,Northern Panhandle,WV
+WV-2,0.0,,8,North Central,WV
+WV-3,0.0,,8,Eastern Panhandle,WV
+WV-4,0.0,,11,Central,WV
+WV-5,0.0,,8,Western,WV
+WV-6,0.0,,13,Southern Coalfields,WV
+WV-7,0.0,,2,Randolph-Pocahontas,WV

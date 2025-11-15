@@ -21,7 +21,7 @@ sys.path.insert(0, str(project_root))
 from src.api_clients.bls_api import BLSAPI
 from src.processing.regional_aggregator import RegionalAggregator
 from src.utils.logging_setup import setup_logger
-from data.regional_groupings import FIPS_TO_REGION
+from src.utils.fips_to_region import get_region_for_fips
 
 STATES = {'VA': '51', 'MD': '24', 'WV': '54', 'NC': '37', 'TN': '47', 'KY': '21', 'DC': '11'}
 
@@ -43,21 +43,25 @@ def collect_laus_data_for_state(bls: BLSAPI, state_fips: str, state_abbr: str,
     """
     logger.info(f"Collecting LAUS data for {state_abbr} ({year})")
 
-    # Get all county FIPS for this state
-    state_counties = {fips: region for fips, region in FIPS_TO_REGION.items()
-                     if fips.startswith(state_fips) and len(fips) == 5}
+    # Get all county FIPS for this state - generate from state FIPS pattern
+    # Virginia: 001-199, Maryland: 001-047, etc.
+    state_counties = []
+    for county_code in range(1, 1000, 2):  # Counties use odd numbers in some states
+        fips = f"{state_fips}{str(county_code).zfill(3)}"
+        if get_region_for_fips(fips):
+            state_counties.append(fips)
 
     all_data = []
     batch_size = 50  # BLS API limit
 
-    county_list = list(state_counties.keys())
+    # Extract just the county codes (last 3 digits)
+    county_codes = [fips[2:] for fips in state_counties]
 
     # Process in batches
-    for i in range(0, len(county_list), batch_size):
-        batch = county_list[i:i + batch_size]
-        batch_county_codes = [fips[2:] for fips in batch]  # Last 3 digits
+    for i in range(0, len(county_codes), batch_size):
+        batch_county_codes = county_codes[i:i + batch_size]
 
-        logger.debug(f"  Batch {i // batch_size + 1}: {len(batch)} counties")
+        logger.debug(f"  Batch {i // batch_size + 1}: {len(batch_county_codes)} county codes")
 
         try:
             # Build series IDs for this batch
@@ -83,9 +87,10 @@ def collect_laus_data_for_state(bls: BLSAPI, state_fips: str, state_abbr: str,
                 parsed = bls.parse_series_data(response)
 
                 # Organize by county
-                for fips in batch:
-                    county_fips = fips[2:]
+                for county_fips in batch_county_codes:
+                    fips = state_fips + county_fips
                     county_data = {'fips': fips, 'state_abbr': state_abbr}
+                    has_data = False
 
                     # Extract measures
                     for measure_code, measure_name in [('03', 'unemployment_rate'),
@@ -99,14 +104,17 @@ def collect_laus_data_for_state(bls: BLSAPI, state_fips: str, state_abbr: str,
                             annual_avg = bls.get_annual_average(parsed[series_id])
                             if year in annual_avg:
                                 county_data[measure_name] = annual_avg[year]
+                                has_data = True
 
-                    all_data.append(county_data)
+                    # Only add if we got at least some data
+                    if has_data:
+                        all_data.append(county_data)
 
             else:
                 logger.warning(f"  Batch failed: {response.get('message', 'Unknown error')}")
 
             # Rate limiting: small delay between batches
-            if i + batch_size < len(county_list):
+            if i + batch_size < len(county_codes):
                 time.sleep(0.5)
 
         except Exception as e:

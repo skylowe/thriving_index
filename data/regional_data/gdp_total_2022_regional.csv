@@ -1,0 +1,55 @@
+region_code,gdp,num_counties,region_name,state
+DC-1,144554575,1,District of Columbia,DC
+KY-1,28781810,9,Northern Kentucky,KY
+KY-10,4865050,4,East Central,KY
+KY-2,41186343,15,Bluegrass,KY
+KY-3,69503028,8,Louisville Metro,KY
+KY-4,10192911,21,Eastern Mountains,KY
+KY-5,8654211,14,Northeast,KY
+KY-6,23873839,22,South Central,KY
+KY-7,12617104,12,Pennyrile,KY
+KY-8,9947937,8,Purchase,KY
+KY-9,10080282,7,Western,KY
+MD-1,11106418,3,Western Maryland,MD
+MD-2,155945726,5,Central Maryland,MD
+MD-3,156417925,3,Capital Region,MD
+MD-4,70526840,4,Southern Maryland,MD
+MD-5,11531453,5,Upper Eastern Shore,MD
+MD-6,10866492,4,Lower Eastern Shore,MD
+NC-1,14203406,14,Western Mountains,NC
+NC-10,41412782,15,Coast,NC
+NC-2,19977492,2,Asheville Metro,NC
+NC-3,33951211,13,Western Piedmont,NC
+NC-4,176187458,7,Charlotte Metro,NC
+NC-5,84011154,9,Triad,NC
+NC-6,156381326,9,Triangle,NC
+NC-7,34470151,9,Sandhills,NC
+NC-8,26417487,8,Eastern Piedmont,NC
+NC-9,32679647,14,Coastal Plain,NC
+TN-1,22218353,8,First Tennessee,TN
+TN-2,66149383,16,Knoxville Metro,TN
+TN-3,42293425,11,Southeast Tennessee,TN
+TN-4,12459344,15,Upper Cumberland,TN
+TN-5,165370577,13,Nashville Metro,TN
+TN-6,16424717,10,South Central,TN
+TN-7,19605265,16,Northwest Tennessee,TN
+TN-8,67849182,2,Memphis Metro,TN
+TN-9,2377434,4,Southern Middle Tennessee,TN
+VA-1,4607748,6,Southwest Virginia,VA
+VA-10,91069633,10,Hampton Roads,VA
+VA-11,2202351,2,Eastern Shore,VA
+VA-2,5617254,7,New River Valley & Highlands,VA
+VA-3,7259142,10,Southside & Danville,VA
+VA-4,9305876,4,Roanoke Valley & Alleghany Highlands,VA
+VA-5,4799351,5,Shenandoah Valley,VA
+VA-6,9229871,10,Charlottesville-Central Virginia,VA
+VA-7,86224504,10,Richmond Metro,VA
+VA-8,97120904,5,Northern Virginia,VA
+VA-9,8445136,13,Rappahannock,VA
+WV-1,8924027,5,Northern Panhandle,WV
+WV-2,16565702,8,North Central,WV
+WV-3,9174608,8,Eastern Panhandle,WV
+WV-4,13968813,11,Central,WV
+WV-5,15265823,8,Western,WV
+WV-6,12384371,13,Southern Coalfields,WV
+WV-7,1121839,2,Randolph-Pocahontas,WV

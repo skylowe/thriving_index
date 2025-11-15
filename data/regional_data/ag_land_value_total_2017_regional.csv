@@ -1,0 +1,54 @@
+region_code,land_value,num_counties,region_name,state
+KY-1,2479926027,108,Northern Kentucky,KY
+KY-10,1338594756,47,East Central,KY
+KY-2,9397224643,189,Bluegrass,KY
+KY-3,3983864539,100,Louisville Metro,KY
+KY-4,1159622857,220,Eastern Mountains,KY
+KY-5,2811951365,164,Northeast,KY
+KY-6,11128745184,283,South Central,KY
+KY-7,7750689972,156,Pennyrile,KY
+KY-8,3636853916,104,Purchase,KY
+KY-9,5238013525,91,Western,KY
+MD-1,1572604736,38,Western Maryland,MD
+MD-2,3440838251,52,Central Maryland,MD
+MD-3,2616745188,39,Capital Region,MD
+MD-4,1542961154,52,Southern Maryland,MD
+MD-5,4255459297,65,Upper Eastern Shore,MD
+MD-6,2245564012,52,Lower Eastern Shore,MD
+NC-1,2660058679,163,Western Mountains,NC
+NC-10,3340911192,190,Coast,NC
+NC-2,1039336618,26,Asheville Metro,NC
+NC-3,4609813690,162,Western Piedmont,NC
+NC-4,4049959289,89,Charlotte Metro,NC
+NC-5,4309643620,114,Triad,NC
+NC-6,3657171049,116,Triangle,NC
+NC-7,2800597381,115,Sandhills,NC
+NC-8,4496040722,104,Eastern Piedmont,NC
+NC-9,8275883299,182,Coastal Plain,NC
+TN-1,3553157200,95,First Tennessee,TN
+TN-2,5156055211,191,Knoxville Metro,TN
+TN-3,3284731476,137,Southeast Tennessee,TN
+TN-4,5345306256,188,Upper Cumberland,TN
+TN-5,7715018694,164,Nashville Metro,TN
+TN-6,6057256674,126,South Central,TN
+TN-7,8825913728,206,Northwest Tennessee,TN
+TN-8,1430708728,26,Memphis Metro,TN
+TN-9,1298210022,51,Southern Middle Tennessee,TN
+VA-1,1594033094,82,Southwest Virginia,VA
+VA-10,1856728933,113,Hampton Roads,VA
+VA-11,551925293,26,Eastern Shore,VA
+VA-2,4356345164,128,New River Valley & Highlands,VA
+VA-3,3972328781,165,Southside & Danville,VA
+VA-4,1626894656,75,Roanoke Valley & Alleghany Highlands,VA
+VA-5,7156269894,104,Shenandoah Valley,VA
+VA-6,6348241897,152,Charlottesville-Central Virginia,VA
+VA-7,2568568825,152,Richmond Metro,VA
+VA-8,3368798037,69,Northern Virginia,VA
+VA-9,2747223945,163,Rappahannock,VA
+WV-1,441990604,54,Northern Panhandle,WV
+WV-2,1691001670,91,North Central,WV
+WV-3,2751967208,101,Eastern Panhandle,WV
+WV-4,1326982031,126,Central,WV
+WV-5,1517486806,92,Western,WV
+WV-6,1528147523,134,Southern Coalfields,WV
+WV-7,483900082,25,Randolph-Pocahontas,WV

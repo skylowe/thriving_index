@@ -1,0 +1,54 @@
+region_code,farm_income,num_counties,region_name,state
+KY-1,225253691.0,709,Northern Kentucky,KY
+KY-10,189982596.0,325,East Central,KY
+KY-2,2874103005.0,1279,Bluegrass,KY
+KY-3,582193243.0,663,Louisville Metro,KY
+KY-4,57563344.0,1286,Eastern Mountains,KY
+KY-5,392093917.0,1077,Northeast,KY
+KY-6,3318772311.0,1838,South Central,KY
+KY-7,3425273686.0,1010,Pennyrile,KY
+KY-8,2351054360.0,638,Purchase,KY
+KY-9,1844181741.0,577,Western,KY
+MD-1,521384210.0,255,Western Maryland,MD
+MD-2,666666486.0,340,Central Maryland,MD
+MD-3,543044826.0,257,Capital Region,MD
+MD-4,170072819.0,338,Southern Maryland,MD
+MD-5,2029023516.0,437,Upper Eastern Shore,MD
+MD-6,2484438386.0,338,Lower Eastern Shore,MD
+NC-1,439892407.0,1078,Western Mountains,NC
+NC-10,2355333566.0,1145,Coast,NC
+NC-2,315188340.0,170,Asheville Metro,NC
+NC-3,3459717955.0,1086,Western Piedmont,NC
+NC-4,2154629497.0,573,Charlotte Metro,NC
+NC-5,1553236399.0,762,Triad,NC
+NC-6,1224674364.0,752,Triangle,NC
+NC-7,3354140511.0,738,Sandhills,NC
+NC-8,4617180287.0,684,Eastern Piedmont,NC
+NC-9,12621956735.0,1178,Coastal Plain,NC
+TN-1,361139864.0,642,First Tennessee,TN
+TN-2,714631751.0,1284,Knoxville Metro,TN
+TN-3,960510085.0,891,Southeast Tennessee,TN
+TN-4,1289135499.0,1210,Upper Cumberland,TN
+TN-5,1004680469.0,1089,Nashville Metro,TN
+TN-6,1442108920.0,828,South Central,TN
+TN-7,3269251637.0,1299,Northwest Tennessee,TN
+TN-8,324772503.0,170,Memphis Metro,TN
+TN-9,295979488.0,328,Southern Middle Tennessee,TN
+VA-1,207287428.0,516,Southwest Virginia,VA
+VA-10,753217965.0,709,Hampton Roads,VA
+VA-11,664840239.0,172,Eastern Shore,VA
+VA-2,918753420.0,815,New River Valley & Highlands,VA
+VA-3,1180022910.0,1100,Southside & Danville,VA
+VA-4,150489428.0,475,Roanoke Valley & Alleghany Highlands,VA
+VA-5,3613026619.0,674,Shenandoah Valley,VA
+VA-6,859510701.0,987,Charlottesville-Central Virginia,VA
+VA-7,707872751.0,975,Richmond Metro,VA
+VA-8,364622025.0,429,Northern Virginia,VA
+VA-9,696355748.0,1069,Rappahannock,VA
+WV-1,13096409.0,334,Northern Panhandle,WV
+WV-2,95057838.0,606,North Central,WV
+WV-3,1118188583.0,670,Eastern Panhandle,WV
+WV-4,75370931.0,786,Central,WV
+WV-5,161808203.0,616,Western,WV
+WV-6,276236663.0,819,Southern Coalfields,WV
+WV-7,40392056.0,168,Randolph-Pocahontas,WV

@@ -1,0 +1,54 @@
+region_code,farm_count,num_counties,region_name,state
+KY-1,5429,26,Northern Kentucky,KY
+KY-10,3577,12,East Central,KY
+KY-2,12466,45,Bluegrass,KY
+KY-3,6123,24,Louisville Metro,KY
+KY-4,4129,62,Eastern Mountains,KY
+KY-5,7296,41,Northeast,KY
+KY-6,21243,66,South Central,KY
+KY-7,6979,36,Pennyrile,KY
+KY-8,3791,24,Purchase,KY
+KY-9,4933,21,Western,KY
+MD-1,1874,9,Western Maryland,MD
+MD-2,2831,12,Central Maryland,MD
+MD-3,2298,9,Capital Region,MD
+MD-4,1670,12,Southern Maryland,MD
+MD-5,2267,15,Upper Eastern Shore,MD
+MD-6,1489,12,Lower Eastern Shore,MD
+NC-1,4967,42,Western Mountains,NC
+NC-10,2145,45,Coast,NC
+NC-2,1528,6,Asheville Metro,NC
+NC-3,8216,39,Western Piedmont,NC
+NC-4,4976,21,Charlotte Metro,NC
+NC-5,7286,27,Triad,NC
+NC-6,4727,27,Triangle,NC
+NC-7,3148,27,Sandhills,NC
+NC-8,3298,24,Eastern Piedmont,NC
+NC-9,6127,42,Coastal Plain,NC
+TN-1,8151,24,First Tennessee,TN
+TN-2,10986,48,Knoxville Metro,TN
+TN-3,5751,33,Southeast Tennessee,TN
+TN-4,10671,45,Upper Cumberland,TN
+TN-5,11941,39,Nashville Metro,TN
+TN-6,10562,30,South Central,TN
+TN-7,8369,48,Northwest Tennessee,TN
+TN-8,1291,6,Memphis Metro,TN
+TN-9,2261,12,Southern Middle Tennessee,TN
+VA-1,3762,20,Southwest Virginia,VA
+VA-10,1597,27,Hampton Roads,VA
+VA-11,381,6,Eastern Shore,VA
+VA-2,7051,30,New River Valley & Highlands,VA
+VA-3,6241,38,Southside & Danville,VA
+VA-4,2019,18,Roanoke Valley & Alleghany Highlands,VA
+VA-5,6960,24,Shenandoah Valley,VA
+VA-6,6499,36,Charlottesville-Central Virginia,VA
+VA-7,3203,36,Richmond Metro,VA
+VA-8,3082,16,Northern Virginia,VA
+VA-9,2430,39,Rappahannock,VA
+WV-1,1289,14,Northern Panhandle,WV
+WV-2,4651,24,North Central,WV
+WV-3,4848,24,Eastern Panhandle,WV
+WV-4,3581,33,Central,WV
+WV-5,4646,24,Western,WV
+WV-6,3705,33,Southern Coalfields,WV
+WV-7,902,6,Randolph-Pocahontas,WV
