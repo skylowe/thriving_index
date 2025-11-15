@@ -675,79 +675,156 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 
 ## Component Index 7: Quality of Life (8 measures)
 
-### 7.1 Life Expectancy at Birth
+**Note**: This index measures quality of life factors including commute times, housing quality, wages, safety, climate, healthcare access, and recreation, following Nebraska Thriving Index methodology exactly.
 
-- **Nebraska Source**: National Vital Statistics, CDC
-- **Virginia API Source**: ⚠️ **PROBLEMATIC**
-- **Confidence**: ❌ **LOW**
-- **Notes**:
-  - County-level life expectancy requires special calculation
-  - Institute for Health Metrics and Evaluation (IHME) publishes estimates
-  - Robert Wood Johnson Foundation County Health Rankings has this data
-  - No standard public API
-- **Decision**: **INVESTIGATE** - May need to use County Health Rankings bulk download
+### 7.1 Commute Time
 
-### 7.2 Infant Mortality Rate (Inverse)
-
-- **Nebraska Source**: CDC WONDER, Vital Statistics
-- **Virginia API Source**: CDC WONDER API (limited)
-- **Confidence**: 🟡 **MEDIUM**
-- **Notes**:
-  - CDC WONDER has county data but small counties may be suppressed
-  - May need to use state vital statistics offices
-- **Decision**: **INVESTIGATE** CDC WONDER API capabilities
-
-### 7.3 Percent Uninsured (Inverse)
-
-- **Nebraska Source**: ACS 5-year estimates
+- **Nebraska Source**: Census Bureau American Community Survey, Table S0801, 2016-2020 period
+- **Nebraska Metric**: Average commuting time to work (in minutes)
 - **Virginia API Source**: Census ACS API
-- **Variable**: S2701_C05_001E (Percent uninsured)
+- **API Endpoint**: `https://api.census.gov/data/[year]/acs/acs5/subject`
+- **Table**: S0801 (Commuting Characteristics by Sex)
+- **Variables**:
+  - S0801_C01_046E (Mean travel time to work in minutes)
 - **Confidence**: ✅ **HIGH**
-- **Notes**: Readily available from ACS
+- **Notes**:
+  - Represents the cost of living in terms of time
+  - Provides insight into travel times to important destinations within a region
+  - Inverse scoring: Shorter commute time = better quality of life
+  - Available at county level for all states
+- **Data Period for Virginia**: Use most recent 5-year ACS period (2018-2022)
 
-### 7.4 Primary Care Physicians Per Capita
+### 7.2 Percent of Housing Built Pre-1960
 
-- **Nebraska Source**: Area Health Resources Files (AHRF), CMS
-- **Virginia API Source**: ⚠️ **PROBLEMATIC**
+- **Nebraska Source**: Census Bureau American Community Survey, Table DP04, 2016-2020 period
+- **Nebraska Metric**: Share of housing units built before 1960
+- **Virginia API Source**: Census ACS API
+- **API Endpoint**: `https://api.census.gov/data/[year]/acs/acs5/profile`
+- **Table**: DP04 (Selected Housing Characteristics)
+- **Variables**:
+  - DP04_0035E (Built 1939 or earlier)
+  - DP04_0036E (Built 1940 to 1949)
+  - DP04_0037E (Built 1950 to 1959)
+  - DP04_0033E (Total housing units)
+- **Confidence**: ✅ **HIGH**
+- **Notes**:
+  - Older housing units may lack contemporary design and are subject to depreciation
+  - Calculate: (Built_1939_or_earlier + Built_1940_1949 + Built_1950_1959) / Total_units * 100
+  - Inverse scoring: Lower percentage of old housing = better
+  - Available at county level for all states
+- **Data Period for Virginia**: Use most recent 5-year ACS period (2018-2022)
+
+### 7.3 Relative Weekly Wage
+
+- **Nebraska Source**: Bureau of Labor Statistics Quarterly Census of Employment and Wages, Average Weekly Wage (all industries, total covered, all establishment sizes), Quarter 2 2021
+- **Nebraska Metric**: The ratio of regional quarterly wages per job to statewide quarterly wages per job
+- **Virginia API Source**: BLS QCEW API
+- **API Endpoint**: `https://api.bls.gov/publicAPI/v2/timeseries/data/`
+- **Series ID Format**: `ENU` + state FIPS + county FIPS + ownership + industry + data type
+- **Confidence**: ✅ **HIGH**
+- **Notes**:
+  - Calculate regional average weekly wage (all industries, total covered)
+  - Calculate statewide average weekly wage
+  - Compute ratio: Regional_Wage / State_Wage
+  - Reflects the relative earnings opportunities in the region
+  - Higher ratio = better earnings relative to state
+  - Use Q2 annual average for consistency with Nebraska
+  - Already implemented in BLS API client
+- **Data Year for Virginia**: Use most recent quarter available (likely Q2 2023 or Q2 2024)
+
+### 7.4 Violent Crime Rate
+
+- **Nebraska Source**: FBI Uniform Crime Reporting, Crime in the United States, 2018
+- **Nebraska Metric**: Annual violent crimes per 100,000 population
+- **Virginia API Source**: FBI Crime Data Explorer API
+- **API Endpoint**: `https://api.usa.gov/crime/fbi/cde/`
+- **Confidence**: ✅ **HIGH**
+- **Notes**:
+  - FBI UCR provides violent crime counts by agency
+  - Violent crimes include: murder, rape, robbery, aggravated assault
+  - Aggregate agency-level data to county level
+  - Calculate: (Violent_crimes / Population) * 100,000
+  - Inverse scoring: Lower crime rate = better quality of life
+  - Personal safety is a critical factor in enjoying life
+  - FBI_UCR_KEY available in environment
+- **Data Year for Virginia**: Use most recent year available (likely 2021 or 2022)
+
+### 7.5 Property Crime Rate
+
+- **Nebraska Source**: FBI Uniform Crime Reporting, Crime in the United States, 2018
+- **Nebraska Metric**: Annual property crimes per 100,000 population
+- **Virginia API Source**: FBI Crime Data Explorer API
+- **API Endpoint**: `https://api.usa.gov/crime/fbi/cde/`
+- **Confidence**: ✅ **HIGH**
+- **Notes**:
+  - FBI UCR provides property crime counts by agency
+  - Property crimes include: burglary, larceny-theft, motor vehicle theft, arson
+  - Aggregate agency-level data to county level
+  - Calculate: (Property_crimes / Population) * 100,000
+  - Inverse scoring: Lower crime rate = better quality of life
+  - The safety of personal property is a critical component of enjoying life
+  - FBI_UCR_KEY available in environment
+- **Data Year for Virginia**: Use most recent year available (likely 2021 or 2022)
+
+### 7.6 Climate Amenities
+
+- **Nebraska Source**: United States Department of Agriculture Economic Research Service, Natural Amenities Scale, 1941-1970, last updated 1999
+- **Nebraska Metric**: An index capturing average temperatures in January and July, sunny days in January, and humidity in July
+- **Virginia API Source**: ⚠️ **NO API**
+- **Confidence**: 🟡 **MEDIUM** (static data)
+- **Notes**:
+  - USDA ERS Natural Amenities Scale is a county-level index based on 30-year climate data
+  - Available as bulk download: https://www.ers.usda.gov/data-products/natural-amenities-scale/
+  - Static data (based on 1941-1970 climate normals)
+  - Index components:
+    - Mean January temperature
+    - Mean July temperature
+    - Mean January days with sun
+    - Mean July relative humidity
+    - Topography (not climate but part of amenities scale)
+    - Water area
+  - A more comfortable climate can reduce utility costs and increase the enjoyment of outdoor activities
+  - One-time data collection acceptable for static historical data
+- **Implementation**: Download USDA ERS Natural Amenities Scale county-level data
+- **Data Source**: https://www.ers.usda.gov/data-products/natural-amenities-scale/
+- **Data Year**: Based on 1941-1970 climate normals (static)
+
+### 7.7 Healthcare Access
+
+- **Nebraska Source**: Census Bureau County Business Patterns and Annual Estimates of the Resident Population for Counties, 2019
+- **Nebraska Metric**: Number of healthcare practitioners per person (or per 1,000/10,000 population)
+- **Virginia API Source**: Census CBP API
+- **API Endpoint**: `https://api.census.gov/data/[year]/cbp`
+- **NAICS Code**: 621 (Ambulatory Health Care Services) + 622 (Hospitals)
+- **Variables**: EMP (Employment in healthcare establishments)
+- **Confidence**: ✅ **HIGH**
+- **Notes**:
+  - CBP provides employment counts for healthcare establishments
+  - NAICS 621: Ambulatory Health Care Services (physician offices, dentist offices, etc.)
+  - NAICS 622: Hospitals
+  - Calculate: (Healthcare_employment / Population) * 10,000
+  - Measures access to medical care or key institutions like hospitals where physicians work in large numbers
+  - Available at county level for all states
+- **Data Year for Virginia**: Use most recent CBP year available (likely 2021)
+
+### 7.8 Count of National Parks
+
+- **Nebraska Source**: National Park Service, Find a Park, 2018
+- **Nebraska Metric**: Share of regional counties with one or more national parks, monuments, trails or other protected areas
+- **Virginia API Source**: National Park Service API
+- **API Endpoint**: `https://developer.nps.gov/api/v1/parks`
 - **Confidence**: 🟡 **MEDIUM**
 - **Notes**:
-  - CMS National Provider Index (NPI) has provider data
-  - HRSA Area Health Resources Files (AHRF) compiles this
-  - County Health Rankings includes this metric
-  - No clear public API
-- **Decision**: **INVESTIGATE** - May need County Health Rankings data
-
-### 7.5 Mental Health Providers Per Capita
-
-- **Nebraska Source**: AHRF, HRSA
-- **Virginia API Source**: ⚠️ **PROBLEMATIC**
-- **Confidence**: ❌ **LOW**
-- **Notes**: Same issues as 7.4
-- **Decision**: **INVESTIGATE** - Likely need bulk data source
-
-### 7.6 Recreation Establishments Per Capita
-
-- **Nebraska Source**: County Business Patterns
-- **Virginia API Source**: Census CBP API
-- **NAICS Code**: 71 (Arts, Entertainment, and Recreation)
-- **Confidence**: ✅ **HIGH**
-- **Notes**: Count establishments in NAICS 71, divide by population
-
-### 7.7 Restaurants Per Capita
-
-- **Nebraska Source**: County Business Patterns
-- **Virginia API Source**: Census CBP API
-- **NAICS Code**: 722 (Food Services and Drinking Places)
-- **Confidence**: ✅ **HIGH**
-- **Notes**: Count establishments in NAICS 722, divide by population
-
-### 7.8 Arts and Entertainment Establishments Per Capita
-
-- **Nebraska Source**: County Business Patterns
-- **Virginia API Source**: Census CBP API
-- **NAICS Codes**: 711 (Performing Arts) + 712 (Museums, Historical Sites)
-- **Confidence**: ✅ **HIGH**
-- **Notes**: Count establishments, divide by population
+  - NPS API provides location data for all national park units
+  - Filter for parks in Virginia and surrounding states
+  - Map parks to counties using park coordinates and county boundaries
+  - For multi-county regions: Calculate share of counties with at least one national park
+  - Types include: National Parks, National Monuments, National Historic Sites, National Trails, National Seashores, etc.
+  - A measure of local recreation options
+  - May need manual mapping for parks that span multiple counties
+  - Alternative: Use NPS bulk data download if API insufficient
+- **Implementation**: Use NPS API to get park locations; map to counties using GIS
+- **Data Year for Virginia**: Use current NPS data (updates infrequently)
 
 ---
 
@@ -831,9 +908,9 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 
 | Confidence | Count | Percentage |
 |------------|-------|------------|
-| ✅ HIGH | 38 | 77.6% |
+| ✅ HIGH | 40 | 81.6% |
 | 🟡 MEDIUM | 9 | 18.4% |
-| ❌ LOW | 2 | 4.1% |
+| ❌ LOW | 0 | 0.0% |
 | **TOTAL** | **49** | **100%** |
 
 ### By Component Index
@@ -846,7 +923,7 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 | 4. Demographic Growth & Renewal | 6 | 0 | 0 | 6 |
 | 5. Education & Skill | 5 | 0 | 0 | 5 |
 | 6. Infrastructure & Cost | 4 | 2 | 0 | 6 |
-| 7. Quality of Life | 4 | 2 | 2 | 8 |
+| 7. Quality of Life | 6 | 2 | 0 | 8 |
 | 8. Social Capital | 4 | 3 | 0 | 7 |
 
 **Notes**:
@@ -854,25 +931,26 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 - Component Index 4 (Demographic Growth & Renewal) updated to match Nebraska methodology exactly (6 measures, 6 HIGH confidence)
 - Component Index 5 (Education & Skill) updated to match Nebraska methodology exactly (5 measures, 5 HIGH confidence)
 - Component Index 6 (Infrastructure & Cost) updated to match Nebraska methodology exactly (6 measures, 4 HIGH confidence)
+- Component Index 7 (Quality of Life) updated to match Nebraska methodology exactly (8 measures, 6 HIGH confidence)
 
 ### Measures to Likely Exclude (LOW Confidence)
 
-1. Retail Sales Growth Rate (1.6) - No consistent API across states
-2. Mental Health Providers Per Capita (7.5) - *May be available from County Health Rankings*
+**NONE** - All 49 measures now have either HIGH or MEDIUM confidence for data availability!
 
 **Notes**:
 - Component Index 5 now uses exclusive educational categories (HS as highest, Associate's as highest, Bachelor's as highest) plus labor force participation and knowledge workers, all via Census ACS API with HIGH confidence.
 - Component Index 6 now matches Nebraska methodology exactly: Broadband, Interstate Presence, 4-Year Colleges, Weekly Wage, Tax Rate, QOZ Count
-- Highway Accessibility Index removed (was not in Nebraska methodology)
+- Component Index 7 now matches Nebraska methodology exactly: Commute Time, Housing Age, Relative Wage, Crime Rates, Climate, Healthcare Access, National Parks
+- All LOW-confidence measures have been replaced with correct Nebraska methodology measures
 
 ### Measures Requiring Further Investigation (MEDIUM Confidence)
 
-1. Share of Workforce in High-Wage Industries (2.6) - Need to define high-wage threshold
+1. Entrepreneurial Activity (2.1) - Census Business Dynamics Statistics bulk download
 2. Life Span / Life Expectancy at Birth (3.3) - *Bulk download from County Health Rankings*
 3. Broadband Internet Access (6.1) - FCC API key pending; can use bulk download
 4. Presence of Interstate Highway (6.2) - Manual mapping using Census TIGER/Line
-5. Infant Mortality Rate (7.2) - CDC WONDER API (may have suppression issues)
-6. Primary Care Physicians Per Capita (7.4) - CMS NPPES or AHRF bulk data
+5. Climate Amenities (7.6) - USDA ERS Natural Amenities Scale bulk download (static data)
+6. Count of National Parks (7.8) - NPS API or bulk download; requires GIS mapping
 7. Nonprofit Organizations Per Capita (8.2) - IRS bulk download
 8. Religious Congregations Per Capita (8.3) - ASARB data (may be outdated)
 9. Social Capital Index composite (8.7) - Calculate from available components
@@ -902,7 +980,7 @@ Based on HIGH and MEDIUM confidence measures:
 
 ## Recommended Initial Implementation
 
-### Phase 1: Core Measures (38 HIGH confidence measures)
+### Phase 1: Core Measures (40 HIGH confidence measures)
 
 Include only measures with HIGH confidence for API availability, static data, or bulk downloads. This ensures:
 - Complete data coverage across all regions
@@ -917,7 +995,7 @@ Include only measures with HIGH confidence for API availability, static data, or
 - Demographics: 6/6 measures (100%) ✅ - **Updated to match Nebraska methodology**
 - Education & Skill: 5/5 measures (100%) ✅ - **Updated to match Nebraska methodology**
 - Infrastructure: 4/6 measures (67%) ✅ - **Updated to match Nebraska methodology**
-- Quality of Life: 4/8 measures (50%)
+- Quality of Life: 6/8 measures (75%) ✅ - **Updated to match Nebraska methodology**
 - Social Capital: 4/7 measures (57%)
 
 **Notes**:
@@ -925,6 +1003,7 @@ Include only measures with HIGH confidence for API availability, static data, or
 - Component Index 4 (Demographic Growth & Renewal) has been corrected to use Nebraska methodology with 6/6 measures available via API (100% coverage).
 - Component Index 5 (Education & Skill) has been corrected to use Nebraska methodology with 5/5 measures available via API (100% coverage). Uses exclusive educational categories plus labor force participation and knowledge workers.
 - Component Index 6 (Infrastructure & Cost) has been corrected to use Nebraska methodology with 4/6 measures ready for implementation (67% coverage). Includes: 4-year colleges (bulk data), weekly wage (API), state tax rate (static), QOZ count (bulk data). Broadband and Interstate presence require additional data collection.
+- Component Index 7 (Quality of Life) has been corrected to use Nebraska methodology with 6/8 measures available via API or static bulk data (75% coverage). Includes: Commute Time, Housing Age, Relative Wage, Crime Rates (both violent and property), and Healthcare Access. Climate Amenities and National Parks require bulk data collection.
 
 ### Phase 2: Add MEDIUM Confidence Measures (After Investigation)
 

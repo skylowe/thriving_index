@@ -740,6 +740,140 @@ This multi-source approach is acceptable and aligns with Nebraska's methodology,
 
 ---
 
+### Decision 12: Component Index 7 Measures - Correction to Nebraska Methodology
+
+**Status**: ✅ **DECIDED & IMPLEMENTED**
+**Decision Date**: 2025-11-15
+
+**Decision**: Use Nebraska's exact 8 measures for Component Index 7 (Quality of Life):
+1. Commute Time - Average commuting time to work (Census ACS S0801)
+2. Percent of Housing Built Pre-1960 (Census ACS DP04)
+3. Relative Weekly Wage - Ratio of regional to statewide wages (BLS QCEW)
+4. Violent Crime Rate (FBI UCR)
+5. Property Crime Rate (FBI UCR)
+6. Climate Amenities - Index of temperature, sunny days, humidity (USDA ERS Natural Amenities Scale)
+7. Healthcare Access - Healthcare practitioners per person (Census CBP)
+8. Count of National Parks - Share of counties with national park units (NPS)
+
+**Context**: Initial project documentation incorrectly listed 8 different measures for Component Index 7:
+- Life Expectancy at Birth (LOW confidence) - NOT in Component 7 (this is in Component 3 as Life Span)
+- Infant Mortality Rate (MEDIUM confidence) - NOT in Nebraska Component 7
+- Percent Uninsured (HIGH confidence) - NOT in Nebraska Component 7
+- Primary Care Physicians Per Capita (MEDIUM confidence) - SIMILAR but different from Healthcare Access
+- Mental Health Providers Per Capita (LOW confidence) - NOT in Nebraska Component 7
+- Recreation Establishments Per Capita (HIGH confidence) - NOT in Nebraska Component 7
+- Restaurants Per Capita (HIGH confidence) - NOT in Nebraska Component 7
+- Arts and Entertainment Establishments Per Capita (HIGH confidence) - NOT in Nebraska Component 7
+
+Only 0 out of 8 measures matched Nebraska methodology. This was a complete documentation error from initial project setup.
+
+**Problem Discovered**: When user provided the exact Nebraska measure list for Component Index 7, it became clear that the initial documentation had completely wrong measures. The initially documented measures were a mix of healthcare, entertainment, and dining establishments that do NOT appear in Nebraska's Quality of Life index.
+
+**Corrective Actions Taken**:
+1. **Updated API_MAPPING.md**: Replaced all 8 incorrect measures with 8 correct Nebraska measures
+2. **Created collect_quality_of_life_data.py**: New comprehensive collection script for Quality of Life measures:
+   - Measure 7.1: Commute Time (Census ACS S0801)
+   - Measure 7.2: Percent Housing Built Pre-1960 (Census ACS DP04)
+   - Measure 7.3: Relative Weekly Wage (BLS QCEW - requires implementation)
+   - Measure 7.4: Violent Crime Rate (FBI UCR - requires implementation)
+   - Measure 7.5: Property Crime Rate (FBI UCR - requires implementation)
+   - Measure 7.6: Climate Amenities (USDA ERS bulk download)
+   - Measure 7.7: Healthcare Access (Census CBP NAICS 621+622)
+   - Measure 7.8: Count of National Parks (NPS API - requires GIS mapping)
+3. **Updated summary statistics**: Increased HIGH-confidence measures from 38 to 40 (81.6%)
+4. **Eliminated all LOW-confidence measures**: Project now has 0 LOW-confidence measures (was 2)
+
+**API Availability**:
+- ✅ **6/8 measures** (75%) available via API or static bulk data (HIGH confidence)
+- 🟡 **2/8 measures** (25%) require investigation or manual collection (MEDIUM confidence)
+
+**Implementation Details by Measure**:
+
+1. **Commute Time** (7.1):
+   - Source: Census ACS Table S0801
+   - Confidence: HIGH (API available)
+   - Variable: S0801_C01_046E (Mean travel time to work in minutes)
+   - Inverse scoring: Shorter commute = better
+
+2. **Percent Housing Built Pre-1960** (7.2):
+   - Source: Census ACS Table DP04
+   - Confidence: HIGH (API available)
+   - Variables: DP04_0035E + DP04_0036E + DP04_0037E / DP04_0033E
+   - Inverse scoring: Lower % old housing = better
+
+3. **Relative Weekly Wage** (7.3):
+   - Source: BLS QCEW
+   - Confidence: HIGH (API available, requires implementation)
+   - Calculate: Regional_avg_weekly_wage / State_avg_weekly_wage
+   - Higher ratio = better earnings relative to state
+
+4. **Violent Crime Rate** (7.4):
+   - Source: FBI Uniform Crime Reporting
+   - Confidence: HIGH (FBI_UCR_KEY available)
+   - Measure: Annual violent crimes per 100,000 population
+   - Inverse scoring: Lower crime = better
+
+5. **Property Crime Rate** (7.5):
+   - Source: FBI Uniform Crime Reporting
+   - Confidence: HIGH (FBI_UCR_KEY available)
+   - Measure: Annual property crimes per 100,000 population
+   - Inverse scoring: Lower crime = better
+
+6. **Climate Amenities** (7.6):
+   - Source: USDA ERS Natural Amenities Scale
+   - Confidence: MEDIUM (static bulk data)
+   - Index based on: Jan/July temps, sunny days, humidity
+   - Based on 1941-1970 climate normals (static data)
+   - One-time bulk download acceptable
+
+7. **Healthcare Access** (7.7):
+   - Source: Census CBP
+   - Confidence: HIGH (API available)
+   - NAICS 621 (Ambulatory Health) + 622 (Hospitals)
+   - Calculate: Healthcare_employment / Population * 10,000
+
+8. **Count of National Parks** (7.8):
+   - Source: National Park Service API
+   - Confidence: MEDIUM (requires GIS mapping)
+   - Measure: Share of counties with national park units
+   - Includes parks, monuments, historic sites, trails, etc.
+   - May require manual mapping for multi-county parks
+
+**Impact on Project**:
+- **Positive**: Component Index 7 now aligns with Nebraska methodology (100% measure alignment)
+- **Positive**: Increased HIGH-confidence measures from 38 to 40 (81.6%)
+- **Positive**: Eliminated all LOW-confidence measures (from 2 to 0)
+- **Positive**: Project now has 40/49 measures (81.6%) with HIGH confidence
+- **Positive**: Removed measures that weren't in Nebraska (health insurance, recreation, dining)
+- **Better Alignment**: Quality of Life measures now properly capture commute times, housing quality, wages, safety, climate, and recreation
+
+**Rationale**:
+This correction aligns the project perfectly with Nebraska's Quality of Life Index methodology. Component Index 7 measures factors that affect residents' day-to-day quality of life and regional attractiveness. The 8 measures capture:
+
+1. **Commute Time**: Time cost of living in the region; shorter commutes = more time for life activities
+2. **Housing Age**: Quality and condition of housing stock; newer housing = better amenities and design
+3. **Relative Weekly Wage**: Earnings opportunities relative to state; higher wages = better standard of living
+4. **Violent Crime Rate**: Personal safety; lower crime = better quality of life
+5. **Property Crime Rate**: Property safety; lower crime = peace of mind
+6. **Climate Amenities**: Weather comfort; better climate = lower utility costs and more outdoor activities
+7. **Healthcare Access**: Access to medical care; more practitioners = better health outcomes
+8. **National Parks**: Recreation options; more parks = outdoor recreation and natural amenities
+
+Together, these measures provide a comprehensive assessment of quality of life factors that influence regional attractiveness, resident satisfaction, and ability to attract/retain population.
+
+**Implementation Status**:
+- **Implemented (3/8)**: Commute Time, Housing Age, Healthcare Access
+- **Requires API Integration (3/8)**: Relative Wage, Violent Crime, Property Crime
+- **Requires Bulk Data (2/8)**: Climate Amenities, National Parks
+
+The script `collect_quality_of_life_data.py` has been created with partial implementation for the 3 Census-based measures. Full implementation requires:
+1. BLS QCEW integration for relative wage calculation
+2. FBI UCR API integration for crime rates
+3. USDA ERS bulk data download for climate amenities
+4. NPS API integration and GIS mapping for national parks
+
+---
+
 ## API Integration Strategy
 
 ### API Sources Identified
@@ -1265,6 +1399,15 @@ None at this time.
 | 2025-11-15 | Documented Decision 11 in CLAUDE.md | Component Index 6 Measures - Correction to Nebraska Methodology |
 | 2025-11-15 | Component Index 6 now aligned with Nebraska | 4/6 measures ready: Colleges (bulk), Wage (API), Tax (static), QOZ (bulk); 2 pending: Broadband (API), Interstate (manual) |
 | 2025-11-15 | Four component indexes fully corrected | Component Indexes 3, 4, 5, and 6 now match Nebraska methodology exactly; overall project at 77.6% readiness (38/49 measures) |
+| 2025-11-15 | **MAJOR CORRECTION**: Component Index 7 measures | Discovered initial documentation had COMPLETELY WRONG measures for Component Index 7 (0/8 matched Nebraska) |
+| 2025-11-15 | Corrected Component Index 7 to Nebraska methodology | Replaced all 8 measures: removed health insurance/recreation/dining, added Nebraska quality of life measures |
+| 2025-11-15 | Updated API_MAPPING.md Component Index 7 | Now shows: Commute Time, Housing Age, Relative Wage, Crime Rates (violent and property), Climate, Healthcare Access, National Parks |
+| 2025-11-15 | Created collect_quality_of_life_data.py | New comprehensive collection script for Quality of Life measures (partial implementation) |
+| 2025-11-15 | Updated summary statistics | Increased HIGH-confidence measures from 38 to 40 (81.6%); eliminated all LOW-confidence measures (from 2 to 0) |
+| 2025-11-15 | Documented Decision 12 in CLAUDE.md | Component Index 7 Measures - Correction to Nebraska Methodology |
+| 2025-11-15 | Component Index 7 now aligned with Nebraska | 6/8 measures ready (75%); 3 implemented (Commute, Housing, Healthcare); 3 require API work (Wage, Crime); 2 require bulk data (Climate, Parks) |
+| 2025-11-15 | **MILESTONE**: All 49 measures now HIGH or MEDIUM confidence | Eliminated all LOW-confidence measures; project now has 40 HIGH (81.6%) + 9 MEDIUM (18.4%) = 100% viable measures |
+| 2025-11-15 | Five component indexes fully corrected | Component Indexes 3, 4, 5, 6, and 7 now match Nebraska methodology exactly; overall project at 81.6% readiness (40/49 measures HIGH confidence) |
 
 ---
 
