@@ -624,6 +624,122 @@ Together, these 5 measures provide comprehensive assessment of regional human ca
 
 ---
 
+### Decision 11: Component Index 6 Measures - Correction to Nebraska Methodology
+
+**Status**: ✅ **DECIDED & IMPLEMENTED**
+**Decision Date**: 2025-11-15
+
+**Decision**: Use Nebraska's exact 6 measures for Component Index 6 (Infrastructure & Cost of Doing Business):
+1. Broadband Internet Access (% with 100/10Mbps capacity) - FCC Broadband Map
+2. Presence of Interstate Highway (share of pop in county with interstate) - Google Maps/GIS
+3. Count of 4-Year Colleges (average number in counties) - NCES College Navigator
+4. Weekly Wage Rate (average weekly wage) - BLS QCEW
+5. Top Marginal Income Tax Rate (highest state tax rate) - Tax Foundation
+6. Count of Qualified Opportunity Zones (average number in counties) - U.S. Treasury
+
+**Context**: Initial project documentation incorrectly listed 6 different measures for Component Index 6:
+- Broadband Access (correct, but was only measure that matched)
+- Housing Affordability Index - NOT in Nebraska
+- Percent Housing Built in Last 10 Years - NOT in Nebraska
+- Property Crime Rate - NOT in Component 6 (these are in Component 7)
+- Violent Crime Rate - NOT in Component 6 (these are in Component 7)
+- Highway Accessibility Index - SIMILAR but different from Nebraska's Interstate Presence
+
+**Problem Discovered**: When user provided the exact Nebraska measure list for Component Index 6, it became clear that the initial documentation had confused measures across different component indexes. Housing measures and crime rates are NOT in Nebraska's Infrastructure & Cost index.
+
+**Corrective Actions Taken**:
+1. **Updated API_MAPPING.md**: Replaced all 6 measures with correct Nebraska definitions
+   - Measure 6.1: Broadband Internet Access (% with 100/10Mbps)
+   - Measure 6.2: Presence of Interstate (share of pop in county with interstate)
+   - Measure 6.3: Count of 4-Year Colleges
+   - Measure 6.4: Weekly Wage Rate
+   - Measure 6.5: Top Marginal Income Tax Rate
+   - Measure 6.6: Count of Qualified Opportunity Zones
+2. **Created collect_infrastructure_cost_data.py**: New comprehensive collection script for all 6 measures
+3. **Updated NEBRASKA_VIRGINIA_COMPARISON.md**: Component Index 6 now shows correct measures with 66.7% ready
+4. **Updated summary statistics**: Increased HIGH-confidence measures from 37 to 38 (77.6%)
+
+**API Availability**:
+- ✅ **4/6 measures** (67%) ready for implementation (HIGH confidence)
+- 🟡 **2/6 measures** (33%) require investigation or manual collection (MEDIUM confidence)
+
+**Implementation Details by Measure**:
+
+1. **Broadband Internet Access** (6.1):
+   - Source: FCC Broadband Map
+   - Confidence: MEDIUM (API key pending)
+   - Alternative: FCC bulk download available
+   - Measures: % of population with access to 100/10Mbps broadband
+
+2. **Presence of Interstate Highway** (6.2):
+   - Source: Census TIGER/Line shapefiles + Google Maps
+   - Confidence: MEDIUM (manual mapping required)
+   - Implementation: One-time manual data collection
+   - For multi-county regions: Weighted by population
+   - Binary variable at county level: 1 if interstate present, 0 if not
+
+3. **Count of 4-Year Colleges** (6.3):
+   - Source: NCES IPEDS (Integrated Postsecondary Education Data System)
+   - Confidence: HIGH (bulk download available)
+   - Implementation: Download IPEDS data, filter for 4-year degree-granting institutions
+   - Map institutions to counties, count by county
+   - For multi-county regions: Population-weighted average
+
+4. **Weekly Wage Rate** (6.4):
+   - Source: BLS QCEW API
+   - Confidence: HIGH (API available)
+   - Implementation: BLS QCEW provides average weekly wage directly
+   - Series ID format: ENU + state FIPS + county FIPS + ownership + industry + data type
+   - Use Q2 annual average for consistency with Nebraska
+   - Inverse scoring: Higher wages = higher business costs
+
+5. **Top Marginal Income Tax Rate** (6.5):
+   - Source: Tax Foundation
+   - Confidence: HIGH (static data)
+   - Implementation: Hardcoded by state; update annually
+   - State-level data (all regions in same state have same rate)
+   - Current rates (2024):
+     - Virginia: 5.75%, Maryland: 5.75%, West Virginia: 6.5%
+     - North Carolina: 4.75%, Tennessee: 0%, Kentucky: 4.5%, DC: 10.75%
+
+6. **Count of Qualified Opportunity Zones** (6.6):
+   - Source: U.S. Treasury CDFI Fund
+   - Confidence: HIGH (static bulk data)
+   - Implementation: One-time download from Treasury; map QOZ census tracts to counties
+   - Static 2018 designations (do not change)
+   - For multi-county regions: Population-weighted average count
+
+**Impact on Project**:
+- **Positive**: Component Index 6 now aligns with Nebraska methodology
+- **Positive**: Increased HIGH-confidence measures from 37 to 38 (77.6%)
+- **Positive**: Decreased LOW-confidence measures from 3 to 2 (4.1%)
+- **Positive**: Removed measures that weren't in Nebraska (housing, crime)
+- **Mixed**: 4/6 measures ready (67%), down from previous 3/6 (50%) but with CORRECT measures
+- **Better Alignment**: Infrastructure & cost measures now properly capture business environment
+
+**Rationale**:
+This correction aligns the project with Nebraska's Infrastructure & Cost of Doing Business Index. The 6 measures capture critical aspects of business environment:
+
+1. **Broadband Access**: Essential digital infrastructure for modern business operations and remote work
+2. **Interstate Presence**: Transportation infrastructure enabling access to regional markets and supply chains
+3. **4-Year Colleges**: Workforce development infrastructure and talent pipeline for businesses
+4. **Weekly Wage Rate**: Cost of labor (inverse measure - higher wages = higher costs but also higher quality workforce)
+5. **Income Tax Rate**: State tax burden affecting business competitiveness and worker take-home pay
+6. **Opportunity Zones**: Federal tax incentives designed to attract capital investment to distressed areas
+
+Together, these measures provide a comprehensive view of infrastructure quality and business cost environment that influences economic development, business location decisions, and regional competitiveness.
+
+**Data Collection Strategy**:
+- **API-based**: Weekly Wage Rate via BLS QCEW (measure 6.4)
+- **Static/Hardcoded**: State Income Tax Rates (measure 6.5)
+- **Bulk Download**: 4-Year Colleges via NCES IPEDS, QOZ via Treasury (measures 6.3, 6.6)
+- **Manual Mapping**: Interstate Presence via Census TIGER/Line (measure 6.2)
+- **Pending**: Broadband Access via FCC API (measure 6.1)
+
+This multi-source approach is acceptable and aligns with Nebraska's methodology, which also used a mix of data sources including manual GIS analysis for interstate highway presence.
+
+---
+
 ## API Integration Strategy
 
 ### API Sources Identified
@@ -1140,6 +1256,15 @@ None at this time.
 | 2025-11-15 | Updated total measure counts | Corrected from 47 to 49 total measures across all documentation |
 | 2025-11-15 | Documented Decision 10 in CLAUDE.md | Component Index 5 Measures - Correction to Nebraska Methodology (Exclusive vs Cumulative Categories) |
 | 2025-11-15 | Component Index 5 now 100% API coverage | All 5 education & skill measures available via Census ACS 5-year estimates |
+| 2025-11-15 | **MAJOR CORRECTION**: Component Index 6 measures | Discovered initial documentation had WRONG measures for Component Index 6 (only 1/6 matched Nebraska) |
+| 2025-11-15 | Corrected Component Index 6 to Nebraska methodology | Replaced all 6 measures: removed housing/crime (not in Component 6), added Nebraska infrastructure measures |
+| 2025-11-15 | Updated API_MAPPING.md Component Index 6 | Now shows: Broadband, Interstate Presence, 4-Year Colleges, Weekly Wage, Tax Rate, QOZ Count |
+| 2025-11-15 | Created collect_infrastructure_cost_data.py | New comprehensive collection script for all 6 Infrastructure & Cost measures |
+| 2025-11-15 | Updated NEBRASKA_VIRGINIA_COMPARISON.md | Component Index 6 now shows 4/6 measures ready (66.7%) with correct Nebraska measures |
+| 2025-11-15 | Updated summary statistics | Increased HIGH-confidence measures from 37 to 38 (77.6%); decreased LOW from 3 to 2 (4.1%) |
+| 2025-11-15 | Documented Decision 11 in CLAUDE.md | Component Index 6 Measures - Correction to Nebraska Methodology |
+| 2025-11-15 | Component Index 6 now aligned with Nebraska | 4/6 measures ready: Colleges (bulk), Wage (API), Tax (static), QOZ (bulk); 2 pending: Broadband (API), Interstate (manual) |
+| 2025-11-15 | Four component indexes fully corrected | Component Indexes 3, 4, 5, and 6 now match Nebraska methodology exactly; overall project at 77.6% readiness (38/49 measures) |
 
 ---
 

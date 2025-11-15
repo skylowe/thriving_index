@@ -549,67 +549,127 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 
 ## Component Index 6: Infrastructure & Cost of Doing Business (6 measures)
 
-### 6.1 Broadband Access (Percent with Access)
+**Note**: This index measures infrastructure quality and business environment conditions following Nebraska Thriving Index methodology exactly.
 
-- **Nebraska Source**: FCC Broadband Data
+### 6.1 Broadband Internet Access
+
+- **Nebraska Source**: FCC Broadband Availability, December 2020
+- **Nebraska Metric**: Percent of population with one or more broadband providers with 100/10Mbps capacity
 - **Virginia API Source**: FCC Broadband Map API
-- **API**: `https://broadbandmap.fcc.gov/api`
+- **API Endpoint**: `https://broadbandmap.fcc.gov/api`
+- **Technology**: ADSL, Cable, Fiber, Fixed Wireless, Satellite, Other at ≥100/10 Mbps
 - **Confidence**: 🟡 **MEDIUM**
 - **Notes**:
-  - FCC National Broadband Map provides coverage data
-  - API documentation unclear
-  - May need to use bulk download
-- **Decision**: **INVESTIGATE** FCC API access
+  - FCC API key pending (FCC_API_KEY environment variable not yet available)
+  - Placeholder implementation strategy documented in FCC_PLACEHOLDER_DESIGN.md
+  - Can use FCC National Broadband Map bulk data as alternative
+  - Critical infrastructure measure for business operations and attraction
+  - Available at county level
+- **Data Year for Virginia**: Use most recent FCC Broadband Map data available (likely 2022-2023)
 
-### 6.2 Housing Affordability Index
+### 6.2 Presence of Interstate Highway
 
-- **Nebraska Source**: Calculated from ACS (median income vs median housing costs)
-- **Virginia API Source**: Census ACS API
-- **Variables**:
-  - B19013_001E (Median household income)
-  - B25077_001E (Median home value)
-  - B25064_001E (Median gross rent)
-- **Confidence**: ✅ **HIGH**
-- **Notes**: Calculate affordability index (various formulas possible)
-
-### 6.3 Percent of Housing Units Built in Last 10 Years
-
-- **Nebraska Source**: ACS 5-year estimates
-- **Virginia API Source**: Census ACS API
-- **Variables**: B25034 table (Year Structure Built)
-- **Confidence**: ✅ **HIGH**
-- **Notes**: Sum recent construction categories
-
-### 6.4 Property Crime Rate (Inverse)
-
-- **Nebraska Source**: FBI Uniform Crime Reporting (UCR)
-- **Virginia API Source**: FBI Crime Data Explorer API
-- **API**: `https://api.usa.gov/crime/fbi/cde/` (check current API)
-- **Confidence**: 🟡 **MEDIUM**
-- **Notes**:
-  - Not all jurisdictions report to FBI
-  - Virginia State Police also maintains crime data
-  - May have missing data for some localities
-- **Decision**: **INVESTIGATE** - Use FBI API if available; may have gaps
-
-### 6.5 Violent Crime Rate (Inverse)
-
-- **Nebraska Source**: FBI UCR
-- **Virginia API Source**: FBI Crime Data Explorer API
-- **Confidence**: 🟡 **MEDIUM**
-- **Notes**: Same as 6.4
-
-### 6.6 Highway Accessibility Index
-
-- **Nebraska Source**: Calculated based on distance to interstate highways
+- **Nebraska Source**: Google Maps Interstate Map, 2018
+- **Nebraska Metric**: Share of population in county that contains an interstate highway
 - **Virginia API Source**: ⚠️ **NO STANDARD API**
-- **Confidence**: ❌ **LOW**
+- **Confidence**: ❌ **LOW** (API), ✅ **HIGH** (manual mapping)
 - **Notes**:
-  - Would need GIS data for highway locations
-  - Calculate distance from county centroid to nearest interstate
-  - Could use OpenStreetMap or Census TIGER/Line files
-  - No direct API
-- **Decision**: **LIKELY EXCLUDE** - Would require significant GIS processing
+  - No API for interstate highway presence
+  - Can manually map which counties/regions contain interstate highways using:
+    - U.S. Department of Transportation highway data
+    - Census TIGER/Line shapefiles
+    - Google Maps or OpenStreetMap
+  - Binary variable: 1 if region contains interstate, 0 if not
+  - For multi-county regions: Calculate weighted share of population in counties with interstates
+  - One-time manual data collection is acceptable
+  - Enhances access to regional economy and manufacturing facility locations
+- **Implementation**: Manual mapping of interstate presence by county; one-time data collection
+- **Data Source**: Census TIGER/Line roads shapefile + county population data
+
+### 6.3 Count of 4-Year Colleges
+
+- **Nebraska Source**: National Center for Education Statistics (NCES) College Navigator, 2020-2021
+- **Nebraska Metric**: Average number of 4-year colleges in the counties where regional residents live
+- **Virginia API Source**: NCES Integrated Postsecondary Education Data System (IPEDS) API
+- **API Endpoint**: `https://nces.ed.gov/ipeds/datacenter/data/`
+- **Confidence**: 🟡 **MEDIUM** (API unclear), ✅ **HIGH** (bulk data)
+- **Notes**:
+  - NCES College Navigator provides institution-level data with locations
+  - IPEDS data available as bulk download or potentially via API
+  - Filter for 4-year institutions (Level: 4-year)
+  - Filter for degree-granting institutions
+  - Geocode to county using institution addresses
+  - For multi-county regions: Average count across counties (weighted by population)
+  - Influences probability of attracting/retaining young people post-graduation
+  - Can use IPEDS data download from https://nces.ed.gov/ipeds/datacenter/
+- **Implementation**: Use IPEDS bulk download, filter for 4-year colleges, map to counties
+- **Data Year for Virginia**: Use most recent IPEDS year available (likely 2022-2023)
+
+### 6.4 Weekly Wage Rate
+
+- **Nebraska Source**: Bureau of Labor Statistics, Quarterly Census of Employment and Wages (QCEW), Q2 2021
+- **Nebraska Metric**: Average weekly wage rate in the region (all industries, total covered)
+- **Virginia API Source**: BLS QCEW API
+- **API Endpoint**: `https://api.bls.gov/publicAPI/v2/timeseries/data/`
+- **Series ID Format**: `ENU` + state FIPS + county FIPS + `10` + `510` + `10`
+- **Variables**:
+  - Average weekly wage (all industries, private sector)
+  - Alternative: All establishment ownership codes (not just private)
+- **Confidence**: ✅ **HIGH**
+- **Notes**:
+  - BLS QCEW provides average weekly wage directly
+  - Reflects both hourly wage rate and hours worked per week
+  - Use annual average or Q2 for consistency with Nebraska
+  - Inverse scoring: Higher wages = worse for business cost competitiveness
+  - But also reflects worker quality and purchasing power
+  - Available at county level for all states
+  - Already implemented in BLS API client (similar to QCEW employment data)
+- **Data Year for Virginia**: Use most recent quarter available (likely Q2 2023 or Q2 2024)
+
+### 6.5 Top Marginal Income Tax Rate
+
+- **Nebraska Source**: Tax Foundation, 2022
+- **Nebraska Metric**: Highest marginal income tax rate in the state where the region is located
+- **Virginia API Source**: ⚠️ **NO API**
+- **Confidence**: ✅ **HIGH** (static data)
+- **Notes**:
+  - Tax Foundation publishes state tax rates annually
+  - No API, but data is publicly available and relatively static
+  - State-level data: All regions in same state have same tax rate
+  - One-time data collection with annual updates
+  - State income tax rates for relevant states (2024):
+    - Virginia: 5.75% (flat rate as of 2024)
+    - Maryland: 5.75% (top marginal rate)
+    - West Virginia: 6.5%
+    - North Carolina: 4.75% (flat rate)
+    - Tennessee: 0% (no income tax on wages)
+    - Kentucky: 4.5% (flat rate as of 2024)
+    - District of Columbia: 10.75%
+  - Inverse scoring: Lower tax rate = better for business
+  - Can hardcode by state; update annually from Tax Foundation
+- **Implementation**: Manual data collection from Tax Foundation; hardcode by state
+- **Data Source**: https://taxfoundation.org/state-income-tax-rates/
+- **Data Year for Virginia**: Use most recent tax rates (2024 or 2025)
+
+### 6.6 Count of Qualified Opportunity Zones
+
+- **Nebraska Source**: U.S. Department of the Treasury, Community Development Financial Institutions Fund, 2018
+- **Nebraska Metric**: Average number of qualified opportunity zones in the counties where regional residents live
+- **Virginia API Source**: ⚠️ **NO API**
+- **Confidence**: ✅ **HIGH** (static data)
+- **Notes**:
+  - Qualified Opportunity Zones (QOZs) designated in 2018 under Tax Cuts and Jobs Act
+  - Static list: QOZs do not change frequently
+  - Treasury publishes list of all designated QOZ census tracts
+  - Can download and map to counties
+  - Data available at: https://www.cdfifund.gov/opportunity-zones
+  - For each county: Count number of QOZ census tracts
+  - For multi-county regions: Average count across counties (weighted by population)
+  - QOZs help attract capital investment to economically distressed areas
+  - One-time data collection is acceptable
+- **Implementation**: Download QOZ tract list from Treasury; map tracts to counties; count by county
+- **Data Source**: https://www.cdfifund.gov/opportunity-zones (Excel/CSV download)
+- **Data Year for Virginia**: 2018 designations (static)
 
 ---
 
@@ -771,9 +831,9 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 
 | Confidence | Count | Percentage |
 |------------|-------|------------|
-| ✅ HIGH | 37 | 75.5% |
+| ✅ HIGH | 38 | 77.6% |
 | 🟡 MEDIUM | 9 | 18.4% |
-| ❌ LOW | 3 | 6.1% |
+| ❌ LOW | 2 | 4.1% |
 | **TOTAL** | **49** | **100%** |
 
 ### By Component Index
@@ -785,35 +845,37 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 | 3. Other Economic Prosperity | 4 | 1 | 0 | 5 |
 | 4. Demographic Growth & Renewal | 6 | 0 | 0 | 6 |
 | 5. Education & Skill | 5 | 0 | 0 | 5 |
-| 6. Infrastructure & Cost | 3 | 2 | 1 | 6 |
+| 6. Infrastructure & Cost | 4 | 2 | 0 | 6 |
 | 7. Quality of Life | 4 | 2 | 2 | 8 |
-| 8. Social Capital | 4 | 1 | 2 | 7 |
+| 8. Social Capital | 4 | 3 | 0 | 7 |
 
 **Notes**:
 - Component Index 3 (Other Economic Prosperity) updated to match Nebraska methodology exactly (5 measures, 4 HIGH confidence)
 - Component Index 4 (Demographic Growth & Renewal) updated to match Nebraska methodology exactly (6 measures, 6 HIGH confidence)
 - Component Index 5 (Education & Skill) updated to match Nebraska methodology exactly (5 measures, 5 HIGH confidence)
+- Component Index 6 (Infrastructure & Cost) updated to match Nebraska methodology exactly (6 measures, 4 HIGH confidence)
 
 ### Measures to Likely Exclude (LOW Confidence)
 
-1. Highway Accessibility Index (6.6)
-2. Mental Health Providers Per Capita (7.5) - *Available from County Health Rankings*
-3. Voter Participation Rate (8.1)
-4. Religious Congregations Per Capita (8.3)
+1. Retail Sales Growth Rate (1.6) - No consistent API across states
+2. Mental Health Providers Per Capita (7.5) - *May be available from County Health Rankings*
 
-**Note**: Component Index 5 now uses exclusive educational categories (HS as highest, Associate's as highest, Bachelor's as highest) plus labor force participation and knowledge workers, all via Census ACS API with HIGH confidence.
+**Notes**:
+- Component Index 5 now uses exclusive educational categories (HS as highest, Associate's as highest, Bachelor's as highest) plus labor force participation and knowledge workers, all via Census ACS API with HIGH confidence.
+- Component Index 6 now matches Nebraska methodology exactly: Broadband, Interstate Presence, 4-Year Colleges, Weekly Wage, Tax Rate, QOZ Count
+- Highway Accessibility Index removed (was not in Nebraska methodology)
 
 ### Measures Requiring Further Investigation (MEDIUM Confidence)
 
-1. Share of Workforce in High-Wage Industries (2.6)
+1. Share of Workforce in High-Wage Industries (2.6) - Need to define high-wage threshold
 2. Life Span / Life Expectancy at Birth (3.3) - *Bulk download from County Health Rankings*
-3. Broadband Access (6.1)
-4. Property Crime Rate (6.4)
-5. Violent Crime Rate (6.5)
-6. Infant Mortality Rate (7.2)
-7. Primary Care Physicians Per Capita (7.4)
-8. Nonprofit Organizations Per Capita (8.2)
-9. Social Capital Index composite (8.7)
+3. Broadband Internet Access (6.1) - FCC API key pending; can use bulk download
+4. Presence of Interstate Highway (6.2) - Manual mapping using Census TIGER/Line
+5. Infant Mortality Rate (7.2) - CDC WONDER API (may have suppression issues)
+6. Primary Care Physicians Per Capita (7.4) - CMS NPPES or AHRF bulk data
+7. Nonprofit Organizations Per Capita (8.2) - IRS bulk download
+8. Religious Congregations Per Capita (8.3) - ASARB data (may be outdated)
+9. Social Capital Index composite (8.7) - Calculate from available components
 
 ---
 
@@ -840,9 +902,9 @@ Based on HIGH and MEDIUM confidence measures:
 
 ## Recommended Initial Implementation
 
-### Phase 1: Core Measures (37 HIGH confidence measures)
+### Phase 1: Core Measures (38 HIGH confidence measures)
 
-Include only measures with HIGH confidence API availability. This ensures:
+Include only measures with HIGH confidence for API availability, static data, or bulk downloads. This ensures:
 - Complete data coverage across all regions
 - Minimal data gaps
 - Reliable API access
@@ -854,7 +916,7 @@ Include only measures with HIGH confidence API availability. This ensures:
 - Other Prosperity: 4/5 measures (80%) ✅ - **Updated to match Nebraska methodology**
 - Demographics: 6/6 measures (100%) ✅ - **Updated to match Nebraska methodology**
 - Education & Skill: 5/5 measures (100%) ✅ - **Updated to match Nebraska methodology**
-- Infrastructure: 3/6 measures (50%)
+- Infrastructure: 4/6 measures (67%) ✅ - **Updated to match Nebraska methodology**
 - Quality of Life: 4/8 measures (50%)
 - Social Capital: 4/7 measures (57%)
 
@@ -862,6 +924,7 @@ Include only measures with HIGH confidence API availability. This ensures:
 - Component Index 3 (Other Economic Prosperity) has been corrected to use Nebraska methodology with 4/5 measures available via API (80% coverage). Only Life Span (3.3) requires bulk download from County Health Rankings.
 - Component Index 4 (Demographic Growth & Renewal) has been corrected to use Nebraska methodology with 6/6 measures available via API (100% coverage).
 - Component Index 5 (Education & Skill) has been corrected to use Nebraska methodology with 5/5 measures available via API (100% coverage). Uses exclusive educational categories plus labor force participation and knowledge workers.
+- Component Index 6 (Infrastructure & Cost) has been corrected to use Nebraska methodology with 4/6 measures ready for implementation (67% coverage). Includes: 4-year colleges (bulk data), weekly wage (API), state tax rate (static), QOZ count (bulk data). Broadband and Interstate presence require additional data collection.
 
 ### Phase 2: Add MEDIUM Confidence Measures (After Investigation)
 

@@ -2,9 +2,9 @@
 
 **Date**: 2025-11-15
 **Total Measures**: 49
-**Virginia Ready (HIGH confidence)**: 37 (75.5%)
+**Virginia Ready (HIGH confidence)**: 38 (77.6%)
 **Virginia Needs Investigation (MEDIUM)**: 9 (18.4%)
-**Virginia Cannot Implement (LOW)**: 3 (6.1%)
+**Virginia Cannot Implement (LOW)**: 2 (4.1%)
 
 ---
 
@@ -65,16 +65,21 @@
 
 ---
 
-## Component Index 4: Demographic Growth & Renewal (4 measures)
+## Component Index 4: Demographic Growth & Renewal (6 measures)
+
+**Updated**: 2025-11-15 - Corrected to match Nebraska methodology exactly
 
 | # | Measure | Nebraska Source | Virginia Status | Virginia Source | Notes |
 |---|---------|----------------|----------------|-----------------|-------|
-| 4.1 | Natural Increase Rate | Census PEP | ✅ READY | Census PEP components API | Identical to Nebraska |
-| 4.2 | Net Migration Rate | Census PEP | ✅ READY | Census PEP components API | Identical to Nebraska |
-| 4.3 | Percent Population Age 25-54 | Census ACS | ✅ READY | Census ACS B01001 | Identical to Nebraska |
-| 4.4 | Median Age (inverse) | Census ACS | ✅ READY | Census ACS B01002_001E | Identical to Nebraska |
+| 4.1 | Long-Run Population Growth | Census 2000 + ACS 2016-2020 | ✅ READY | Census Decennial 2000 + ACS 2018-2022 | Identical to Nebraska (22-year growth) |
+| 4.2 | Dependency Ratio | Census ACS S0101, 2016-2020 | ✅ READY | Census ACS B01001 | Identical to Nebraska; (pop <15 + 65+) / pop 15-64 |
+| 4.3 | Median Age | Census ACS S0101, 2016-2020 | ✅ READY | Census ACS B01002_001E | Identical to Nebraska; inverse scoring |
+| 4.4 | Millennial and Gen Z Balance Change | Census ACS, 2011-15 & 2016-20 | ✅ READY | Census ACS B01001 (2 periods) | Identical to Nebraska; 5-year change in % born 1985+ |
+| 4.5 | Percent Hispanic | Census ACS B03003, 2016-2020 | ✅ READY | Census ACS B03003 | Identical to Nebraska |
+| 4.6 | Percent Non-White | Census ACS B02001, 2016-2020 | ✅ READY | Census ACS B02001 | Identical to Nebraska |
 
-**Summary**: 4/4 measures ready (100%)
+**Summary**: 6/6 measures ready (100%)
+**✅ RESOLVED**: Component Index 4 now matches Nebraska methodology with 100% API coverage
 
 ---
 
@@ -94,16 +99,19 @@
 
 ## Component Index 6: Infrastructure & Cost of Doing Business (6 measures)
 
+**Updated**: 2025-11-15 - Corrected to match Nebraska methodology exactly
+
 | # | Measure | Nebraska Source | Virginia Status | Virginia Source | Notes |
 |---|---------|----------------|----------------|-----------------|-------|
-| 6.1 | Broadband Access (% with access) | FCC Broadband Map | 🟡 INVESTIGATE | FCC API (pending key) | Placeholder implementation planned |
-| 6.2 | Housing Affordability Index | Census ACS (calculated) | ✅ READY | Census ACS B19013, B25077, B25064 | Identical to Nebraska |
-| 6.3 | Percent Housing Built in Last 10 Years | Census ACS | ✅ READY | Census ACS B25034 | Identical to Nebraska |
-| 6.4 | Property Crime Rate (inverse) | FBI UCR | ✅ READY | FBI Crime Data Explorer API | FBI_UCR_KEY available |
-| 6.5 | Violent Crime Rate (inverse) | FBI UCR | ✅ READY | FBI Crime Data Explorer API | FBI_UCR_KEY available |
-| 6.6 | Highway Accessibility Index | Calculated from GIS | ❌ NO API | N/A | Would require GIS processing |
+| 6.1 | Broadband Internet Access (% with 100/10Mbps) | FCC Broadband Map, Dec 2020 | 🟡 INVESTIGATE | FCC API (pending key) | Placeholder implementation; can use bulk download |
+| 6.2 | Presence of Interstate Highway | Google Maps, 2018 | 🟡 MANUAL | Census TIGER/Line | Manual mapping required; one-time data collection |
+| 6.3 | Count of 4-Year Colleges | NCES College Navigator, 2020-21 | ✅ READY | NCES IPEDS bulk download | Bulk download available; filter for 4-year institutions |
+| 6.4 | Weekly Wage Rate | BLS QCEW Q2 2021 | ✅ READY | BLS QCEW API | Average weekly wage; BLS_API_KEY available |
+| 6.5 | Top Marginal Income Tax Rate | Tax Foundation, 2022 | ✅ READY | Tax Foundation (static) | Hardcoded by state; updated annually |
+| 6.6 | Count of Qualified Opportunity Zones | Treasury CDFI Fund, 2018 | ✅ READY | Treasury bulk download | Static 2018 designations; one-time download |
 
-**Summary**: 3/6 measures ready (50%), 2 ready with keys, 1 needs investigation
+**Summary**: 4/6 measures ready (66.7%), 2 need investigation/manual collection
+**✅ RESOLVED**: Component Index 6 now matches Nebraska methodology with 66.7% ready for implementation
 
 ---
 
@@ -146,17 +154,15 @@
 
 | Status | Count | Percentage | Notes |
 |--------|-------|------------|-------|
-| ✅ **READY** (Identical to Nebraska) | 30 | 63.8% | Direct API access, same methodology |
-| ✅ **READY** (Modified methodology) | 1 | 2.1% | Educational attainment vs graduation rate |
-| 🟡 **FBI/FCC Keys Available** | 2 | 4.3% | Crime rates (FBI_UCR_KEY available) |
-| 🟡 **INVESTIGATE** | 8 | 17.0% | Potential sources, need verification |
-| ❌ **NO API** | 6 | 12.8% | No viable API source |
-| **TOTAL** | **47** | **100%** | |
+| ✅ **READY** (API available) | 34 | 69.4% | Direct API access, same methodology as Nebraska |
+| ✅ **READY** (Static/bulk data) | 4 | 8.2% | Tax rates, QOZ, Colleges, Interstate mapping |
+| 🟡 **INVESTIGATE** | 9 | 18.4% | Potential sources, need verification |
+| ❌ **NO API** | 2 | 4.1% | No viable data source |
+| **TOTAL** | **49** | **100%** | |
 
-### Ready for Implementation: **33 measures (70.2%)**
-- 30 identical to Nebraska methodology
-- 1 modified methodology (educational attainment)
-- 2 with available API keys (crime rates)
+### Ready for Implementation: **38 measures (77.6%)**
+- 34 identical to Nebraska methodology (API available)
+- 4 with static/bulk data sources (Tax Rate, QOZ, Colleges, Interstate manual mapping)
 
 ---
 
@@ -186,14 +192,17 @@
 | 1. Growth | 5 | 0 | 1 | 6 | 83.3% |
 | 2. Economic Opportunity & Diversity | 6 | 1 | 0 | 7 | 85.7% |
 | 3. Other Economic Prosperity | 4 | 1 | 0 | 5 | 80.0% ✅ |
-| 4. Demographic Growth & Renewal | 4 | 0 | 0 | 4 | 100% |
-| 5. Education & Skill | 3 | 0 | 2 | 5 | 60.0% |
-| 6. Infrastructure & Cost | 5 | 1 | 0 | 6 | 83.3% |
+| 4. Demographic Growth & Renewal | 6 | 0 | 0 | 6 | 100% ✅ |
+| 5. Education & Skill | 5 | 0 | 0 | 5 | 100% ✅ |
+| 6. Infrastructure & Cost | 4 | 2 | 0 | 6 | 66.7% ✅ |
 | 7. Quality of Life | 4 | 2 | 2 | 8 | 50.0% |
-| 8. Social Capital | 4 | 2 | 1 | 7 | 57.1% |
-| **OVERALL** | **35** | **7** | **6** | **47** | **74.5%** |
+| 8. Social Capital | 4 | 3 | 0 | 7 | 57.1% |
+| **OVERALL** | **38** | **9** | **2** | **49** | **77.6%** |
 
-**Note**: Totals include 2 measures with available keys (FBI crime rates) in "Ready" category.
+**Notes**:
+- ✅ indicates component index has been updated to match Nebraska methodology exactly
+- Component Indexes 3, 4, 5, and 6 have been corrected as of 2025-11-15
+- Total measures increased from 47 to 49 (added 2 measures in Component Index 4)
 
 ---
 
