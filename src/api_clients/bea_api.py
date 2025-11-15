@@ -335,6 +335,46 @@ class BEAAPI(BaseAPIClient):
 
         return self.fetch('', params)
 
+    def get_nonfarm_proprietor_employment(
+        self,
+        year: Union[int, str],
+        state: Optional[str] = None
+    ) -> Dict:
+        """
+        Get nonfarm proprietor employment by county.
+
+        Args:
+            year: Year or 'LAST5' for last 5 years
+            state: State FIPS code (2-digit) or state abbreviation, or None for all states
+
+        Returns:
+            API response with nonfarm proprietor employment data
+
+        Note:
+            This is from BEA Table CAEMP25 (Employment by industry).
+            Line Code 200 = Nonfarm proprietors employment
+            This is the count of proprietors (self-employed), not their income.
+        """
+        # Convert FIPS code to abbreviation if needed
+        geo_param = 'COUNTY'
+        if state:
+            if state in FIPS_TO_ABBR:
+                geo_param = FIPS_TO_ABBR[state]
+            else:
+                geo_param = state
+
+        params = {
+            'method': 'GetData',
+            'datasetname': 'Regional',
+            'TableName': 'CAEMP25',  # Total full-time and part-time employment by industry
+            'LineCode': '200',  # Nonfarm proprietors
+            'Year': str(year),
+            'GeoFips': geo_param,
+            'ResultFormat': 'JSON'
+        }
+
+        return self.fetch('', params)
+
     def get_wages_by_industry(
         self,
         year: Union[int, str],

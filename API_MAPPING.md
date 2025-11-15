@@ -108,76 +108,125 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 
 ## Component Index 2: Economic Opportunity & Diversity (7 measures)
 
-### 2.1 Per Capita Personal Income (Level)
+**Note**: This index measures entrepreneurial activity, business formation, and economic diversity, following Nebraska Thriving Index methodology exactly.
 
-- **Nebraska Source**: Bureau of Economic Analysis
-- **Virginia API Source**: BEA Regional API
-- **Dataset**: CAINC1, Line Code 3
-- **Confidence**: ✅ **HIGH**
-- **Notes**: Same as 1.5 but level, not growth rate
+### 2.1 Entrepreneurial Activity (Business Births and Deaths Per Person)
 
-### 2.2 Median Household Income
-
-- **Nebraska Source**: American Community Survey (ACS) 5-year estimates
-- **Virginia API Source**: Census ACS API
-- **API Endpoint**: `https://api.census.gov/data/[year]/acs/acs5`
-- **Variable**: B19013_001E (Median household income in the past 12 months)
-- **Confidence**: ✅ **HIGH**
-- **Notes**: Most recent ACS 5-year estimates (2018-2022)
-
-### 2.3 Poverty Rate (Inverse)
-
-- **Nebraska Source**: ACS 5-year estimates
-- **Virginia API Source**: Census ACS API
-- **Variables**:
-  - S1701_C03_001E (Percent below poverty level)
-  - Or B17001 table for detailed poverty
-- **Confidence**: ✅ **HIGH**
-- **Notes**: Inverse scoring (lower poverty = higher index)
-
-### 2.4 Labor Force Participation Rate
-
-- **Nebraska Source**: ACS 5-year estimates
-- **Virginia API Source**: Census ACS API
-- **Variables**:
-  - S2301_C02_001E (Labor force participation rate)
-  - Or calculate from B23025 table
-- **Confidence**: ✅ **HIGH**
-- **Notes**: Percent of population 16+ in labor force
-
-### 2.5 Unemployment Rate (Inverse)
-
-- **Nebraska Source**: Bureau of Labor Statistics, LAUS
-- **Virginia API Source**: BLS LAUS API
-- **Series ID Format**: `LAU` + ST + county code + `03` (unemployment rate)
-- **Confidence**: ✅ **HIGH**
-- **Notes**: Annual average; inverse scoring
-- **Alternative**: ACS also has unemployment estimates
-
-### 2.6 Share of Workforce in High-Wage Industries
-
-- **Nebraska Source**: BLS QCEW or County Business Patterns
-- **Virginia API Source**: Census County Business Patterns API or BLS QCEW
-- **API**: `https://api.census.gov/data/[year]/cbp`
+- **Nebraska Source**: Census Bureau, Business Dynamics Statistics (BDS), 2019
+- **Nebraska Metric**: Business births and deaths per person
+- **Virginia API Source**: Census Bureau Business Dynamics Statistics
+- **API**: May require bulk data download; API access unclear
 - **Confidence**: 🟡 **MEDIUM**
 - **Notes**:
-  - Need to define "high-wage industries" (e.g., Information, Finance, Professional Services, Management)
-  - Calculate employment share in these NAICS codes
-  - CBP provides employment by industry; QCEW provides wages
-- **Decision**: Use QCEW if available; define high-wage as industries with wages > 120% of county average
+  - BDS provides establishment births and deaths by county
+  - Calculate: (Births + Deaths) / Population
+  - County-level data may be suppressed for small counties
+  - BDS has ~2 year lag
+- **Alternative**: Use Census County Business Patterns year-over-year change as proxy
+- **Data Year for Virginia**: Use most recent available (likely 2020 or 2021)
 
-### 2.7 Economic Diversity (Herfindahl-Hirschman Index)
+### 2.2 Non-Farm Proprietors Per 1,000 Persons
 
-- **Nebraska Source**: Calculated from CBP or QCEW employment by industry
-- **Virginia API Source**: Census CBP API
-- **API**: `https://api.census.gov/data/[year]/cbp`
-- **Variables**: Employment by 2-digit NAICS code
+- **Nebraska Source**: BEA Table CAEMP25, Census Population, 2020
+- **Nebraska Metric**: Number of proprietor businesses per 1,000 persons
+- **Virginia API Source**: BEA Regional API
+- **API Endpoint**: `https://apps.bea.gov/api/data/`
+- **Dataset**: CAEMP25 (Full-time and part-time employment by industry)
+- **Line Code**: Line Code 200 (Nonfarm proprietors) or 300 (Farm proprietors) - sum for total
 - **Confidence**: ✅ **HIGH**
 - **Notes**:
-  - HHI = sum of squared employment shares by industry
-  - More diverse economy = lower HHI = higher index score
-  - Inverse scoring needed
-- **Calculation**: `HHI = Σ(employment_share_i)²` where i = industry
+  - BEA Table CAEMP25 provides proprietor employment counts
+  - Line Code 200 = Nonfarm proprietors
+  - Line Code 300 = Farm proprietors (if including farm)
+  - Divide by population and multiply by 1,000
+  - Available at county level for all states
+- **Data Year for Virginia**: Use most recent available (likely 2022)
+
+### 2.3 Employer Establishments Per 1,000 Residents
+
+- **Nebraska Source**: BLS QCEW Private Annual Average Establishments, Census Population, 2020
+- **Nebraska Metric**: Number of establishments with employees per 1,000 persons
+- **Virginia API Source**: Census County Business Patterns API (easier than BLS QCEW)
+- **API Endpoint**: `https://api.census.gov/data/[year]/cbp`
+- **Variable**: ESTAB (Number of establishments)
+- **Confidence**: ✅ **HIGH**
+- **Notes**:
+  - Census CBP provides establishment counts (ESTAB variable)
+  - Filter for NAICS 00 (total, all industries)
+  - Excludes government, agricultural production, self-employed without employees
+  - Divide by population and multiply by 1,000
+  - Available at county level
+- **Data Year for Virginia**: Use most recent available (likely 2021)
+
+### 2.4 Share of Workers in Non-Employer Establishment
+
+- **Nebraska Source**: Census County Business Patterns and Nonemployer Statistics Combined Report, 2018
+- **Nebraska Metric**: Self-employed individuals / total employed
+- **Virginia API Source**: Census Nonemployer Statistics (NES) API + CBP API
+- **API Endpoints**:
+  - Nonemployer: `https://api.census.gov/data/[year]/nonemp`
+  - CBP: `https://api.census.gov/data/[year]/cbp`
+- **Confidence**: ✅ **HIGH**
+- **Notes**:
+  - Nonemployer Statistics (NES) provides count of non-employer firms
+  - CBP provides employment in employer establishments
+  - Calculate: NONEMP / (NONEMP + EMP_CBP)
+  - Available at county level for all counties
+  - NES variable: NONEMP (Number of nonemployer establishments)
+- **Data Year for Virginia**: Use most recent available (likely 2020 or 2021)
+
+### 2.5 Industry Diversity
+
+- **Nebraska Source**: Census County Business Patterns, 2019
+- **Nebraska Metric**: Index matching US allocation of employment by industry
+- **Virginia API Source**: Census CBP API
+- **API Endpoint**: `https://api.census.gov/data/[year]/cbp`
+- **Variables**: EMP (Employment) by 2-digit NAICS code
+- **Confidence**: ✅ **HIGH**
+- **Notes**:
+  - Calculate dissimilarity index or correlation with US employment shares
+  - For each county: `Diversity_Index = 1 - Σ|county_share_i - US_share_i| / 2`
+  - Higher value = more similar to US = more diverse
+  - Alternative: Herfindahl-Hirschman Index (HHI) where lower = more diverse
+  - Nebraska likely uses dissimilarity index
+- **Calculation**: Compare county industry shares to national shares
+- **Data Year for Virginia**: Use most recent available (likely 2021)
+
+### 2.6 Occupation Diversity
+
+- **Nebraska Source**: Census ACS Table S2401, 2016-2020 period
+- **Nebraska Metric**: Index matching US allocation of employment by occupation
+- **Virginia API Source**: Census ACS API
+- **API Endpoint**: `https://api.census.gov/data/[year]/acs/acs5/subject`
+- **Table**: S2401 (Occupation by Sex and Median Earnings)
+- **Confidence**: ✅ **HIGH**
+- **Notes**:
+  - Table S2401 provides employment by occupation categories
+  - Major occupation groups (6 categories): Management/Business, Service, Sales, Natural Resources, Production, Transportation
+  - Calculate dissimilarity index with US occupation shares
+  - Formula: `Diversity_Index = 1 - Σ|county_share_i - US_share_i| / 2`
+  - Available at county level
+- **Data Period for Virginia**: Use most recent 5-year period (2018-2022)
+
+### 2.7 Share of Telecommuters
+
+- **Nebraska Source**: Census ACS Table B08128, 2016-2020 period
+- **Nebraska Metric**: Share working at home but not self-employed
+- **Virginia API Source**: Census ACS API
+- **API Endpoint**: `https://api.census.gov/data/[year]/acs/acs5`
+- **Variables**:
+  - B08128_001E (Total workers)
+  - B08128_002E (Workers who worked at home)
+  - Need to subtract self-employed: use B08126 table
+  - Alternative: Use pre-calculated variable if available
+- **Confidence**: ✅ **HIGH**
+- **Notes**:
+  - Table B08128: Means of Transportation to Work by Class of Worker
+  - Filter for worked at home AND not self-employed
+  - Calculate: Telecommuters / Total workers
+  - Available at county level
+  - NOTE: Post-COVID data may show significant increase
+- **Data Period for Virginia**: Use most recent 5-year period (2018-2022)
 
 ---
 
@@ -564,6 +613,8 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 | 7. Quality of Life | 4 | 2 | 2 | 8 |
 | 8. Social Capital | 4 | 1 | 2 | 7 |
 
+**Note**: Economic Opportunity & Diversity measures updated to match Nebraska methodology (entrepreneurship focus).
+
 ### Measures to Likely Exclude (LOW Confidence)
 
 1. Per Capita Retail Sales (3.1)
@@ -626,7 +677,7 @@ Include only measures with HIGH confidence API availability. This ensures:
 
 **Coverage by Component**:
 - Growth: 5/5 measures (100%) ✅
-- Economic Opportunity: 6/7 measures (86%)
+- Economic Opportunity & Diversity: 6/7 measures (86%) - Updated to entrepreneurship focus
 - Other Prosperity: 0/4 measures (0%) ⚠️
 - Demographics: 4/4 measures (100%)
 - Education: 3/5 measures (60%)
