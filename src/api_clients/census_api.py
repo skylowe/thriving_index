@@ -419,6 +419,69 @@ class CensusAPI(BaseAPIClient):
 
         return results
 
+    def get_data(
+        self,
+        dataset: str,
+        year: int,
+        variables: Union[str, List[str]],
+        geography: Dict[str, str],
+        predicates: Optional[Dict[str, str]] = None
+    ) -> List[List]:
+        """
+        Generic method to get data from any Census dataset.
+
+        Args:
+            dataset: Dataset path (e.g., 'dec/sf1' for 2000 Decennial, 'acs/acs5' for ACS)
+            year: Year of data
+            variables: Variable code(s) to retrieve
+            geography: Geography specification as dict (e.g., {'for': 'county:*', 'in': 'state:51'})
+            predicates: Additional query predicates
+
+        Returns:
+            List of lists containing header row and data rows
+
+        Example:
+            >>> client = CensusAPI()
+            >>> # Get 2000 Decennial Census population
+            >>> data = client.get_data(
+            ...     dataset='dec/sf1',
+            ...     year=2000,
+            ...     variables=['P001001'],
+            ...     geography={'for': 'county:*', 'in': 'state:51'}
+            ... )
+        """
+        # Handle variable input
+        if isinstance(variables, str):
+            variables = [variables]
+
+        # Build endpoint
+        endpoint = f"/{year}/{dataset}"
+
+        # Build parameters
+        params = {
+            'get': ','.join(variables)
+        }
+
+        # Add geography parameters
+        params.update(geography)
+
+        # Add additional predicates
+        if predicates:
+            params.update(predicates)
+
+        # Fetch data
+        response = self.fetch(endpoint=endpoint, params=params)
+
+        # Census API returns data as list of lists (header + data rows)
+        # Response is usually already a list for Census API
+        if isinstance(response, dict) and 'data' in response:
+            return response['data']
+        elif isinstance(response, list):
+            return response
+        else:
+            self.logger.warning(f"Unexpected response format from Census API: {type(response)}")
+            return []
+
 
 # Variable code reference for common measures
 ACS_VARIABLE_CODES = {

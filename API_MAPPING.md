@@ -323,41 +323,122 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 
 ---
 
-## Component Index 4: Demographic Growth & Renewal (4 measures)
+## Component Index 4: Demographic Growth & Renewal (6 measures)
 
-### 4.1 Natural Increase Rate (Births minus Deaths)
+**Note**: This index measures demographic vitality, diversity, and generational renewal following Nebraska Thriving Index methodology exactly.
 
-- **Nebraska Source**: Census Bureau Population Estimates, Vital Statistics
-- **Virginia API Source**: Census Population Estimates API
-- **API**: `https://api.census.gov/data/[year]/pep/components`
-- **Variables**: BIRTHS, DEATHS
+### 4.1 Long-Run Population Growth
+
+- **Nebraska Source**: Census Bureau County Population Totals 2000, American Community Survey Table S0101, 2016-2020 period
+- **Nebraska Metric**: Percent growth in population from 2000 to 2016-2020 period
+- **Virginia API Source**: Census Decennial Census 2000 + Census ACS API
+- **API Endpoints**:
+  - Decennial 2000: `https://api.census.gov/data/2000/dec/sf1`
+  - ACS 5-year: `https://api.census.gov/data/[year]/acs/acs5`
+- **Variables**:
+  - 2000 Decennial: P001001 (Total population)
+  - ACS 2022: B01001_001E (Total population)
 - **Confidence**: ✅ **HIGH**
-- **Notes**: Calculate (births - deaths) / population * 1000
+- **Notes**:
+  - Calculate percent change from 2000 to most recent ACS 5-year period
+  - Nebraska used 2000 to 2016-2020 (20-year period)
+  - Virginia will use 2000 to 2018-2022 (22-year period)
+  - Formula: `((Pop_2022 - Pop_2000) / Pop_2000) * 100`
+  - Available at county level for all states
+- **Data Years for Virginia**: 2000 Decennial Census to 2018-2022 ACS 5-year estimates
 
-### 4.2 Net Migration Rate
+### 4.2 Dependency Ratio
 
-- **Nebraska Source**: Census Bureau Population Estimates
-- **Virginia API Source**: Census Population Estimates API
-- **API**: Same as 4.1 - components of population change
-- **Variables**: NETMIG (Net migration)
-- **Confidence**: ✅ **HIGH**
-- **Notes**: Net migration / population * 1000
-
-### 4.3 Percent of Population Age 25-54
-
-- **Nebraska Source**: ACS 5-year estimates
+- **Nebraska Source**: Census Bureau American Community Survey Table S0101, 2016-2020 period
+- **Nebraska Metric**: Ratio of dependent population (age <15 and >64) to prime working age (15-64)
 - **Virginia API Source**: Census ACS API
-- **Variables**: B01001 table (Sex by Age)
+- **API Endpoint**: `https://api.census.gov/data/[year]/acs/acs5/subject`
+- **Table**: S0101 (Age and Sex)
+- **Variables**:
+  - S0101_C01_001E (Total population)
+  - Age breakdowns from S0101 or detailed B01001 table
 - **Confidence**: ✅ **HIGH**
-- **Notes**: Sum age groups 25-54, divide by total population
+- **Notes**:
+  - Dependent population: Under 15 + 65 and over
+  - Working age population: 15 to 64
+  - Formula: `(Pop_<15 + Pop_65+) / Pop_15_64`
+  - Higher ratio = more dependents per working-age person
+  - Inverse scoring: Lower dependency ratio = better (more working-age people)
+  - Use B01001 table for precise age breakdowns
+- **Data Period for Virginia**: Use most recent 5-year ACS period (2018-2022)
 
-### 4.4 Median Age (Inverse for Younger Population)
+### 4.3 Median Age
 
-- **Nebraska Source**: ACS 5-year estimates
+- **Nebraska Source**: Census Bureau American Community Survey Table S0101, 2016-2020 period
+- **Nebraska Metric**: Median age of the population
 - **Virginia API Source**: Census ACS API
+- **API Endpoint**: `https://api.census.gov/data/[year]/acs/acs5`
 - **Variable**: B01002_001E (Median age)
 - **Confidence**: ✅ **HIGH**
-- **Notes**: Inverse scoring if younger is considered better
+- **Notes**:
+  - Directly available from ACS
+  - Younger median age = faster natural population growth
+  - Inverse scoring: Lower (younger) median age = better
+  - Available at county level for all counties
+- **Data Period for Virginia**: Use most recent 5-year ACS period (2018-2022)
+
+### 4.4 Millennial and Gen Z Balance Change
+
+- **Nebraska Source**: Census Bureau American Community Survey Tables S0101 and B01001, 2016-2020 and 2011-2015 periods
+- **Nebraska Metric**: Five-year change in the share of population born in 1985 or after
+- **Virginia API Source**: Census ACS API
+- **API Endpoint**: `https://api.census.gov/data/[year]/acs/acs5`
+- **Tables**: B01001 (Sex by Age) or S0101 (Age and Sex)
+- **Confidence**: ✅ **HIGH**
+- **Notes**:
+  - Born 1985 or after = Millennials (1985-1996) + Gen Z (1997+)
+  - Nebraska compared 2011-2015 to 2016-2020 ACS periods
+  - For 2016-2020 data: Calculate % of population age 0-35 (born 1985-2020)
+  - For 2011-2015 data: Calculate % of population age 0-30 (born 1985-2015)
+  - Virginia will use 2013-2017 to 2018-2022 ACS periods
+  - For 2018-2022 data: Born 1985+ means age 0-37 in 2022
+  - For 2013-2017 data: Born 1985+ means age 0-32 in 2017
+  - Formula: `(Pct_Millennial_GenZ_2022 - Pct_Millennial_GenZ_2017)`
+  - Positive change = younger cohorts increasing concentration
+- **Data Periods for Virginia**: 2013-2017 and 2018-2022 ACS 5-year estimates
+
+### 4.5 Percent Hispanic
+
+- **Nebraska Source**: Census Bureau American Community Survey Table B03003, 2016-2020 period
+- **Nebraska Metric**: Percent of population that is Hispanic or Latino
+- **Virginia API Source**: Census ACS API
+- **API Endpoint**: `https://api.census.gov/data/[year]/acs/acs5`
+- **Table**: B03003 (Hispanic or Latino Origin)
+- **Variables**:
+  - B03003_001E (Total population)
+  - B03003_003E (Hispanic or Latino)
+- **Confidence**: ✅ **HIGH**
+- **Notes**:
+  - Directly available from ACS
+  - Hispanic ethnicity is separate from race (can be any race)
+  - Formula: `(Hispanic / Total) * 100`
+  - Diversity measure: More diverse population brings broader perspectives
+  - Available at county level for all counties
+- **Data Period for Virginia**: Use most recent 5-year ACS period (2018-2022)
+
+### 4.6 Percent Non-White
+
+- **Nebraska Source**: Census Bureau American Community Survey Table B02001, 2016-2020 period
+- **Nebraska Metric**: Percent of population that is non-white (all races except white alone)
+- **Virginia API Source**: Census ACS API
+- **API Endpoint**: `https://api.census.gov/data/[year]/acs/acs5`
+- **Table**: B02001 (Race)
+- **Variables**:
+  - B02001_001E (Total population)
+  - B02001_002E (White alone)
+- **Confidence**: ✅ **HIGH**
+- **Notes**:
+  - Calculate: `((Total - White_Alone) / Total) * 100`
+  - Or sum all non-white categories
+  - Diversity measure: More diverse population brings broader perspectives
+  - Available at county level for all counties
+  - Note: Hispanic ethnicity is counted separately in 4.5
+- **Data Period for Virginia**: Use most recent 5-year ACS period (2018-2022)
 
 ---
 
@@ -641,10 +722,10 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 
 | Confidence | Count | Percentage |
 |------------|-------|------------|
-| ✅ HIGH | 33 | 70.2% |
-| 🟡 MEDIUM | 9 | 19.1% |
-| ❌ LOW | 5 | 10.6% |
-| **TOTAL** | **47** | **100%** |
+| ✅ HIGH | 35 | 71.4% |
+| 🟡 MEDIUM | 9 | 18.4% |
+| ❌ LOW | 5 | 10.2% |
+| **TOTAL** | **49** | **100%** |
 
 ### By Component Index
 
@@ -653,13 +734,15 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 | 1. Growth | 5 | 0 | 0 | 5 |
 | 2. Economic Opportunity & Diversity | 6 | 1 | 0 | 7 |
 | 3. Other Economic Prosperity | 4 | 1 | 0 | 5 |
-| 4. Demographic Growth & Renewal | 4 | 0 | 0 | 4 |
+| 4. Demographic Growth & Renewal | 6 | 0 | 0 | 6 |
 | 5. Education & Skill | 3 | 0 | 2 | 5 |
 | 6. Infrastructure & Cost | 3 | 2 | 1 | 6 |
 | 7. Quality of Life | 4 | 2 | 2 | 8 |
 | 8. Social Capital | 4 | 1 | 2 | 7 |
 
-**Note**: Component Index 3 (Other Economic Prosperity) updated to match Nebraska methodology exactly (5 measures, 4 HIGH confidence).
+**Notes**:
+- Component Index 3 (Other Economic Prosperity) updated to match Nebraska methodology exactly (5 measures, 4 HIGH confidence)
+- Component Index 4 (Demographic Growth & Renewal) updated to match Nebraska methodology exactly (6 measures, 6 HIGH confidence)
 
 ### Measures to Likely Exclude (LOW Confidence)
 
@@ -709,7 +792,7 @@ Based on HIGH and MEDIUM confidence measures:
 
 ## Recommended Initial Implementation
 
-### Phase 1: Core Measures (33 HIGH confidence measures)
+### Phase 1: Core Measures (35 HIGH confidence measures)
 
 Include only measures with HIGH confidence API availability. This ensures:
 - Complete data coverage across all regions
@@ -721,13 +804,15 @@ Include only measures with HIGH confidence API availability. This ensures:
 - Growth: 5/5 measures (100%) ✅
 - Economic Opportunity & Diversity: 6/7 measures (86%)
 - Other Prosperity: 4/5 measures (80%) ✅ - **Updated to match Nebraska methodology**
-- Demographics: 4/4 measures (100%) ✅
+- Demographics: 6/6 measures (100%) ✅ - **Updated to match Nebraska methodology**
 - Education: 3/5 measures (60%)
 - Infrastructure: 3/6 measures (50%)
 - Quality of Life: 4/8 measures (50%)
 - Social Capital: 4/7 measures (57%)
 
-**Note**: Component Index 3 (Other Economic Prosperity) has been corrected to use Nebraska methodology with 4/5 measures available via API (80% coverage). Only Life Span (3.3) requires bulk download from County Health Rankings.
+**Notes**:
+- Component Index 3 (Other Economic Prosperity) has been corrected to use Nebraska methodology with 4/5 measures available via API (80% coverage). Only Life Span (3.3) requires bulk download from County Health Rankings.
+- Component Index 4 (Demographic Growth & Renewal) has been corrected to use Nebraska methodology with 6/6 measures available via API (100% coverage).
 
 ### Phase 2: Add MEDIUM Confidence Measures (After Investigation)
 

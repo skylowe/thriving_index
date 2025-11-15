@@ -440,6 +440,90 @@ Together, these provide a comprehensive view of economic well-being and prosperi
 
 ---
 
+### Decision 9: Component Index 4 Measures - Correction to Nebraska Methodology
+
+**Status**: ✅ **DECIDED & IMPLEMENTED**
+**Decision Date**: 2025-11-15
+
+**Decision**: Use Nebraska's exact 6 measures for Component Index 4 (Demographic Growth & Renewal):
+1. Long-Run Population Growth (2000 Decennial to 2018-2022 ACS)
+2. Dependency Ratio (dependent pop / working age pop)
+3. Median Age (Census ACS B01002)
+4. Millennial and Gen Z Balance Change (5-year change in % born 1985+)
+5. Percent Hispanic (Census ACS B03003)
+6. Percent Non-White (Census ACS B02001)
+
+**Context**: Initial project documentation incorrectly listed 4 different measures for Component Index 4:
+- Natural Increase Rate (Births minus Deaths) - NOT in Nebraska
+- Net Migration Rate - NOT in Nebraska
+- Percent of Population Age 25-54 - NOT in Nebraska
+- Median Age (correct)
+
+Only 1 out of 4 measures was correct. This was a documentation error from initial project setup.
+
+**Problem Discovered**: When user requested adherence to Nebraska methodology and provided the list of demographic measures from the Nebraska study, it became clear that Component Index 4 had been incorrectly documented from the beginning.
+
+**Corrective Actions Taken**:
+1. **Updated API_MAPPING.md**: Replaced all 4 incorrect measures with 6 correct Nebraska measures
+2. **Created collect_demographic_renewal_data.py**: New comprehensive collection script with all 6 measures:
+   - Measure 4.1: Long-run population growth (2000 to 2018-2022)
+   - Measure 4.2: Dependency ratio (pop <15 + pop 65+ / pop 15-64)
+   - Measure 4.3: Median age
+   - Measure 4.4: Millennial and Gen Z balance change (2013-2017 to 2018-2022)
+   - Measure 4.5: Percent Hispanic
+   - Measure 4.6: Percent non-white
+3. **Updated summary statistics**: Increased HIGH-confidence measures from 33 to 35 (71.4%)
+4. **Updated total measure count**: From 47 to 49 measures (added 2 measures)
+
+**API Availability**:
+- ✅ **6/6 measures** (100%) available via API (HIGH confidence)
+- All measures use Census Bureau data (Decennial 2000 + ACS 5-year estimates)
+
+**Implementation Details**:
+- **Long-Run Population Growth**:
+  - 2000 Decennial Census (P001001) via `dec/sf1` dataset
+  - 2018-2022 ACS (B01003_001E) via `acs/acs5` dataset
+  - Calculate percent change over 22-year period
+- **Dependency Ratio**:
+  - ACS B01001 (Sex by Age) detailed age groups
+  - Sum age groups <15 and 65+ for dependent population
+  - Sum age groups 15-64 for working age population
+  - Calculate ratio
+- **Median Age**:
+  - ACS B01002_001E (Median age) - direct measure
+  - Inverse scoring: Younger median age = better
+- **Millennial and Gen Z Balance Change**:
+  - Calculate % born 1985+ for two ACS periods (2013-2017 and 2018-2022)
+  - For 2018-2022: Born 1985+ = age 0-37 in 2022
+  - For 2013-2017: Born 1985+ = age 0-32 in 2017
+  - Calculate percentage point change between periods
+- **Percent Hispanic**:
+  - ACS B03003 (Hispanic or Latino Origin)
+  - Calculate Hispanic / Total * 100
+- **Percent Non-White**:
+  - ACS B02001 (Race)
+  - Calculate (Total - White Alone) / Total * 100
+
+**Impact on Project**:
+- **Positive**: Component Index 4 now has 100% API coverage (was 100% before, but with wrong measures)
+- **Positive**: Increased total measures from 47 to 49
+- **Positive**: Increased HIGH-confidence measures from 33 to 35 (71.4%)
+- **Positive**: All demographic measures now align perfectly with Nebraska methodology
+- **Better Data**: Demographic renewal measures capture population vitality, diversity, and generational change
+
+**Rationale**:
+This correction aligns the project perfectly with Nebraska methodology for demographic measures. Component Index 4 is critical for assessing demographic vitality and renewal. The measures capture:
+- **Long-run population growth**: Regional attractiveness and economic vitality over two decades
+- **Dependency ratio**: Balance between working-age and dependent populations
+- **Median age**: Younger populations support natural growth and workforce renewal
+- **Millennial/Gen Z balance**: Concentration of younger, economically productive cohorts
+- **Hispanic diversity**: Cultural and economic diversity benefits
+- **Racial diversity**: Broader perspectives and innovation from diverse populations
+
+Together, these provide a comprehensive view of demographic health, diversity, and renewal potential that is essential for regional economic vitality.
+
+---
+
 ## API Integration Strategy
 
 ### API Sources Identified
@@ -939,6 +1023,13 @@ None at this time.
 | 2025-11-15 | Updated summary statistics | Increased ready measures from 29 (61.7%) to 33 (70.2%); overall coverage from 66.0% to 74.5% |
 | 2025-11-15 | Documented Decision 8 in CLAUDE.md | Component Index 3 Measures - Correction to Nebraska Methodology |
 | 2025-11-15 | Component Index 3 now viable | All 8 component indexes now have >50% measure coverage; project can proceed with all indexes |
+| 2025-11-15 | **MAJOR CORRECTION**: Component Index 4 measures | Discovered initial documentation had WRONG measures for Component Index 4 (only 1/4 correct) |
+| 2025-11-15 | Corrected Component Index 4 to Nebraska methodology | Replaced 4 incorrect measures with 6 correct Nebraska demographic measures |
+| 2025-11-15 | Updated API_MAPPING.md Component Index 4 | Now shows: Long-Run Pop Growth, Dependency Ratio, Median Age, Millennial/Gen Z Balance Change, % Hispanic, % Non-White |
+| 2025-11-15 | Created collect_demographic_renewal_data.py | New comprehensive collection script for all 6 demographic measures using Census API |
+| 2025-11-15 | Updated summary statistics | Increased total measures from 47 to 49; HIGH-confidence measures from 33 to 35 (71.4%) |
+| 2025-11-15 | Documented Decision 9 in CLAUDE.md | Component Index 4 Measures - Correction to Nebraska Methodology |
+| 2025-11-15 | Component Index 4 now 100% API coverage | All 6 demographic measures available via Census Decennial 2000 + ACS 5-year estimates |
 
 ---
 
