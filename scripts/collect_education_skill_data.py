@@ -282,17 +282,17 @@ class EducationSkillCollector:
         variables = [
             'C24030_001E',  # Total civilian employed population 16 years and over
             # Information
-            'C24030_029E',  # Male - Information
-            'C24030_066E',  # Female - Information
+            'C24030_013E',  # Male - Information
+            'C24030_040E',  # Female - Information
             # Finance, insurance, real estate, rental and leasing
-            'C24030_030E',  # Male - Finance/insurance/real estate
-            'C24030_067E',  # Female - Finance/insurance/real estate
+            'C24030_014E',  # Male - Finance/insurance/real estate (combined total)
+            'C24030_041E',  # Female - Finance/insurance/real estate (combined total)
             # Professional, scientific, management, administrative
-            'C24030_031E',  # Male - Professional/scientific/management
-            'C24030_068E',  # Female - Professional/scientific/management
+            'C24030_017E',  # Male - Professional/scientific/management (combined total)
+            'C24030_044E',  # Female - Professional/scientific/management (combined total)
             # Educational, health, social services
-            'C24030_032E',  # Male - Education/health/social
-            'C24030_069E',  # Female - Education/health/social
+            'C24030_021E',  # Male - Education/health/social (combined total)
+            'C24030_048E',  # Female - Education/health/social (combined total)
         ]
 
         df = self.collect_county_data(variables, "C24030 Industry by Sex")
@@ -302,10 +302,10 @@ class EducationSkillCollector:
 
         # Calculate total knowledge workers
         df['knowledge_workers'] = (
-            df['C24030_029E'] + df['C24030_066E'] +  # Information
-            df['C24030_030E'] + df['C24030_067E'] +  # Finance
-            df['C24030_031E'] + df['C24030_068E'] +  # Professional
-            df['C24030_032E'] + df['C24030_069E']    # Education/health
+            df['C24030_013E'] + df['C24030_040E'] +  # Information
+            df['C24030_014E'] + df['C24030_041E'] +  # Finance
+            df['C24030_017E'] + df['C24030_044E'] +  # Professional
+            df['C24030_021E'] + df['C24030_048E']    # Education/health
         )
 
         # Calculate percentage

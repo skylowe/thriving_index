@@ -312,7 +312,7 @@ class BEAAPI(BaseAPIClient):
             API response with DIR income data
 
         Note:
-            This is from BEA Table CAINC5N, Line Code 40, which includes
+            This is from BEA Table CAINC4, Line Code 46, which includes
             dividends, interest, and rental income.
         """
         # Convert FIPS code to abbreviation if needed
@@ -326,8 +326,8 @@ class BEAAPI(BaseAPIClient):
         params = {
             'method': 'GetData',
             'datasetname': 'Regional',
-            'TableName': 'CAINC5N',
-            'LineCode': '40',  # Dividends, interest, and rent
+            'TableName': 'CAINC4',
+            'LineCode': '46',  # Dividends, interest, and rent
             'Year': str(year),
             'GeoFips': geo_param,
             'ResultFormat': 'JSON'
