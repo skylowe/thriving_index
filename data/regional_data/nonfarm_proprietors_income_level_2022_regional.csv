@@ -1,0 +1,55 @@
+region_code,nonfarm_proprietors_income,num_counties,region_name,state
+DC-1,22259962,1,District of Columbia,DC
+KY-1,3121029,9,Northern Kentucky,KY
+KY-10,656021,4,East Central,KY
+KY-2,5381889,15,Bluegrass,KY
+KY-3,8014753,8,Louisville Metro,KY
+KY-4,1443040,21,Eastern Mountains,KY
+KY-5,1092210,14,Northeast,KY
+KY-6,3084120,22,South Central,KY
+KY-7,2155537,12,Pennyrile,KY
+KY-8,1104446,8,Purchase,KY
+KY-9,1163391,7,Western,KY
+MD-1,1385784,3,Western Maryland,MD
+MD-2,17823567,5,Central Maryland,MD
+MD-3,18375357,3,Capital Region,MD
+MD-4,9187790,4,Southern Maryland,MD
+MD-5,1243712,5,Upper Eastern Shore,MD
+MD-6,1227403,4,Lower Eastern Shore,MD
+NC-1,1470076,14,Western Mountains,NC
+NC-10,5144949,15,Coast,NC
+NC-2,2153330,2,Asheville Metro,NC
+NC-3,3739123,13,Western Piedmont,NC
+NC-4,16582776,7,Charlotte Metro,NC
+NC-5,8499001,9,Triad,NC
+NC-6,15440545,9,Triangle,NC
+NC-7,5354280,9,Sandhills,NC
+NC-8,2821102,8,Eastern Piedmont,NC
+NC-9,3974230,14,Coastal Plain,NC
+TN-1,2502503,8,First Tennessee,TN
+TN-2,6748957,16,Knoxville Metro,TN
+TN-3,4230608,11,Southeast Tennessee,TN
+TN-4,1334081,15,Upper Cumberland,TN
+TN-5,14538116,13,Nashville Metro,TN
+TN-6,1622923,10,South Central,TN
+TN-7,2292637,16,Northwest Tennessee,TN
+TN-8,6967678,2,Memphis Metro,TN
+TN-9,281344,4,Southern Middle Tennessee,TN
+VA-1,497515,6,Southwest Virginia,VA
+VA-10,12874443,10,Hampton Roads,VA
+VA-11,270988,2,Eastern Shore,VA
+VA-2,650238,7,New River Valley & Highlands,VA
+VA-3,856015,10,Southside & Danville,VA
+VA-4,1085460,4,Roanoke Valley & Alleghany Highlands,VA
+VA-5,452753,5,Shenandoah Valley,VA
+VA-6,859184,10,Charlottesville-Central Virginia,VA
+VA-7,8737851,10,Richmond Metro,VA
+VA-8,11045754,5,Northern Virginia,VA
+VA-9,1068404,13,Rappahannock,VA
+WV-1,757269,5,Northern Panhandle,WV
+WV-2,1985130,8,North Central,WV
+WV-3,1117416,8,Eastern Panhandle,WV
+WV-4,1761080,11,Central,WV
+WV-5,1740162,8,Western,WV
+WV-6,1513659,13,Southern Coalfields,WV
+WV-7,158325,2,Randolph-Pocahontas,WV
