@@ -257,6 +257,84 @@ class BEAAPI(BaseAPIClient):
 
         return self.fetch('', params)
 
+    def get_total_employment(
+        self,
+        year: Union[int, str],
+        state: Optional[str] = None
+    ) -> Dict:
+        """
+        Get total employment (wage and salary + proprietors) by county.
+
+        Args:
+            year: Year or 'LAST5' for last 5 years
+            state: State FIPS code (2-digit) or state abbreviation, or None for all states
+
+        Returns:
+            API response with total employment data
+
+        Note:
+            This is from BEA Table CAINC5N, Line Code 10, which includes both
+            wage/salary employment and proprietors (self-employed).
+        """
+        # Convert FIPS code to abbreviation if needed
+        geo_param = 'COUNTY'
+        if state:
+            if state in FIPS_TO_ABBR:
+                geo_param = FIPS_TO_ABBR[state]
+            else:
+                geo_param = state
+
+        params = {
+            'method': 'GetData',
+            'datasetname': 'Regional',
+            'TableName': 'CAINC5N',
+            'LineCode': '10',  # Total employment (wage and salary + proprietors)
+            'Year': str(year),
+            'GeoFips': geo_param,
+            'ResultFormat': 'JSON'
+        }
+
+        return self.fetch('', params)
+
+    def get_dir_income(
+        self,
+        year: Union[int, str],
+        state: Optional[str] = None
+    ) -> Dict:
+        """
+        Get Dividends, Interest, and Rent (DIR) income by county.
+
+        Args:
+            year: Year or 'LAST5' for last 5 years
+            state: State FIPS code (2-digit) or state abbreviation, or None for all states
+
+        Returns:
+            API response with DIR income data
+
+        Note:
+            This is from BEA Table CAINC5N, Line Code 40, which includes
+            dividends, interest, and rental income.
+        """
+        # Convert FIPS code to abbreviation if needed
+        geo_param = 'COUNTY'
+        if state:
+            if state in FIPS_TO_ABBR:
+                geo_param = FIPS_TO_ABBR[state]
+            else:
+                geo_param = state
+
+        params = {
+            'method': 'GetData',
+            'datasetname': 'Regional',
+            'TableName': 'CAINC5N',
+            'LineCode': '40',  # Dividends, interest, and rent
+            'Year': str(year),
+            'GeoFips': geo_param,
+            'ResultFormat': 'JSON'
+        }
+
+        return self.fetch('', params)
+
     def get_wages_by_industry(
         self,
         year: Union[int, str],

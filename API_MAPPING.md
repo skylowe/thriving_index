@@ -16,68 +16,93 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 
 ---
 
-## Component Index 1: Growth Index (6 measures)
+## Component Index 1: Growth Index (5 measures)
 
-### 1.1 Population Growth Rate (5-year)
+**Note**: This index measures regional economic growth from 2017-2020, following Nebraska Thriving Index methodology exactly.
 
-- **Nebraska Source**: Census Bureau Population Estimates
-- **Virginia API Source**: Census Bureau Population Estimates API
-- **API Endpoint**: `https://api.census.gov/data/[year]/pep/population`
-- **Required Parameters**: County FIPS codes, time series
-- **Confidence**: ✅ **HIGH**
-- **Notes**: Need to fetch population for current year and 5 years prior; calculate growth rate
-- **Calculation**: `((Pop_current - Pop_5yr_ago) / Pop_5yr_ago) * 100 / 5` (annualized)
+### 1.1 Growth in Total Employment
 
-### 1.2 Employment Growth Rate (5-year)
-
-- **Nebraska Source**: Bureau of Labor Statistics, Quarterly Census of Employment and Wages (QCEW)
-- **Virginia API Source**: BLS QCEW API
-- **API Endpoint**: `https://api.bls.gov/publicAPI/v2/timeseries/data/`
-- **Series ID Format**: `ENU` + state code + county code + `05` + `510` + industry
-- **Confidence**: ✅ **HIGH**
-- **Notes**: QCEW provides total employment by county; calculate 5-year change
-- **Alternative**: BLS Local Area Unemployment Statistics (LAUS) for total employment
-
-### 1.3 Wages and Salaries Growth Rate (5-year)
-
-- **Nebraska Source**: Bureau of Economic Analysis, Regional Economic Accounts
+- **Nebraska Source**: BEA Regional Economic Accounts, Table CAINC5 (Personal Income by Major Component and Earnings by NAICS Industry)
+- **Nebraska Years**: 2017 and 2020
 - **Virginia API Source**: BEA Regional API
 - **API Endpoint**: `https://apps.bea.gov/api/data/`
 - **Dataset**: CAINC5N (Personal Income by Major Component)
-- **Line Code**: 30 (Wages and salaries)
+- **Line Code**: Line Code 10 - Total employment (wage and salary + proprietors)
 - **Confidence**: ✅ **HIGH**
-- **Notes**: County-level wages and salaries available from BEA
-
-### 1.4 Proprietors Income Growth Rate (5-year)
-
-- **Nebraska Source**: Bureau of Economic Analysis, Regional Economic Accounts
-- **Virginia API Source**: BEA Regional API
-- **API Endpoint**: `https://apps.bea.gov/api/data/`
-- **Dataset**: CAINC5N
-- **Line Code**: 45 (Proprietors' income)
-- **Confidence**: ✅ **HIGH**
-- **Notes**: Includes farm and non-farm proprietors income
-
-### 1.5 Per Capita Personal Income Growth Rate (5-year)
-
-- **Nebraska Source**: Bureau of Economic Analysis
-- **Virginia API Source**: BEA Regional API
-- **API Endpoint**: `https://apps.bea.gov/api/data/`
-- **Dataset**: CAINC1 (Personal Income Summary)
-- **Line Code**: 3 (Per capita personal income)
-- **Confidence**: ✅ **HIGH**
-- **Notes**: Directly available from BEA; already calculated per capita
-
-### 1.6 Retail Sales Growth Rate (5-year)
-
-- **Nebraska Source**: State revenue departments, Census Bureau
-- **Virginia API Source**: ⚠️ **PROBLEMATIC**
-- **Confidence**: ❌ **LOW**
 - **Notes**:
-  - Census Bureau Economic Census (every 5 years, not annual)
-  - State-level retail sales tax data (may not be public API)
-  - County Business Patterns has retail establishments but not sales
-- **Decision**: **MAY NEED TO EXCLUDE** - Investigate Virginia Department of Taxation API
+  - BEA provides total employment including wage/salary workers and proprietors (self-employed)
+  - Calculate percent change from 2017 to 2020 (3-year growth rate)
+  - Formula: `((Employment_2020 - Employment_2017) / Employment_2017) * 100`
+  - Available at county level for all states
+- **Data Years for Virginia**: Use most recent 3-year period available (likely 2019-2022 or 2020-2023)
+
+### 1.2 Private Employment
+
+- **Nebraska Source**: BLS Quarterly Census of Employment and Wages (QCEW)
+- **Nebraska Year**: 2020 (level measure, not growth)
+- **Virginia API Source**: BLS QCEW API
+- **API Endpoint**: `https://api.bls.gov/publicAPI/v2/timeseries/data/`
+- **Series ID Format**: `ENU` + state FIPS + county FIPS + `05` + `510` + `10` (private sector, all industries)
+- **Confidence**: ✅ **HIGH**
+- **Notes**:
+  - QCEW provides private sector wage and salary employment (excludes government)
+  - This is a LEVEL measure, not a growth rate
+  - Use annual average for most recent year available
+  - Series ID components: ENU (QCEW program), ownership code 5 (private), aggregate level 10 (total)
+- **Data Year for Virginia**: Use most recent year available (likely 2022 or 2023)
+
+### 1.3 Growth in Private Wages Per Job
+
+- **Nebraska Source**: BLS QCEW (Private Wages and Private Employment)
+- **Nebraska Years**: 2017 and 2020
+- **Virginia API Source**: BLS QCEW API
+- **API Endpoint**: `https://api.bls.gov/publicAPI/v2/timeseries/data/`
+- **Series ID for Employment**: `ENU` + ST + CNTY + `05` + `510` + `10`
+- **Series ID for Wages**: `ENU` + ST + CNTY + `05` + `610` + `10` (total wages, quarterly, needs annualization)
+- **Confidence**: ✅ **HIGH**
+- **Notes**:
+  - Calculate wages per job: Total annual wages / Average employment
+  - Do this for both start year and end year
+  - Calculate percent change in wages per job
+  - Formula: `((WagesPerJob_2020 - WagesPerJob_2017) / WagesPerJob_2017) * 100`
+  - QCEW wages are reported quarterly; need to sum 4 quarters for annual total
+- **Data Years for Virginia**: Use most recent 3-year period available
+
+### 1.4 Growth in Households with Children
+
+- **Nebraska Source**: Census ACS Table S1101 (Households and Families)
+- **Nebraska Periods**: 2011-2015 ACS 5-year estimates and 2016-2020 ACS 5-year estimates
+- **Virginia API Source**: Census ACS API
+- **API Endpoint**: `https://api.census.gov/data/[year]/acs/acs5`
+- **Variables**:
+  - S1101_C01_002E (Households with one or more people under 18 years)
+  - S1101_C01_001E (Total households) - for verification
+- **Confidence**: ✅ **HIGH**
+- **Notes**:
+  - Compare 2011-2015 ACS estimates to 2016-2020 ACS estimates
+  - Calculate percent change in number of households with children
+  - Formula: `((HH_with_children_2016_2020 - HH_with_children_2011_2015) / HH_with_children_2011_2015) * 100`
+  - Available at county level for all counties
+- **Data Periods for Virginia**: Use two most recent non-overlapping 5-year ACS periods
+  - Earlier period: 2013-2017 or 2014-2018
+  - Later period: 2018-2022 or 2019-2023
+
+### 1.5 Growth in Dividends, Interest and Rent (DIR) Income
+
+- **Nebraska Source**: BEA Regional Economic Accounts, Table CAINC5
+- **Nebraska Years**: 2017 and 2020
+- **Virginia API Source**: BEA Regional API
+- **API Endpoint**: `https://apps.bea.gov/api/data/`
+- **Dataset**: CAINC5N (Personal Income by Major Component)
+- **Line Code**: Line Code 40 - Dividends, interest, and rent
+- **Confidence**: ✅ **HIGH**
+- **Notes**:
+  - BEA provides total DIR income by county
+  - This captures investment income and rental income
+  - Calculate percent change from 2017 to 2020
+  - Formula: `((DIR_2020 - DIR_2017) / DIR_2017) * 100`
+  - Available at county level for all states
+- **Data Years for Virginia**: Use most recent 3-year period available (likely 2019-2022 or 2020-2023)
 
 ---
 
@@ -521,16 +546,16 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 
 | Confidence | Count | Percentage |
 |------------|-------|------------|
-| ✅ HIGH | 29 | 61.7% |
-| 🟡 MEDIUM | 10 | 21.3% |
-| ❌ LOW | 8 | 17.0% |
-| **TOTAL** | **47** | **100%** |
+| ✅ HIGH | 29 | 63.0% |
+| 🟡 MEDIUM | 10 | 21.7% |
+| ❌ LOW | 7 | 15.2% |
+| **TOTAL** | **46** | **100%** |
 
 ### By Component Index
 
 | Component Index | HIGH | MEDIUM | LOW | Total |
 |----------------|------|--------|-----|-------|
-| 1. Growth | 5 | 0 | 1 | 6 |
+| 1. Growth | 5 | 0 | 0 | 5 |
 | 2. Economic Opportunity & Diversity | 6 | 1 | 0 | 7 |
 | 3. Other Economic Prosperity | 0 | 2 | 2 | 4 |
 | 4. Demographic Growth & Renewal | 4 | 0 | 0 | 4 |
@@ -541,16 +566,15 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 
 ### Measures to Likely Exclude (LOW Confidence)
 
-1. Retail Sales Growth Rate (1.6)
-2. Per Capita Retail Sales (3.1)
-3. Business Survival Rate (3.4)
-4. Student-Teacher Ratio (5.4) - *May be possible with effort*
-5. School District Spending Per Pupil (5.5) - *May be possible with effort*
-6. Highway Accessibility Index (6.6)
-7. Life Expectancy at Birth (7.1) - *Available from County Health Rankings*
-8. Mental Health Providers Per Capita (7.5) - *Available from County Health Rankings*
-9. Voter Participation Rate (8.1)
-10. Religious Congregations Per Capita (8.3)
+1. Per Capita Retail Sales (3.1)
+2. Business Survival Rate (3.4)
+3. Student-Teacher Ratio (5.4) - *May be possible with effort*
+4. School District Spending Per Pupil (5.5) - *May be possible with effort*
+5. Highway Accessibility Index (6.6)
+6. Life Expectancy at Birth (7.1) - *Available from County Health Rankings*
+7. Mental Health Providers Per Capita (7.5) - *Available from County Health Rankings*
+8. Voter Participation Rate (8.1)
+9. Religious Congregations Per Capita (8.3)
 
 **Note**: High School Graduation Rate (5.1) has been PROMOTED to HIGH confidence using Census ACS educational attainment data.
 
@@ -601,7 +625,7 @@ Include only measures with HIGH confidence API availability. This ensures:
 - Consistent cross-state comparisons
 
 **Coverage by Component**:
-- Growth: 5/6 measures (83%)
+- Growth: 5/5 measures (100%) ✅
 - Economic Opportunity: 6/7 measures (86%)
 - Other Prosperity: 0/4 measures (0%) ⚠️
 - Demographics: 4/4 measures (100%)
