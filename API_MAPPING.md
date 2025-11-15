@@ -828,77 +828,97 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 
 ---
 
-## Component Index 8: Social Capital (7 measures)
+## Component Index 8: Social Capital (5 measures)
 
-### 8.1 Voter Participation Rate
+**Note**: This index measures community engagement, volunteering, and civic participation, following Nebraska Thriving Index methodology exactly.
 
-- **Nebraska Source**: State election data
-- **Virginia API Source**: ⚠️ **NO STANDARD API**
-- **Confidence**: ❌ **LOW**
+### 8.1 Number of 501c3 Organizations Per 1,000 Persons
+
+- **Nebraska Source**: Tax Exempt World, 2022
+- **Nebraska Metric**: Count of non-profit 501(c)(3) organizations per 1,000 persons
+- **Virginia API Source**: IRS Exempt Organizations Business Master File (EO BMF)
+- **Data Source**: IRS bulk download
+- **Confidence**: 🟡 **MEDIUM** (bulk download, no direct API)
 - **Notes**:
-  - Each state maintains own election data
-  - Virginia Department of Elections publishes data
-  - Peer states (MD, WV, NC, TN, KY) would need separate sources
-  - No standardized API across states
-- **Decision**: **LIKELY EXCLUDE** - No consistent API across states
+  - IRS publishes Exempt Organizations Business Master File monthly
+  - Available as CSV/JSON bulk download from IRS.gov
+  - Filter by subsection code "03" for 501(c)(3) organizations
+  - County FIPS codes included in download
+  - For multi-county regions: Sum organizations, divide by total population
+  - Formula: `(Count_501c3 / Population) * 1000`
+  - Measures opportunities for volunteering and building social capital networks
+- **Data Period for Virginia**: Use most recent IRS EO BMF extract (monthly updates)
+- **Download URL**: https://www.irs.gov/charities-non-profits/exempt-organizations-business-master-file-extract-eo-bmf
 
-### 8.2 Nonprofit Organizations Per Capita
+### 8.2 Volunteer Rate (State Level)
 
-- **Nebraska Source**: IRS Exempt Organizations Business Master File
-- **Virginia API Source**: IRS API or bulk download
-- **Confidence**: 🟡 **MEDIUM**
+- **Nebraska Source**: Corporation for National & Community Service, 2017
+- **Nebraska Metric**: Share of state population volunteering time to non-profit organizations
+- **Virginia API Source**: AmeriCorps (formerly CNCS) Volunteering and Civic Life in America
+- **Data Source**: AmeriCorps annual reports and data downloads
+- **Confidence**: 🟡 **MEDIUM** (bulk data, state-level only, not county-level)
 - **Notes**:
-  - IRS publishes Exempt Organizations Business Master File (monthly)
-  - Available as bulk download
-  - May not have direct API
-  - Can filter by county
-- **Decision**: **INVESTIGATE** - Use bulk download if API not available
+  - AmeriCorps publishes annual Volunteering in America reports
+  - Data collected via Current Population Survey (CPS) September Volunteer Supplement
+  - STATE-LEVEL DATA ONLY (not available at county/regional level)
+  - All regions within same state receive same volunteer rate
+  - Use most recent available year (check for updates beyond 2017)
+  - Measures participation in networking opportunities related to volunteering
+- **Data Period for Virginia**: Use most recent AmeriCorps Volunteering in America data
+- **Download URL**: https://americorps.gov/about/our-impact/volunteering-civic-engagement-research
 
-### 8.3 Religious Congregations Per Capita
+### 8.3 Volunteer Hours Per Person (State Level)
 
-- **Nebraska Source**: Association of Statisticians of American Religious Bodies (ASARB)
-- **Virginia API Source**: ⚠️ **NO API**
-- **Confidence**: ❌ **LOW**
+- **Nebraska Source**: Corporation for National & Community Service, 2017
+- **Nebraska Metric**: Number of volunteer hours per person in the state
+- **Virginia API Source**: AmeriCorps Volunteering and Civic Life in America
+- **Data Source**: AmeriCorps annual reports and data downloads
+- **Confidence**: 🟡 **MEDIUM** (bulk data, state-level only, not county-level)
 - **Notes**:
-  - U.S. Religion Census conducted periodically
-  - No public API
-  - Data may be outdated
-- **Decision**: **LIKELY EXCLUDE**
+  - Same source as measure 8.2
+  - STATE-LEVEL DATA ONLY (not available at county/regional level)
+  - All regions within same state receive same volunteer hours per person
+  - Represents intensity of participation in volunteering (beyond just % who volunteer)
+  - Use most recent available year
+- **Data Period for Virginia**: Use most recent AmeriCorps Volunteering in America data
+- **Download URL**: https://americorps.gov/about/our-impact/volunteering-civic-engagement-research
 
-### 8.4 Social Associations Per Capita
+### 8.4 Voter Turnout
 
-- **Nebraska Source**: County Business Patterns
-- **Virginia API Source**: Census CBP API
-- **NAICS Code**: 813 (Religious, Grantmaking, Civic, Professional Organizations)
-- **Confidence**: ✅ **HIGH**
-- **Notes**: Count establishments in NAICS 813, divide by population
-
-### 8.5 Percent of Children in Single-Parent Households (Inverse)
-
-- **Nebraska Source**: ACS 5-year estimates
-- **Virginia API Source**: Census ACS API
-- **Variables**: B09002 table (Own Children by Family Type)
-- **Confidence**: ✅ **HIGH**
-- **Notes**: Calculate percent in single-parent households; inverse scoring
-
-### 8.6 Income Inequality (Gini Coefficient, Inverse)
-
-- **Nebraska Source**: ACS 5-year estimates
-- **Virginia API Source**: Census ACS API
-- **Variable**: B19083_001E (Gini Index of Income Inequality)
-- **Confidence**: ✅ **HIGH**
-- **Notes**: Directly available; inverse scoring (lower inequality = better)
-
-### 8.7 Social Capital Index (Composite)
-
-- **Nebraska Source**: Various sources combined into composite
-- **Virginia API Source**: ⚠️ **DEPENDS ON COMPONENTS**
-- **Confidence**: 🟡 **MEDIUM**
+- **Nebraska Source**: State by State Voter Turnout, 2018
+- **Nebraska Metric**: Percentage of registered voters who participated in fall 2018 general election
+- **Virginia API Source**: State election offices and MIT Election Lab
+- **Data Source**: State-level election results (bulk data collection)
+- **Confidence**: 🟡 **MEDIUM** (bulk data, requires state-by-state collection)
 - **Notes**:
-  - This is typically a calculated composite of other social capital measures
-  - May be subset of measures 8.1-8.6
-  - Penn State Social Capital Index project provides methodology
-- **Decision**: Calculate from available component measures
+  - No unified API across states
+  - Each state publishes election results on Secretary of State websites
+  - MIT Election Data and Science Lab aggregates county-level results
+  - Use most recent general election (2022 or 2020) for consistency
+  - For multi-county regions: Calculate weighted average turnout by county
+  - Formula: `(Total_Votes_Cast / Registered_Voters) * 100`
+  - Measures civic involvement short of formally volunteering
+  - County-level data generally available from state election offices
+- **Data Period for Virginia**: Use most recent general election (2022 recommended)
+- **Alternative Source**: MIT Election Data + Science Lab (https://electionlab.mit.edu/)
+
+### 8.5 Share of Tree City USA Counties
+
+- **Nebraska Source**: Arbor Day Foundation, Tree City USA Communities, 2022
+- **Nebraska Metric**: Share of regional population living in a county with at least one Tree City USA community
+- **Virginia API Source**: Arbor Day Foundation Tree City USA directory
+- **Data Source**: Static list from Arbor Day Foundation website
+- **Confidence**: 🟡 **MEDIUM** (static data, requires manual mapping)
+- **Notes**:
+  - Arbor Day Foundation publishes list of Tree City USA communities annually
+  - Need to map communities to counties (some communities are cities within counties)
+  - Binary variable at county level: 1 if county has Tree City USA, 0 if not
+  - For multi-county regions: Calculate as `(Population_in_Tree_City_counties / Total_regional_population)`
+  - Measures social involvement related to built environment and environmental stewardship
+  - Tree City USA designation requires: tree board/department, tree ordinance, $2/capita forestry spending, Arbor Day proclamation
+  - One-time manual mapping acceptable for this static data
+- **Data Period for Virginia**: Use most recent Tree City USA list (updated annually)
+- **Directory URL**: https://www.arborday.org/programs/treecityusa/
 
 ---
 
@@ -908,10 +928,10 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 
 | Confidence | Count | Percentage |
 |------------|-------|------------|
-| ✅ HIGH | 40 | 81.6% |
-| 🟡 MEDIUM | 9 | 18.4% |
+| ✅ HIGH | 36 | 76.6% |
+| 🟡 MEDIUM | 11 | 23.4% |
 | ❌ LOW | 0 | 0.0% |
-| **TOTAL** | **49** | **100%** |
+| **TOTAL** | **47** | **100%** |
 
 ### By Component Index
 
@@ -924,7 +944,7 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 | 5. Education & Skill | 5 | 0 | 0 | 5 |
 | 6. Infrastructure & Cost | 4 | 2 | 0 | 6 |
 | 7. Quality of Life | 6 | 2 | 0 | 8 |
-| 8. Social Capital | 4 | 3 | 0 | 7 |
+| 8. Social Capital | 0 | 5 | 0 | 5 |
 
 **Notes**:
 - Component Index 3 (Other Economic Prosperity) updated to match Nebraska methodology exactly (5 measures, 4 HIGH confidence)
@@ -932,15 +952,17 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 - Component Index 5 (Education & Skill) updated to match Nebraska methodology exactly (5 measures, 5 HIGH confidence)
 - Component Index 6 (Infrastructure & Cost) updated to match Nebraska methodology exactly (6 measures, 4 HIGH confidence)
 - Component Index 7 (Quality of Life) updated to match Nebraska methodology exactly (8 measures, 6 HIGH confidence)
+- Component Index 8 (Social Capital) updated to match Nebraska methodology exactly (5 measures, 0 HIGH, 5 MEDIUM confidence)
 
 ### Measures to Likely Exclude (LOW Confidence)
 
-**NONE** - All 49 measures now have either HIGH or MEDIUM confidence for data availability!
+**NONE** - All 47 measures now have either HIGH or MEDIUM confidence for data availability!
 
 **Notes**:
 - Component Index 5 now uses exclusive educational categories (HS as highest, Associate's as highest, Bachelor's as highest) plus labor force participation and knowledge workers, all via Census ACS API with HIGH confidence.
 - Component Index 6 now matches Nebraska methodology exactly: Broadband, Interstate Presence, 4-Year Colleges, Weekly Wage, Tax Rate, QOZ Count
 - Component Index 7 now matches Nebraska methodology exactly: Commute Time, Housing Age, Relative Wage, Crime Rates, Climate, Healthcare Access, National Parks
+- Component Index 8 now matches Nebraska methodology exactly: 501c3 Organizations, Volunteer Rate (state), Volunteer Hours (state), Voter Turnout, Tree City USA
 - All LOW-confidence measures have been replaced with correct Nebraska methodology measures
 
 ### Measures Requiring Further Investigation (MEDIUM Confidence)
@@ -951,9 +973,11 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 4. Presence of Interstate Highway (6.2) - Manual mapping using Census TIGER/Line
 5. Climate Amenities (7.6) - USDA ERS Natural Amenities Scale bulk download (static data)
 6. Count of National Parks (7.8) - NPS API or bulk download; requires GIS mapping
-7. Nonprofit Organizations Per Capita (8.2) - IRS bulk download
-8. Religious Congregations Per Capita (8.3) - ASARB data (may be outdated)
-9. Social Capital Index composite (8.7) - Calculate from available components
+7. 501c3 Organizations Per 1,000 (8.1) - IRS EO BMF bulk download
+8. Volunteer Rate, State (8.2) - AmeriCorps bulk data
+9. Volunteer Hours Per Person, State (8.3) - AmeriCorps bulk data
+10. Voter Turnout (8.4) - State election data collection
+11. Tree City USA Share (8.5) - Arbor Day Foundation static list
 
 ---
 
@@ -980,7 +1004,7 @@ Based on HIGH and MEDIUM confidence measures:
 
 ## Recommended Initial Implementation
 
-### Phase 1: Core Measures (40 HIGH confidence measures)
+### Phase 1: Core Measures (36 HIGH confidence measures)
 
 Include only measures with HIGH confidence for API availability, static data, or bulk downloads. This ensures:
 - Complete data coverage across all regions
@@ -996,7 +1020,7 @@ Include only measures with HIGH confidence for API availability, static data, or
 - Education & Skill: 5/5 measures (100%) ✅ - **Updated to match Nebraska methodology**
 - Infrastructure: 4/6 measures (67%) ✅ - **Updated to match Nebraska methodology**
 - Quality of Life: 6/8 measures (75%) ✅ - **Updated to match Nebraska methodology**
-- Social Capital: 4/7 measures (57%)
+- Social Capital: 0/5 measures (0%) - **All measures MEDIUM confidence (bulk data)**
 
 **Notes**:
 - Component Index 3 (Other Economic Prosperity) has been corrected to use Nebraska methodology with 4/5 measures available via API (80% coverage). Only Life Span (3.3) requires bulk download from County Health Rankings.
@@ -1004,6 +1028,7 @@ Include only measures with HIGH confidence for API availability, static data, or
 - Component Index 5 (Education & Skill) has been corrected to use Nebraska methodology with 5/5 measures available via API (100% coverage). Uses exclusive educational categories plus labor force participation and knowledge workers.
 - Component Index 6 (Infrastructure & Cost) has been corrected to use Nebraska methodology with 4/6 measures ready for implementation (67% coverage). Includes: 4-year colleges (bulk data), weekly wage (API), state tax rate (static), QOZ count (bulk data). Broadband and Interstate presence require additional data collection.
 - Component Index 7 (Quality of Life) has been corrected to use Nebraska methodology with 6/8 measures available via API or static bulk data (75% coverage). Includes: Commute Time, Housing Age, Relative Wage, Crime Rates (both violent and property), and Healthcare Access. Climate Amenities and National Parks require bulk data collection.
+- Component Index 8 (Social Capital) has been corrected to use Nebraska methodology with 0/5 measures via direct API (0% coverage). All 5 measures require bulk data collection or manual mapping: 501c3 organizations (IRS bulk), volunteer rate/hours (AmeriCorps bulk), voter turnout (state election data), Tree City USA (static list).
 
 ### Phase 2: Add MEDIUM Confidence Measures (After Investigation)
 

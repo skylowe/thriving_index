@@ -874,6 +874,128 @@ The script `collect_quality_of_life_data.py` has been created with partial imple
 
 ---
 
+### Decision 13: Component Index 8 Measures - Correction to Nebraska Methodology
+
+**Status**: ✅ **DECIDED & IMPLEMENTED**
+**Decision Date**: 2025-11-15
+
+**Decision**: Use Nebraska's exact 5 measures for Component Index 8 (Social Capital):
+1. Number of 501(c)(3) Organizations Per 1,000 Persons (IRS EO BMF, 2022)
+2. Volunteer Rate (State Level) (Corporation for National & Community Service, 2017)
+3. Volunteer Hours Per Person (State Level) (Corporation for National & Community Service, 2017)
+4. Voter Turnout (State by State Voter Turnout, 2018)
+5. Share of Tree City USA Counties (Arbor Day Foundation, 2022)
+
+**Context**: Initial project documentation incorrectly listed 7 different measures for Component Index 8:
+- Voter Participation Rate (LOW confidence) - SIMILAR but different from Nebraska
+- Nonprofit Organizations Per Capita (MEDIUM) - SIMILAR but different specificity (501c3 only in Nebraska)
+- Religious Congregations Per Capita (LOW) - NOT in Nebraska
+- Social Associations Per Capita (HIGH) - NOT in Nebraska
+- Percent Single-Parent Households (HIGH) - NOT in Nebraska
+- Income Inequality/Gini Coefficient (HIGH) - NOT in Nebraska
+- Social Capital Index Composite (MEDIUM) - NOT a separate measure in Nebraska
+
+Only 0 out of 7 measures matched Nebraska methodology. This was a complete documentation error from initial project setup.
+
+**Problem Discovered**: When user provided the exact Nebraska measure list for Component Index 8, it became clear that the initial documentation had completely wrong measures. The initially documented measures were a mix of Census ACS social measures (single-parent households, income inequality) and general nonprofit organizations that do NOT appear in Nebraska's Social Capital index.
+
+**Corrective Actions Taken**:
+1. **Updated API_MAPPING.md**: Replaced all 7 incorrect measures with 5 correct Nebraska measures
+2. **Created collect_social_capital_data.py**: New comprehensive collection script for Social Capital measures with documentation and helper functions:
+   - Measure 8.1: 501c3 Organizations Per 1,000 (IRS EO BMF bulk download)
+   - Measure 8.2: Volunteer Rate, State Level (AmeriCorps bulk data)
+   - Measure 8.3: Volunteer Hours Per Person, State Level (AmeriCorps bulk data)
+   - Measure 8.4: Voter Turnout (State election data collection)
+   - Measure 8.5: Share of Tree City USA Counties (Arbor Day Foundation directory)
+3. **Updated summary statistics**: Changed from 40 HIGH/9 MEDIUM/0 LOW (49 total) to 36 HIGH/11 MEDIUM/0 LOW (47 total measures)
+4. **Updated total measure count**: Decreased from 49 to 47 total measures (removed 7, added 5)
+
+**API Availability**:
+- ✅ **0/5 measures** (0%) available via direct API
+- 🟡 **5/5 measures** (100%) available via bulk download or manual collection (MEDIUM confidence)
+
+All 5 measures are classified as MEDIUM confidence because they require bulk data collection rather than direct API access.
+
+**Implementation Details by Measure**:
+
+1. **501c3 Organizations Per 1,000 Persons** (8.1):
+   - Source: IRS Exempt Organizations Business Master File (EO BMF)
+   - Confidence: MEDIUM (bulk download)
+   - Implementation: Download monthly IRS extract, filter subsection code "03", count by county, aggregate to regions
+   - Formula: `(Count_501c3 / Population) * 1000`
+   - Specific to 501(c)(3) organizations only (not all nonprofits)
+
+2. **Volunteer Rate, State Level** (8.2):
+   - Source: AmeriCorps (formerly Corporation for National & Community Service)
+   - Confidence: MEDIUM (bulk data, state-level only)
+   - Implementation: Download "Volunteering in America" state-level data
+   - STATE-LEVEL DATA: All regions within same state receive same value
+   - Measures % of population volunteering time to nonprofits
+
+3. **Volunteer Hours Per Person, State Level** (8.3):
+   - Source: AmeriCorps Volunteering in America
+   - Confidence: MEDIUM (bulk data, state-level only)
+   - Implementation: Same source as 8.2
+   - STATE-LEVEL DATA: All regions within same state receive same value
+   - Measures intensity of volunteering beyond just participation rate
+
+4. **Voter Turnout** (8.4):
+   - Source: State election offices or MIT Election Data + Science Lab
+   - Confidence: MEDIUM (bulk data, state-by-state collection)
+   - Implementation: Download county-level election results for most recent general election (2022 or 2020)
+   - Formula: `(Total_Votes_Cast / Registered_Voters) * 100`
+   - For regions: Population-weighted average across counties
+   - Measures civic involvement short of formal volunteering
+
+5. **Share of Tree City USA Counties** (8.5):
+   - Source: Arbor Day Foundation Tree City USA directory
+   - Confidence: MEDIUM (static data, requires manual mapping)
+   - Implementation: Download community list, map to counties, create binary variable
+   - Formula: `(Population_in_Tree_City_counties / Total_regional_population)`
+   - Measures social involvement related to built environment and environmental stewardship
+   - One-time manual mapping acceptable for this static data
+
+**Impact on Project**:
+- **Mixed**: Component Index 8 now aligns with Nebraska but loses all HIGH-confidence measures
+- **Negative**: Total HIGH-confidence measures decreased from 40 to 36 (from 81.6% to 76.6%)
+- **Positive**: Component Index 8 now 100% aligned with Nebraska methodology
+- **Acceptable**: All 5 measures obtainable through bulk downloads (no data excluded)
+- **Data Collection**: Requires manual bulk data collection for entire component
+
+**Statistical Impact**:
+- Total measures: 49 → 47 (removed 7 wrong measures, added 5 correct measures)
+- HIGH confidence: 40 → 36 measures (76.6%)
+- MEDIUM confidence: 9 → 11 measures (23.4%)
+- LOW confidence: 0 → 0 measures (0%)
+
+**Rationale**:
+This correction is the final component index alignment with Nebraska methodology. Component Index 8 (Social Capital) measures community engagement, civic participation, and social connectivity. The 5 measures capture:
+
+1. **501c3 Organizations**: Opportunities for volunteering and building social capital networks through nonprofits
+2. **Volunteer Rate**: Population participation in volunteering (state-level characteristic)
+3. **Volunteer Hours**: Intensity of volunteering commitment (beyond just % who volunteer)
+4. **Voter Turnout**: Civic engagement and community involvement through democratic participation
+5. **Tree City USA**: Environmental stewardship and community commitment to shared resources
+
+Together, these measures provide comprehensive assessment of social capital - the networks, norms, and trust that enable participants to act together more effectively to pursue shared objectives. This is critical for regional economic vitality, as higher social capital correlates with better economic outcomes, more effective governance, and higher quality of life.
+
+**Key Difference from Initial Documentation**:
+The originally documented measures focused on family structure (single-parent households) and economic inequality (Gini coefficient), which are NOT social capital measures in Nebraska's framework. Nebraska's Social Capital Index specifically targets **voluntary associations and civic engagement**, not demographic or economic inequality measures.
+
+**Data Collection Strategy**:
+All 5 measures require bulk data collection or manual mapping:
+- **IRS EO BMF**: One-time bulk download, updated annually
+- **AmeriCorps**: State-level data from annual reports
+- **Voter Turnout**: County-level data from state election offices or MIT Election Lab
+- **Tree City USA**: Static directory list from Arbor Day Foundation
+
+This bulk data approach is acceptable and aligns with Nebraska's methodology, which also used manual data collection for several social capital measures. The script `collect_social_capital_data.py` provides detailed documentation and helper functions for processing each data source.
+
+**Completeness**:
+With this correction, **ALL 8 component indexes** now match Nebraska Thriving Index methodology exactly. The project has complete alignment with Nebraska's 47-measure framework (we have 47 measures total across all 8 components).
+
+---
+
 ## API Integration Strategy
 
 ### API Sources Identified
@@ -1408,6 +1530,16 @@ None at this time.
 | 2025-11-15 | Component Index 7 now aligned with Nebraska | 6/8 measures ready (75%); 3 implemented (Commute, Housing, Healthcare); 3 require API work (Wage, Crime); 2 require bulk data (Climate, Parks) |
 | 2025-11-15 | **MILESTONE**: All 49 measures now HIGH or MEDIUM confidence | Eliminated all LOW-confidence measures; project now has 40 HIGH (81.6%) + 9 MEDIUM (18.4%) = 100% viable measures |
 | 2025-11-15 | Five component indexes fully corrected | Component Indexes 3, 4, 5, 6, and 7 now match Nebraska methodology exactly; overall project at 81.6% readiness (40/49 measures HIGH confidence) |
+| 2025-11-15 | **MAJOR CORRECTION**: Component Index 8 measures | Discovered initial documentation had COMPLETELY WRONG measures for Component Index 8 (0/7 matched Nebraska) |
+| 2025-11-15 | Corrected Component Index 8 to Nebraska methodology | Replaced all 7 incorrect measures with 5 correct Nebraska measures: 501c3 Orgs, Volunteer Rate/Hours (state), Voter Turnout, Tree City USA |
+| 2025-11-15 | Updated API_MAPPING.md Component Index 8 | Now shows: 501c3 Organizations Per 1,000, Volunteer Rate (State), Volunteer Hours (State), Voter Turnout, Share of Tree City USA Counties |
+| 2025-11-15 | Created collect_social_capital_data.py | New collection script with documentation and helper functions for all 5 Social Capital measures (all bulk data sources) |
+| 2025-11-15 | Updated summary statistics | Decreased from 40 HIGH/9 MEDIUM/0 LOW (49 total) to 36 HIGH/11 MEDIUM/0 LOW (47 total measures) |
+| 2025-11-15 | Updated total measure count | Decreased from 49 to 47 total measures (removed 7 wrong measures, added 5 correct measures) |
+| 2025-11-15 | Documented Decision 13 in CLAUDE.md | Component Index 8 Measures - Correction to Nebraska Methodology |
+| 2025-11-15 | Component Index 8 now aligned with Nebraska | 0/5 measures via direct API, 5/5 via bulk download (100% obtainable, all MEDIUM confidence) |
+| 2025-11-15 | **FINAL MILESTONE**: ALL 8 Component Indexes Aligned | All component indexes now match Nebraska Thriving Index methodology exactly; project has 47 measures across 8 components |
+| 2025-11-15 | Project now 100% aligned with Nebraska methodology | 47 measures total: 36 HIGH confidence (76.6%), 11 MEDIUM confidence (23.4%), 0 LOW confidence (0%) |
 
 ---
 
