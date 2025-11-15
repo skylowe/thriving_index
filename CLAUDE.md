@@ -858,6 +858,15 @@ None at this time.
 | 2025-11-14 PM | Created src/utils/fips_to_region.py | Maps 504 of 530 FIPS codes (95.1%) to region codes for data aggregation |
 | 2025-11-14 PM | Created src/utils/regions_v2.py | New regions utility module for multi-county regional structure |
 | 2025-11-14 PM | Documented Decision 7 in CLAUDE.md | Regional Structure - Multi-County Groupings aligned with Nebraska methodology |
+| 2025-11-15 | **MAJOR CORRECTION**: Removed USDA NASS from project | Nebraska does NOT use USDA NASS; uses BEA farm proprietors income instead |
+| 2025-11-15 | Identified two missing BEA measures | Wages & salaries growth (1.3) and proprietors income growth (1.4) from Nebraska methodology |
+| 2025-11-15 | Tested and verified BEA API availability | Confirmed CAINC4 Line Code 30 (wages) and Line Codes 50+60 (proprietors income) available |
+| 2025-11-15 | Fixed BEA API client documentation | Corrected Line Code references: Line Code 10 invalid for CAINC1; Line Code 30 for wages in CAINC4 |
+| 2025-11-15 | Added get_wages_and_salaries() method | New BEA API client method for CAINC4 Line Code 30 (wages and salaries) |
+| 2025-11-15 | Updated collect_bea_data.py | Added measures 7 and 8: wages growth rate and total proprietors income growth rate (5-year) |
+| 2025-11-15 | Removed USDA NASS API client | Deleted src/api_clients/usda_nass_api.py and scripts/collect_nass_data.py |
+| 2025-11-15 | Updated documentation | Removed all USDA NASS references from API_KEYS_STATUS.md and API_MAPPING.md |
+| 2025-11-15 | BEA measures now aligned with Nebraska | All 6 Nebraska BEA measures now implemented: PCPI, PCPI growth, farm prop %, nonfarm prop %, wages growth, proprietors growth |
 
 ---
 

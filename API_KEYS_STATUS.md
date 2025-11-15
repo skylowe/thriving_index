@@ -25,7 +25,6 @@ All essential API keys required for the Virginia Thriving Index project are avai
 
 | API Key Variable | Status | Purpose | Impact |
 |-----------------|--------|---------|--------|
-| `NASSQS_TOKEN` | ✅ Available | USDA NASS Agricultural Statistics | Enables farm/ranch income measures |
 | `FBI_UCR_KEY` | ✅ Available | FBI Uniform Crime Reporting | Enables crime rate measures (violent, property) |
 
 ### Pending Keys ⏳
@@ -121,12 +120,13 @@ Based on available API keys, the following measures are confirmed accessible:
 
 ### Newly Promoted Measures (MEDIUM → HIGH)
 
-With NASSQS_TOKEN and FBI_UCR_KEY now available:
+With FBI_UCR_KEY now available:
 1. **Property Crime Rate** (6.4) - FBI UCR API ✅
 2. **Violent Crime Rate** (6.5) - FBI UCR API ✅
-3. **Farm/Ranch Income** data - USDA NASS ✅ (used in matching variables)
 
-**Updated Total**: 30 HIGH-confidence measures (up from 28)
+**Note**: Farm income comes from BEA (farm proprietors income), not USDA NASS, per Nebraska methodology.
+
+**Updated Total**: 29 HIGH-confidence measures (up from 28)
 
 ### Growth Index (5/6)
 - ✅ Population growth rate (5-year)
@@ -198,7 +198,7 @@ With NASSQS_TOKEN and FBI_UCR_KEY now available:
 **Updated Assessment**:
 - Property Crime Rate (6.4): MEDIUM → ✅ HIGH (FBI_UCR_KEY available)
 - Violent Crime Rate (6.5): MEDIUM → ✅ HIGH (FBI_UCR_KEY available)
-- Farm Income for matching: MEDIUM → ✅ HIGH (NASSQS_TOKEN available)
+- Farm Income for matching: Uses BEA farm proprietors income (CAINC4, Line Code 50)
 
 ---
 
@@ -207,9 +207,7 @@ With NASSQS_TOKEN and FBI_UCR_KEY now available:
 The following API keys are not available but would be needed for MEDIUM/LOW confidence measures:
 
 ### Would Be Useful (If Pursuing Additional Measures)
-- `FBI_API_KEY` or `FBI_UCR_KEY` - FBI Crime Data Explorer (crime rates)
 - `FCC_API_KEY` - FCC Broadband Map (broadband access)
-- `USDA_NASS_API_KEY` - USDA Agricultural Statistics (farm income - may not be critical)
 
 ### Not Available via API (Need Alternative Approach)
 - State Department of Education APIs (varies by state)

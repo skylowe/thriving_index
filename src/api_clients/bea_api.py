@@ -222,6 +222,41 @@ class BEAAPI(BaseAPIClient):
 
         return self.fetch('', params)
 
+    def get_wages_and_salaries(
+        self,
+        year: Union[int, str],
+        state: Optional[str] = None
+    ) -> Dict:
+        """
+        Get wages and salaries by county.
+
+        Args:
+            year: Year or 'LAST5' for last 5 years
+            state: State FIPS code (2-digit) or state abbreviation, or None for all states
+
+        Returns:
+            API response with wages and salaries data
+        """
+        # Convert FIPS code to abbreviation if needed
+        geo_param = 'COUNTY'
+        if state:
+            if state in FIPS_TO_ABBR:
+                geo_param = FIPS_TO_ABBR[state]
+            else:
+                geo_param = state
+
+        params = {
+            'method': 'GetData',
+            'datasetname': 'Regional',
+            'TableName': 'CAINC4',
+            'LineCode': '30',  # Wages and salaries
+            'Year': str(year),
+            'GeoFips': geo_param,
+            'ResultFormat': 'JSON'
+        }
+
+        return self.fetch('', params)
+
     def get_wages_by_industry(
         self,
         year: Union[int, str],
@@ -439,14 +474,17 @@ BEA_TABLE_CODES = {
 }
 
 BEA_INCOME_LINE_CODES = {
-    1: 'Personal income',
-    2: 'Per capita personal income',
-    3: 'Net earnings by place of residence',
-    10: 'Wages and salaries',
-    35: 'Farm earnings',
-    40: 'Nonfarm earnings',
-    50: 'Farm proprietors income',
-    60: 'Nonfarm proprietors income',
+    # CAINC1 table line codes
+    1: 'Personal income (CAINC1)',
+    2: 'Per capita personal income (CAINC1)',
+    3: 'Net earnings by place of residence (CAINC1)',
+
+    # CAINC4 table line codes
+    30: 'Wages and salaries (CAINC4)',
+    35: 'Farm earnings (CAINC4)',
+    40: 'Nonfarm earnings (CAINC4)',
+    50: 'Farm proprietors income (CAINC4)',
+    60: 'Nonfarm proprietors income (CAINC4)',
 }
 
 BEA_INDUSTRY_LINE_CODES = {

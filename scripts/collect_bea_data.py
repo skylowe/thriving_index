@@ -9,6 +9,8 @@ Collects:
 - Nonfarm proprietors income as % of total personal income
 - GDP per capita (level)
 - GDP per capita growth rate (5-year)
+- Wages and salaries growth rate (5-year) - NEBRASKA MEASURE 1.3
+- Total proprietors income growth rate (5-year) - NEBRASKA MEASURE 1.4
 """
 
 import sys
@@ -159,7 +161,7 @@ def main():
     year_start = 2017  # For 5-year growth rate
 
     # 1. Per capita personal income (current year)
-    logger.info("\n1/6: Per Capita Personal Income (2022)")
+    logger.info("\n1/8: Per Capita Personal Income (2022)")
     df_pcpi_2022 = collect_bea_measure(bea, 'get_personal_income_per_capita', year_current, logger)
 
     if not df_pcpi_2022.empty:
@@ -180,7 +182,7 @@ def main():
         logger.info(f"  Collected {len(regional)} regions")
 
     # 2. Per capita personal income (2017 for growth)
-    logger.info("\n2/6: Per Capita Personal Income (2017 for growth)")
+    logger.info("\n2/8: Per Capita Personal Income (2017 for growth)")
     df_pcpi_2017 = collect_bea_measure(bea, 'get_personal_income_per_capita', year_start, logger)
 
     if not df_pcpi_2017.empty and not df_pcpi_2022.empty:
@@ -209,7 +211,7 @@ def main():
 
     # 3. Total personal income for Farm/Nonfarm proprietors income percentages
     # Note: We use personal income (LineCode=1) directly from each state call
-    logger.info("\n3/6: Total Personal Income (for calculating percentages)")
+    logger.info("\n3/8: Total Personal Income (for calculating percentages)")
     all_total_income = []
     for state_abbr, state_fips in STATES.items():
         try:
@@ -243,7 +245,7 @@ def main():
         logger.warning("  Total income DataFrame is empty!")
 
     # 4. Farm proprietors income
-    logger.info("\n4/6: Farm Proprietors Income")
+    logger.info("\n4/8: Farm Proprietors Income")
     df_farm = collect_bea_measure(bea, 'get_farm_proprietors_income', year_current, logger)
 
     if not df_farm.empty:
@@ -274,7 +276,7 @@ def main():
             logger.info(f"  Calculated farm income % for {len(regional)} regions")
 
     # 5. Nonfarm proprietors income
-    logger.info("\n5/6: Nonfarm Proprietors Income")
+    logger.info("\n5/8: Nonfarm Proprietors Income")
     df_nonfarm = collect_bea_measure(bea, 'get_nonfarm_proprietors_income', year_current, logger)
 
     if not df_nonfarm.empty:
@@ -305,7 +307,7 @@ def main():
             logger.info(f"  Calculated nonfarm income % for {len(regional)} regions")
 
     # 6. GDP per capita (if available)
-    logger.info("\n6/6: GDP Per Capita")
+    logger.info("\n6/8: GDP Per Capita")
     try:
         df_gdp = collect_bea_measure(bea, 'get_gdp_by_county', year_current, logger)
 
@@ -326,6 +328,95 @@ def main():
     except Exception as e:
         logger.warning(f"  GDP data not available: {str(e)}")
 
+    # 7. Wages and salaries growth rate (5-year) - NEBRASKA MEASURE 1.3
+    logger.info("\n7/8: Wages and Salaries Growth Rate (2017-2022)")
+
+    # Collect wages 2022
+    df_wages_2022 = collect_bea_measure(bea, 'get_wages_and_salaries', year_current, logger)
+
+    # Collect wages 2017
+    df_wages_2017 = collect_bea_measure(bea, 'get_wages_and_salaries', year_start, logger)
+
+    if not df_wages_2022.empty and not df_wages_2017.empty:
+        df_wages_2022_temp = df_wages_2022.copy()
+        df_wages_2022_temp['wages_2022'] = pd.to_numeric(df_wages_2022_temp['DataValue'], errors='coerce')
+
+        df_wages_2017['wages_2017'] = pd.to_numeric(df_wages_2017['DataValue'], errors='coerce')
+
+        growth_df = calculate_growth_rate(
+            df_wages_2017[['fips', 'wages_2017']],
+            df_wages_2022_temp[['fips', 'wages_2022']],
+            'wages_2017',
+            'wages_2022',
+            'wages_growth_rate',
+            years_between=5
+        )
+
+        regional = aggregator.aggregate_to_regions(
+            county_data=growth_df,
+            measure_type='intensive',
+            value_column='wages_growth_rate',
+            fips_column='fips',
+            weight_column='wages_2022'  # Weight by current wages
+        )
+        measures['wages_growth_rate'] = aggregator.add_region_metadata(regional)
+        logger.info(f"  Calculated wages growth rates for {len(regional)} regions")
+
+    # 8. Total proprietors income growth rate (5-year) - NEBRASKA MEASURE 1.4
+    logger.info("\n8/8: Total Proprietors Income Growth Rate (2017-2022)")
+
+    # Collect proprietors income 2022 (need to sum farm + nonfarm)
+    # We already have df_farm and df_nonfarm from above for 2022, but let's refetch to be clean
+    df_farm_2022 = collect_bea_measure(bea, 'get_farm_proprietors_income', year_current, logger)
+    df_nonfarm_2022 = collect_bea_measure(bea, 'get_nonfarm_proprietors_income', year_current, logger)
+
+    # Collect proprietors income 2017
+    df_farm_2017 = collect_bea_measure(bea, 'get_farm_proprietors_income', year_start, logger)
+    df_nonfarm_2017 = collect_bea_measure(bea, 'get_nonfarm_proprietors_income', year_start, logger)
+
+    if not df_farm_2022.empty and not df_nonfarm_2022.empty and not df_farm_2017.empty and not df_nonfarm_2017.empty:
+        # Process 2022 data
+        df_farm_2022['farm_income'] = pd.to_numeric(df_farm_2022['DataValue'], errors='coerce')
+        df_nonfarm_2022['nonfarm_income'] = pd.to_numeric(df_nonfarm_2022['DataValue'], errors='coerce')
+
+        df_prop_2022 = df_farm_2022[['fips', 'farm_income']].merge(
+            df_nonfarm_2022[['fips', 'nonfarm_income']], on='fips', how='outer'
+        )
+        df_prop_2022['total_proprietors_income_2022'] = (
+            df_prop_2022['farm_income'].fillna(0) + df_prop_2022['nonfarm_income'].fillna(0)
+        )
+
+        # Process 2017 data
+        df_farm_2017['farm_income'] = pd.to_numeric(df_farm_2017['DataValue'], errors='coerce')
+        df_nonfarm_2017['nonfarm_income'] = pd.to_numeric(df_nonfarm_2017['DataValue'], errors='coerce')
+
+        df_prop_2017 = df_farm_2017[['fips', 'farm_income']].merge(
+            df_nonfarm_2017[['fips', 'nonfarm_income']], on='fips', how='outer'
+        )
+        df_prop_2017['total_proprietors_income_2017'] = (
+            df_prop_2017['farm_income'].fillna(0) + df_prop_2017['nonfarm_income'].fillna(0)
+        )
+
+        # Calculate growth rate
+        growth_df = calculate_growth_rate(
+            df_prop_2017[['fips', 'total_proprietors_income_2017']],
+            df_prop_2022[['fips', 'total_proprietors_income_2022']],
+            'total_proprietors_income_2017',
+            'total_proprietors_income_2022',
+            'proprietors_income_growth_rate',
+            years_between=5
+        )
+
+        regional = aggregator.aggregate_to_regions(
+            county_data=growth_df,
+            measure_type='intensive',
+            value_column='proprietors_income_growth_rate',
+            fips_column='fips',
+            weight_column='total_proprietors_income_2022'  # Weight by current income
+        )
+        measures['proprietors_income_growth_rate'] = aggregator.add_region_metadata(regional)
+        logger.info(f"  Calculated proprietors income growth rates for {len(regional)} regions")
+
     end_time = datetime.now()
 
     # Save all
@@ -345,7 +436,7 @@ def main():
     print("=" * 80)
     print(f"Years: {year_start}-{year_current}")
     print(f"Time: {end_time - start_time}")
-    print(f"Measures: {len([m for m in measures.values() if m is not None and not m.empty])}/6")
+    print(f"Measures: {len([m for m in measures.values() if m is not None and not m.empty])}/8")
     print("=" * 80)
 
 

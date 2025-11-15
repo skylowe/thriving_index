@@ -583,9 +583,10 @@ Based on HIGH and MEDIUM confidence measures:
 5. **FBI_API_KEY** - FBI Crime Data Explorer (if API available)
 
 ### Optional (for investigation)
-6. **USDA_NASS_API_KEY** - USDA agricultural data (farm income)
-7. IRS API credentials (nonprofit data)
-8. State-specific API keys (crime, education data)
+6. IRS API credentials (nonprofit data)
+7. State-specific API keys (crime, education data)
+
+**Note**: Farm income data comes from BEA (farm proprietors income, CAINC4 Line Code 50), not USDA NASS, per Nebraska methodology.
 
 ---
 
