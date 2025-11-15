@@ -644,7 +644,6 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
     - North Carolina: 4.75% (flat rate)
     - Tennessee: 0% (no income tax on wages)
     - Kentucky: 4.5% (flat rate as of 2024)
-    - District of Columbia: 10.75%
   - Inverse scoring: Lower tax rate = better for business
   - Can hardcode by state; update annually from Tax Foundation
 - **Implementation**: Manual data collection from Tax Foundation; hardcode by state
