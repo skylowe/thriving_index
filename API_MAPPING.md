@@ -1,7 +1,7 @@
 # Virginia Thriving Index - API Source Mapping
 
-**Last Updated**: 2025-11-14
-**Status**: Initial analysis based on Nebraska Thriving Index methodology
+**Last Updated**: 2025-11-15
+**Status**: Component 1 data collection complete; Components 2-8 in planning
 
 ---
 
@@ -20,6 +20,12 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 
 **Note**: This index measures regional economic growth from 2017-2020, following Nebraska Thriving Index methodology exactly.
 
+**✅ COLLECTION STATUS: COMPLETE** (as of 2025-11-15)
+- **Total Records**: 8,654 records
+- **Counties Covered**: 802 unique counties across 10 states (VA, PA, MD, DE, WV, KY, TN, NC, SC, GA)
+- **Summary File**: `data/processed/component1_collection_summary.json`
+- **Collection Script**: `scripts/data_collection/collect_component1.py`
+
 ### 1.1 Growth in Total Employment
 
 - **Nebraska Source**: BEA Regional Economic Accounts, Table CAINC5 (Personal Income by Major Component and Earnings by NAICS Industry)
@@ -35,45 +41,77 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
   - Formula: `((Employment_2020 - Employment_2017) / Employment_2017) * 100`
   - Available at county level for all states
 - **Data Years for Virginia**: Use most recent 3-year period available (likely 2019-2022 or 2020-2023)
+- **✅ DATA COLLECTED** (2025-11-15):
+  - **Years**: 2020, 2021, 2022
+  - **Records**: 2,322 (774 counties × 3 years)
+  - **Raw Data**: `data/raw/bea/bea_employment_2020_2022.json`
+  - **Processed Data**: `data/processed/bea_employment_processed.csv`
+  - **Script**: `scripts/data_collection/collect_component1.py`
+  - **API Client**: `scripts/api_clients/bea_client.py` (method: `get_employment_data()`)
 
 ### 1.2 Private Employment
 
 - **Nebraska Source**: BLS Quarterly Census of Employment and Wages (QCEW)
 - **Nebraska Year**: 2020 (level measure, not growth)
-- **Virginia API Source**: BLS QCEW API
-- **API Endpoint**: `https://api.bls.gov/publicAPI/v2/timeseries/data/`
-- **Series ID Format**: `ENU` + state FIPS + county FIPS + `05` + `510` + `10` (private sector, all industries)
+- **Virginia Data Source**: BLS QCEW Open Data Files (downloadable CSV)
+- **Data URL**: `https://data.bls.gov/cew/data/files/[YEAR]/csv/[YEAR]_annual_singlefile.zip`
+- **Filters**:
+  - `own_code == 5` (Private ownership)
+  - `industry_code == '10'` (Total, all industries)
+  - Exclude area_fips ending in '000' (state-level) or '999' (special codes)
 - **Confidence**: ✅ **HIGH**
 - **Notes**:
   - QCEW provides private sector wage and salary employment (excludes government)
   - This is a LEVEL measure, not a growth rate
-  - Use annual average for most recent year available
-  - Series ID components: ENU (QCEW program), ownership code 5 (private), aggregate level 10 (total)
+  - Use annual average employment (`annual_avg_emplvl` field)
+  - **IMPORTANT**: Uses downloadable ZIP files (~500MB each), NOT the BLS Time Series API
+  - Time Series API does not support QCEW county-level data
+  - Files are cached locally to avoid re-downloading
 - **Data Year for Virginia**: Use most recent year available (likely 2022 or 2023)
+- **✅ DATA COLLECTED** (2025-11-15):
+  - **Years**: 2020, 2021, 2022
+  - **Records**: 2,406 (802 counties × 3 years)
+  - **Raw Data**: `data/raw/qcew/qcew_private_employment_wages_2020_2022.csv`
+  - **Processed Data**: `data/processed/qcew_private_employment_wages_2020_2022.csv`
+  - **Cache Files**: `data/raw/qcew/cache/[YEAR]_annual_singlefile.csv` (one per year)
+  - **Script**: `scripts/data_collection/collect_component1.py`
+  - **API Client**: `scripts/api_clients/qcew_client.py` (method: `get_private_employment_wages()`)
 
 ### 1.3 Growth in Private Wages Per Job
 
 - **Nebraska Source**: BLS QCEW (Private Wages and Private Employment)
 - **Nebraska Years**: 2017 and 2020
-- **Virginia API Source**: BLS QCEW API
-- **API Endpoint**: `https://api.bls.gov/publicAPI/v2/timeseries/data/`
-- **Series ID for Employment**: `ENU` + ST + CNTY + `05` + `510` + `10`
-- **Series ID for Wages**: `ENU` + ST + CNTY + `05` + `610` + `10` (total wages, quarterly, needs annualization)
+- **Virginia Data Source**: BLS QCEW Open Data Files (same as 1.2)
+- **Data URL**: `https://data.bls.gov/cew/data/files/[YEAR]/csv/[YEAR]_annual_singlefile.zip`
+- **Fields Used**:
+  - `annual_avg_emplvl` (Average annual employment)
+  - `total_annual_wages` (Total annual wages)
+  - `avg_annual_pay` (Average annual pay per worker)
 - **Confidence**: ✅ **HIGH**
 - **Notes**:
-  - Calculate wages per job: Total annual wages / Average employment
-  - Do this for both start year and end year
-  - Calculate percent change in wages per job
+  - Calculate wages per job: `total_annual_wages / annual_avg_emplvl`
+  - Or use pre-calculated `avg_annual_pay` field
+  - Calculate percent change in wages per job between start and end year
   - Formula: `((WagesPerJob_2020 - WagesPerJob_2017) / WagesPerJob_2017) * 100`
-  - QCEW wages are reported quarterly; need to sum 4 quarters for annual total
+  - Annual data includes all wages already totaled (no quarterly summing needed)
+  - **IMPORTANT**: Uses downloadable ZIP files, NOT the BLS Time Series API
 - **Data Years for Virginia**: Use most recent 3-year period available
+- **✅ DATA COLLECTED** (2025-11-15):
+  - **Years**: 2020, 2021, 2022
+  - **Records**: Same 2,406 records as measure 1.2 (wages and employment in same dataset)
+  - **Raw Data**: `data/raw/qcew/qcew_private_employment_wages_2020_2022.csv`
+  - **Processed Data**: `data/processed/qcew_private_employment_wages_2020_2022.csv`
+  - **Cache Files**: `data/raw/qcew/cache/[YEAR]_annual_singlefile.csv` (one per year)
+  - **Script**: `scripts/data_collection/collect_component1.py`
+  - **API Client**: `scripts/api_clients/qcew_client.py` (method: `get_private_employment_wages()`)
 
 ### 1.4 Growth in Households with Children
 
 - **Nebraska Source**: Census ACS Table S1101 (Households and Families)
 - **Nebraska Periods**: 2011-2015 ACS 5-year estimates and 2016-2020 ACS 5-year estimates
 - **Virginia API Source**: Census ACS API
-- **API Endpoint**: `https://api.census.gov/data/[year]/acs/acs5`
+- **API Endpoint**: `https://api.census.gov/data/[year]/acs/acs5/subject`
+- **Table**: S1101 (Households and Families)
 - **Variables**:
   - S1101_C01_002E (Households with one or more people under 18 years)
   - S1101_C01_001E (Total households) - for verification
@@ -83,9 +121,17 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
   - Calculate percent change in number of households with children
   - Formula: `((HH_with_children_2016_2020 - HH_with_children_2011_2015) / HH_with_children_2011_2015) * 100`
   - Available at county level for all counties
+  - Data collected by state (all counties in each state)
 - **Data Periods for Virginia**: Use two most recent non-overlapping 5-year ACS periods
   - Earlier period: 2013-2017 or 2014-2018
   - Later period: 2018-2022 or 2019-2023
+- **✅ DATA COLLECTED** (2025-11-15):
+  - **Periods**: 2017 (2013-2017 5-year estimates), 2022 (2018-2022 5-year estimates)
+  - **Records**: 1,604 (802 counties × 2 periods)
+  - **Raw Data**: `data/raw/census/census_households_children_[STATE]_[YEAR].json` (20 files: 10 states × 2 years)
+  - **Processed Data**: `data/processed/census_households_children_processed.csv`
+  - **Script**: `scripts/data_collection/collect_component1.py`
+  - **API Client**: `scripts/api_clients/census_client.py` (method: `get_households_with_children()`)
 
 ### 1.5 Growth in Dividends, Interest and Rent (DIR) Income
 
@@ -94,7 +140,7 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 - **Virginia API Source**: BEA Regional API
 - **API Endpoint**: `https://apps.bea.gov/api/data/`
 - **Dataset**: CAINC5N (Personal Income by Major Component)
-- **Line Code**: Line Code 40 - Dividends, interest, and rent
+- **Line Code**: Line Code 46 - Dividends, interest, and rent
 - **Confidence**: ✅ **HIGH**
 - **Notes**:
   - BEA provides total DIR income by county
@@ -102,7 +148,15 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
   - Calculate percent change from 2017 to 2020
   - Formula: `((DIR_2020 - DIR_2017) / DIR_2017) * 100`
   - Available at county level for all states
+  - **IMPORTANT**: Use Line Code 46, not 40 (40 is not available in CAINC5N)
 - **Data Years for Virginia**: Use most recent 3-year period available (likely 2019-2022 or 2020-2023)
+- **✅ DATA COLLECTED** (2025-11-15):
+  - **Years**: 2020, 2021, 2022
+  - **Records**: 2,322 (774 counties × 3 years)
+  - **Raw Data**: `data/raw/bea/bea_dir_income_2020_2022.json`
+  - **Processed Data**: `data/processed/bea_dir_income_processed.csv`
+  - **Script**: `scripts/data_collection/collect_component1.py`
+  - **API Client**: `scripts/api_clients/bea_client.py` (method: `get_dir_income_data()`)
 
 ---
 
