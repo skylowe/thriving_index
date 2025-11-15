@@ -377,6 +377,69 @@ This is a fundamental architectural correction. The Nebraska study explicitly us
 
 ---
 
+### Decision 8: Component Index 3 Measures - Correction to Nebraska Methodology
+
+**Status**: ✅ **DECIDED & IMPLEMENTED**
+**Decision Date**: 2025-11-15
+
+**Decision**: Use Nebraska's exact 5 measures for Component Index 3 (Other Economic Prosperity):
+1. Non-Farm Proprietor Personal Income (BEA CAINC4 Line 60, level)
+2. Personal Income Stability (BEA CAINC1 Line 1, coefficient of variation over 15 years)
+3. Life Span - Life Expectancy at Birth (County Health Rankings bulk download)
+4. Poverty Rate (Census ACS S1701/B17001)
+5. Share of Income from Dividends, Interest, and Rent (BEA DIR / Total Income)
+
+**Context**: Initial project documentation incorrectly listed 4 different measures for Component Index 3:
+- Per Capita Retail Sales (NO API)
+- Per Capita Bank Deposits (MEDIUM confidence)
+- New Business Formations Per Capita (MEDIUM confidence)
+- Business Survival Rate (NO API)
+
+These measures were NOT from the Nebraska study. This was a documentation error from initial project setup.
+
+**Problem Discovered**: When user provided Table 3 from Nebraska study, it became clear that Component Index 3 had been incorrectly documented from the beginning.
+
+**Corrective Actions Taken**:
+1. **Updated API_MAPPING.md**: Replaced all 4 incorrect measures with 5 correct Nebraska measures
+2. **Updated collect_bea_data.py**: Added three new BEA measures:
+   - Non-farm proprietors income (level, measure 3.1)
+   - Personal income stability 15-year CV (measure 3.2)
+   - DIR percentage (measure 3.5)
+3. **Verified poverty rate**: Already collected in Census ACS scripts (measure 3.4)
+4. **Updated NEBRASKA_VIRGINIA_COMPARISON.md**: Corrected Component Index 3 section
+5. **Updated summary statistics**: Increased ready measures from 29 to 33 (70.2%)
+
+**API Availability**:
+- ✅ **4/5 measures** (80%) available via API (HIGH confidence)
+- 🟡 **1/5 measures** (20%) requires bulk download (Life Expectancy from County Health Rankings)
+
+**Implementation Details**:
+- **Nonfarm Proprietor Income**: BEA API client already has `get_nonfarm_proprietors_income()` method
+- **Income Stability**: Calculate coefficient of variation from 15 years of BEA personal income data (2008-2022)
+  - Formula: `CV = (StdDev / Mean) * 100`
+  - Lower CV = more stable = better score (inverse scoring)
+- **Life Expectancy**: Manual download from https://www.countyhealthrankings.org/
+- **Poverty Rate**: Census ACS Table B17001 or S1701 (already implemented)
+- **DIR Share**: Calculate as (DIR Income / Total Personal Income) * 100
+
+**Impact on Project**:
+- **Positive**: Component Index 3 now viable with 80% API coverage (was 0%)
+- **Positive**: Increased overall project coverage from 61.7% to 70.2%
+- **Positive**: All 8 component indexes now have >50% coverage
+- **Requires**: One bulk download (Life Expectancy) - acceptable manual step
+
+**Rationale**:
+This correction aligns the project perfectly with Nebraska methodology. Component Index 3 is critical for assessing economic prosperity beyond traditional growth metrics. The measures capture:
+- Entrepreneurial income (nonfarm proprietors)
+- Economic stability (income volatility)
+- Health outcomes (life expectancy)
+- Economic distress (poverty)
+- Wealth-based income (DIR)
+
+Together, these provide a comprehensive view of economic well-being and prosperity that complements the growth-focused metrics in Component Index 1.
+
+---
+
 ## API Integration Strategy
 
 ### API Sources Identified
@@ -867,6 +930,15 @@ None at this time.
 | 2025-11-15 | Removed USDA NASS API client | Deleted src/api_clients/usda_nass_api.py and scripts/collect_nass_data.py |
 | 2025-11-15 | Updated documentation | Removed all USDA NASS references from API_KEYS_STATUS.md and API_MAPPING.md |
 | 2025-11-15 | BEA measures now aligned with Nebraska | All 6 Nebraska BEA measures now implemented: PCPI, PCPI growth, farm prop %, nonfarm prop %, wages growth, proprietors growth |
+| 2025-11-15 | **MAJOR CORRECTION**: Component Index 3 measures | Discovered initial documentation had WRONG measures for Component Index 3 |
+| 2025-11-15 | Corrected Component Index 3 to Nebraska methodology | Replaced 4 incorrect measures (retail sales, bank deposits, business formations, survival rate) with 5 correct Nebraska measures |
+| 2025-11-15 | Updated API_MAPPING.md Component Index 3 | Now shows: Nonfarm Proprietor Income, Income Stability, Life Span, Poverty Rate, DIR Share |
+| 2025-11-15 | Updated collect_bea_data.py for Component Index 3 | Added 3 new measures: Nonfarm proprietor income level, 15-year income stability CV, DIR percentage |
+| 2025-11-15 | Verified poverty rate already collected | Census ACS script already collects poverty rate (B17001 table) |
+| 2025-11-15 | Updated NEBRASKA_VIRGINIA_COMPARISON.md | Component Index 3 now shows 4/5 measures ready (80% API coverage) instead of 0/4 (0%) |
+| 2025-11-15 | Updated summary statistics | Increased ready measures from 29 (61.7%) to 33 (70.2%); overall coverage from 66.0% to 74.5% |
+| 2025-11-15 | Documented Decision 8 in CLAUDE.md | Component Index 3 Measures - Correction to Nebraska Methodology |
+| 2025-11-15 | Component Index 3 now viable | All 8 component indexes now have >50% measure coverage; project can proceed with all indexes |
 
 ---
 

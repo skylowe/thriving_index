@@ -230,50 +230,96 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 
 ---
 
-## Component Index 3: Other Economic Prosperity (4 measures)
+## Component Index 3: Other Economic Prosperity (5 measures)
 
-### 3.1 Per Capita Retail Sales
+**Note**: This index measures economic well-being beyond traditional growth metrics, following Nebraska Thriving Index methodology exactly.
 
-- **Nebraska Source**: State revenue data, Economic Census
-- **Virginia API Source**: ⚠️ **PROBLEMATIC**
-- **Confidence**: ❌ **LOW**
-- **Notes**: Same issue as measure 1.6
-- **Decision**: **MAY NEED TO EXCLUDE** or use proxy (retail establishments per capita)
+### 3.1 Non-Farm Proprietor Personal Income
 
-### 3.2 Per Capita Bank Deposits
-
-- **Nebraska Source**: FDIC Summary of Deposits
-- **Virginia API Source**: FDIC API or bulk download
-- **API**: FDIC provides data, but API access unclear
-- **Confidence**: 🟡 **MEDIUM**
+- **Nebraska Source**: BEA Regional Economic Accounts, Table CAINC5, 2020
+- **Nebraska Metric**: Total amount of non-farm proprietor income (in thousands of dollars)
+- **Virginia API Source**: BEA Regional API
+- **API Endpoint**: `https://apps.bea.gov/api/data/`
+- **Dataset**: CAINC4 (Personal Income and Employment by Major Component)
+- **Line Code**: Line Code 60 - Nonfarm proprietors' income
+- **Confidence**: ✅ **HIGH**
 - **Notes**:
-  - FDIC Summary of Deposits is public data
-  - May need to use bulk download rather than API
-  - Annual data by county
-- **Decision**: Investigate FDIC data access; may need web scraping or bulk file
+  - BEA provides nonfarm proprietors' income at county level
+  - This is the LEVEL of nonfarm proprietor income, not a percentage
+  - Reflects self-employment income outside agriculture
+  - Available for all states at county level
+  - Already implemented in BEA API client
+- **Data Year for Virginia**: Use most recent year available (likely 2022)
 
-### 3.3 New Business Formations Per Capita
+### 3.2 Personal Income Stability
 
-- **Nebraska Source**: Census Bureau Business Formation Statistics
-- **Virginia API Source**: Census Business Formation Statistics (BFS)
-- **API**: May be available through Census API
-- **Confidence**: 🟡 **MEDIUM**
+- **Nebraska Source**: BEA Regional Economic Accounts, Table CAINC5, 2006-2020
+- **Nebraska Metric**: Measure of stability in total personal income over 15-year period
+- **Virginia API Source**: BEA Regional API
+- **API Endpoint**: `https://apps.bea.gov/api/data/`
+- **Dataset**: CAINC1 (County and MSA personal income summary)
+- **Line Code**: Line Code 1 - Total personal income
+- **Confidence**: ✅ **HIGH**
 - **Notes**:
-  - Census BFS launched 2020, provides quarterly business applications
-  - County-level data availability unclear
-  - May only be available at state or metro level
-- **Decision**: **INVESTIGATE** - If not available at county level, may need to exclude
+  - Calculate coefficient of variation (CV) or standard deviation of income over 15 years
+  - Lower CV = more stable income (better score)
+  - Nebraska used 2006-2020 period; Virginia will use most recent 15-year period available
+  - Formula: `Stability = StdDev(Income_t) / Mean(Income_t)` where t = years
+  - Inverse scoring: Lower volatility = higher index score
+  - BEA provides annual data from 2001-present
+- **Data Years for Virginia**: Use 2008-2022 (15 years, most recent available)
 
-### 3.4 Business Survival Rate
+### 3.3 Life Span (Life Expectancy at Birth)
 
-- **Nebraska Source**: Census Bureau Business Dynamics Statistics (BDS)
-- **Virginia API Source**: Census BDS
-- **Confidence**: ❌ **LOW**
+- **Nebraska Source**: University of Washington Institute for Health Metrics and Evaluation (IHME), 1980-2014
+- **Nebraska Metric**: Life expectancy at birth (in years)
+- **Virginia API Source**: ⚠️ **NO PUBLIC API**
+- **Alternative Source**: County Health Rankings & Roadmaps (annual report)
+- **Confidence**: 🟡 **MEDIUM** (bulk download available)
 - **Notes**:
-  - BDS provides establishment entry/exit rates
-  - County-level detail may be suppressed for small counties
-  - No clear API access
-- **Decision**: **LIKELY EXCLUDE** - Investigate if county-level data available
+  - IHME provides county-level life expectancy estimates but no public API
+  - County Health Rankings publishes annual life expectancy data
+  - Robert Wood Johnson Foundation provides bulk download
+  - Data available at: https://www.countyhealthrankings.org/
+  - May need manual download or web scraping
+  - Alternative: CDC Life Expectancy data (limited API via CDC WONDER)
+- **Decision**: **USE BULK DOWNLOAD** from County Health Rankings for 2022-2023 data
+- **Data Year for Virginia**: Use most recent County Health Rankings year available
+
+### 3.4 Poverty Rate
+
+- **Nebraska Source**: Census Bureau American Community Survey, Table S1701, 2016-2020 5-year estimates
+- **Nebraska Metric**: Percentage of population in poverty
+- **Virginia API Source**: Census ACS API
+- **API Endpoint**: `https://api.census.gov/data/[year]/acs/acs5/subject`
+- **Table**: S1701 (Poverty Status in the Past 12 Months)
+- **Variables**:
+  - S1701_C03_001E (Percent below poverty level, all people)
+- **Confidence**: ✅ **HIGH**
+- **Notes**:
+  - Directly available from ACS 5-year estimates
+  - Inverse scoring: Higher poverty rate = lower index score
+  - Available at county level for all counties
+  - Already used in Component Index 2 as well
+- **Data Period for Virginia**: Use most recent 5-year ACS period (2018-2022)
+
+### 3.5 Share of Income from Dividends, Interest and Rent (DIR)
+
+- **Nebraska Source**: BEA Regional Economic Accounts, Table CAINC5, 2020
+- **Nebraska Metric**: DIR income divided by total personal income (percentage)
+- **Virginia API Source**: BEA Regional API
+- **API Endpoint**: `https://apps.bea.gov/api/data/`
+- **Dataset**: CAINC5N (Personal Income by Major Component)
+- **Line Code**: Line Code 40 - Dividends, interest, and rent
+- **Confidence**: ✅ **HIGH**
+- **Notes**:
+  - Need both DIR income (Line Code 40) and total personal income (Line Code 1 from CAINC1)
+  - Calculate: DIR / Total Personal Income * 100
+  - Reflects income from wealth and investments
+  - Supplements income from current work
+  - Available for all states at county level
+  - Already implemented in BEA API client
+- **Data Year for Virginia**: Use most recent year available (likely 2022)
 
 ---
 
@@ -595,10 +641,10 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 
 | Confidence | Count | Percentage |
 |------------|-------|------------|
-| ✅ HIGH | 29 | 63.0% |
-| 🟡 MEDIUM | 10 | 21.7% |
-| ❌ LOW | 7 | 15.2% |
-| **TOTAL** | **46** | **100%** |
+| ✅ HIGH | 33 | 70.2% |
+| 🟡 MEDIUM | 9 | 19.1% |
+| ❌ LOW | 5 | 10.6% |
+| **TOTAL** | **47** | **100%** |
 
 ### By Component Index
 
@@ -606,41 +652,37 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 |----------------|------|--------|-----|-------|
 | 1. Growth | 5 | 0 | 0 | 5 |
 | 2. Economic Opportunity & Diversity | 6 | 1 | 0 | 7 |
-| 3. Other Economic Prosperity | 0 | 2 | 2 | 4 |
+| 3. Other Economic Prosperity | 4 | 1 | 0 | 5 |
 | 4. Demographic Growth & Renewal | 4 | 0 | 0 | 4 |
 | 5. Education & Skill | 3 | 0 | 2 | 5 |
 | 6. Infrastructure & Cost | 3 | 2 | 1 | 6 |
 | 7. Quality of Life | 4 | 2 | 2 | 8 |
 | 8. Social Capital | 4 | 1 | 2 | 7 |
 
-**Note**: Economic Opportunity & Diversity measures updated to match Nebraska methodology (entrepreneurship focus).
+**Note**: Component Index 3 (Other Economic Prosperity) updated to match Nebraska methodology exactly (5 measures, 4 HIGH confidence).
 
 ### Measures to Likely Exclude (LOW Confidence)
 
-1. Per Capita Retail Sales (3.1)
-2. Business Survival Rate (3.4)
-3. Student-Teacher Ratio (5.4) - *May be possible with effort*
-4. School District Spending Per Pupil (5.5) - *May be possible with effort*
-5. Highway Accessibility Index (6.6)
-6. Life Expectancy at Birth (7.1) - *Available from County Health Rankings*
-7. Mental Health Providers Per Capita (7.5) - *Available from County Health Rankings*
-8. Voter Participation Rate (8.1)
-9. Religious Congregations Per Capita (8.3)
+1. Student-Teacher Ratio (5.4) - *May be possible with effort*
+2. School District Spending Per Pupil (5.5) - *May be possible with effort*
+3. Highway Accessibility Index (6.6)
+4. Mental Health Providers Per Capita (7.5) - *Available from County Health Rankings*
+5. Voter Participation Rate (8.1)
+6. Religious Congregations Per Capita (8.3)
 
 **Note**: High School Graduation Rate (5.1) has been PROMOTED to HIGH confidence using Census ACS educational attainment data.
 
 ### Measures Requiring Further Investigation (MEDIUM Confidence)
 
 1. Share of Workforce in High-Wage Industries (2.6)
-2. Per Capita Bank Deposits (3.2)
-3. New Business Formations Per Capita (3.3)
-4. Broadband Access (6.1)
-5. Property Crime Rate (6.4)
-6. Violent Crime Rate (6.5)
-7. Infant Mortality Rate (7.2)
-8. Primary Care Physicians Per Capita (7.4)
-9. Nonprofit Organizations Per Capita (8.2)
-10. Social Capital Index composite (8.7)
+2. Life Span / Life Expectancy at Birth (3.3) - *Bulk download from County Health Rankings*
+3. Broadband Access (6.1)
+4. Property Crime Rate (6.4)
+5. Violent Crime Rate (6.5)
+6. Infant Mortality Rate (7.2)
+7. Primary Care Physicians Per Capita (7.4)
+8. Nonprofit Organizations Per Capita (8.2)
+9. Social Capital Index composite (8.7)
 
 ---
 
@@ -667,7 +709,7 @@ Based on HIGH and MEDIUM confidence measures:
 
 ## Recommended Initial Implementation
 
-### Phase 1: Core Measures (29 HIGH confidence measures)
+### Phase 1: Core Measures (33 HIGH confidence measures)
 
 Include only measures with HIGH confidence API availability. This ensures:
 - Complete data coverage across all regions
@@ -677,15 +719,15 @@ Include only measures with HIGH confidence API availability. This ensures:
 
 **Coverage by Component**:
 - Growth: 5/5 measures (100%) ✅
-- Economic Opportunity & Diversity: 6/7 measures (86%) - Updated to entrepreneurship focus
-- Other Prosperity: 0/4 measures (0%) ⚠️
-- Demographics: 4/4 measures (100%)
+- Economic Opportunity & Diversity: 6/7 measures (86%)
+- Other Prosperity: 4/5 measures (80%) ✅ - **Updated to match Nebraska methodology**
+- Demographics: 4/4 measures (100%) ✅
 - Education: 3/5 measures (60%)
 - Infrastructure: 3/6 measures (50%)
 - Quality of Life: 4/8 measures (50%)
 - Social Capital: 4/7 measures (57%)
 
-**Note**: "Other Economic Prosperity" index may need to be excluded or significantly revised due to lack of API-accessible measures.
+**Note**: Component Index 3 (Other Economic Prosperity) has been corrected to use Nebraska methodology with 4/5 measures available via API (80% coverage). Only Life Span (3.3) requires bulk download from County Health Rankings.
 
 ### Phase 2: Add MEDIUM Confidence Measures (After Investigation)
 

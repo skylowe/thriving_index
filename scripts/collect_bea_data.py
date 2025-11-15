@@ -1,10 +1,15 @@
 #!/usr/bin/env python3
 """
-Collect BEA (Bureau of Economic Analysis) data for Growth Index measures.
+Collect BEA (Bureau of Economic Analysis) data for multiple component indexes.
 
 Growth Index Measures (Nebraska Methodology):
 - Growth in Total Employment (CAINC5N Line Code 10, 3-year growth)
 - Growth in Dividends, Interest, and Rent Income (CAINC5N Line Code 40, 3-year growth)
+
+Component Index 3: Other Economic Prosperity (Nebraska Methodology):
+- Non-Farm Proprietor Personal Income (CAINC4 Line Code 60, level)
+- Personal Income Stability (CAINC1 Line Code 1, coefficient of variation over 15 years)
+- Share of Income from DIR (CAINC5N Line Code 40 / CAINC1 Line Code 1, percentage)
 
 Other BEA Measures (for other component indexes):
 - Per capita personal income (level) - for Economic Opportunity Index
@@ -158,6 +163,7 @@ def main():
     start_time = datetime.now()
     year_current = 2022
     year_start = 2019  # For 3-year growth rate (2019-2022)
+    year_stability_start = 2008  # For 15-year personal income stability (2008-2022)
 
     # ===========================================================================
     # GROWTH INDEX MEASURES
@@ -353,6 +359,114 @@ def main():
             measures['pct_nonfarm_income'] = aggregator.add_region_metadata(regional)
             logger.info(f"  Calculated nonfarm income % for {len(regional)} regions")
 
+    # ===========================================================================
+    # COMPONENT INDEX 3: OTHER ECONOMIC PROSPERITY
+    # ===========================================================================
+
+    # 6. Non-Farm Proprietor Personal Income (level, not percentage)
+    logger.info("\n6/11: Non-Farm Proprietor Personal Income (2022)")
+    # Already collected in df_nonfarm above
+    if not df_nonfarm.empty:
+        regional = aggregator.aggregate_to_regions(
+            county_data=df_nonfarm,
+            measure_type='extensive',  # This is a total income measure
+            value_column='nonfarm_proprietors_income',
+            fips_column='fips'
+        )
+        measures['nonfarm_proprietors_income_level'] = aggregator.add_region_metadata(regional)
+        logger.info(f"  Collected nonfarm proprietor income for {len(regional)} regions")
+
+    # 7. Personal Income Stability (coefficient of variation, 2008-2022)
+    logger.info("\n7/11: Personal Income Stability (2008-2022)")
+    # Fetch personal income for 15 years
+    year_range = ','.join(str(y) for y in range(year_stability_start, year_current + 1))
+
+    all_income_stability = []
+    for state_abbr, state_fips in STATES.items():
+        try:
+            data = bea.get_regional_income(year=year_range, state=state_fips, line_codes=[1])
+            if data and 'BEAAPI' in data and 'Results' in data['BEAAPI']:
+                results = data['BEAAPI']['Results']
+                if 'Data' in results:
+                    df = pd.DataFrame(results['Data'])
+                    df['state_abbr'] = state_abbr
+                    if 'GeoFips' in df.columns:
+                        df['fips'] = df['GeoFips'].astype(str).str.zfill(5)
+                    all_income_stability.append(df)
+                    logger.debug(f"  {state_abbr}: {len(df)} records")
+        except Exception as e:
+            logger.error(f"  Error {state_abbr}: {str(e)}")
+
+    if all_income_stability:
+        df_income_ts = pd.concat(all_income_stability, ignore_index=True)
+        df_income_ts['income'] = pd.to_numeric(df_income_ts['DataValue'], errors='coerce')
+        df_income_ts['year'] = pd.to_numeric(df_income_ts['TimePeriod'], errors='coerce')
+
+        # Calculate coefficient of variation for each FIPS
+        stability_data = []
+        for fips in df_income_ts['fips'].unique():
+            fips_data = df_income_ts[df_income_ts['fips'] == fips].copy()
+            if len(fips_data) >= 10:  # Require at least 10 years of data
+                mean_income = fips_data['income'].mean()
+                std_income = fips_data['income'].std()
+                if mean_income > 0:
+                    # Coefficient of variation (lower is more stable)
+                    cv = (std_income / mean_income) * 100
+                    stability_data.append({
+                        'fips': fips,
+                        'income_stability_cv': cv,
+                        'mean_income': mean_income,
+                        'years_data': len(fips_data)
+                    })
+
+        if stability_data:
+            df_stability = pd.DataFrame(stability_data)
+
+            # Merge with population for weighting
+            if not population_df.empty:
+                df_stability = df_stability.merge(population_df, on='fips', how='left')
+
+            regional = aggregator.aggregate_to_regions(
+                county_data=df_stability,
+                measure_type='intensive',
+                value_column='income_stability_cv',
+                fips_column='fips',
+                weight_column='mean_income'  # Weight by mean income
+            )
+            measures['income_stability_cv'] = aggregator.add_region_metadata(regional)
+            logger.info(f"  Calculated income stability for {len(regional)} regions")
+
+    # 8. Share of Income from Dividends, Interest, and Rent (DIR percentage)
+    logger.info("\n8/11: Share of Income from DIR (2022)")
+    # DIR income already collected in df_dir_2022
+    # Total income already collected in df_total_income
+
+    if not df_dir_2022.empty and not df_total_income.empty:
+        df_dir_pct = df_dir_2022.copy()
+        df_dir_pct['dir_income'] = pd.to_numeric(df_dir_pct['DataValue'], errors='coerce')
+
+        # Merge with total income
+        df_dir_pct = df_dir_pct.merge(
+            df_total_income[['fips', 'total_personal_income']],
+            on='fips',
+            how='left'
+        )
+
+        # Calculate percentage
+        df_dir_pct['pct_dir_income'] = (
+            df_dir_pct['dir_income'] / df_dir_pct['total_personal_income'] * 100
+        ).round(2)
+
+        regional = aggregator.aggregate_to_regions(
+            county_data=df_dir_pct,
+            measure_type='intensive',
+            value_column='pct_dir_income',
+            fips_column='fips',
+            weight_column='total_personal_income'
+        )
+        measures['pct_dir_income'] = aggregator.add_region_metadata(regional)
+        logger.info(f"  Calculated DIR income % for {len(regional)} regions")
+
     end_time = datetime.now()
 
     # Save all
@@ -370,18 +484,23 @@ def main():
     print("=" * 80)
     print("SUMMARY")
     print("=" * 80)
-    print(f"Years: {year_start}-{year_current}")
+    print(f"Years: Growth ({year_start}-{year_current}), Stability ({year_stability_start}-{year_current})")
     print(f"Time: {end_time - start_time}")
-    print(f"Measures collected: {len([m for m in measures.values() if m is not None and not m.empty])}/5")
+    print(f"Measures collected: {len([m for m in measures.values() if m is not None and not m.empty])}/11")
     print()
     print("Growth Index Measures (BEA):")
     print(f"  1. Total Employment Growth Rate ({year_start}-{year_current}): {'✓' if 'total_employment_growth_rate' in measures else '✗'}")
     print(f"  2. DIR Income Growth Rate ({year_start}-{year_current}): {'✓' if 'dir_income_growth_rate' in measures else '✗'}")
     print()
+    print("Component Index 3: Other Economic Prosperity (BEA):")
+    print(f"  3. Nonfarm Proprietors Income (level): {'✓' if 'nonfarm_proprietors_income_level' in measures else '✗'}")
+    print(f"  4. Personal Income Stability (CV {year_stability_start}-{year_current}): {'✓' if 'income_stability_cv' in measures else '✗'}")
+    print(f"  5. Share of Income from DIR (%): {'✓' if 'pct_dir_income' in measures else '✗'}")
+    print()
     print("Other Economic Measures:")
-    print(f"  3. Per Capita Personal Income: {'✓' if 'per_capita_personal_income' in measures else '✗'}")
-    print(f"  4. Farm Proprietors Income %: {'✓' if 'pct_farm_income' in measures else '✗'}")
-    print(f"  5. Nonfarm Proprietors Income %: {'✓' if 'pct_nonfarm_income' in measures else '✗'}")
+    print(f"  6. Per Capita Personal Income: {'✓' if 'per_capita_personal_income' in measures else '✗'}")
+    print(f"  7. Farm Proprietors Income %: {'✓' if 'pct_farm_income' in measures else '✗'}")
+    print(f"  8. Nonfarm Proprietors Income %: {'✓' if 'pct_nonfarm_income' in measures else '✗'}")
     print("=" * 80)
 
 

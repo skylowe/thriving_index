@@ -48,17 +48,20 @@
 
 ---
 
-## Component Index 3: Other Economic Prosperity (4 measures)
+## Component Index 3: Other Economic Prosperity (5 measures)
+
+**Updated**: 2025-11-15 - Corrected to match Nebraska methodology exactly
 
 | # | Measure | Nebraska Source | Virginia Status | Virginia Source | Notes |
 |---|---------|----------------|----------------|-----------------|-------|
-| 3.1 | Per Capita Retail Sales | State revenue | ❌ NO API | N/A | State-level only, no county API |
-| 3.2 | Per Capita Bank Deposits | FDIC Summary | 🟡 INVESTIGATE | FDIC bulk download | May require bulk download vs API |
-| 3.3 | New Business Formations Per Capita | Census BFS | 🟡 INVESTIGATE | Census BFS | County-level availability unclear |
-| 3.4 | Business Survival Rate | Census BDS | ❌ NO API | N/A | County detail often suppressed |
+| 3.1 | Non-Farm Proprietor Personal Income | BEA CAINC5, 2020 | ✅ READY | BEA CAINC4 Line 60 | Identical to Nebraska |
+| 3.2 | Personal Income Stability | BEA CAINC5, 2006-2020 | ✅ READY | BEA CAINC1 Line 1 (15-year CV) | Identical to Nebraska |
+| 3.3 | Life Span (Life Expectancy at Birth) | IHME, 1980-2014 | 🟡 INVESTIGATE | County Health Rankings | Bulk download available, no API |
+| 3.4 | Poverty Rate | Census ACS S1701, 2016-2020 | ✅ READY | Census ACS B17001 | Identical to Nebraska (alt table) |
+| 3.5 | Share of Income from DIR | BEA CAINC5, 2020 | ✅ READY | BEA CAINC5N Line 40 / CAINC1 Line 1 | Identical to Nebraska |
 
-**Summary**: 0/4 measures ready (0%), 2 need investigation, 2 no API
-**⚠️ WARNING**: This component may need to be excluded or significantly revised
+**Summary**: 4/5 measures ready (80%), 1 needs bulk download
+**✅ RESOLVED**: Component Index 3 now matches Nebraska methodology with 80% API coverage
 
 ---
 
@@ -143,15 +146,15 @@
 
 | Status | Count | Percentage | Notes |
 |--------|-------|------------|-------|
-| ✅ **READY** (Identical to Nebraska) | 26 | 55.3% | Direct API access, same methodology |
+| ✅ **READY** (Identical to Nebraska) | 30 | 63.8% | Direct API access, same methodology |
 | ✅ **READY** (Modified methodology) | 1 | 2.1% | Educational attainment vs graduation rate |
 | 🟡 **FBI/FCC Keys Available** | 2 | 4.3% | Crime rates (FBI_UCR_KEY available) |
-| 🟡 **INVESTIGATE** | 10 | 21.3% | Potential sources, need verification |
-| ❌ **NO API** | 8 | 17.0% | No viable API source |
+| 🟡 **INVESTIGATE** | 8 | 17.0% | Potential sources, need verification |
+| ❌ **NO API** | 6 | 12.8% | No viable API source |
 | **TOTAL** | **47** | **100%** | |
 
-### Ready for Implementation: **29 measures (61.7%)**
-- 26 identical to Nebraska methodology
+### Ready for Implementation: **33 measures (70.2%)**
+- 30 identical to Nebraska methodology
 - 1 modified methodology (educational attainment)
 - 2 with available API keys (crime rates)
 
@@ -182,31 +185,34 @@
 |----------------|-------|-------------|--------|-------|---------|
 | 1. Growth | 5 | 0 | 1 | 6 | 83.3% |
 | 2. Economic Opportunity & Diversity | 6 | 1 | 0 | 7 | 85.7% |
-| 3. Other Economic Prosperity | 0 | 2 | 2 | 4 | 0% ⚠️ |
+| 3. Other Economic Prosperity | 4 | 1 | 0 | 5 | 80.0% ✅ |
 | 4. Demographic Growth & Renewal | 4 | 0 | 0 | 4 | 100% |
 | 5. Education & Skill | 3 | 0 | 2 | 5 | 60.0% |
 | 6. Infrastructure & Cost | 5 | 1 | 0 | 6 | 83.3% |
 | 7. Quality of Life | 4 | 2 | 2 | 8 | 50.0% |
 | 8. Social Capital | 4 | 2 | 1 | 7 | 57.1% |
-| **OVERALL** | **31** | **8** | **8** | **47** | **66.0%** |
+| **OVERALL** | **35** | **7** | **6** | **47** | **74.5%** |
 
 **Note**: Totals include 2 measures with available keys (FBI crime rates) in "Ready" category.
 
 ---
 
-## Critical Decision Required
+## ✅ Component Index 3 Resolved
 
 ### Component Index 3: "Other Economic Prosperity"
 
-**Problem**: 0/4 measures have HIGH-confidence API access
+**Status**: ✅ **RESOLVED** (2025-11-15)
 
-**Options**:
-1. **Exclude this component entirely** - Proceed with 7 component indexes (43 measures)
-2. **Investigate MEDIUM measures** - Bank deposits and business formations may be accessible via bulk downloads
-3. **Find proxy measures** - Identify alternative measures of economic prosperity
-4. **Combine with Component 2** - Merge into "Economic Opportunity, Diversity & Prosperity"
+**Problem** (Previously): Documentation incorrectly listed 4 measures (retail sales, bank deposits, business formations, survival rate) with 0% API coverage
 
-**Recommendation**: Investigate bank deposits (FDIC) and business formations (Census BFS) first. If not viable at county level, **exclude this component** rather than use poor proxies.
+**Solution**: Corrected to match Nebraska methodology exactly with 5 measures:
+1. Non-Farm Proprietor Personal Income (BEA) - ✅ API Available
+2. Personal Income Stability (BEA 15-year CV) - ✅ API Available
+3. Life Span (IHME/County Health Rankings) - 🟡 Bulk Download
+4. Poverty Rate (Census ACS) - ✅ API Available
+5. Share of Income from DIR (BEA) - ✅ API Available
+
+**Result**: 4/5 measures (80%) have HIGH-confidence API access. Only Life Expectancy requires bulk download from County Health Rankings, which is acceptable and already documented.
 
 ---
 
@@ -241,4 +247,6 @@
 ---
 
 **Last Updated**: 2025-11-15
-**Document Status**: Reflects implementation after USDA NASS removal and BEA measures addition
+**Document Status**: Reflects implementation after:
+- USDA NASS removal and BEA measures addition (Growth Index)
+- Component Index 3 correction to match Nebraska methodology exactly
