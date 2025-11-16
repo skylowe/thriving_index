@@ -1,6 +1,7 @@
 """
 Configuration module for Virginia Thriving Index project.
-Reads API keys from .Renviron file and provides configuration constants.
+Reads API keys from .Renviron file if available, otherwise falls back to
+environment variables. This allows the code to work in multiple environments.
 """
 
 import os
@@ -9,13 +10,13 @@ from pathlib import Path
 
 def load_env_file(env_path=None):
     """
-    Load environment variables from .Renviron file.
+    Load environment variables from .Renviron file if it exists.
 
     Args:
         env_path: Path to .Renviron file. If None, looks in project root.
 
     Returns:
-        dict: Dictionary of environment variables
+        dict: Dictionary of environment variables loaded from file (empty if file doesn't exist)
     """
     if env_path is None:
         # Find project root (where .Renviron is located)
@@ -25,10 +26,12 @@ def load_env_file(env_path=None):
     else:
         env_path = Path(env_path)
 
-    if not env_path.exists():
-        raise FileNotFoundError(f".Renviron file not found at {env_path}")
-
     env_vars = {}
+
+    if not env_path.exists():
+        # File doesn't exist - will fall back to os.environ
+        return env_vars
+
     with open(env_path, 'r') as f:
         for line in f:
             line = line.strip()
@@ -46,15 +49,33 @@ def load_env_file(env_path=None):
     return env_vars
 
 
-# Load environment variables at module import
+def get_api_key(key_name, env_file_vars):
+    """
+    Get API key from .Renviron file or environment variables.
+
+    Args:
+        key_name: Name of the environment variable
+        env_file_vars: Dictionary of variables loaded from .Renviron
+
+    Returns:
+        str or None: API key value
+    """
+    # First check .Renviron file variables
+    if key_name in env_file_vars:
+        return env_file_vars[key_name]
+    # Fall back to os.environ
+    return os.environ.get(key_name)
+
+
+# Load environment variables from .Renviron if available
 ENV_VARS = load_env_file()
 
-# API Keys
-CENSUS_API_KEY = ENV_VARS.get('CENSUS_KEY')
-BEA_API_KEY = ENV_VARS.get('BEA_API_KEY')
-BLS_API_KEY = ENV_VARS.get('BLS_API_KEY')
-NASSQS_TOKEN = ENV_VARS.get('NASSQS_TOKEN')
-FBI_UCR_KEY = ENV_VARS.get('FBI_UCR_KEY')
+# API Keys - check both .Renviron and environment variables
+CENSUS_API_KEY = get_api_key('CENSUS_KEY', ENV_VARS)
+BEA_API_KEY = get_api_key('BEA_API_KEY', ENV_VARS)
+BLS_API_KEY = get_api_key('BLS_API_KEY', ENV_VARS)
+NASSQS_TOKEN = get_api_key('NASSQS_TOKEN', ENV_VARS)
+FBI_UCR_KEY = get_api_key('FBI_UCR_KEY', ENV_VARS)
 
 # Project paths
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
