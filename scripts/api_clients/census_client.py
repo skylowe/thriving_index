@@ -428,6 +428,75 @@ class CensusClient:
         geography = 'county:*'
         return self.get_acs5_data(year, variables, geography, state_fips)
 
+    # ===== Component 5: Education & Skill Methods =====
+
+    def get_education_detailed(self, year, state_fips):
+        """
+        Get detailed educational attainment data for EXCLUSIVE categories.
+
+        Args:
+            year: Year of ACS 5-year period end
+            state_fips: State FIPS code
+
+        Returns:
+            list: API response with detailed education data
+        """
+        # B15003 - Educational Attainment for the Population 25 Years and Over
+        # Need exclusive categories (highest level achieved)
+        variables = [
+            'NAME',
+            'B15003_001E',  # Total population 25 years and over
+            'B15003_017E',  # Regular high school diploma
+            'B15003_018E',  # GED or alternative credential
+            'B15003_021E',  # Associate's degree
+            'B15003_022E',  # Bachelor's degree
+        ]
+        geography = 'county:*'
+        return self.get_acs5_data(year, variables, geography, state_fips)
+
+    def get_labor_force_participation(self, year, state_fips):
+        """
+        Get labor force participation data from ACS.
+
+        Args:
+            year: Year of ACS 5-year period end
+            state_fips: State FIPS code
+
+        Returns:
+            list: API response with labor force data
+        """
+        # B23025 - Employment Status for the Population 16 Years and Over
+        # B23025_001E = Total population 16 years and over
+        # B23025_002E = In labor force
+        variables = ['NAME', 'B23025_001E', 'B23025_002E']
+        geography = 'county:*'
+        return self.get_acs5_data(year, variables, geography, state_fips)
+
+    def get_knowledge_workers(self, year, state_fips):
+        """
+        Get employment by occupation for knowledge worker calculation.
+
+        Uses occupational categories as a proxy for knowledge workers since industry tables
+        have variable naming issues. Management/professional/science/arts occupations
+        serve as a good proxy for knowledge-intensive work.
+
+        Args:
+            year: Year of ACS 5-year period end
+            state_fips: State FIPS code
+
+        Returns:
+            list: API response with occupation employment data
+        """
+        # S2401 - Occupation by Sex and Median Earnings
+        # Use occupation groups as proxy for knowledge workers
+        variables = [
+            'NAME',
+            'S2401_C01_001E',  # Total civilian employed population 16 years and over
+            'S2401_C01_002E',  # Management, business, science, and arts occupations
+        ]
+        geography = 'county:*'
+        return self.get_acs5_subject_table(year, variables, geography, state_fips)
+
     def parse_response_to_dict(self, response):
         """
         Convert Census API response to list of dictionaries.

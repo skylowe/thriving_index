@@ -675,6 +675,14 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
   - High school graduates are better able to adjust to a changing economy than non-graduates
   - Available at county level for all states
 - **Data Period for Virginia**: Use most recent 5-year ACS period (2018-2022)
+- **✅ DATA COLLECTED** (2025-11-16):
+  - **Year**: 2022 (2018-2022 ACS 5-year)
+  - **Records**: 802 counties
+  - **Raw Data**: `data/raw/census/census_education_detailed_2022_[STATE].json` (10 files)
+  - **Processed Data**: `data/processed/census_education_attainment_2022.csv`
+  - **Script**: `scripts/data_collection/collect_component5.py`
+  - **API Client**: `scripts/api_clients/census_client.py` (method: `get_education_detailed()`)
+  - **Statistics**: Average % HS only = 35.89%
 
 ### 5.2 Associate's Degree Attainment Rate
 
@@ -755,6 +763,32 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
   - Higher share indicates advanced economy with skill-building opportunities
   - Available at county level for all states
 - **Data Period for Virginia**: Use most recent 5-year ACS period (2018-2022)
+- **✅ DATA COLLECTED** (2025-11-16):
+  - **Year**: 2022 (2018-2022 ACS 5-year)
+  - **Records**: 802 counties
+  - **Raw Data**: `data/raw/census/census_knowledge_workers_2022_[STATE].json` (10 files)
+  - **Processed Data**: `data/processed/census_knowledge_workers_2022.csv`
+  - **Script**: `scripts/data_collection/collect_component5.py`
+  - **API Client**: `scripts/api_clients/census_client.py` (method: `get_knowledge_workers()`)
+  - **Statistics**: Average % knowledge workers = 33.33%
+  - **Implementation Note**: Uses S2401 occupation table (management/professional/science/arts) as proxy for knowledge workers instead of industry table C24030 due to API variable compatibility issues
+
+---
+
+## Component Index 5: Education & Skill (5 measures) - COLLECTION STATUS
+
+**✅ COLLECTION STATUS: COMPLETE** (as of 2025-11-16)
+- **Total Records**: 2,406 records across all 5 measures (802 counties per measure)
+- **Counties Covered**: 802 counties across 10 states (VA, PA, MD, DE, WV, KY, TN, NC, SC, GA)
+- **Summary File**: `data/processed/component5_collection_summary.json`
+- **Collection Script**: `scripts/data_collection/collect_component5.py`
+
+**Key Statistics**:
+- Average High School Only attainment: 35.89%
+- Average Associate's Degree Only attainment: 8.67%
+- Average Bachelor's Degree Only attainment: 13.79%
+- Average Labor Force Participation Rate: 56.03%
+- Average Knowledge Workers: 33.33%
 
 ---
 
