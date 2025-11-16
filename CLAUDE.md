@@ -163,21 +163,22 @@ Component Index 2 contains 7 measures with HIGH confidence levels:
 
 See **API_MAPPING.md** for complete details on each measure.
 
-## Component Index 3: Other Economic Prosperity (✅ COMPLETE - 4 of 5 measures)
+## Component Index 3: Other Economic Prosperity (✅ 100% COMPLETE)
 
-**Status**: Completed 2025-11-16
-**Records**: 3,124 total records across 4 measures (774-802 counties)
+**Status**: Fully Completed 2025-11-16
+**Records**: 3,936 total records across ALL 5 measures (774-812 counties)
 
-Component Index 3 contains 5 measures, 4 with HIGH confidence collected:
+Component Index 3 contains 5 measures, ALL with HIGH/MEDIUM confidence collected:
 - **3.1**: Non-Farm Proprietor Personal Income (BEA CAINC4, Line 72)
 - **3.2**: Personal Income Stability (BEA CAINC1, 15-year CV)
-- **3.3**: Life Expectancy (County Health Rankings) - **DEFERRED**
+- **3.3**: Life Expectancy (County Health Rankings via Zenodo) ✅
 - **3.4**: Poverty Rate (Census ACS Table S1701)
 - **3.5**: Share of DIR Income (BEA CAINC5N/CAINC1 ratio)
 
 **Key Implementation Details**:
 - **BEA CAINC1 Extension**: Added support for CAINC1 table (total personal income)
 - **Income Stability**: Collected 15 years (2008-2022) for coefficient of variation calculation
+- **Life Expectancy**: Downloaded from Zenodo (DOI: 10.5281/zenodo.17584421) using API
 - **Complete Coverage**: All 774 BEA counties have 15 years of income data
 - **Poverty Data**: All 802 Census counties with no null values (avg: 15.92%)
 - **DIR Share**: Average 14.93%, range 6.09% to 45.52%
@@ -186,12 +187,14 @@ Component Index 3 contains 5 measures, 4 with HIGH confidence collected:
 - Extended `bea_client.py` with `get_cainc1_data()` method
 - Extended `bea_client.py` with `get_total_personal_income()` method
 - Created `scripts/data_collection/collect_component3.py`
+- Created `scripts/data_collection/collect_life_expectancy.py` for Zenodo download
 
 **Key Statistics**:
 - Income Stability CV: Average 0.1734, Range 0.0566 to 0.3685
 - Poverty Rate: Average 15.92%, all 802 counties covered
 - Proprietor Income: 774 counties (BEA aggregates VA independent cities)
 - DIR Income Share: Average 14.93% of total personal income
+- Life Expectancy: Average 73.75 years, Range 64.32-88.91, 812 counties (99.9% complete)
 
 See **API_MAPPING.md** for complete details on each measure.
 
@@ -433,9 +436,9 @@ Project knowledge base containing:
 ### Current Status: Ready for Component 4
 
 **Completed**:
-- ✅ Component 1: Growth Index (5 measures, 8,654 records)
-- ✅ Component 2: Economic Opportunity & Diversity (7 measures, 802+ counties)
-- ✅ Component 3: Other Prosperity Index (4 of 5 measures, 3,124 records)
+- ✅ Component 1: Growth Index (5/5 measures, 8,654 records) - **100% COMPLETE**
+- ✅ Component 2: Economic Opportunity & Diversity (7/7 measures, 802+ counties) - **100% COMPLETE**
+- ✅ Component 3: Other Prosperity Index (5/5 measures, 3,936 records) - **100% COMPLETE**
 
 **Next Implementation**:
 1. **Component 4: Demographic Growth & Renewal Index** (6 measures)
@@ -446,11 +449,7 @@ Project knowledge base containing:
    - Natural population increase (Census ACS)
    - Households with children under 6 (Census ACS)
 
-2. **Optional**: Collect Component 3, Measure 3.3 (Life Expectancy)
-   - Bulk download from County Health Rankings
-   - Can be deferred until other components complete
-
-3. **Continue Through Components 5-8**
+2. **Continue Through Components 5-8**
    - Maintain component-by-component approach
    - Document API discoveries and workarounds
    - Validate data quality at each step
@@ -536,8 +535,27 @@ Project knowledge base containing:
 - Total: 3,124 records across 4 measures
 - Measure 3.3 (Life Expectancy) deferred - requires bulk download from County Health Rankings
 
-**2025-11-16**: Documentation Updates (after Component 3)
-- Updated PROJECT_PLAN.md with Component 3 completion status
+**2025-11-16**: Documentation Updates (after Component 3, part 1)
+- Updated PROJECT_PLAN.md with Component 3 completion status (4 of 5 measures)
 - Updated API_MAPPING.md with Component 3 data collection details
 - Updated CLAUDE.md with Component 3 section and updated next steps
 - Ready to begin Component 4: Demographic Growth & Renewal Index
+
+**2025-11-16**: Life Expectancy Data Collection (Component 3.3)
+- Created `collect_life_expectancy.py` script for Zenodo API download
+- Successfully downloaded County Health Rankings 2025 data (50.1 MB ZIP file)
+- Extracted and processed life expectancy data from analytic_data2025_v2.csv
+- Collected 812 counties with 99.9% data completeness
+- Key achievements:
+  - Automated download from Zenodo (DOI: 10.5281/zenodo.17584421)
+  - Handled ZIP extraction and file parsing
+  - Filtered to 10 target states (VA, PA, MD, DE, WV, KY, TN, NC, SC, GA)
+  - Mean life expectancy: 73.75 years, range: 64.32-88.91 years
+- Total Component 3 records: 3,936 (increased from 3,124)
+- **Component 3 is now 100% COMPLETE** with all 5 measures collected
+
+**2025-11-16**: Documentation Updates (after Component 3 completion)
+- Updated PROJECT_PLAN.md to reflect 100% completion of Component 3
+- Updated API_MAPPING.md with life expectancy data collection details
+- Updated CLAUDE.md with Component 3 full completion status
+- All three components (1, 2, 3) are now fully complete: 17 measures, ~16,500 total records

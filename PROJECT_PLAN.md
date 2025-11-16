@@ -160,44 +160,50 @@ Data collection tasks (7 measures - see API_MAPPING.md for details):
 - All 802 counties covered where data available (BEA returns 774 counties due to Virginia independent city aggregation)
 
 ### Phase 3: Component Index 3 - Other Economic Prosperity Index
-**Status**: ✓ Completed (4 of 5 measures collected)
+**Status**: ✅ **FULLY COMPLETED** (All 5 measures collected)
 **Target**: Collect county-level data for all 10 states
 **Last Updated**: 2025-11-16
 
-Data collection tasks (4 of 5 measures - see API_MAPPING.md for details):
+Data collection tasks (ALL 5 measures - see API_MAPPING.md for details):
 - [x] Set up CAINC1 support in BEA client for income stability
 - [x] Collect Non-Farm Proprietor Income (BEA CAINC4) - **774 records**
 - [x] Collect Personal Income Stability (BEA CAINC1, 15 years) - **774 records**
-- [ ] Collect Life Expectancy (County Health Rankings bulk download) - **DEFERRED**
+- [x] Collect Life Expectancy (County Health Rankings Zenodo) - **812 records** ✅
 - [x] Collect Poverty Rate (Census ACS S1701) - **802 records**
 - [x] Collect Share of DIR Income (BEA CAINC5N + CAINC1) - **774 records**
 
 **Data Collected**:
 - BEA Proprietor Income (2022): 774 counties ✓
 - BEA Income Stability (2008-2022): 774 counties, 15 years of data ✓
+- County Health Rankings Life Expectancy (2025): 812 counties ✓
 - Census Poverty Rate (2022): 802 counties ✓
 - BEA DIR Income Share (2022): 774 counties ✓
 
 **Files Created**:
 - `data/raw/bea/bea_proprietor_income_2022.json`
 - `data/raw/bea/bea_personal_income_2008_2022.json`
+- `data/raw/chr/chr_life_expectancy_2025_metadata.json`
 - `data/raw/census/census_poverty_[STATE]_2022.json` (10 files)
 - `data/raw/bea/bea_dir_income_share_2022.json`
 - `data/raw/bea/bea_total_income_share_2022.json`
 - `data/processed/bea_proprietor_income_2022.csv`
 - `data/processed/bea_income_stability_2008_2022.csv`
+- `data/processed/chr_life_expectancy_2025.csv`
 - `data/processed/census_poverty_2022.csv`
 - `data/processed/bea_dir_income_share_2022.csv`
 - `data/processed/component3_collection_summary.json`
+- `data/processed/life_expectancy_collection_summary.json`
 
 **Notes**:
-- Successfully collected 4 of 5 measures (100% of API-based measures)
-- Measure 3.3 (Life Expectancy) requires bulk download from County Health Rankings - will be collected separately
+- **100% COMPLETE**: Successfully collected all 5 measures (3,936 total records)
+- Life expectancy data downloaded from Zenodo (DOI: 10.5281/zenodo.17584421)
 - All 774 counties have complete 15-year data for income stability calculation
 - Average coefficient of variation (CV) for income stability: 0.1734
 - Average poverty rate: 15.92%
 - Average DIR income share: 14.93%
+- Average life expectancy: 73.75 years (range: 64.32-88.91)
 - BEA data returns 774 counties (Virginia independent cities aggregated)
+- Life expectancy data includes 812 counties (includes state summaries and independent cities)
 
 ### Phase 4: Component Index 4 - Demographic Growth & Renewal Index
 **Status**: Not Started
@@ -261,17 +267,16 @@ Data collection tasks (4 of 5 measures - see API_MAPPING.md for details):
   - ✓ Collected 802 counties for Nonemployer Statistics
   - ✓ Collected 19 NAICS industry sectors via CBP (industry diversity)
   - ✓ Collected 802 counties for ACS occupation and telecommuter data
-- ✓ Phase 3: Component Index 3 - Other Economic Prosperity Index (4 of 5 measures complete)
+- ✅ Phase 3: Component Index 3 - Other Economic Prosperity Index (**ALL 5 measures complete**)
   - ✓ Extended BEA client for CAINC1 table (total personal income)
   - ✓ Collected 774 counties for proprietor income (BEA)
   - ✓ Collected 774 counties for income stability (BEA, 15 years)
+  - ✓ Collected 812 counties for life expectancy (County Health Rankings via Zenodo)
   - ✓ Collected 802 counties for poverty rate (Census ACS)
   - ✓ Collected 774 counties for DIR income share (BEA)
-  - ⏸ Life expectancy deferred (requires bulk download from County Health Rankings)
 
 **Next Steps**:
-1. Optional: Collect Measure 3.3 (Life Expectancy) via bulk download
-2. Begin Component Index 4 data collection (Demographic Growth & Renewal Index)
+1. Begin Component Index 4 data collection (Demographic Growth & Renewal Index)
    - 6 measures total (see API_MAPPING.md for details)
    - Data sources: Census Decennial, Census ACS, IRS Migration
 3. Continue through Components 4-8 sequentially

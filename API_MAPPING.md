@@ -338,12 +338,12 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 
 ## Component Index 3: Other Economic Prosperity (5 measures)
 
-**✅ COLLECTION STATUS: 4 OF 5 COMPLETE** (as of 2025-11-16)
-- **Total Records**: 3,124 records (4 measures)
-- **Counties Covered**: 774-802 counties across 10 states (VA, PA, MD, DE, WV, KY, TN, NC, SC, GA)
+**✅ COLLECTION STATUS: 100% COMPLETE** (as of 2025-11-16)
+- **Total Records**: 3,936 records across all 5 measures
+- **Counties Covered**: 774-812 counties across 10 states (VA, PA, MD, DE, WV, KY, TN, NC, SC, GA)
 - **Summary File**: `data/processed/component3_collection_summary.json`
-- **Collection Script**: `scripts/data_collection/collect_component3.py`
-- **Note**: Measure 3.3 (Life Expectancy) deferred - requires bulk download from County Health Rankings
+- **Collection Scripts**: `scripts/data_collection/collect_component3.py`, `scripts/data_collection/collect_life_expectancy.py`
+- **All measures collected including life expectancy via Zenodo**
 
 **Note**: This index measures economic well-being beyond traditional growth metrics, following Nebraska Thriving Index methodology exactly.
 
@@ -414,6 +414,16 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
   - Alternative: CDC Life Expectancy data (limited API via CDC WONDER)
 - **Decision**: **USE BULK DOWNLOAD** from County Health Rankings for 2022-2023 data
 - **Data Year for Virginia**: Use most recent County Health Rankings year available
+- **✅ DATA COLLECTED** (2025-11-16):
+  - **Year**: 2025 release (data from 2021-2023)
+  - **Records**: 812 counties (includes state summaries and independent cities)
+  - **Source**: County Health Rankings & Roadmaps via Zenodo (DOI: 10.5281/zenodo.17584421)
+  - **Download Method**: Zenodo API programmatic download of 2025.zip file
+  - **Raw Data**: `data/raw/chr/chr_life_expectancy_2025_metadata.json`
+  - **Processed Data**: `data/processed/chr_life_expectancy_2025.csv`
+  - **Script**: `scripts/data_collection/collect_life_expectancy.py`
+  - **Statistics**: Mean = 73.75 years, Range: 64.32-88.91 years, Missing: 1 (99.9% complete)
+  - **File Format**: CSV extracted from 50.1MB ZIP archive containing Excel and CSV files
 
 ### 3.4 Poverty Rate
 
