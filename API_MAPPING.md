@@ -480,6 +480,12 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 
 ## Component Index 4: Demographic Growth & Renewal (6 measures)
 
+**✅ COLLECTION STATUS: COMPLETE** (as of 2025-11-16)
+- **Total Records**: 5,616 records across all 6 measures
+- **Counties Covered**: 802-804 counties across 10 states (VA, PA, MD, DE, WV, KY, TN, NC, SC, GA)
+- **Summary File**: `data/processed/component4_collection_summary.json`
+- **Collection Script**: `scripts/data_collection/collect_component4.py`
+
 **Note**: This index measures demographic vitality, diversity, and generational renewal following Nebraska Thriving Index methodology exactly.
 
 ### 4.1 Long-Run Population Growth
@@ -501,6 +507,15 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
   - Formula: `((Pop_2022 - Pop_2000) / Pop_2000) * 100`
   - Available at county level for all states
 - **Data Years for Virginia**: 2000 Decennial Census to 2018-2022 ACS 5-year estimates
+- **✅ DATA COLLECTED** (2025-11-16):
+  - **Years**: 2000 (Decennial Census), 2022 (2018-2022 ACS 5-year)
+  - **Records 2000**: 804 counties
+  - **Records 2022**: 802 counties
+  - **Raw Data**: `data/raw/census/census_population_2000_[STATE].json` (10 files), `data/raw/census/census_population_2022_[STATE].json` (10 files)
+  - **Processed Data**: `data/processed/census_population_growth_2000_2022.csv`
+  - **Script**: `scripts/data_collection/collect_component4.py`
+  - **API Client**: `scripts/api_clients/census_client.py` (methods: `get_decennial_population_2000()`, `get_population_total()`)
+  - **Statistics**: Average population growth = 11.64%
 
 ### 4.2 Dependency Ratio
 
@@ -521,6 +536,14 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
   - Inverse scoring: Lower dependency ratio = better (more working-age people)
   - Use B01001 table for precise age breakdowns
 - **Data Period for Virginia**: Use most recent 5-year ACS period (2018-2022)
+- **✅ DATA COLLECTED** (2025-11-16):
+  - **Year**: 2022 (2018-2022 ACS 5-year)
+  - **Records**: 802 counties
+  - **Raw Data**: `data/raw/census/census_age_distribution_2022_[STATE].json` (10 files)
+  - **Processed Data**: `data/processed/census_dependency_ratio_2022.csv`
+  - **Script**: `scripts/data_collection/collect_component4.py`
+  - **API Client**: `scripts/api_clients/census_client.py` (method: `get_age_distribution()`)
+  - **Statistics**: Average dependency ratio = 0.581
 
 ### 4.3 Median Age
 
@@ -536,6 +559,14 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
   - Inverse scoring: Lower (younger) median age = better
   - Available at county level for all counties
 - **Data Period for Virginia**: Use most recent 5-year ACS period (2018-2022)
+- **✅ DATA COLLECTED** (2025-11-16):
+  - **Year**: 2022 (2018-2022 ACS 5-year)
+  - **Records**: 802 counties
+  - **Raw Data**: `data/raw/census/census_median_age_2022_[STATE].json` (10 files)
+  - **Processed Data**: `data/processed/census_median_age_2022.csv`
+  - **Script**: `scripts/data_collection/collect_component4.py`
+  - **API Client**: `scripts/api_clients/census_client.py` (method: `get_median_age()`)
+  - **Statistics**: Average median age = 42.0 years
 
 ### 4.4 Millennial and Gen Z Balance Change
 
@@ -556,6 +587,15 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
   - Formula: `(Pct_Millennial_GenZ_2022 - Pct_Millennial_GenZ_2017)`
   - Positive change = younger cohorts increasing concentration
 - **Data Periods for Virginia**: 2013-2017 and 2018-2022 ACS 5-year estimates
+- **✅ DATA COLLECTED** (2025-11-16):
+  - **Years**: 2017 (2013-2017 ACS 5-year), 2022 (2018-2022 ACS 5-year)
+  - **Records 2017**: 802 counties
+  - **Records 2022**: 802 counties
+  - **Raw Data**: `data/raw/census/census_age_distribution_2017_[STATE].json` (10 files), `data/raw/census/census_age_distribution_2022_[STATE].json` (10 files)
+  - **Processed Data**: `data/processed/census_millennial_genz_change_2017_2022.csv`
+  - **Script**: `scripts/data_collection/collect_component4.py`
+  - **API Client**: `scripts/api_clients/census_client.py` (method: `get_age_distribution()`)
+  - **Statistics**: Average change = 5.27 percentage points
 
 ### 4.5 Percent Hispanic
 
@@ -575,6 +615,14 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
   - Diversity measure: More diverse population brings broader perspectives
   - Available at county level for all counties
 - **Data Period for Virginia**: Use most recent 5-year ACS period (2018-2022)
+- **✅ DATA COLLECTED** (2025-11-16):
+  - **Year**: 2022 (2018-2022 ACS 5-year)
+  - **Records**: 802 counties
+  - **Raw Data**: `data/raw/census/census_hispanic_2022_[STATE].json` (10 files)
+  - **Processed Data**: `data/processed/census_hispanic_2022.csv`
+  - **Script**: `scripts/data_collection/collect_component4.py`
+  - **API Client**: `scripts/api_clients/census_client.py` (method: `get_hispanic_data()`)
+  - **Statistics**: Average % Hispanic = 5.35%
 
 ### 4.6 Percent Non-White
 
@@ -594,6 +642,14 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
   - Available at county level for all counties
   - Note: Hispanic ethnicity is counted separately in 4.5
 - **Data Period for Virginia**: Use most recent 5-year ACS period (2018-2022)
+- **✅ DATA COLLECTED** (2025-11-16):
+  - **Year**: 2022 (2018-2022 ACS 5-year)
+  - **Records**: 802 counties
+  - **Raw Data**: `data/raw/census/census_race_2022_[STATE].json` (10 files)
+  - **Processed Data**: `data/processed/census_race_2022.csv`
+  - **Script**: `scripts/data_collection/collect_component4.py`
+  - **API Client**: `scripts/api_clients/census_client.py` (method: `get_race_data()`)
+  - **Statistics**: Average % Non-White = 23.51%
 
 ---
 

@@ -206,9 +206,57 @@ Data collection tasks (ALL 5 measures - see API_MAPPING.md for details):
 - Life expectancy data includes 812 counties (includes state summaries and independent cities)
 
 ### Phase 4: Component Index 4 - Demographic Growth & Renewal Index
-**Status**: Not Started
-- [ ] Collect data for 6 measures (Census, IRS)
-- [ ] Validate and clean data
+**Status**: ✅ **FULLY COMPLETED** (All 6 measures collected)
+**Target**: Collect county-level data for all 10 states
+**Last Updated**: 2025-11-16
+
+Data collection tasks (ALL 6 measures - see API_MAPPING.md for details):
+- [x] Extend Census client for Component 4 data collection
+- [x] Collect Long-Run Population Growth (2000 Census + 2022 ACS) - **1,606 records**
+- [x] Collect Dependency Ratio (2022 ACS age distribution) - **802 records**
+- [x] Collect Median Age (2022 ACS) - **802 records**
+- [x] Collect Millennial/Gen Z Balance Change (2017-2022 ACS) - **1,604 records**
+- [x] Collect Percent Hispanic (2022 ACS) - **802 records**
+- [x] Collect Percent Non-White (2022 ACS) - **802 records**
+
+**Total Records Collected**: 5,616 records for 802 counties across all 10 states
+
+**Data Collected**:
+- Census 2000 Population: 804 counties ✓
+- Census ACS 2022 Population: 802 counties ✓
+- Census ACS 2022 Age Distribution: 802 counties ✓
+- Census ACS 2017 Age Distribution: 802 counties ✓
+- Census ACS 2022 Median Age: 802 counties ✓
+- Census ACS 2022 Hispanic Data: 802 counties ✓
+- Census ACS 2022 Race Data: 802 counties ✓
+
+**Files Created**:
+- `data/raw/census/census_population_2000_[STATE].json` (10 files)
+- `data/raw/census/census_population_2022_[STATE].json` (10 files)
+- `data/raw/census/census_age_distribution_2022_[STATE].json` (10 files)
+- `data/raw/census/census_age_distribution_2017_[STATE].json` (10 files)
+- `data/raw/census/census_median_age_2022_[STATE].json` (10 files)
+- `data/raw/census/census_hispanic_2022_[STATE].json` (10 files)
+- `data/raw/census/census_race_2022_[STATE].json` (10 files)
+- `data/processed/census_population_growth_2000_2022.csv`
+- `data/processed/census_dependency_ratio_2022.csv`
+- `data/processed/census_median_age_2022.csv`
+- `data/processed/census_millennial_genz_change_2017_2022.csv`
+- `data/processed/census_hispanic_2022.csv`
+- `data/processed/census_race_2022.csv`
+- `data/processed/component4_collection_summary.json`
+
+**Notes**:
+- **100% COMPLETE**: Successfully collected all 6 measures
+- All 802 counties covered for ACS 2022 data
+- 2000 Census data includes 804 counties (slight variation from 2022)
+- Average population growth (2000-2022): 11.64%
+- Average dependency ratio: 0.581
+- Average median age: 42.0 years
+- Average Millennial/Gen Z change: 5.27 percentage points
+- Average % Hispanic: 5.35%
+- Average % Non-White: 23.51%
+- Extended Census client with 6 new methods for Component 4
 
 ### Phase 5: Component Index 5 - Education & Skill Index
 **Status**: Not Started
@@ -247,7 +295,7 @@ Data collection tasks (ALL 5 measures - see API_MAPPING.md for details):
 - [ ] Create visualizations and reports
 
 ## Current Status
-**Phase**: Phase 4 - Component Index 4 (Ready to Start)
+**Phase**: Phase 5 - Component Index 5 (Ready to Start)
 **Date**: 2025-11-16
 
 **Completed**:
@@ -274,14 +322,22 @@ Data collection tasks (ALL 5 measures - see API_MAPPING.md for details):
   - ✓ Collected 812 counties for life expectancy (County Health Rankings via Zenodo)
   - ✓ Collected 802 counties for poverty rate (Census ACS)
   - ✓ Collected 774 counties for DIR income share (BEA)
+- ✅ Phase 4: Component Index 4 - Demographic Growth & Renewal Index (**ALL 6 measures complete, 5,616 records**)
+  - ✓ Extended Census client with 6 new methods for demographic data
+  - ✓ Collected 804/802 counties for long-run population growth (2000-2022)
+  - ✓ Collected 802 counties for dependency ratio (age distribution)
+  - ✓ Collected 802 counties for median age
+  - ✓ Collected 802 counties for Millennial/Gen Z balance change (2017-2022)
+  - ✓ Collected 802 counties for percent Hispanic
+  - ✓ Collected 802 counties for percent non-white
 
 **Next Steps**:
-1. Begin Component Index 4 data collection (Demographic Growth & Renewal Index)
-   - 6 measures total (see API_MAPPING.md for details)
-   - Data sources: Census Decennial, Census ACS, IRS Migration
-3. Continue through Components 4-8 sequentially
-4. Later: Validate and clean all component data
-5. Later: Calculate growth rates and index scores
+1. Begin Component Index 5 data collection (Education & Skill Index)
+   - 5 measures total (see API_MAPPING.md for details)
+   - Data sources: Census ACS (high school, associate's, bachelor's, labor force, knowledge workers)
+2. Continue through Components 5-8 sequentially
+3. Later: Validate and clean all component data
+4. Later: Calculate growth rates and index scores
 
 ## Data Confidence Summary
 See API_MAPPING.md for complete details on each measure's confidence level:

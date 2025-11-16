@@ -264,6 +264,170 @@ class CensusClient:
         geography = 'county:*'
         return self.get_acs5_data(year, variables, geography, state_fips)
 
+    # ===== Component 4: Demographic Growth & Renewal Methods =====
+
+    def get_decennial_population_2000(self, state_fips):
+        """
+        Get total population from 2000 Decennial Census (for long-run growth).
+
+        Args:
+            state_fips: State FIPS code
+
+        Returns:
+            list: API response with population data
+        """
+        # P001001 = Total population (SF1 table)
+        url = f"{self.base_url}/2000/dec/sf1"
+
+        params = {
+            'get': 'NAME,P001001',
+            'for': 'county:*',
+            'in': f'state:{state_fips}',
+            'key': self.api_key
+        }
+
+        return self._make_request(url, params)
+
+    def get_population_total(self, year, state_fips):
+        """
+        Get total population from ACS (for current population and growth calculations).
+
+        Args:
+            year: Year of ACS 5-year period end
+            state_fips: State FIPS code
+
+        Returns:
+            list: API response with population data
+        """
+        # B01001_001E = Total population
+        variables = ['NAME', 'B01001_001E']
+        geography = 'county:*'
+        return self.get_acs5_data(year, variables, geography, state_fips)
+
+    def get_age_distribution(self, year, state_fips):
+        """
+        Get detailed age distribution from ACS for dependency ratio calculations.
+
+        Args:
+            year: Year of ACS 5-year period end
+            state_fips: State FIPS code
+
+        Returns:
+            list: API response with age distribution data
+        """
+        # B01001 - Sex by Age
+        # We need age breakdowns to calculate dependency ratio
+        # Under 15: sum of age 0-14 groups
+        # 15-64: working age population
+        # 65+: elderly dependents
+        variables = [
+            'NAME',
+            'B01001_001E',  # Total population
+            # Male population by age
+            'B01001_003E',  # Male: Under 5 years
+            'B01001_004E',  # Male: 5 to 9 years
+            'B01001_005E',  # Male: 10 to 14 years
+            'B01001_006E',  # Male: 15 to 17 years
+            'B01001_007E',  # Male: 18 and 19 years
+            'B01001_008E',  # Male: 20 years
+            'B01001_009E',  # Male: 21 years
+            'B01001_010E',  # Male: 22 to 24 years
+            'B01001_011E',  # Male: 25 to 29 years
+            'B01001_012E',  # Male: 30 to 34 years
+            'B01001_013E',  # Male: 35 to 39 years
+            'B01001_014E',  # Male: 40 to 44 years
+            'B01001_015E',  # Male: 45 to 49 years
+            'B01001_016E',  # Male: 50 to 54 years
+            'B01001_017E',  # Male: 55 to 59 years
+            'B01001_018E',  # Male: 60 and 61 years
+            'B01001_019E',  # Male: 62 to 64 years
+            'B01001_020E',  # Male: 65 and 66 years
+            'B01001_021E',  # Male: 67 to 69 years
+            'B01001_022E',  # Male: 70 to 74 years
+            'B01001_023E',  # Male: 75 to 79 years
+            'B01001_024E',  # Male: 80 to 84 years
+            'B01001_025E',  # Male: 85 years and over
+            # Female population by age
+            'B01001_027E',  # Female: Under 5 years
+            'B01001_028E',  # Female: 5 to 9 years
+            'B01001_029E',  # Female: 10 to 14 years
+            'B01001_030E',  # Female: 15 to 17 years
+            'B01001_031E',  # Female: 18 and 19 years
+            'B01001_032E',  # Female: 20 years
+            'B01001_033E',  # Female: 21 years
+            'B01001_034E',  # Female: 22 to 24 years
+            'B01001_035E',  # Female: 25 to 29 years
+            'B01001_036E',  # Female: 30 to 34 years
+            'B01001_037E',  # Female: 35 to 39 years
+            'B01001_038E',  # Female: 40 to 44 years
+            'B01001_039E',  # Female: 45 to 49 years
+            'B01001_040E',  # Female: 50 to 54 years
+            'B01001_041E',  # Female: 55 to 59 years
+            'B01001_042E',  # Female: 60 and 61 years
+            'B01001_043E',  # Female: 62 to 64 years
+            'B01001_044E',  # Female: 65 and 66 years
+            'B01001_045E',  # Female: 67 to 69 years
+            'B01001_046E',  # Female: 70 to 74 years
+            'B01001_047E',  # Female: 75 to 79 years
+            'B01001_048E',  # Female: 80 to 84 years
+            'B01001_049E',  # Female: 85 years and over
+        ]
+
+        geography = 'county:*'
+        return self.get_acs5_data(year, variables, geography, state_fips)
+
+    def get_median_age(self, year, state_fips):
+        """
+        Get median age from ACS.
+
+        Args:
+            year: Year of ACS 5-year period end
+            state_fips: State FIPS code
+
+        Returns:
+            list: API response with median age data
+        """
+        # B01002_001E = Median age
+        variables = ['NAME', 'B01002_001E']
+        geography = 'county:*'
+        return self.get_acs5_data(year, variables, geography, state_fips)
+
+    def get_hispanic_data(self, year, state_fips):
+        """
+        Get Hispanic/Latino population data from ACS.
+
+        Args:
+            year: Year of ACS 5-year period end
+            state_fips: State FIPS code
+
+        Returns:
+            list: API response with Hispanic data
+        """
+        # B03003 - Hispanic or Latino Origin
+        # B03003_001E = Total population
+        # B03003_003E = Hispanic or Latino
+        variables = ['NAME', 'B03003_001E', 'B03003_003E']
+        geography = 'county:*'
+        return self.get_acs5_data(year, variables, geography, state_fips)
+
+    def get_race_data(self, year, state_fips):
+        """
+        Get race distribution data from ACS for non-white percentage calculation.
+
+        Args:
+            year: Year of ACS 5-year period end
+            state_fips: State FIPS code
+
+        Returns:
+            list: API response with race data
+        """
+        # B02001 - Race
+        # B02001_001E = Total population
+        # B02001_002E = White alone
+        variables = ['NAME', 'B02001_001E', 'B02001_002E']
+        geography = 'county:*'
+        return self.get_acs5_data(year, variables, geography, state_fips)
+
     def parse_response_to_dict(self, response):
         """
         Convert Census API response to list of dictionaries.
