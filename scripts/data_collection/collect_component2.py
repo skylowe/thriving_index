@@ -1,15 +1,14 @@
 """
 Component Index 2: Economic Opportunity & Diversity - Data Collection Script
 
-Collects 6 of 7 measures for Component Index 2 for all counties in 10 states:
-2.2 Non-Farm Proprietors Per 1,000 Persons (BEA CAEMP25)
+Collects ALL 7 measures for Component Index 2 for all counties in 10 states:
+2.1 Entrepreneurial Activity (Census BDS - Business Births and Deaths)
+2.2 Non-Farm Proprietors Per 1,000 Persons (BEA CAINC4)
 2.3 Employer Establishments Per 1,000 Residents (Census CBP)
 2.4 Share of Workers in Non-Employer Establishment (Census NES + CBP)
 2.5 Industry Diversity (Census CBP)
 2.6 Occupation Diversity (Census ACS)
 2.7 Share of Telecommuters (Census ACS)
-
-Note: Measure 2.1 (Entrepreneurial Activity via BDS) is skipped for now (MEDIUM confidence).
 
 States: VA, PA, MD, DE, WV, KY, TN, NC, SC, GA
 """
@@ -28,6 +27,7 @@ from api_clients.bea_client import BEAClient
 from api_clients.cbp_client import CBPClient
 from api_clients.nonemp_client import NonempClient
 from api_clients.census_client import CensusClient
+from api_clients.bds_client import BDSClient
 
 
 def collect_proprietors_data(bea_client, year, state_fips_list):
@@ -58,6 +58,49 @@ def collect_proprietors_data(bea_client, year, state_fips_list):
     print(f"✓ Retrieved {len(df)} records")
     print(f"  Year: {year}")
     print(f"  States: {sorted(df['GeoFips'].str[:2].unique())}")
+
+    return df
+
+
+def collect_business_dynamics(bds_client, year, state_fips_list):
+    """
+    Collect business dynamics data from Census BDS (Measure 2.1).
+
+    Args:
+        bds_client: BDSClient instance
+        year: Year of data
+        state_fips_list: List of state FIPS codes
+
+    Returns:
+        DataFrame with business dynamics data
+    """
+    print("\nCollecting Census BDS Business Dynamics Data (Measure 2.1)...")
+    print("-" * 60)
+
+    all_data = []
+
+    for state_name, state_fips in STATE_FIPS.items():
+        if state_fips not in state_fips_list:
+            continue
+
+        print(f"  Fetching {state_name} (FIPS {state_fips})...")
+        try:
+            response = bds_client.get_business_dynamics(year, state_fips=state_fips, naics='00')
+
+            # Save raw response
+            filename = f"bds_business_dynamics_{state_name}_{year}.json"
+            bds_client.save_response(response, filename)
+
+            # Convert to dict and add to list
+            parsed = bds_client.parse_response_to_dict(response)
+            all_data.extend(parsed)
+            print(f"    ✓ Retrieved {len(parsed)} counties")
+
+        except Exception as e:
+            print(f"    ✗ Error: {e}")
+
+    df = pd.DataFrame(all_data)
+    print(f"\n✓ Total: {len(df)} records across all states")
 
     return df
 
@@ -289,14 +332,16 @@ def main():
     print(f"\nStart time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
     # Configuration
+    bds_year = 2021  # Most recent BDS data
+    bea_year = 2022  # Most recent BEA data
     cbp_year = 2021  # Most recent CBP data
     nonemp_year = 2021  # Most recent Nonemployer data
-    bea_year = 2022  # Most recent BEA data
     acs_year = 2022  # ACS 5-year estimates ending 2022 (2018-2022)
 
     state_fips_list = list(STATE_FIPS.values())
 
     print(f"\nData Years:")
+    print(f"  BDS Business Dynamics: {bds_year}")
     print(f"  BEA Proprietors: {bea_year}")
     print(f"  CBP Establishments & Industry: {cbp_year}")
     print(f"  Nonemployer Statistics: {nonemp_year}")
@@ -305,6 +350,7 @@ def main():
     print()
 
     # Initialize API clients
+    bds_client = BDSClient()
     bea_client = BEAClient()
     cbp_client = CBPClient()
     nonemp_client = NonempClient()
@@ -312,6 +358,9 @@ def main():
 
     # Collect all measures
     try:
+        # Measure 2.1: Entrepreneurial Activity (Business Dynamics)
+        business_dynamics_df = collect_business_dynamics(bds_client, bds_year, state_fips_list)
+
         # Measure 2.2: Non-Farm Proprietors
         proprietors_df = collect_proprietors_data(bea_client, bea_year, state_fips_list)
 
@@ -339,6 +388,9 @@ def main():
         processed_dir.mkdir(parents=True, exist_ok=True)
 
         # Save each dataset
+        business_dynamics_df.to_csv(processed_dir / f'bds_business_dynamics_{bds_year}.csv', index=False)
+        print(f"✓ Saved: bds_business_dynamics_{bds_year}.csv ({len(business_dynamics_df)} records)")
+
         proprietors_df.to_csv(processed_dir / f'bea_proprietors_{bea_year}.csv', index=False)
         print(f"✓ Saved: bea_proprietors_{bea_year}.csv ({len(proprietors_df)} records)")
 
@@ -364,9 +416,9 @@ def main():
         summary = {
             'collection_date': datetime.now().isoformat(),
             'component': 'Component 2: Economic Opportunity & Diversity',
-            'measures_collected': 6,
-            'measures_skipped': ['2.1 Entrepreneurial Activity (BDS - MEDIUM confidence)'],
+            'measures_collected': 7,
             'data_years': {
+                'bds_business_dynamics': bds_year,
                 'bea_proprietors': bea_year,
                 'cbp_establishments': cbp_year,
                 'cbp_industry': cbp_year,
@@ -376,6 +428,7 @@ def main():
             },
             'states': list(STATE_FIPS.keys()),
             'record_counts': {
+                'bds_business_dynamics': len(business_dynamics_df),
                 'bea_proprietors': len(proprietors_df),
                 'cbp_establishments': len(establishments_df),
                 'nonemp_firms': len(nonemployer_df),
