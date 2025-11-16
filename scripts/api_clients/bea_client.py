@@ -239,6 +239,58 @@ class BEAClient:
 
         return nonfarm_response
 
+    def get_cainc1_data(self, year, line_code, state_fips_list=None):
+        """
+        Get CAINC1 table data (Personal income summary).
+
+        Args:
+            year: Year or comma-separated years (e.g., '2020' or '2019,2020,2021')
+            line_code: BEA line code (e.g., '1' for total personal income)
+            state_fips_list: Optional list of state FIPS codes to filter results
+
+        Returns:
+            dict: API response with data
+        """
+        params = {
+            'method': 'GetData',
+            'datasetname': 'Regional',
+            'TableName': 'CAINC1',
+            'LineCode': str(line_code),
+            'GeoFips': 'COUNTY',  # Get all counties
+            'Year': str(year)
+        }
+
+        response = self._make_request(params)
+
+        # Filter by state if requested
+        if state_fips_list and 'BEAAPI' in response and 'Results' in response['BEAAPI']:
+            if 'Data' in response['BEAAPI']['Results']:
+                data = response['BEAAPI']['Results']['Data']
+                # Filter to only counties in specified states
+                filtered_data = [
+                    row for row in data
+                    if row['GeoFips'][:2] in state_fips_list
+                ]
+                response['BEAAPI']['Results']['Data'] = filtered_data
+
+        return response
+
+    def get_total_personal_income(self, years, state_fips_list=None):
+        """
+        Get total personal income data (Line Code 1) from CAINC1.
+
+        Args:
+            years: List of years or comma-separated string
+            state_fips_list: Optional list of state FIPS codes to filter results
+
+        Returns:
+            dict: API response
+        """
+        if isinstance(years, list):
+            years = ','.join(str(y) for y in years)
+
+        return self.get_cainc1_data(years, line_code=1, state_fips_list=state_fips_list)
+
     def save_response(self, data, filename):
         """
         Save API response to file.

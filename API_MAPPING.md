@@ -338,6 +338,13 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 
 ## Component Index 3: Other Economic Prosperity (5 measures)
 
+**✅ COLLECTION STATUS: 4 OF 5 COMPLETE** (as of 2025-11-16)
+- **Total Records**: 3,124 records (4 measures)
+- **Counties Covered**: 774-802 counties across 10 states (VA, PA, MD, DE, WV, KY, TN, NC, SC, GA)
+- **Summary File**: `data/processed/component3_collection_summary.json`
+- **Collection Script**: `scripts/data_collection/collect_component3.py`
+- **Note**: Measure 3.3 (Life Expectancy) deferred - requires bulk download from County Health Rankings
+
 **Note**: This index measures economic well-being beyond traditional growth metrics, following Nebraska Thriving Index methodology exactly.
 
 ### 3.1 Non-Farm Proprietor Personal Income
@@ -356,6 +363,14 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
   - Available for all states at county level
   - Already implemented in BEA API client
 - **Data Year for Virginia**: Use most recent year available (likely 2022)
+- **✅ DATA COLLECTED** (2025-11-16):
+  - **Year**: 2022
+  - **Records**: 774 counties (Virginia independent cities aggregated by BEA)
+  - **Raw Data**: `data/raw/bea/bea_proprietor_income_2022.json`
+  - **Processed Data**: `data/processed/bea_proprietor_income_2022.csv`
+  - **Script**: `scripts/data_collection/collect_component3.py`
+  - **API Client**: `scripts/api_clients/bea_client.py` (method: `get_proprietors_data()`)
+  - **Note**: Uses CAINC4 Line 72 (actual implementation differs from Line 60 noted above)
 
 ### 3.2 Personal Income Stability
 
@@ -374,6 +389,14 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
   - Inverse scoring: Lower volatility = higher index score
   - BEA provides annual data from 2001-present
 - **Data Years for Virginia**: Use 2008-2022 (15 years, most recent available)
+- **✅ DATA COLLECTED** (2025-11-16):
+  - **Years**: 2008-2022 (15 years)
+  - **Records**: 774 counties with complete 15-year data
+  - **Raw Data**: `data/raw/bea/bea_personal_income_2008_2022.json`
+  - **Processed Data**: `data/processed/bea_income_stability_2008_2022.csv`
+  - **Script**: `scripts/data_collection/collect_component3.py`
+  - **API Client**: `scripts/api_clients/bea_client.py` (method: `get_total_personal_income()`)
+  - **Statistics**: Average CV = 0.1734, Range: 0.0566 to 0.3685
 
 ### 3.3 Life Span (Life Expectancy at Birth)
 
@@ -408,6 +431,14 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
   - Available at county level for all counties
   - Already used in Component Index 2 as well
 - **Data Period for Virginia**: Use most recent 5-year ACS period (2018-2022)
+- **✅ DATA COLLECTED** (2025-11-16):
+  - **Year**: 2022 (5-year estimates: 2018-2022)
+  - **Records**: 802 counties across all 10 states
+  - **Raw Data**: `data/raw/census/census_poverty_[STATE]_2022.json` (10 files)
+  - **Processed Data**: `data/processed/census_poverty_2022.csv`
+  - **Script**: `scripts/data_collection/collect_component3.py`
+  - **API Client**: `scripts/api_clients/census_client.py` (method: `get_poverty_rate()`)
+  - **Statistics**: Average poverty rate = 15.92%, No null values
 
 ### 3.5 Share of Income from Dividends, Interest and Rent (DIR)
 
@@ -426,6 +457,14 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
   - Available for all states at county level
   - Already implemented in BEA API client
 - **Data Year for Virginia**: Use most recent year available (likely 2022)
+- **✅ DATA COLLECTED** (2025-11-16):
+  - **Year**: 2022
+  - **Records**: 774 counties (Virginia independent cities aggregated by BEA)
+  - **Raw Data**: `data/raw/bea/bea_dir_income_share_2022.json`, `data/raw/bea/bea_total_income_share_2022.json`
+  - **Processed Data**: `data/processed/bea_dir_income_share_2022.csv`
+  - **Script**: `scripts/data_collection/collect_component3.py`
+  - **API Client**: `scripts/api_clients/bea_client.py` (methods: `get_dir_income_data()`, `get_total_personal_income()`)
+  - **Statistics**: Average DIR share = 14.93%, Range: 6.09% to 45.52%
 
 ---
 
