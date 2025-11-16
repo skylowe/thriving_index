@@ -171,6 +171,74 @@ class BEAClient:
 
         return self.get_cainc5_data(years, line_code=46, state_fips_list=state_fips_list)
 
+    def get_cainc4_data(self, year, line_code, state_fips_list=None):
+        """
+        Get CAINC4 table data (Personal income and employment by major component).
+
+        Args:
+            year: Year or comma-separated years (e.g., '2020' or '2019,2020,2021')
+            line_code: BEA line code (e.g., '72' for nonfarm proprietors income, '71' for farm proprietors income)
+            state_fips_list: Optional list of state FIPS codes to filter results
+
+        Returns:
+            dict: API response with data
+        """
+        params = {
+            'method': 'GetData',
+            'datasetname': 'Regional',
+            'TableName': 'CAINC4',
+            'LineCode': str(line_code),
+            'GeoFips': 'COUNTY',  # Get all counties
+            'Year': str(year)
+        }
+
+        response = self._make_request(params)
+
+        # Filter by state if requested
+        if state_fips_list and 'BEAAPI' in response and 'Results' in response['BEAAPI']:
+            if 'Data' in response['BEAAPI']['Results']:
+                data = response['BEAAPI']['Results']['Data']
+                # Filter to only counties in specified states
+                filtered_data = [
+                    row for row in data
+                    if row['GeoFips'][:2] in state_fips_list
+                ]
+                response['BEAAPI']['Results']['Data'] = filtered_data
+
+        return response
+
+    def get_proprietors_data(self, years, state_fips_list=None, include_farm=False):
+        """
+        Get proprietors income data (nonfarm and optionally farm).
+
+        Note: County-level proprietors employment is not available via BEA API.
+        This method returns proprietors INCOME as a proxy for proprietorship activity.
+
+        Args:
+            years: List of years or comma-separated string
+            state_fips_list: Optional list of state FIPS codes to filter results
+            include_farm: If True, also get farm proprietors data
+
+        Returns:
+            dict: API response with nonfarm proprietors income (and farm if requested)
+        """
+        if isinstance(years, list):
+            years = ','.join(str(y) for y in years)
+
+        # Get nonfarm proprietors income (Line Code 72)
+        nonfarm_response = self.get_cainc4_data(years, line_code=72, state_fips_list=state_fips_list)
+
+        if include_farm:
+            # Also get farm proprietors income (Line Code 71)
+            farm_response = self.get_cainc4_data(years, line_code=71, state_fips_list=state_fips_list)
+            # Combine the responses
+            return {
+                'nonfarm': nonfarm_response,
+                'farm': farm_response
+            }
+
+        return nonfarm_response
+
     def save_response(self, data, filename):
         """
         Save API response to file.

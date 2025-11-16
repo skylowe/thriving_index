@@ -209,6 +209,61 @@ class CensusClient:
         geography = 'county:*'
         return self.get_acs5_data(year, variables, geography, state_fips)
 
+    def get_occupation_data(self, year, state_fips):
+        """
+        Get occupation by major groups from Table S2401 for diversity calculations.
+
+        Args:
+            year: Year of ACS 5-year period end
+            state_fips: State FIPS code
+
+        Returns:
+            list: API response with occupation data
+        """
+        # S2401 - Occupation by Sex and Median Earnings
+        # Get employment counts by major occupation group
+        variables = [
+            'NAME',
+            'S2401_C01_001E',  # Total civilian employed population 16 years and over
+            'S2401_C01_002E',  # Management, business, science, and arts occupations
+            'S2401_C01_003E',  # Service occupations
+            'S2401_C01_004E',  # Sales and office occupations
+            'S2401_C01_005E',  # Natural resources, construction, and maintenance occupations
+            'S2401_C01_006E',  # Production, transportation, and material moving occupations
+        ]
+
+        geography = 'county:*'
+        return self.get_acs5_subject_table(year, variables, geography, state_fips)
+
+    def get_telecommuter_data(self, year, state_fips):
+        """
+        Get telecommuter (work from home) data from Table B08128.
+
+        Args:
+            year: Year of ACS 5-year period end
+            state_fips: State FIPS code
+
+        Returns:
+            list: API response with telecommuter data
+        """
+        # B08128 - Means of Transportation to Work by Class of Worker
+        # B08128_001E = Total workers 16 years and over
+        # B08128_002E = Workers who worked at home
+        # B08128_003E = Worked at home: Private wage and salary workers
+        # B08128_009E = Worked at home: Self-employed in own not incorporated business workers
+        # B08128_013E = Worked at home: Self-employed in own incorporated business workers
+        variables = [
+            'NAME',
+            'B08128_001E',  # Total workers
+            'B08128_002E',  # Total worked at home
+            'B08128_003E',  # Worked at home: Private wage and salary
+            'B08128_009E',  # Worked at home: Self-employed not incorporated
+            'B08128_013E',  # Worked at home: Self-employed incorporated
+        ]
+
+        geography = 'county:*'
+        return self.get_acs5_data(year, variables, geography, state_fips)
+
     def parse_response_to_dict(self, response):
         """
         Convert Census API response to list of dictionaries.
