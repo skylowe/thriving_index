@@ -112,9 +112,10 @@ class NonempClient:
         Returns:
             list: API response with nonemployer data
         """
-        # NONEMP = Number of nonemployer establishments
-        # RCPTOT = Total receipts ($1,000)
-        variables = ['NAME', 'NONEMP', 'RCPTOT', 'NAICS2017']
+        # NESTAB = Number of nonemployer establishments
+        # NRCPTOT = Total receipts ($1,000)
+        # Note: Variable names changed in 2021+ API
+        variables = ['NAME', 'NESTAB', 'NRCPTOT', 'NAICS2017']
 
         return self.get_nonemp_data(year, variables, naics, state_fips)
 
