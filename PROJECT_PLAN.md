@@ -112,46 +112,52 @@ Data collection tasks (5 measures - see API_MAPPING.md for details):
 - BEA data returns 774 counties (some smaller counties may not have separate BEA reporting)
 
 ### Phase 2: Component Index 2 - Economic Opportunity & Diversity Index
-**Status**: ✓ Mostly Complete (5 of 7 measures collected)
+**Status**: ✓ Completed (7 of 7 measures collected)
 **Target**: Collect county-level data for all 10 states
 **Last Updated**: 2025-11-16
 
 Data collection tasks (7 measures - see API_MAPPING.md for details):
-- [x] Set up API clients (CBP, Nonemployer, extended BEA and Census)
-- [ ] Collect Entrepreneurial Activity (BDS) - **SKIPPED - MEDIUM confidence**
+- [x] Set up API clients (BDS, CBP, Nonemployer, extended BEA and Census)
+- [x] Collect Entrepreneurial Activity (Census BDS) - **802 records**
 - [x] Collect Non-Farm Proprietors (BEA CAINC4) - **774 records**
 - [x] Collect Employer Establishments (Census CBP) - **802 records**
-- [ ] Collect Share of Non-Employer Workers (Census NES + CBP) - **FAILED - API issue**
+- [x] Collect Share of Non-Employer Workers (Census NES) - **802 records**
 - [x] Collect Industry Diversity (Census CBP) - **19 NAICS sectors, 346-801 records each**
 - [x] Collect Occupation Diversity (Census ACS) - **802 records**
 - [x] Collect Share of Telecommuters (Census ACS) - **802 records**
 
 **Data Collected**:
+- Census BDS Business Dynamics (2021): 802 counties ✓
 - BEA Nonfarm Proprietors Income (2022): 774 counties ✓
 - Census CBP Establishments (2021): 802 counties ✓
+- Census Nonemployer Statistics (2021): 802 counties ✓
 - Census CBP Industry Employment (2021): 19 NAICS sectors ✓
 - Census ACS Occupation Data (2022): 802 counties ✓
 - Census ACS Telecommuter Data (2022): 802 counties ✓
 
 **Files Created**:
+- `data/raw/bds/bds_business_dynamics_[STATE]_2021.json` (10 files)
 - `data/raw/bea/bea_proprietors_2022.json`
 - `data/raw/cbp/cbp_establishments_[STATE]_2021.json` (10 files)
+- `data/raw/nonemp/nonemp_firms_[STATE]_2021.json` (10 files)
 - `data/raw/cbp/cbp_industry_employment_[STATE]_2021.json` (10 files)
 - `data/raw/census/census_occupation_[STATE]_2022.json` (10 files)
 - `data/raw/census/census_telecommuter_[STATE]_2022.json` (10 files)
+- `data/processed/bds_business_dynamics_2021.csv`
 - `data/processed/bea_proprietors_2022.csv`
 - `data/processed/cbp_establishments_2021.csv`
+- `data/processed/nonemp_firms_2021.csv`
 - `data/processed/cbp_industry_naics[XX]_2021.csv` (19 files, one per NAICS sector)
 - `data/processed/census_occupation_2022.csv`
 - `data/processed/census_telecommuter_2022.csv`
 - `data/processed/component2_collection_summary.json`
 
 **Notes**:
-- Used BEA CAINC4 table (proprietors INCOME) instead of CAEMP25 (employment) because CAEMP25 table does not exist in BEA API
-- Measure 2.1 (Entrepreneurial Activity via BDS) skipped due to MEDIUM confidence
-- Measure 2.4 (Nonemployer Statistics) failed - Census Nonemployer API parameter issue needs investigation
-- Successfully collected 5 of 7 measures (71% completion rate)
-- All 802 counties covered where data available
+- BDS API uses `YEAR` parameter instead of `time` parameter
+- Used BEA CAINC4 table (proprietors INCOME) instead of CAEMP25 (employment) because CAEMP25 table does not exist in BEA Regional API
+- Nonemployer Statistics API variable names changed in 2021+: use NESTAB (not NONEMP) and NRCPTOT (not RCPTOT)
+- Successfully collected all 7 measures (100% completion rate)
+- All 802 counties covered where data available (BEA returns 774 counties due to Virginia independent city aggregation)
 
 ### Phase 3: Component Index 3 - Other Prosperity Index
 **Status**: Not Started
@@ -210,25 +216,24 @@ Data collection tasks (7 measures - see API_MAPPING.md for details):
   - ✓ All 5 measures collected for 802 counties across 10 states
   - ✓ QCEW client implemented using downloadable data files
   - ✓ Data cached for efficient reprocessing
-- ✓ Phase 2: Component Index 2 - Economic Opportunity & Diversity Index (5 of 7 measures)
-  - ✓ Created CBP and Nonemployer API clients
+- ✓ Phase 2: Component Index 2 - Economic Opportunity & Diversity Index (ALL 7 measures complete)
+  - ✓ Created BDS, CBP, and Nonemployer API clients
   - ✓ Extended BEA client for proprietors data (CAINC4 table)
   - ✓ Extended Census client for occupation and telecommuter data
+  - ✓ Collected 802 counties for BDS business dynamics (births and deaths)
   - ✓ Collected 774 counties for BEA proprietors income
   - ✓ Collected 802 counties for CBP establishments
-  - ✓ Collected 19 NAICS industry sectors via CBP
+  - ✓ Collected 802 counties for Nonemployer Statistics
+  - ✓ Collected 19 NAICS industry sectors via CBP (industry diversity)
   - ✓ Collected 802 counties for ACS occupation and telecommuter data
-  - ⚠ Nonemployer Statistics API needs parameter fix (measure 2.4)
-  - ⚠ Entrepreneurial Activity (BDS) skipped - MEDIUM confidence (measure 2.1)
 
 **Next Steps**:
 1. Begin Component Index 3 data collection (Other Prosperity Index)
    - 5 measures total (see API_MAPPING.md for details)
    - Data sources: BLS QCEW, BEA, Census ACS
-2. Later: Fix Nonemployer Statistics API for Component 2 measure 2.4
+2. Continue through Components 4-8 sequentially
 3. Later: Validate and clean all Component 1 and 2 data
 4. Later: Calculate growth rates and index scores
-5. Continue through Components 4-8 sequentially
 
 ## Data Confidence Summary
 See API_MAPPING.md for complete details on each measure's confidence level:

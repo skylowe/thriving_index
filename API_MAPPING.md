@@ -1,7 +1,7 @@
 # Virginia Thriving Index - API Source Mapping
 
-**Last Updated**: 2025-11-15
-**Status**: Component 1 data collection complete; Components 2-8 in planning
+**Last Updated**: 2025-11-16
+**Status**: Component 1 and Component 2 data collection complete; Components 3-8 in planning
 
 ---
 
@@ -164,20 +164,33 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 
 **Note**: This index measures entrepreneurial activity, business formation, and economic diversity, following Nebraska Thriving Index methodology exactly.
 
+**✅ COLLECTION STATUS: COMPLETE** (as of 2025-11-16)
+- **Total Measures**: 7 of 7 collected (100%)
+- **Counties Covered**: 802 counties (BEA: 774 due to Virginia independent city aggregation)
+- **Summary File**: `data/processed/component2_collection_summary.json`
+- **Collection Script**: `scripts/data_collection/collect_component2.py`
+
 ### 2.1 Entrepreneurial Activity (Business Births and Deaths Per Person)
 
 - **Nebraska Source**: Census Bureau, Business Dynamics Statistics (BDS), 2019
 - **Nebraska Metric**: Business births and deaths per person
 - **Virginia API Source**: Census Bureau Business Dynamics Statistics
-- **API**: May require bulk data download; API access unclear
-- **Confidence**: 🟡 **MEDIUM**
+- **API Endpoint**: `https://api.census.gov/data/timeseries/bds`
+- **Variables**: ESTABS_ENTRY (births), ESTABS_EXIT (deaths), ESTAB (total establishments)
+- **Confidence**: ✅ **HIGH**
 - **Notes**:
   - BDS provides establishment births and deaths by county
   - Calculate: (Births + Deaths) / Population
   - County-level data may be suppressed for small counties
   - BDS has ~2 year lag
-- **Alternative**: Use Census County Business Patterns year-over-year change as proxy
-- **Data Year for Virginia**: Use most recent available (likely 2020 or 2021)
+  - **IMPORTANT**: BDS API uses `YEAR` parameter (not `time`)
+- **✅ DATA COLLECTED** (2025-11-16):
+  - **Year**: 2021
+  - **Records**: 802 counties
+  - **Raw Data**: `data/raw/bds/bds_business_dynamics_[STATE]_2021.json` (10 files)
+  - **Processed Data**: `data/processed/bds_business_dynamics_2021.csv`
+  - **Script**: `scripts/data_collection/collect_component2.py`
+  - **API Client**: `scripts/api_clients/bds_client.py` (method: `get_business_dynamics()`)
 
 ### 2.2 Non-Farm Proprietors Per 1,000 Persons
 
@@ -185,16 +198,22 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 - **Nebraska Metric**: Number of proprietor businesses per 1,000 persons
 - **Virginia API Source**: BEA Regional API
 - **API Endpoint**: `https://apps.bea.gov/api/data/`
-- **Dataset**: CAEMP25 (Full-time and part-time employment by industry)
-- **Line Code**: Line Code 200 (Nonfarm proprietors) or 300 (Farm proprietors) - sum for total
+- **Dataset**: CAINC4 (Personal Income and Employment by Major Component)
+- **Line Code**: Line Code 72 (Nonfarm proprietors' income)
 - **Confidence**: ✅ **HIGH**
 - **Notes**:
-  - BEA Table CAEMP25 provides proprietor employment counts
-  - Line Code 200 = Nonfarm proprietors
-  - Line Code 300 = Farm proprietors (if including farm)
+  - **IMPORTANT**: BEA Table CAEMP25 does not exist in the BEA Regional API
+  - Using CAINC4 Line Code 72 (Nonfarm proprietors' INCOME) as proxy for proprietorship activity
+  - This measures proprietor income rather than employment count, but serves as indicator of self-employment activity
   - Divide by population and multiply by 1,000
   - Available at county level for all states
-- **Data Year for Virginia**: Use most recent available (likely 2022)
+- **✅ DATA COLLECTED** (2025-11-16):
+  - **Year**: 2022
+  - **Records**: 774 counties (Virginia independent cities aggregated by BEA)
+  - **Raw Data**: `data/raw/bea/bea_proprietors_2022.json`
+  - **Processed Data**: `data/processed/bea_proprietors_2022.csv`
+  - **Script**: `scripts/data_collection/collect_component2.py`
+  - **API Client**: `scripts/api_clients/bea_client.py` (method: `get_cainc4_data()`)
 
 ### 2.3 Employer Establishments Per 1,000 Residents
 
@@ -210,7 +229,13 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
   - Excludes government, agricultural production, self-employed without employees
   - Divide by population and multiply by 1,000
   - Available at county level
-- **Data Year for Virginia**: Use most recent available (likely 2021)
+- **✅ DATA COLLECTED** (2025-11-16):
+  - **Year**: 2021
+  - **Records**: 802 counties
+  - **Raw Data**: `data/raw/cbp/cbp_establishments_[STATE]_2021.json` (10 files)
+  - **Processed Data**: `data/processed/cbp_establishments_2021.csv`
+  - **Script**: `scripts/data_collection/collect_component2.py`
+  - **API Client**: `scripts/api_clients/cbp_client.py` (method: `get_establishments()`)
 
 ### 2.4 Share of Workers in Non-Employer Establishment
 
@@ -220,14 +245,21 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 - **API Endpoints**:
   - Nonemployer: `https://api.census.gov/data/[year]/nonemp`
   - CBP: `https://api.census.gov/data/[year]/cbp`
+- **Variables**: NESTAB (Number of establishments), NRCPTOT (Total receipts)
 - **Confidence**: ✅ **HIGH**
 - **Notes**:
   - Nonemployer Statistics (NES) provides count of non-employer firms
   - CBP provides employment in employer establishments
   - Calculate: NONEMP / (NONEMP + EMP_CBP)
   - Available at county level for all counties
-  - NES variable: NONEMP (Number of nonemployer establishments)
-- **Data Year for Virginia**: Use most recent available (likely 2020 or 2021)
+  - **IMPORTANT**: Variable names changed in 2021+ API - use NESTAB (not NONEMP) and NRCPTOT (not RCPTOT)
+- **✅ DATA COLLECTED** (2025-11-16):
+  - **Year**: 2021
+  - **Records**: 802 counties
+  - **Raw Data**: `data/raw/nonemp/nonemp_firms_[STATE]_2021.json` (10 files)
+  - **Processed Data**: `data/processed/nonemp_firms_2021.csv`
+  - **Script**: `scripts/data_collection/collect_component2.py`
+  - **API Client**: `scripts/api_clients/nonemp_client.py` (method: `get_nonemployer_firms()`)
 
 ### 2.5 Industry Diversity
 
@@ -243,8 +275,15 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
   - Higher value = more similar to US = more diverse
   - Alternative: Herfindahl-Hirschman Index (HHI) where lower = more diverse
   - Nebraska likely uses dissimilarity index
-- **Calculation**: Compare county industry shares to national shares
-- **Data Year for Virginia**: Use most recent available (likely 2021)
+  - Not all industries exist in all counties (legitimate variation)
+- **✅ DATA COLLECTED** (2025-11-16):
+  - **Year**: 2021
+  - **NAICS Sectors**: 19 major sectors (11, 21, 22, 23, 31-33, 42, 44-45, 48-49, 51, 52, 53, 54, 55, 56, 61, 62, 71, 72, 81)
+  - **Records per sector**: 346 to 801 counties (variation is normal - not all industries exist everywhere)
+  - **Raw Data**: `data/raw/cbp/cbp_industry_employment_[STATE]_2021.json` (10 files)
+  - **Processed Data**: `data/processed/cbp_industry_naics[XX]_2021.csv` (19 files, one per sector)
+  - **Script**: `scripts/data_collection/collect_component2.py`
+  - **API Client**: `scripts/api_clients/cbp_client.py` (method: `get_industry_employment()`)
 
 ### 2.6 Occupation Diversity
 
@@ -260,7 +299,13 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
   - Calculate dissimilarity index with US occupation shares
   - Formula: `Diversity_Index = 1 - Σ|county_share_i - US_share_i| / 2`
   - Available at county level
-- **Data Period for Virginia**: Use most recent 5-year period (2018-2022)
+- **✅ DATA COLLECTED** (2025-11-16):
+  - **Period**: 2022 (2018-2022 5-year estimates)
+  - **Records**: 802 counties
+  - **Raw Data**: `data/raw/census/census_occupation_[STATE]_2022.json` (10 files)
+  - **Processed Data**: `data/processed/census_occupation_2022.csv`
+  - **Script**: `scripts/data_collection/collect_component2.py`
+  - **API Client**: `scripts/api_clients/census_client.py` (method: `get_occupation_data()`)
 
 ### 2.7 Share of Telecommuters
 
@@ -270,9 +315,10 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 - **API Endpoint**: `https://api.census.gov/data/[year]/acs/acs5`
 - **Variables**:
   - B08128_001E (Total workers)
-  - B08128_002E (Workers who worked at home)
-  - Need to subtract self-employed: use B08126 table
-  - Alternative: Use pre-calculated variable if available
+  - B08128_002E (Total worked at home)
+  - B08128_003E (Worked at home: Private wage/salary)
+  - B08128_009E (Worked at home: Self-employed not incorporated)
+  - B08128_013E (Worked at home: Self-employed incorporated)
 - **Confidence**: ✅ **HIGH**
 - **Notes**:
   - Table B08128: Means of Transportation to Work by Class of Worker
@@ -280,7 +326,13 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
   - Calculate: Telecommuters / Total workers
   - Available at county level
   - NOTE: Post-COVID data may show significant increase
-- **Data Period for Virginia**: Use most recent 5-year period (2018-2022)
+- **✅ DATA COLLECTED** (2025-11-16):
+  - **Period**: 2022 (2018-2022 5-year estimates)
+  - **Records**: 802 counties
+  - **Raw Data**: `data/raw/census/census_telecommuter_[STATE]_2022.json` (10 files)
+  - **Processed Data**: `data/processed/census_telecommuter_2022.csv`
+  - **Script**: `scripts/data_collection/collect_component2.py`
+  - **API Client**: `scripts/api_clients/census_client.py` (method: `get_telecommuter_data()`)
 
 ---
 
