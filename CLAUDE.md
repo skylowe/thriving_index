@@ -46,16 +46,29 @@ Process:
 
 ### Primary APIs (HIGH Confidence)
 - **BEA Regional API**: Bureau of Economic Analysis - employment, wages, income data
-  - Uses CAINC5 table for income components
+  - Uses CAINC5N table for income components (Component 1)
+  - Uses CAINC4 table for proprietors income (Component 2)
   - Provides county-level economic data
-- **BLS QCEW API**: Bureau of Labor Statistics Quarterly Census of Employment and Wages
+  - Note: Returns 774 counties (Virginia independent cities aggregated)
+- **BLS QCEW Downloadable Files**: Bureau of Labor Statistics Quarterly Census of Employment and Wages
   - Employment and wage data by industry
-  - Used for economic diversity calculations
+  - Uses downloadable ZIP files (~500MB), NOT Time Series API
+  - Annual county-level data for all ownership types
 - **Census ACS API**: American Community Survey
-  - Demographic and household data
-  - Education, poverty, housing data
-- **Census Population Estimates**: Annual county population data
-- **Census County Business Patterns**: Business establishment data
+  - Demographic and household data (Component 1)
+  - Occupation and telecommuter data (Component 2)
+  - Education, poverty, housing data (future components)
+- **Census BDS API**: Business Dynamics Statistics
+  - Establishment births and deaths by county
+  - Uses `YEAR` parameter (not `time`)
+  - Endpoint: `https://api.census.gov/data/timeseries/bds`
+- **Census CBP API**: County Business Patterns
+  - Establishment counts and employment by industry
+  - Industry diversity calculations (19 NAICS sectors)
+  - Available at county level for all 802 counties
+- **Census Nonemployer Statistics API**: Non-employer firm data
+  - Self-employed without employees
+  - Variables: NESTAB, NRCPTOT (changed in 2021+ from NONEMP, RCPTOT)
 
 ### Secondary APIs (MEDIUM Confidence)
 - **USDA NASS**: Agricultural statistics
@@ -101,14 +114,54 @@ Process:
 4. Validate and clean data before calculations
 5. Move to next component only when current component is complete
 
-## Component Index 1: Growth Index (First Implementation Target)
+## Component Index 1: Growth Index (✅ COMPLETE)
 
-Component Index 1 contains 5 measures, all with HIGH confidence levels and well-documented APIs:
-- BEA CAINC5 (employment and investment income)
-- BLS QCEW (private employment and wages)
-- Census ACS (households with children)
+**Status**: Completed 2025-11-15
+**Records**: 8,654 total records across 802 counties
 
-See **API_MAPPING.md** for complete details on each measure, including specific line codes, table references, and calculation formulas.
+Component Index 1 contains 5 measures, all with HIGH confidence levels:
+- **1.1**: Growth in Total Employment (BEA CAINC5N, Line 10)
+- **1.2**: Private Employment (BLS QCEW downloadable files)
+- **1.3**: Growth in Private Wages Per Job (BLS QCEW)
+- **1.4**: Growth in Households with Children (Census ACS Table S1101)
+- **1.5**: Growth in Dividends, Interest and Rent Income (BEA CAINC5N, Line 46)
+
+**Key Implementation Details**:
+- BEA returns 774 counties (Virginia independent cities combined)
+- QCEW uses downloadable ZIP files, not Time Series API
+- QCEW files cached locally (~500MB per year)
+- Census ACS collected by state (10 states × 2 time periods = 20 API calls)
+
+See **API_MAPPING.md** for complete details on each measure.
+
+## Component Index 2: Economic Opportunity & Diversity (✅ COMPLETE)
+
+**Status**: Completed 2025-11-16
+**Records**: 802 counties for most measures, 774 for BEA, 19 NAICS sectors for industry diversity
+
+Component Index 2 contains 7 measures with HIGH confidence levels:
+- **2.1**: Entrepreneurial Activity - Business Births/Deaths (Census BDS)
+- **2.2**: Non-Farm Proprietors Per 1,000 (BEA CAINC4, Line 72)
+- **2.3**: Employer Establishments Per 1,000 (Census CBP)
+- **2.4**: Share of Non-Employer Workers (Census Nonemployer Stats)
+- **2.5**: Industry Diversity (Census CBP, 19 NAICS sectors)
+- **2.6**: Occupation Diversity (Census ACS Table S2401)
+- **2.7**: Share of Telecommuters (Census ACS Table B08128)
+
+**Key Implementation Details**:
+- **BDS API Discovery**: Uses `YEAR` parameter instead of `time`
+- **BEA Table Workaround**: CAEMP25 doesn't exist; used CAINC4 Line 72 (proprietors income) as proxy
+- **Nonemployer API Changes**: Variable names changed in 2021+ (NESTAB not NONEMP, NRCPTOT not RCPTOT)
+- **Industry Diversity**: Not all industries exist in all counties (346-801 records per sector is normal)
+
+**New API Clients Created**:
+- `scripts/api_clients/bds_client.py` - Business Dynamics Statistics
+- `scripts/api_clients/cbp_client.py` - County Business Patterns
+- `scripts/api_clients/nonemp_client.py` - Nonemployer Statistics
+- Extended `bea_client.py` to support CAINC4 table
+- Extended `census_client.py` for occupation and telecommuter data
+
+See **API_MAPPING.md** for complete details on each measure.
 
 ## Python Implementation Requirements
 
@@ -119,11 +172,12 @@ See **API_MAPPING.md** for complete details on each measure, including specific 
 - Test on both operating systems
 
 ### API Integration
-- API keys are stored in the .Renviron file in the project root
-- Read API keys from .Renviron at runtime using R or Python environment loading
+- API keys stored in .Renviron file OR environment variables
+- Python config.py reads from .Renviron if available, falls back to environment variables
+- Implemented in `scripts/config.py` with `get_api_key()` helper function
 - Implement retry logic for API calls
 - Handle rate limiting appropriately
-- Cache API responses to minimize redundant calls
+- Cache API responses to minimize redundant calls (especially QCEW files)
 
 ### Data Storage
 - Use consistent file naming conventions
@@ -135,25 +189,33 @@ See **API_MAPPING.md** for complete details on each measure, including specific 
 ### Code Organization
 ```
 scripts/
-├── api_clients/          # API wrapper classes
-│   ├── bea_client.py
-│   ├── bls_client.py
-│   └── census_client.py
-├── data_collection/      # Data collection scripts
-│   ├── collect_component1.py
+├── config.py              # Configuration and API key management
+├── api_clients/           # API wrapper classes
+│   ├── bea_client.py      # BEA Regional API (CAINC5N, CAINC4)
+│   ├── qcew_client.py     # BLS QCEW downloadable files
+│   ├── census_client.py   # Census ACS API
+│   ├── bds_client.py      # Census Business Dynamics Statistics
+│   ├── cbp_client.py      # Census County Business Patterns
+│   └── nonemp_client.py   # Census Nonemployer Statistics
+├── data_collection/       # Data collection scripts
+│   ├── collect_component1.py  # Growth Index (5 measures)
+│   ├── collect_component2.py  # Economic Opportunity & Diversity (7 measures)
 │   └── ...
-├── processing/           # Data processing and cleaning
+├── processing/            # Data processing and cleaning
 │   └── clean_data.py
-└── analysis/            # Index calculation and analysis
+└── analysis/              # Index calculation and analysis
     └── calculate_index.py
 
 data/
-├── raw/                 # Raw API responses
-│   ├── bea/
-│   ├── bls/
-│   └── census/
-├── processed/           # Cleaned and processed data
-└── results/            # Calculated indexes and scores
+├── raw/                   # Raw API responses
+│   ├── bea/               # BEA employment, income, proprietors
+│   ├── qcew/              # QCEW employment and wages (+ cache/)
+│   ├── census/            # ACS households, occupation, telecommuter
+│   ├── bds/               # Business dynamics births/deaths
+│   ├── cbp/               # Establishments and industry employment
+│   └── nonemp/            # Nonemployer firms
+├── processed/             # Cleaned and processed data (CSV files)
+└── results/               # Calculated indexes and scores
 ```
 
 ## API Documentation References
@@ -161,22 +223,49 @@ data/
 ### BEA Regional API
 - Base URL: https://apps.bea.gov/api/data
 - Parameters: UserID, method, datasetname, TableName, LineCode, GeoFIPS, Year
-- Table: CAINC5 (Personal Income by Major Component)
-- Relevant Line Codes:
-  - 10: Total employment
-  - 31: Dividends, interest, and rent
+- **CAINC5N** (Personal Income by Major Component):
+  - Line 10: Total employment
+  - Line 46: Dividends, interest, and rent
+- **CAINC4** (Personal Income and Employment by Major Component):
+  - Line 72: Nonfarm proprietors' income
+- **Note**: CAEMP25 table does not exist in API (documented in Nebraska methodology but unavailable)
 
-### BLS QCEW API
-- Base URL: https://api.bls.gov/publicAPI/v2/timeseries/data/
-- Series ID format: ENUCS + FIPS + industry_code
-- Annual averages for employment and wages
-- Industry codes for economic diversity calculations
+### BLS QCEW Downloadable Files
+- **NOT using Time Series API** - county data not available that way
+- Download URL: `https://data.bls.gov/cew/data/files/{year}/csv/{year}_annual_singlefile.zip`
+- Files are ~500MB each, cached locally in `data/raw/qcew/cache/`
+- Filters: `own_code == 5` (private), `industry_code == '10'` (all industries)
+- Fields: `annual_avg_emplvl`, `total_annual_wages`, `avg_annual_pay`
 
 ### Census ACS API
 - Base URL: https://api.census.gov/data/{year}/acs/acs5
-- Subject Tables (S prefix) and Detailed Tables (B prefix)
+- Subject Tables (S prefix): S1101 (households), S2401 (occupation)
+- Detailed Tables (B prefix): B08128 (telecommuters)
 - 5-year estimates for stability
 - Geographic level: county (050)
+- Collected by state: `for=county:*&in=state:{fips}`
+
+### Census BDS API (Business Dynamics Statistics)
+- Base URL: https://api.census.gov/data/timeseries/bds
+- **IMPORTANT**: Uses `YEAR` parameter, NOT `time`
+- Variables: ESTABS_ENTRY (births), ESTABS_EXIT (deaths), ESTAB (total)
+- Geographic level: county
+- Example query: `?get=ESTABS_ENTRY,ESTABS_EXIT,ESTAB&for=county:*&in=state:51&YEAR=2021&NAICS=00`
+
+### Census CBP API (County Business Patterns)
+- Base URL: https://api.census.gov/data/{year}/cbp
+- Variables: ESTAB (establishments), EMP (employment), NAICS2017 (industry code)
+- Industry diversity: 19 major NAICS sectors (11, 21, 22, 23, 31-33, 42, 44-45, 48-49, 51, 52, 53, 54, 55, 56, 61, 62, 71, 72, 81)
+- NAICS 00 = total all industries
+- Not all industries exist in all counties (expected variation)
+
+### Census Nonemployer Statistics API
+- Base URL: https://api.census.gov/data/{year}/nonemp
+- **IMPORTANT**: Variable names changed in 2021+
+  - Old: NONEMP, RCPTOT
+  - New: NESTAB (establishments), NRCPTOT (receipts in $1,000)
+- Variables: NAME, NESTAB, NRCPTOT, NAICS2017
+- NAICS 00 = total all industries
 
 ## Important Formulas and Calculations
 
@@ -218,6 +307,9 @@ Typically using 5-year period (current year vs. 5 years prior)
 3. **Crime data**: FBI UCR transitioning to NIBRS, data availability varies
 4. **IRS migration**: Annual release delay, limited to county-to-county flows
 5. **Agricultural data**: USDA NASS has suppression for privacy in small counties
+6. **BEA County Coverage**: Returns 774 counties (not 802) due to Virginia independent cities being aggregated
+7. **API Parameter Discovery**: Census APIs not always well-documented (e.g., BDS uses YEAR not time)
+8. **Variable Name Changes**: Census variable names changed between API versions (e.g., Nonemployer 2021+)
 
 ### Data Validation Strategies
 - Cross-check totals against published reports
@@ -278,14 +370,58 @@ Project knowledge base containing:
 4. Allows validation against original source
 5. Helpful for debugging
 
-## Next Steps (After User Review)
+## Lessons Learned from Implementation
 
-1. **Set Up API Clients**: Create Python clients for BEA, BLS, Census APIs that read keys from .Renviron
-2. **Collect Component 1 Data**: Implement data collection for all 5 Growth Index measures for ALL counties in all 10 states
-3. **Validate Component 1 Data**: Process and clean the collected data, document any gaps
-4. **Proceed Component by Component**: Move to Component 2-8 only after Component 1 is complete
-5. **Regional Aggregation** (Later Phase): After all data is collected, define and aggregate counties into regions
-6. **Peer Selection** (Later Phase): Implement Mahalanobis distance matching to identify peer regions
+### Component 1 & 2 Implementation (Completed)
+
+**API Discovery and Documentation**:
+- Census BDS API documentation incomplete - discovered `YEAR` parameter through testing
+- BEA table CAEMP25 doesn't exist despite being referenced in Nebraska methodology
+- Census Nonemployer API variable names changed in 2021+ without clear documentation
+- QCEW Time Series API doesn't support county-level data - must use downloadable files
+
+**Data Availability Insights**:
+- BEA consistently returns 774 counties (Virginia independent cities aggregated) - expected behavior
+- Industry diversity naturally varies by county (not all industries exist everywhere)
+- County-level suppression is minimal for most measures (802 counties usually available)
+
+**Technical Approaches That Worked**:
+- Environment variable fallback for API keys provides flexibility across environments
+- Caching large downloads (QCEW files) saves significant time during development
+- State-by-state API calls for Census data provides better error handling
+- Storing both raw JSON and processed CSV enables reproducibility
+
+**Code Quality Practices**:
+- Separate API clients for each data source improves maintainability
+- Consistent file naming patterns (e.g., `{source}_{measure}_{STATE}_{year}.json`) helps organization
+- Summary JSON files document collection completeness and aid validation
+
+## Next Steps
+
+### Current Status: Ready for Component 3
+
+**Completed**:
+- ✅ Component 1: Growth Index (5 measures, 8,654 records)
+- ✅ Component 2: Economic Opportunity & Diversity (7 measures, 802+ counties)
+
+**Next Implementation**:
+1. **Component 3: Other Prosperity Index** (5 measures)
+   - Nonfarm proprietor income (BEA CAINC4 - already have client)
+   - Personal income stability (BEA CAINC1 - 15 years of data)
+   - Life expectancy (bulk download from County Health Rankings)
+   - Poverty rate (Census ACS - already have client)
+   - Share of DIR income (BEA CAINC5N - already have client)
+
+2. **Continue Through Components 4-8**
+   - Maintain component-by-component approach
+   - Document API discoveries and workarounds
+   - Validate data quality at each step
+
+3. **Later Phases** (After all data collected):
+   - Regional aggregation and definition
+   - Mahalanobis distance peer matching
+   - Index calculation and scoring
+   - Visualization and reporting
 
 ## Resources and References
 
@@ -304,10 +440,12 @@ Project knowledge base containing:
 - Avoids having to re-collect data if region definitions change
 - Allows validation of data quality at granular level
 
-### API Keys in .Renviron
-- All API keys stored in .Renviron file in project root
-- Python scripts will read from this file at runtime
+### API Keys in .Renviron or Environment Variables
+- API keys stored in .Renviron file in project root (preferred)
+- Python `config.py` falls back to environment variables if .Renviron unavailable
+- Implemented via `get_api_key()` helper function
 - Keeps sensitive keys out of version control
+- Provides flexibility across different deployment environments
 
 ### Component-by-Component Approach
 - Complete Component 1 (all 5 measures, all counties, all states) before moving to Component 2
@@ -316,5 +454,33 @@ Project knowledge base containing:
 - Provides working subset for testing regional aggregation
 
 ## Updates Log
-- 2025-11-15: Initial project setup, documentation review, created PROJECT_PLAN.md and CLAUDE.md
-- 2025-11-15: Revised to clarify county-level data collection for all 10 states, .Renviron for API keys, regional aggregation as later phase
+
+**2025-11-15**: Initial project setup
+- Created PROJECT_PLAN.md and CLAUDE.md
+- Clarified county-level data collection strategy (all 10 states)
+- Documented API key management (.Renviron and environment variables)
+
+**2025-11-15**: Component 1 Implementation
+- Created BEA, QCEW, and Census API clients
+- Implemented `collect_component1.py` script
+- Successfully collected all 5 Growth Index measures
+- Total: 8,654 records across 802 counties
+- Key discovery: QCEW requires downloadable files, not Time Series API
+
+**2025-11-16**: Component 2 Implementation
+- Created BDS, CBP, and Nonemployer API clients
+- Extended BEA client for CAINC4 table support
+- Extended Census client for occupation and telecommuter data
+- Implemented `collect_component2.py` script
+- Successfully collected all 7 Economic Opportunity & Diversity measures
+- Key discoveries:
+  - BDS API uses `YEAR` parameter (not `time`)
+  - BEA CAEMP25 table doesn't exist; used CAINC4 Line 72 as workaround
+  - Nonemployer API variable names changed in 2021+ (NESTAB/NRCPTOT)
+- Total: 802 counties for most measures, 19 NAICS sectors for industry diversity
+
+**2025-11-16**: Documentation Updates
+- Updated PROJECT_PLAN.md with Component 2 completion status
+- Updated API_MAPPING.md with data file locations and implementation notes
+- Updated CLAUDE.md with lessons learned and current project state
+- Ready to begin Component 3: Other Prosperity Index
