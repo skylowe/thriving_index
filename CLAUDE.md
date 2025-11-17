@@ -510,7 +510,7 @@ See **API_MAPPING.md** for complete details on each measure.
 
 ## Next Steps
 
-### Current Status: Component 7 In Progress (62.5% Complete)
+### Current Status: Component 7 Fully Implemented, Pending FBI Data Collection Decision
 
 **Completed**:
 - ✅ Component 1: Growth Index (5/5 measures, 8,654 records) - **100% COMPLETE**
@@ -519,21 +519,26 @@ See **API_MAPPING.md** for complete details on each measure.
 - ✅ Component 4: Demographic Growth & Renewal (6/6 measures, 5,616 records) - **100% COMPLETE**
 - ✅ Component 5: Education & Skill (5/5 measures, 2,406 records) - **100% COMPLETE**
 - ✅ Component 6: Infrastructure & Cost of Doing Business (5/6 measures, 2,539 records) - **83% COMPLETE**
-- ⏳ Component 7: Quality of Life (5/8 measures, ~4,000 records) - **62.5% COMPLETE**
+- ✅ Component 7: Quality of Life (8/8 measures implemented, 6 fully collected, 2 pending full collection) - **100% IMPLEMENTED**
 
-**Progress Summary**: 38 of 47 measures collected (81% complete)
+**Progress Summary**:
+- **Fully collected**: 39 of 47 measures (83% complete)
+- **Implemented**: 41 of 47 measures (87% complete)
 
 **Next Implementation**:
-1. **Complete Component 7: Quality of Life Index** (3 remaining measures)
-   - 7.4: Violent Crime Rate (FBI Uniform Crime Reporting - HIGH confidence)
-   - 7.5: Property Crime Rate (FBI Uniform Crime Reporting - HIGH confidence)
-   - 7.6: Climate Amenities (USDA ERS Natural Amenities Scale - MEDIUM confidence, static data)
+1. **FBI Crime Data Collection Decision** (Measures 7.4 & 7.5)
+   - Implementation complete, test run successful
+   - Pending decision on collection strategy:
+     - Option A: Full API collection (~12 days with 1,000/day limit)
+     - Option B: Investigate bulk download from FBI CDE website
+     - Option C: Incremental collection (state-by-state or limited daily runs)
 
-2. **Continue Through Component 8**
-   - Component 8: Social Capital Index (5 measures - state election data, Census CBP)
-   - Maintain component-by-component approach
-   - Document API discoveries and workarounds
-   - Validate data quality at each step
+2. **Continue Through Component 8** - Social Capital Index (5 measures)
+   - 8.1: Number of 501c3 Organizations (IRS bulk download - MEDIUM confidence)
+   - 8.2: Volunteer Rate - state-level (AmeriCorps - MEDIUM confidence)
+   - 8.3: Volunteer Hours Per Person - state-level (AmeriCorps - MEDIUM confidence)
+   - 8.4: Voter Turnout (State election offices/MIT Election Lab - MEDIUM confidence)
+   - 8.5: Share of Tree City USA Counties (Arbor Day Foundation - MEDIUM confidence)
 
 3. **Return to Component 6 Measure 6.1** (Broadband Internet Access)
    - Complete final measure for Component 6
@@ -757,17 +762,17 @@ Component Index 6 contains 6 measures. Currently collected 5 measures (6.2, 6.3,
 
 See **API_MAPPING.md** for complete details on each measure.
 
-## Component Index 7: Quality of Life (⏳ 75% COMPLETE)
+## Component Index 7: Quality of Life (✅ 100% IMPLEMENTED, Pending Full FBI Data Collection)
 
-**Status**: In Progress 2025-11-17
-**Records**: ~4,800 total records across 6 of 8 measures
+**Status**: All measures implemented 2025-11-17
+**Records**: ~4,800 fully collected + FBI test data (10 VA counties)
 
-Component Index 7 contains 8 measures. Currently collected 6 measures (7.1, 7.2, 7.3, 7.6, 7.7, and 7.8):
+Component Index 7 contains 8 measures. All 8 measures implemented, 6 fully collected, 2 pending full collection:
 - **7.1**: Commute Time (Census ACS S0801) ✅
 - **7.2**: Housing Built Pre-1960 (Census ACS DP04) ✅
 - **7.3**: Relative Weekly Wage (BLS QCEW) ✅
-- **7.4**: Violent Crime Rate (FBI Uniform Crime Reporting - NOT YET COLLECTED)
-- **7.5**: Property Crime Rate (FBI Uniform Crime Reporting - NOT YET COLLECTED)
+- **7.4**: Violent Crime Rate (FBI Uniform Crime Reporting) ✅ **IMPLEMENTED** (test: 1,207 crimes, 10 VA counties)
+- **7.5**: Property Crime Rate (FBI Uniform Crime Reporting) ✅ **IMPLEMENTED** (test: 8,963 crimes, 10 VA counties)
 - **7.6**: Climate Amenities (USDA ERS Natural Amenities Scale) ✅
 - **7.7**: Healthcare Access (Census CBP NAICS 621+622) ✅
 - **7.8**: Count of National Parks (NPS API with boundaries) ✅
@@ -776,9 +781,11 @@ Component Index 7 contains 8 measures. Currently collected 6 measures (7.1, 7.2,
 - Extended Census client with `get_commute_time()` and `get_housing_age()` methods
 - Extended CBP client with `get_healthcare_employment()` method
 - Created NPS API client with park boundary support (spatial polygon intersection)
+- Created FBI Crime Data Explorer API client with caching (respects 1,000/day API limit)
 - Commute time: Average travel time to work in minutes (Census ACS 2022)
 - Housing Pre-1960: Percentage of housing units built before 1960 (Census ACS 2022)
 - Relative Weekly Wage: County wage / state average wage ratio (BLS QCEW 2022)
+- **Crime Data**: FBI UCR via API, aggregated from 5,749 law enforcement agencies to counties
 - Climate Amenities: USDA ERS Natural Amenities Scale (composite index of 6 climate/geography measures, 1941-1970 data)
 - Healthcare Access: Employment in NAICS 621 (ambulatory) + 622 (hospitals) per capita
 - National Parks: NPS API with boundary-based spatial intersection to assign parks to ALL counties they touch
@@ -786,6 +793,7 @@ Component Index 7 contains 8 measures. Currently collected 6 measures (7.1, 7.2,
 - 805 counties for climate amenities (includes Virginia independent cities listed separately in 1999 dataset)
 - 771 counties have healthcare employment data
 - 146 counties (18.2%) have national parks using boundary-based approach
+- FBI crime data: Test run on 30 VA agencies (10 counties), full collection pending
 
 **New Functionality Added**:
 - Extended `scripts/api_clients/census_client.py` with Component 7 methods
@@ -799,9 +807,17 @@ Component Index 7 contains 8 measures. Currently collected 6 measures (7.1, 7.2,
   - `get_park_boundary()` - fetch park boundary GeoJSON from `/mapdata/parkboundaries/{parkCode}` endpoint
   - `parse_park_location()` - extract park location metadata
   - Full support for GeoJSON FeatureCollection boundary geometries
+- Created `scripts/api_clients/fbi_cde_client.py` - **NEW** FBI Crime Data Explorer API client
+  - FBICrimeClient class for FBI UCR crime data
+  - `get_violent_crime()` - fetch violent crime data (murder, rape, robbery, aggravated assault)
+  - `get_property_crime()` - fetch property crime data (burglary, larceny-theft, motor vehicle theft, arson)
+  - Uses ORI9 (9-character) codes for agency identification
+  - **Comprehensive caching system** to minimize API calls (stores all responses locally)
+  - Tracks API usage to respect 1,000 calls/day limit
+  - No batch endpoints available - requires 1 call per agency per offense type
 - Created `scripts/data_collection/collect_component7.py` - **INTEGRATED collection script**
-  - Collects all 6 completed measures in single script run
-  - Includes NPS collection with spatial analysis (previously in separate script)
+  - Collects measures 7.1-7.3 and 7.6-7.8 in single script run
+  - Includes NPS collection with spatial analysis
   - `collect_commute_time()` - Census ACS commute data
   - `collect_housing_age()` - Census ACS housing age data
   - `collect_relative_weekly_wage()` - BLS QCEW wage data with state-level aggregation
@@ -810,12 +826,25 @@ Component Index 7 contains 8 measures. Currently collected 6 measures (7.1, 7.2,
   - `collect_nps_parks()` - NPS parks with boundary-based spatial intersection
   - `load_county_boundaries()` - Load/cache Census TIGER county boundaries for spatial analysis
   - Integrated workflow similar to Component 3 (all measures in one script)
+- Created `scripts/data_collection/collect_measure_7_4_7_5_crime.py` - **NEW** FBI crime collection script
+  - Loads ORI crosswalk to map 5,749 law enforcement agencies to counties
+  - Collects both violent and property crime data for each agency
+  - Aggregates agency-level data to county level
+  - Test mode enabled by default (TEST_LIMIT and TEST_STATE parameters)
+  - Outputs: agency-level JSON, county-level CSV, summary JSON
 - Installed geopandas, shapely, xlrd for spatial analysis and XLS file processing
 
 **Key Statistics**:
 - Commute Time: Average 27.1 minutes across all counties
 - Housing Pre-1960: Average 28.5% of housing stock
 - Relative Weekly Wage: Average 1.0 (ratio to state), range 0.4 to 1.8
+- **FBI Crime Data (Test Run - 30 VA agencies, 10 counties)**:
+  - Violent crimes: 1,207 total (test)
+  - Property crimes: 8,963 total (test)
+  - API calls made: 58 (2 were from cache)
+  - Full collection scope: 5,749 agencies across 10 states
+  - Estimated API calls needed: ~11,498 (2 per agency × 5,749 agencies)
+  - Timeline with 1,000/day limit: ~12 days
 - Climate Amenities: Average -0.01 (scale), range -3.98 to 3.55
   - Based on 1941-1970 climate normals (static dataset from 1999)
   - Composite index of 6 measures: January temp, July temp, January sun, July humidity, topography, water area
@@ -829,9 +858,23 @@ Component Index 7 contains 8 measures. Currently collected 6 measures (7.1, 7.2,
   - Boundary-based spatial intersection assigns parks to ALL counties they touch
   - Previous point-based approach only assigned to 27 counties; boundary approach identifies 146 counties
 
-**Remaining Measures**:
-- 7.4: Violent Crime Rate (FBI Uniform Crime Reporting)
-- 7.5: Property Crime Rate (FBI Uniform Crime Reporting)
+**FBI Crime Data Implementation (Measures 7.4 & 7.5)**:
+- **API Client**: `scripts/api_clients/fbi_cde_client.py`
+- **Collection Script**: `scripts/data_collection/collect_measure_7_4_7_5_crime.py`
+- **Data Source**: FBI Crime Data Explorer API
+- **Agency Mapping**: `ori_crosswalk.tsv` (5,749 agencies with ORI9 codes)
+- **API Investigation Results**:
+  - No batch endpoints available in FBI CDE API
+  - Tested: `/summarized/agency/{ori1,ori2,ori3}/V` - does not work
+  - Tested: `/summarized/state/{state}/V` - returns only state aggregate, not individual agencies
+  - Tested: `/summarized/county/{fips}/V` - endpoint does not exist
+  - Confirmed: Must use `/summarized/agency/{ORI9}/{offense}` - 1 call per agency per offense
+- **Caching Implementation**: All API responses saved to `data/raw/fbi_cde/` to prevent re-downloading
+- **Full Collection Status**: Pending decision on collection strategy
+  - Option A: Full API collection over ~12 days (1,000 calls/day limit)
+  - Option B: Investigate bulk download from FBI CDE website (not yet pursued)
+  - Option C: Incremental collection (state-by-state or limited daily runs)
+- **Documentation**: See `FBI_CRIME_DATA_IMPLEMENTATION.md` for complete details
 
 See **API_MAPPING.md** for complete details on each measure.
 
@@ -916,3 +959,36 @@ See **API_MAPPING.md** for complete details on each measure.
   - Eliminated need for separate script execution
 - Testing confirmed all 5 measures collect successfully in 2-3 minutes
 - Total records: 3,936 across all 5 measures
+
+**2025-11-17**: Component 7 Measures 7.4 and 7.5 Implementation (FBI Crime Data)
+- **IMPLEMENTATION COMPLETE** - FBI Crime Data Explorer API integration for violent and property crime rates
+- Created `scripts/api_clients/fbi_cde_client.py` - FBI Crime Data Explorer API client
+  - Uses ORI9 (9-character) codes for agency identification
+  - Implements comprehensive caching system to minimize API calls
+  - Tracks API usage to respect 1,000 calls/day limit
+  - Handles both violent (V) and property (P) crime types
+- Created `scripts/data_collection/collect_measure_7_4_7_5_crime.py` - Crime data collection script
+  - Loads `ori_crosswalk.tsv` to map 5,749 law enforcement agencies to counties
+  - Collects data for all agencies across 10 states
+  - Aggregates agency-level data to county level
+  - Test mode enabled by default (TEST_LIMIT and TEST_STATE parameters)
+  - Outputs: agency JSON, county CSV, summary JSON
+- **Comprehensive API Investigation**: Tested FBI CDE API for batch request capabilities
+  - No batch endpoints available - requires 1 call per agency per offense type
+  - Tested unsuccessful: comma-separated ORIs, state-level agency data, county endpoints
+  - State endpoint (`/summarized/state/{state}/V`) returns only state aggregate totals
+  - Confirmed optimal approach: `/summarized/agency/{ORI9}/{offense}` (individual calls)
+- **Test Run Results** (30 Virginia agencies):
+  - 58 API calls made (2 were from cache)
+  - 10 counties covered
+  - 1,207 violent crimes aggregated
+  - 8,963 property crimes aggregated
+  - All data correctly parsed and aggregated to county level
+- **Full Collection Scope**:
+  - 5,749 agencies across 10 states
+  - ~11,498 API calls needed (2 per agency × 5,749 agencies)
+  - Timeline with 1,000/day limit: ~12 days
+  - Alternative: Bulk download from FBI CDE website (not yet pursued)
+- **Documentation**: Created `FBI_CRIME_DATA_IMPLEMENTATION.md` with full details
+- **Status**: Implementation complete and tested, pending decision on full collection strategy
+- Component 7 now **100% IMPLEMENTED** (all 8 measures), 6 measures fully collected, 2 pending full collection

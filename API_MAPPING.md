@@ -1063,6 +1063,21 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
   - Personal safety is a critical factor in enjoying life
   - FBI_UCR_KEY available in environment
 - **Data Year for Virginia**: Use most recent year available (likely 2021 or 2022)
+- **✅ IMPLEMENTATION COMPLETE** (2025-11-17):
+  - **API Endpoint**: `/summarized/agency/{ORI9}/{offense}` where offense = 'V' for violent
+  - **Year**: 2022 (01-2022 to 12-2022)
+  - **Agency Mapping**: Uses `ori_crosswalk.tsv` to map 5,749 agencies (ORI9 codes) to counties
+  - **API Investigation**: No batch endpoints available; requires 1 call per agency per offense type
+  - **Total API Calls Required**: ~11,498 (5,749 agencies × 2 crime types)
+  - **API Limit**: 1,000 calls/day (estimated 12 days for full collection)
+  - **Caching**: Implemented in `fbi_cde_client.py` to prevent redundant API calls
+  - **Test Run**: 30 Virginia agencies, 58 API calls, 10 counties
+  - **Test Results**: 1,207 violent crimes aggregated
+  - **Raw Data**: `data/raw/fbi_cde/{ORI}_{offense}_{from}_{to}.json`
+  - **Processed Data**: Pending full collection
+  - **Script**: `scripts/data_collection/collect_measure_7_4_7_5_crime.py`
+  - **API Client**: `scripts/api_clients/fbi_cde_client.py`
+  - **Full Collection**: Pending decision on collection strategy (API vs bulk download)
 
 ### 7.5 Property Crime Rate
 
@@ -1080,6 +1095,18 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
   - The safety of personal property is a critical component of enjoying life
   - FBI_UCR_KEY available in environment
 - **Data Year for Virginia**: Use most recent year available (likely 2021 or 2022)
+- **✅ IMPLEMENTATION COMPLETE** (2025-11-17):
+  - **API Endpoint**: `/summarized/agency/{ORI9}/{offense}` where offense = 'P' for property
+  - **Year**: 2022 (01-2022 to 12-2022)
+  - **Agency Mapping**: Uses `ori_crosswalk.tsv` to map 5,749 agencies (ORI9 codes) to counties
+  - **Same implementation as Measure 7.4** - collected simultaneously
+  - **Test Run**: 30 Virginia agencies, same 58 API calls as 7.4
+  - **Test Results**: 8,963 property crimes aggregated across 10 counties
+  - **Raw Data**: `data/raw/fbi_cde/{ORI}_{offense}_{from}_{to}.json`
+  - **Processed Data**: Pending full collection
+  - **Script**: `scripts/data_collection/collect_measure_7_4_7_5_crime.py` (shared with 7.4)
+  - **API Client**: `scripts/api_clients/fbi_cde_client.py` (shared with 7.4)
+  - **Full Collection**: Pending decision on collection strategy (API vs bulk download)
 
 ### 7.6 Climate Amenities
 
