@@ -991,12 +991,16 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 - **Variables**:
   - S0801_C01_046E (Mean travel time to work in minutes)
 - **Confidence**: ✅ **HIGH**
+- **Collection Status**: ✅ **COLLECTED** (2025-11-17)
 - **Notes**:
   - Represents the cost of living in terms of time
   - Provides insight into travel times to important destinations within a region
   - Inverse scoring: Shorter commute time = better quality of life
   - Available at county level for all states
 - **Data Period for Virginia**: Use most recent 5-year ACS period (2018-2022)
+- **Data Files**:
+  - Raw: `data/raw/census/census_commute_time_2022_[STATE].json` (10 states)
+  - Processed: `data/processed/census_commute_time_2022.csv` (802 counties)
 
 ### 7.2 Percent of Housing Built Pre-1960
 
@@ -1011,30 +1015,37 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
   - DP04_0037E (Built 1950 to 1959)
   - DP04_0033E (Total housing units)
 - **Confidence**: ✅ **HIGH**
+- **Collection Status**: ✅ **COLLECTED** (2025-11-17)
 - **Notes**:
   - Older housing units may lack contemporary design and are subject to depreciation
   - Calculate: (Built_1939_or_earlier + Built_1940_1949 + Built_1950_1959) / Total_units * 100
   - Inverse scoring: Lower percentage of old housing = better
   - Available at county level for all states
 - **Data Period for Virginia**: Use most recent 5-year ACS period (2018-2022)
+- **Data Files**:
+  - Raw: `data/raw/census/census_housing_age_2022_[STATE].json` (10 states)
+  - Processed: `data/processed/census_housing_pre1960_2022.csv` (802 counties)
 
 ### 7.3 Relative Weekly Wage
 
 - **Nebraska Source**: Bureau of Labor Statistics Quarterly Census of Employment and Wages, Average Weekly Wage (all industries, total covered, all establishment sizes), Quarter 2 2021
 - **Nebraska Metric**: The ratio of regional quarterly wages per job to statewide quarterly wages per job
-- **Virginia API Source**: BLS QCEW API
-- **API Endpoint**: `https://api.bls.gov/publicAPI/v2/timeseries/data/`
+- **Virginia API Source**: BLS QCEW Downloadable Files
+- **API Endpoint**: `https://data.bls.gov/cew/data/files/[year]/csv/[year]_annual_singlefile.zip`
 - **Series ID Format**: `ENU` + state FIPS + county FIPS + ownership + industry + data type
 - **Confidence**: ✅ **HIGH**
+- **Collection Status**: ✅ **COLLECTED** (2025-11-17)
 - **Notes**:
   - Calculate regional average weekly wage (all industries, total covered)
   - Calculate statewide average weekly wage
   - Compute ratio: Regional_Wage / State_Wage
   - Reflects the relative earnings opportunities in the region
   - Higher ratio = better earnings relative to state
-  - Use Q2 annual average for consistency with Nebraska
-  - Already implemented in BLS API client
-- **Data Year for Virginia**: Use most recent quarter available (likely Q2 2023 or Q2 2024)
+  - Uses BLS QCEW downloadable files (not Time Series API)
+  - Already implemented in QCEW client with caching
+- **Data Year for Virginia**: Use most recent year available (2022)
+- **Data Files**:
+  - Processed: `data/processed/qcew_relative_weekly_wage_2022.csv` (802 counties)
 
 ### 7.4 Violent Crime Rate
 
@@ -1102,6 +1113,7 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 - **NAICS Code**: 621 (Ambulatory Health Care Services) + 622 (Hospitals)
 - **Variables**: EMP (Employment in healthcare establishments)
 - **Confidence**: ✅ **HIGH**
+- **Collection Status**: ✅ **COLLECTED** (2025-11-17)
 - **Notes**:
   - CBP provides employment counts for healthcare establishments
   - NAICS 621: Ambulatory Health Care Services (physician offices, dentist offices, etc.)
@@ -1109,23 +1121,39 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
   - Calculate: (Healthcare_employment / Population) * 10,000
   - Measures access to medical care or key institutions like hospitals where physicians work in large numbers
   - Available at county level for all states
-- **Data Year for Virginia**: Use most recent CBP year available (likely 2021)
+- **Data Year for Virginia**: Use most recent CBP year available (2021)
+- **Data Files**:
+  - Raw: `data/raw/cbp/cbp_healthcare_621_2021_[STATE].json` (10 states, NAICS 621)
+  - Raw: `data/raw/cbp/cbp_healthcare_622_2021_[STATE].json` (10 states, NAICS 622)
+  - Processed: `data/processed/cbp_healthcare_employment_2021.csv` (771 counties with healthcare establishments)
 
 ### 7.8 Count of National Parks
 
 - **Nebraska Source**: National Park Service, Find a Park, 2018
 - **Nebraska Metric**: Share of regional counties with one or more national parks, monuments, trails or other protected areas
 - **Virginia API Source**: National Park Service API
-- **API Endpoint**: `https://developer.nps.gov/api/v1/parks`
-- **Confidence**: 🟡 **MEDIUM**
+- **API Endpoint**:
+  - Parks: `https://developer.nps.gov/api/v1/parks`
+  - Boundaries: `https://developer.nps.gov/api/v1/mapdata/parkboundaries/{parkCode}`
+- **Confidence**: ✅ **HIGH**
+- **Collection Status**: ✅ **COLLECTED** (2025-11-17)
 - **Notes**:
-  - NPS API provides location data for all national park units
-  - Filter for parks in Virginia and surrounding states
-  - Map parks to counties using park coordinates and county boundaries
-  - For multi-county regions: Calculate share of counties with at least one national park
+  - NPS API provides both park location data and boundary geometries (GeoJSON MultiPolygon)
+  - **Implementation uses boundary-based spatial intersection** (not just headquarters location)
+  - Parks are assigned to ALL counties they touch using polygon intersection analysis
+  - Filter for parks in Virginia and surrounding 9 states
   - Types include: National Parks, National Monuments, National Historic Sites, National Trails, National Seashores, etc.
   - A measure of local recreation options
-  - May need manual mapping for parks that span multiple counties
+  - Spatial analysis performed with geopandas and shapely
+- **Results**:
+  - 33 parks collected across 10 states
+  - 146 counties with parks (18.2% of 802 counties)
+  - 255 park-county assignments (parks mapped to all counties they intersect)
+  - Examples: Captain John Smith Chesapeake Trail (90 counties), Blue Ridge Parkway (30 counties)
+- **Data Files**:
+  - Raw: `data/raw/nps/nps_parks_raw_data.json` (33 parks)
+  - Processed: `data/processed/nps_park_counts_by_county.csv` (802 counties with park counts)
+  - Processed: `data/processed/nps_parks_county_mapping.csv` (255 park-county assignments)
   - Alternative: Use NPS bulk data download if API insufficient
 - **Implementation**: Use NPS API to get park locations; map to counties using GIS
 - **Data Year for Virginia**: Use current NPS data (updates infrequently)

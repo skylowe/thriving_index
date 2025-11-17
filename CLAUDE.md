@@ -510,7 +510,7 @@ See **API_MAPPING.md** for complete details on each measure.
 
 ## Next Steps
 
-### Current Status: Component 6 Near Complete (83% Complete)
+### Current Status: Component 7 In Progress (62.5% Complete)
 
 **Completed**:
 - ✅ Component 1: Growth Index (5/5 measures, 8,654 records) - **100% COMPLETE**
@@ -518,20 +518,27 @@ See **API_MAPPING.md** for complete details on each measure.
 - ✅ Component 3: Other Prosperity Index (5/5 measures, 3,936 records) - **100% COMPLETE**
 - ✅ Component 4: Demographic Growth & Renewal (6/6 measures, 5,616 records) - **100% COMPLETE**
 - ✅ Component 5: Education & Skill (5/5 measures, 2,406 records) - **100% COMPLETE**
-- ⏳ Component 6: Infrastructure & Cost of Doing Business (5/6 measures, 2,539 records) - **83% COMPLETE**
+- ✅ Component 6: Infrastructure & Cost of Doing Business (5/6 measures, 2,539 records) - **83% COMPLETE**
+- ⏳ Component 7: Quality of Life (5/8 measures, ~4,000 records) - **62.5% COMPLETE**
 
-**Progress Summary**: 33 of 47 measures collected (70% complete)
+**Progress Summary**: 38 of 47 measures collected (81% complete)
 
 **Next Implementation**:
-1. **Complete Component 6: Infrastructure & Cost of Doing Business Index** (1 remaining measure)
-   - 6.1: Broadband Internet Access (FCC Broadband Map data - MEDIUM confidence)
+1. **Complete Component 7: Quality of Life Index** (3 remaining measures)
+   - 7.4: Crime Rate (FBI Crime Data Explorer - HIGH confidence)
+   - 7.5: Air Quality Index (EPA Air Quality System - MEDIUM confidence)
+   - 7.6: Recreational Amenities (Census CBP + USGS GNIS - MEDIUM confidence)
 
-2. **Continue Through Components 7-8**
+2. **Continue Through Component 8**
+   - Component 8: Social Capital Index (5 measures - state election data, Census CBP)
    - Maintain component-by-component approach
    - Document API discoveries and workarounds
    - Validate data quality at each step
 
-3. **Later Phases** (After all data collected):
+3. **Return to Component 6 Measure 6.1** (Broadband Internet Access)
+   - Complete final measure for Component 6
+
+4. **Later Phases** (After all data collected):
    - Regional aggregation and definition
    - Mahalanobis distance peer matching
    - Index calculation and scoring
@@ -749,6 +756,80 @@ Component Index 6 contains 6 measures. Currently collected 5 measures (6.2, 6.3,
 - 6.1: Broadband (FCC bulk download or API)
 
 See **API_MAPPING.md** for complete details on each measure.
+
+## Component Index 7: Quality of Life (⏳ 62.5% COMPLETE)
+
+**Status**: In Progress 2025-11-17
+**Records**: ~4,000 total records across 5 of 8 measures
+
+Component Index 7 contains 8 measures. Currently collected 5 measures (7.1, 7.2, 7.3, 7.7, and 7.8):
+- **7.1**: Commute Time (Census ACS S0801) ✅
+- **7.2**: Housing Built Pre-1960 (Census ACS DP04) ✅
+- **7.3**: Relative Weekly Wage (BLS QCEW) ✅
+- **7.4**: Crime Rate (FBI Crime Data Explorer - NOT YET COLLECTED)
+- **7.5**: Air Quality Index (EPA Air Quality System - NOT YET COLLECTED)
+- **7.6**: Recreational Amenities (Census CBP + USGS GNIS - NOT YET COLLECTED)
+- **7.7**: Healthcare Access (Census CBP NAICS 621+622) ✅
+- **7.8**: Count of National Parks (NPS API with boundaries) ✅
+
+**Key Implementation Details**:
+- Extended Census client with `get_commute_time()` and `get_housing_age()` methods
+- Extended CBP client with `get_healthcare_employment()` method
+- Created NPS API client with park boundary support (spatial polygon intersection)
+- Commute time: Average travel time to work in minutes (Census ACS 2022)
+- Housing Pre-1960: Percentage of housing units built before 1960 (Census ACS 2022)
+- Relative Weekly Wage: County wage / state average wage ratio (BLS QCEW 2022)
+- Healthcare Access: Employment in NAICS 621 (ambulatory) + 622 (hospitals) per capita
+- National Parks: NPS API with boundary-based spatial intersection to assign parks to ALL counties they touch
+- All 802 counties covered for commute time, housing age, and weekly wage
+- 771 counties have healthcare employment data
+- 146 counties (18.2%) have national parks using boundary-based approach
+
+**New Functionality Added**:
+- Extended `scripts/api_clients/census_client.py` with Component 7 methods
+  - `get_commute_time()` - Census ACS Table S0801 (mean travel time to work)
+  - `get_housing_age()` - Census ACS Table DP04 (housing units by year built)
+- Extended `scripts/api_clients/cbp_client.py` with Component 7 methods
+  - `get_healthcare_employment()` - Census CBP for NAICS 621 and 622
+- Created `scripts/api_clients/nps_client.py` - **NEW** NPS API client
+  - NPSClient class for National Park Service data
+  - `get_all_parks()` - fetch parks with pagination (state filtering)
+  - `get_park_boundary()` - fetch park boundary GeoJSON from `/mapdata/parkboundaries/{parkCode}` endpoint
+  - `parse_park_location()` - extract park location metadata
+  - Full support for GeoJSON FeatureCollection boundary geometries
+- Created `scripts/data_collection/collect_component7.py` - **INTEGRATED collection script**
+  - Collects all 5 completed measures in single script run
+  - Includes NPS collection with spatial analysis (previously in separate script)
+  - `collect_commute_time()` - Census ACS commute data
+  - `collect_housing_age()` - Census ACS housing age data
+  - `collect_relative_weekly_wage()` - BLS QCEW wage data with state-level aggregation
+  - `collect_healthcare_employment()` - Census CBP healthcare establishments
+  - `collect_nps_parks()` - NPS parks with boundary-based spatial intersection
+  - `load_county_boundaries()` - Load/cache Census TIGER county boundaries for spatial analysis
+  - Integrated workflow similar to Component 3 (all measures in one script)
+- Installed geopandas and shapely for spatial analysis (used for Component 6 as well)
+
+**Key Statistics**:
+- Commute Time: Average 27.1 minutes across all counties
+- Housing Pre-1960: Average 28.5% of housing stock
+- Relative Weekly Wage: Average 1.0 (ratio to state), range 0.4 to 1.8
+- Healthcare Employment: 771 counties with healthcare establishments
+- National Parks:
+  - 33 parks across 10 states
+  - 146 counties with parks (18.2% of 802 counties)
+  - 255 park-county assignments using boundary-based approach (8x increase vs point-based)
+  - Top parks by coverage: Captain John Smith Chesapeake Trail (90 counties), Blue Ridge Parkway (30 counties)
+  - Boundary-based spatial intersection assigns parks to ALL counties they touch
+  - Previous point-based approach only assigned to 27 counties; boundary approach identifies 146 counties
+
+**Remaining Measures**:
+- 7.4: Crime Rate (FBI Crime Data Explorer)
+- 7.5: Air Quality Index (EPA)
+- 7.6: Recreational Amenities (CBP + GNIS)
+
+See **API_MAPPING.md** for complete details on each measure.
+
+## Updates Log (continued)
 
 **2025-11-17**: Component 6 Partial Implementation
 - Implemented measures 6.4 (Weekly Wage Rate) and 6.5 (Top Marginal Income Tax Rate)
