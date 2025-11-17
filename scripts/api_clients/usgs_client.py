@@ -19,7 +19,7 @@ import io
 
 # Add parent directory to path to import config
 sys.path.append(str(Path(__file__).resolve().parent.parent))
-from config import REQUEST_DELAY, MAX_RETRIES, TIMEOUT
+from config import REQUEST_DELAY, MAX_RETRIES, TIMEOUT, RAW_DATA_DIR
 
 
 class USGSTransportationClient:
@@ -30,6 +30,10 @@ class USGSTransportationClient:
         self.base_url = 'https://carto.nationalmap.gov/arcgis/rest/services/transportation/MapServer'
         self.controlled_access_layer = f'{self.base_url}/29/query'  # Controlled-access Highways layer
         self.session = requests.Session()
+
+        # Set up cache directory
+        self.cache_dir = RAW_DATA_DIR / 'usgs' / 'cache'
+        self.cache_dir.mkdir(parents=True, exist_ok=True)
 
     def _make_request(self, url, params, retries=MAX_RETRIES):
         """
@@ -73,16 +77,29 @@ class USGSTransportationClient:
         response = self._make_request(self.controlled_access_layer, params)
         return response.get('count', 0)
 
-    def get_interstate_highways(self, batch_size=2000):
+    def get_interstate_highways(self, batch_size=2000, use_cache=True):
         """
         Retrieve all interstate highway geometries with pagination.
 
         Args:
             batch_size: Number of records to fetch per request (max 2000)
+            use_cache: If True, use cached file if available (default True)
 
         Returns:
             GeoDataFrame: Interstate highway geometries with route information
         """
+        cache_file = self.cache_dir / 'interstate_highways_nationwide.pkl'
+
+        # Check cache first
+        if use_cache and cache_file.exists():
+            print(f"Loading interstate highways from cache: {cache_file}")
+            try:
+                gdf = pd.read_pickle(cache_file)
+                print(f"✓ Loaded {len(gdf):,} interstate highway segments from cache")
+                return gdf
+            except Exception as e:
+                print(f"  Warning: Failed to load cache ({e}), downloading fresh data...")
+
         # Get total count
         total_count = self.get_interstate_highways_count()
         print(f"Total interstate highway segments: {total_count:,}")
@@ -131,20 +148,41 @@ class USGSTransportationClient:
         # Convert to GeoDataFrame
         if all_features:
             gdf = gpd.GeoDataFrame.from_features(all_features, crs="EPSG:4326")
+
+            # Save to cache
+            try:
+                gdf.to_pickle(cache_file)
+                print(f"✓ Cached interstate highways to: {cache_file}")
+            except Exception as e:
+                print(f"  Warning: Failed to cache data ({e})")
+
             return gdf
         else:
             return gpd.GeoDataFrame()
 
-    def get_county_boundaries(self, year=2024):
+    def get_county_boundaries(self, year=2024, use_cache=True):
         """
         Download Census TIGER county boundaries.
 
         Args:
             year: Year of TIGER boundaries (default 2024)
+            use_cache: If True, use cached file if available (default True)
 
         Returns:
             GeoDataFrame: County boundaries with GEOID
         """
+        cache_file = self.cache_dir / f'census_tiger_counties_{year}.pkl'
+
+        # Check cache first
+        if use_cache and cache_file.exists():
+            print(f"Loading county boundaries from cache: {cache_file}")
+            try:
+                counties = pd.read_pickle(cache_file)
+                print(f"✓ Loaded {len(counties):,} county boundaries from cache")
+                return counties
+            except Exception as e:
+                print(f"  Warning: Failed to load cache ({e}), downloading fresh data...")
+
         print(f"Downloading Census TIGER {year} county boundaries...")
 
         # Census TIGER county boundaries URL
@@ -188,6 +226,13 @@ class USGSTransportationClient:
                 # Reproject to match highway data (EPSG:4326 / WGS84)
                 if counties.crs != "EPSG:4326":
                     counties = counties.to_crs("EPSG:4326")
+
+                # Save to cache
+                try:
+                    counties.to_pickle(cache_file)
+                    print(f"✓ Cached county boundaries to: {cache_file}")
+                except Exception as e:
+                    print(f"  Warning: Failed to cache data ({e})")
 
                 return counties
 

@@ -15,7 +15,7 @@ import sys
 
 # Add parent directory to path to import config
 sys.path.append(str(Path(__file__).resolve().parent.parent))
-from config import REQUEST_DELAY, MAX_RETRIES, TIMEOUT
+from config import REQUEST_DELAY, MAX_RETRIES, TIMEOUT, RAW_DATA_DIR
 
 
 class HUDClient:
@@ -26,6 +26,10 @@ class HUDClient:
         self.base_url = 'https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services'
         self.oz_endpoint = f'{self.base_url}/Opportunity_Zones/FeatureServer/13/query'
         self.session = requests.Session()
+
+        # Set up cache directory
+        self.cache_dir = RAW_DATA_DIR / 'hud' / 'cache'
+        self.cache_dir.mkdir(parents=True, exist_ok=True)
 
     def _make_request(self, url, params, retries=MAX_RETRIES):
         """
@@ -69,17 +73,36 @@ class HUDClient:
         response = self._make_request(self.oz_endpoint, params)
         return response.get('count', 0)
 
-    def get_opportunity_zones(self, state_fips_list=None, batch_size=1000):
+    def get_opportunity_zones(self, state_fips_list=None, batch_size=1000, use_cache=True):
         """
         Retrieve all Opportunity Zone tract data with pagination.
 
         Args:
             state_fips_list: Optional list of 2-digit state FIPS codes to filter
             batch_size: Number of records to fetch per request (default 1000)
+            use_cache: If True, use cached file if available (default True)
 
         Returns:
             DataFrame: OZ tract data with columns: state_fips, county_fips, tract, geoid10, state_abbr, state_name
         """
+        cache_file = self.cache_dir / 'opportunity_zones_nationwide.pkl'
+
+        # Check cache first
+        if use_cache and cache_file.exists():
+            print(f"Loading Opportunity Zones from cache: {cache_file}")
+            try:
+                df = pd.read_pickle(cache_file)
+                print(f"✓ Loaded {len(df):,} OZ tracts from cache")
+
+                # Filter to specific states if requested
+                if state_fips_list:
+                    df = df[df['state_fips'].isin(state_fips_list)].copy()
+                    print(f"Filtered to {len(df):,} OZ tracts in {len(state_fips_list)} states")
+
+                return df
+            except Exception as e:
+                print(f"  Warning: Failed to load cache ({e}), downloading fresh data...")
+
         # Get total count
         total_count = self.get_opportunity_zones_count()
         print(f"Total OZ tracts nationwide: {total_count:,}")
@@ -134,6 +157,13 @@ class HUDClient:
             })
 
         df = pd.DataFrame(oz_data)
+
+        # Save to cache (before filtering so we cache all nationwide data)
+        try:
+            df.to_pickle(cache_file)
+            print(f"✓ Cached Opportunity Zones to: {cache_file}")
+        except Exception as e:
+            print(f"  Warning: Failed to cache data ({e})")
 
         # Filter to specific states if requested
         if state_fips_list:
