@@ -299,27 +299,32 @@ Data collection tasks (ALL 5 measures - see API_MAPPING.md for details):
 - Knowledge workers uses occupation data (S2401) as proxy instead of industry data due to API compatibility
 
 ### Phase 6: Component Index 6 - Infrastructure & Cost of Doing Business Index
-**Status**: ⏳ **In Progress** (67% complete - 4 of 6 measures collected)
+**Status**: ⏳ **In Progress** (83% complete - 5 of 6 measures collected)
 **Target**: Collect county-level data for all 10 states
 **Last Updated**: 2025-11-17
 
 Data collection tasks (6 measures - see API_MAPPING.md for details):
 - [ ] Collect Broadband Internet Access (FCC Broadband Map)
-- [ ] Collect Interstate Highway Presence (manual GIS mapping)
+- [x] Collect Interstate Highway Presence (USGS National Map Transportation API) - **391 counties with interstates**
 - [x] Collect Count of 4-Year Colleges (Urban Institute IPEDS) - **345 counties, 902 colleges**
 - [x] Collect Weekly Wage Rate (BLS QCEW) - **802 records**
 - [x] Collect Top Marginal Income Tax Rate (Tax Foundation) - **10 records**
 - [x] Collect Qualified Opportunity Zones (HUD ArcGIS) - **580 records**
 
-**Total Records Collected**: 1,737 records across 4 measures
+**Total Records Collected**: 2,539 records across 5 measures
 
 **Data Collected**:
+- USGS Interstate Highways (2024): 802 counties analyzed, 391 counties with interstates (48.8%) ✓
 - Urban Institute IPEDS 4-Year Colleges (2022): 345 counties with colleges, 902 total colleges ✓
 - BLS QCEW Weekly Wage (2022): 802 counties ✓
 - Tax Foundation State Tax Rates (2024): 10 states ✓
 - HUD Opportunity Zones (2018): 580 counties with OZs, 1,709 total OZ tracts ✓
 
 **Files Created**:
+- `data/raw/usgs/county_interstate_presence.csv`
+- `data/raw/usgs/interstate_highways.pkl` (cached GeoDataFrame)
+- `data/raw/usgs/county_boundaries.pkl` (cached GeoDataFrame)
+- `data/processed/usgs_county_interstate_presence.csv`
 - `data/raw/urban_institute/ipeds_four_year_colleges_2022.csv`
 - `data/processed/ipeds_four_year_colleges_by_county_2022.csv`
 - `data/raw/qcew/qcew_weekly_wage_2022.csv`
@@ -328,12 +333,20 @@ Data collection tasks (6 measures - see API_MAPPING.md for details):
 - `data/processed/state_income_tax_rates_2024.csv`
 - `data/raw/hud/opportunity_zones_tracts.csv`
 - `data/processed/hud_opportunity_zones_by_county.csv`
-- `data/processed/component6_partial_collection_summary.json`
+- `data/processed/component6_collection_summary.json`
 
 **API Clients Created**:
+- `scripts/api_clients/usgs_client.py` - USGS National Map Transportation API
 - `scripts/api_clients/urban_institute_client.py` - Urban Institute Education Data Portal (IPEDS)
+- `scripts/api_clients/hud_client.py` - HUD ArcGIS REST API
 
 **Notes**:
+- Interstate highway data collected via USGS National Map Transportation API
+  - Downloaded 194,210 highway segments via ArcGIS REST API with pagination
+  - Used Census TIGER 2024 county boundaries for spatial intersection
+  - Implemented caching with pickled GeoDataFrames for performance
+  - Runtime: ~10-15 minutes for initial download, <1 minute when cached
+  - 391 of 802 counties (48.8%) have interstate highway presence
 - 4-year college data collected via Urban Institute Education Data Portal API
 - Urban Institute provides clean API access to IPEDS directory data with county FIPS codes
 - API uses state-by-state queries (fips + inst_level) with local filtering for degree_granting
@@ -370,7 +383,7 @@ Data collection tasks (6 measures - see API_MAPPING.md for details):
 - [ ] Create visualizations and reports
 
 ## Current Status
-**Phase**: Phase 6 - Component Index 6 (In Progress - 50% Complete)
+**Phase**: Phase 6 - Component Index 6 (In Progress - 83% Complete)
 **Date**: 2025-11-17
 
 **Completed**:
@@ -412,18 +425,20 @@ Data collection tasks (6 measures - see API_MAPPING.md for details):
   - ✓ Collected 802 counties for bachelor's degree attainment rate (exclusive)
   - ✓ Collected 802 counties for labor force participation rate
   - ✓ Collected 802 counties for knowledge workers (occupation-based proxy)
-- ⏳ Phase 6: Component Index 6 - Infrastructure & Cost of Doing Business Index (**3 of 6 measures complete, 1,392 records**)
+- ⏳ Phase 6: Component Index 6 - Infrastructure & Cost of Doing Business Index (**5 of 6 measures complete, 2,539 records**)
+  - ✓ Collected 391 counties with interstate highways via USGS Transportation API (194,210 segments)
+  - ✓ Collected 345 counties with 4-year colleges via Urban Institute IPEDS API (902 colleges)
   - ✓ Collected 802 counties for weekly wage rate (BLS QCEW 2022)
   - ✓ Collected 10 states for top marginal income tax rates (Tax Foundation 2024)
   - ✓ Collected 580 counties with Opportunity Zones via HUD ArcGIS API (1,709 OZ tracts)
+  - ✓ Created `scripts/api_clients/usgs_client.py` - new USGS Transportation API client
+  - ✓ Created `scripts/api_clients/urban_institute_client.py` - new Urban Institute API client
   - ✓ Created `scripts/api_clients/hud_client.py` - new HUD API client for Opportunity Zones
-  - Created `collect_component6.py` script for measures 6.4, 6.5, and 6.6
+  - Created `collect_component6.py` script for measures 6.2-6.6
 
 **Next Steps**:
-1. Complete Component Index 6 data collection (3 remaining measures)
+1. Complete Component Index 6 data collection (1 remaining measure)
    - Measure 6.1: Broadband Internet Access (FCC Broadband Map data)
-   - Measure 6.2: Interstate Highway Presence (manual GIS mapping)
-   - Measure 6.3: Count of 4-Year Colleges (NCES IPEDS bulk data)
 2. Continue through Components 7-8 sequentially
 3. Later: Validate and clean all component data
 4. Later: Calculate growth rates and index scores

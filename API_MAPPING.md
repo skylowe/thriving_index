@@ -1,7 +1,7 @@
 # Virginia Thriving Index - API Source Mapping
 
-**Last Updated**: 2025-11-16
-**Status**: Component 1 and Component 2 data collection complete; Components 3-8 in planning
+**Last Updated**: 2025-11-17
+**Status**: Components 1-5 complete (100%); Component 6 near complete (83%, 5 of 6 measures); Components 7-8 in planning
 
 ---
 
@@ -812,24 +812,42 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
   - Available at county level
 - **Data Year for Virginia**: Use most recent FCC Broadband Map data available (likely 2022-2023)
 
-### 6.2 Presence of Interstate Highway
+### 6.2 Presence of Interstate Highway ✅ DATA COLLECTED
 
 - **Nebraska Source**: Google Maps Interstate Map, 2018
 - **Nebraska Metric**: Share of population in county that contains an interstate highway
-- **Virginia API Source**: ⚠️ **NO STANDARD API**
-- **Confidence**: ❌ **LOW** (API), ✅ **HIGH** (manual mapping)
+- **Virginia API Source**: USGS National Map Transportation API + Census TIGER county boundaries
+- **API Endpoint**: `https://carto.nationalmap.gov/arcgis/rest/services/transportation/MapServer/29/query`
+- **API Client**: `scripts/api_clients/usgs_client.py`
+- **Confidence**: ✅ **HIGH** (API implemented successfully with spatial analysis)
+- **Collection Date**: 2025-11-17
 - **Notes**:
-  - No API for interstate highway presence
-  - Can manually map which counties/regions contain interstate highways using:
-    - U.S. Department of Transportation highway data
-    - Census TIGER/Line shapefiles
-    - Google Maps or OpenStreetMap
-  - Binary variable: 1 if region contains interstate, 0 if not
+  - USGS National Map provides comprehensive transportation data via ArcGIS REST API
+  - Downloaded all 194,210 interstate highway segments nationwide (layer 29: Controlled-access Highways)
+  - Used Census TIGER 2024 county boundaries for spatial intersection
+  - Binary variable: 1 if county contains interstate, 0 if not
   - For multi-county regions: Calculate weighted share of population in counties with interstates
-  - One-time manual data collection is acceptable
+  - Spatial analysis performed using geopandas and shapely libraries
+  - Highway and boundary data cached as pickled GeoDataFrames for faster subsequent runs
   - Enhances access to regional economy and manufacturing facility locations
-- **Implementation**: Manual mapping of interstate presence by county; one-time data collection
-- **Data Source**: Census TIGER/Line roads shapefile + county population data
+- **Implementation**: USGS API with pagination (batches of 2,000 segments) + Census TIGER boundaries + spatial intersection
+- **Data Year for Virginia**: 2024 (USGS transportation data + Census TIGER 2024 boundaries)
+- **Data Files**:
+  - **Raw**: `data/raw/usgs/county_interstate_presence.csv` (county-level, 802 counties)
+  - **Processed**: `data/processed/usgs_county_interstate_presence.csv` (county-level, 802 counties)
+  - **Cache**: `data/raw/usgs/cache/interstate_highways_nationwide.pkl` (194,210 segments)
+  - **Cache**: `data/raw/usgs/cache/county_boundaries_2024.pkl` (Census TIGER boundaries)
+- **Collection Results**:
+  - Total counties analyzed: 802 counties
+  - Counties with interstates: 391 counties (48.8%)
+  - Counties without interstates: 411 counties (51.2%)
+  - Binary indicator (has_interstate): 1 or 0 for each county
+  - Runtime: ~10-15 minutes for full download and spatial processing
+- **Technical Notes**:
+  - API query filters for interstate highways: `interstate IS NOT NULL AND interstate <> ''`
+  - Pagination handled automatically (2,000 records per batch with progress tracking)
+  - Spatial intersection uses geopandas `sjoin` (spatial join) operation
+  - Caching reduces subsequent runtime to <1 minute
 
 ### 6.3 Count of 4-Year Colleges ✅ DATA COLLECTED
 

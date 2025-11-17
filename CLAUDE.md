@@ -510,7 +510,7 @@ See **API_MAPPING.md** for complete details on each measure.
 
 ## Next Steps
 
-### Current Status: Component 6 In Progress (67% Complete)
+### Current Status: Component 6 Near Complete (83% Complete)
 
 **Completed**:
 - ✅ Component 1: Growth Index (5/5 measures, 8,654 records) - **100% COMPLETE**
@@ -518,14 +518,13 @@ See **API_MAPPING.md** for complete details on each measure.
 - ✅ Component 3: Other Prosperity Index (5/5 measures, 3,936 records) - **100% COMPLETE**
 - ✅ Component 4: Demographic Growth & Renewal (6/6 measures, 5,616 records) - **100% COMPLETE**
 - ✅ Component 5: Education & Skill (5/5 measures, 2,406 records) - **100% COMPLETE**
-- ⏳ Component 6: Infrastructure & Cost of Doing Business (4/6 measures, 1,737 records) - **67% COMPLETE**
+- ⏳ Component 6: Infrastructure & Cost of Doing Business (5/6 measures, 2,539 records) - **83% COMPLETE**
 
-**Progress Summary**: 32 of 47 measures collected (68% complete)
+**Progress Summary**: 33 of 47 measures collected (70% complete)
 
 **Next Implementation**:
-1. **Complete Component 6: Infrastructure & Cost of Doing Business Index** (2 remaining measures)
+1. **Complete Component 6: Infrastructure & Cost of Doing Business Index** (1 remaining measure)
    - 6.1: Broadband Internet Access (FCC Broadband Map data - MEDIUM confidence)
-   - 6.2: Interstate Highway Presence (manual GIS mapping - LOW API, HIGH manual)
 
 2. **Continue Through Components 7-8**
    - Maintain component-by-component approach
@@ -684,30 +683,40 @@ See **API_MAPPING.md** for complete details on each measure.
 - Updated CLAUDE.md with Component 5 section and updated next steps
 - All five components (1, 2, 3, 4, 5) are now fully complete: 28 measures, ~24,500 total records (60% of project)
 
-## Component Index 6: Infrastructure & Cost of Doing Business (⏳ PARTIAL - 67% COMPLETE)
+## Component Index 6: Infrastructure & Cost of Doing Business (⏳ NEAR COMPLETE - 83% COMPLETE)
 
-**Status**: Partially Completed 2025-11-17
-**Records**: 1,737 total records across 4 of 6 measures
+**Status**: Near Complete 2025-11-17
+**Records**: 2,539 total records across 5 of 6 measures
 
-Component Index 6 contains 6 measures. Currently collected 4 measures (6.3, 6.4, 6.5, and 6.6):
+Component Index 6 contains 6 measures. Currently collected 5 measures (6.2, 6.3, 6.4, 6.5, and 6.6):
 - **6.1**: Broadband Internet Access (FCC - NOT YET COLLECTED)
-- **6.2**: Interstate Highway Presence (Manual - NOT YET COLLECTED)
+- **6.2**: Interstate Highway Presence (USGS + Census TIGER) ✅
 - **6.3**: Count of 4-Year Colleges (Urban Institute IPEDS) ✅
 - **6.4**: Weekly Wage Rate (BLS QCEW) ✅
 - **6.5**: Top Marginal Income Tax Rate (Tax Foundation) ✅
 - **6.6**: Qualified Opportunity Zones (HUD ArcGIS) ✅
 
 **Key Implementation Details**:
+- Interstate highway data from USGS National Map Transportation API + Census TIGER county boundaries
+- Downloaded 194,210 interstate highway segments nationwide via USGS API
+- Performed spatial intersection analysis to identify counties with interstates
 - 4-year college data from Urban Institute Education Data Portal API (IPEDS directory)
 - BLS QCEW weekly wage data uses same downloadable files as Component 1
 - State income tax rates are static, state-level data from Tax Foundation
 - Opportunity Zones collected via HUD ArcGIS REST API (8,765 tracts nationwide)
+- 391 of 802 counties have interstate highways (48.8%)
 - 345 counties have 4-year colleges (902 total colleges, avg: 2.61 per county with colleges)
 - All 802 counties have weekly wage data (avg: $931.61, range: $0-$2,241)
 - All 10 states have tax rate data (avg: 4.66%, range: 0% TN to 6.6% DE)
 - 580 counties have Opportunity Zones (1,709 OZ tracts total, avg: 2.95 per county)
 
 **New Functionality Added**:
+- Created `scripts/api_clients/usgs_client.py` - new USGS Transportation API client
+  - USGSTransportationClient class for National Map Transportation data
+  - get_interstate_highways() - fetch all 194,210 interstate highway segments with pagination
+  - download_county_boundaries() - fetch Census TIGER 2024 county shapefiles
+  - identify_counties_with_interstates() - perform spatial intersection analysis
+  - Includes caching (pickled GeoDataFrames) for faster subsequent runs
 - Created `scripts/api_clients/urban_institute_client.py` - new Urban Institute API client
   - UrbanInstituteClient class for Education Data Portal (IPEDS)
   - get_four_year_colleges() - fetch 4-year degree-granting institutions with pagination
@@ -720,11 +729,15 @@ Component Index 6 contains 6 measures. Currently collected 4 measures (6.3, 6.4,
   - get_opportunity_zones() - fetch all OZ tracts with pagination and state filtering
   - aggregate_oz_by_county() - aggregate tract data to county level
   - Includes retry logic, error handling, and testable main block
-- Created `scripts/data_collection/collect_component6.py` for measures 6.3-6.6
+- Created `scripts/data_collection/collect_component6.py` for measures 6.2-6.6
 - Utilized existing QCEW client (already had weekly wage field)
 - Created static tax rate data structure with 2024 rates
+- Installed geopandas, shapely, and related geospatial libraries for spatial analysis
 
 **Key Statistics**:
+- Interstate Highways: 391 of 802 counties (48.8%) have interstates
+  - Downloaded and processed 194,210 highway segments nationwide
+  - Runtime: ~10-15 minutes for full spatial analysis
 - 4-Year Colleges: 902 colleges across 345 counties (43% of counties have colleges)
   - College Distribution: Pennsylvania (222), North Carolina (139), Georgia (112)
 - Weekly Wage Rate: Average $931.61, 802 counties covered
@@ -734,7 +747,6 @@ Component Index 6 contains 6 measures. Currently collected 4 measures (6.3, 6.4,
 
 **Remaining Measures**:
 - 6.1: Broadband (FCC bulk download or API)
-- 6.2: Interstate highways (manual GIS mapping)
 
 See **API_MAPPING.md** for complete details on each measure.
 
@@ -779,3 +791,24 @@ See **API_MAPPING.md** for complete details on each measure.
 - Updated `collect_component6.py` to include measure 6.3
 - Total Component 6: 1,737 records across 4 measures
 - **Component 6 is now 67% complete (4 of 6 measures)**
+
+**2025-11-17**: Component 6 Measure 6.2 Implementation (Final Update)
+- Added measure 6.2 (Interstate Highway Presence) using USGS National Map Transportation API + Census TIGER
+- Created new `scripts/api_clients/usgs_client.py` following project API client pattern
+- Successfully downloaded all 194,210 interstate highway segments nationwide from USGS API
+- Downloaded Census TIGER 2024 county boundaries for spatial analysis
+- Performed spatial intersection to identify counties with interstate highways
+- Installed geopandas and shapely libraries for geospatial analysis
+- Key findings:
+  - 391 of 802 counties (48.8%) have interstate highways
+  - Spatial analysis completed successfully across all 10 states
+  - Runtime: ~10-15 minutes for full download and spatial processing
+- API implementation notes:
+  - USGS provides comprehensive transportation data via ArcGIS REST API
+  - Downloaded in batches of 2,000 segments with progress tracking
+  - Cached highway and boundary data as pickled GeoDataFrames for faster subsequent runs
+  - Spatial intersection performed using geopandas geometric operations
+- Updated `collect_component6.py` to include all 5 measures (6.2-6.6)
+- Total Component 6: 2,539 records across 5 measures
+- **Component 6 is now 83% complete (5 of 6 measures)**
+- Only measure 6.1 (Broadband Internet Access) remains for Component 6
