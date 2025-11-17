@@ -299,9 +299,40 @@ Data collection tasks (ALL 5 measures - see API_MAPPING.md for details):
 - Knowledge workers uses occupation data (S2401) as proxy instead of industry data due to API compatibility
 
 ### Phase 6: Component Index 6 - Infrastructure & Cost of Doing Business Index
-**Status**: Not Started
-- [ ] Collect data for 6 measures (FCC, HUD, Census)
-- [ ] Validate and clean data
+**Status**: ⏳ **In Progress** (50% complete - 3 of 6 measures collected)
+**Target**: Collect county-level data for all 10 states
+**Last Updated**: 2025-11-17
+
+Data collection tasks (6 measures - see API_MAPPING.md for details):
+- [ ] Collect Broadband Internet Access (FCC Broadband Map)
+- [ ] Collect Interstate Highway Presence (manual GIS mapping)
+- [ ] Collect Count of 4-Year Colleges (NCES IPEDS)
+- [x] Collect Weekly Wage Rate (BLS QCEW) - **802 records**
+- [x] Collect Top Marginal Income Tax Rate (Tax Foundation) - **10 records**
+- [x] Collect Qualified Opportunity Zones (HUD ArcGIS) - **580 records**
+
+**Total Records Collected**: 1,392 records across 3 measures
+
+**Data Collected**:
+- BLS QCEW Weekly Wage (2022): 802 counties ✓
+- Tax Foundation State Tax Rates (2024): 10 states ✓
+- HUD Opportunity Zones (2018): 580 counties with OZs, 1,709 total OZ tracts ✓
+
+**Files Created**:
+- `data/raw/qcew/qcew_weekly_wage_2022.csv`
+- `data/raw/tax_foundation/state_income_tax_rates_2024.json`
+- `data/raw/hud/opportunity_zones_tracts.csv`
+- `data/processed/qcew_weekly_wage_2022.csv`
+- `data/processed/state_income_tax_rates_2024.csv`
+- `data/processed/hud_opportunity_zones_by_county.csv`
+- `data/processed/component6_partial_collection_summary.json`
+
+**Notes**:
+- Weekly wage data uses existing QCEW client from Component 1
+- Tax rates are static state-level data (Tennessee: 0%, Delaware: 6.6%)
+- OZ data collected via HUD ArcGIS REST API with pagination (8,765 tracts nationwide)
+- Pennsylvania has most OZ tracts (300), followed by Georgia (260)
+- 580 of 802 counties (72%) have at least one Opportunity Zone
 
 ### Phase 7: Component Index 7 - Quality of Life Index
 **Status**: Not Started
@@ -330,8 +361,8 @@ Data collection tasks (ALL 5 measures - see API_MAPPING.md for details):
 - [ ] Create visualizations and reports
 
 ## Current Status
-**Phase**: Phase 6 - Component Index 6 (Ready to Start)
-**Date**: 2025-11-16
+**Phase**: Phase 6 - Component Index 6 (In Progress - 50% Complete)
+**Date**: 2025-11-17
 
 **Completed**:
 - ✓ Phase 0: Project setup and infrastructure
@@ -372,12 +403,18 @@ Data collection tasks (ALL 5 measures - see API_MAPPING.md for details):
   - ✓ Collected 802 counties for bachelor's degree attainment rate (exclusive)
   - ✓ Collected 802 counties for labor force participation rate
   - ✓ Collected 802 counties for knowledge workers (occupation-based proxy)
+- ⏳ Phase 6: Component Index 6 - Infrastructure & Cost of Doing Business Index (**3 of 6 measures complete, 1,392 records**)
+  - ✓ Collected 802 counties for weekly wage rate (BLS QCEW 2022)
+  - ✓ Collected 10 states for top marginal income tax rates (Tax Foundation 2024)
+  - ✓ Collected 580 counties with Opportunity Zones via HUD ArcGIS API (1,709 OZ tracts)
+  - Created `collect_component6.py` script with HUD API pagination support
 
 **Next Steps**:
-1. Begin Component Index 6 data collection (Infrastructure & Cost of Doing Business Index)
-   - 6 measures total (see API_MAPPING.md for details)
-   - Data sources: FCC broadband, manual interstate data, NCES colleges, BLS wages, static tax data, HUD building permits
-2. Continue through Components 6-8 sequentially
+1. Complete Component Index 6 data collection (3 remaining measures)
+   - Measure 6.1: Broadband Internet Access (FCC Broadband Map data)
+   - Measure 6.2: Interstate Highway Presence (manual GIS mapping)
+   - Measure 6.3: Count of 4-Year Colleges (NCES IPEDS bulk data)
+2. Continue through Components 7-8 sequentially
 3. Later: Validate and clean all component data
 4. Later: Calculate growth rates and index scores
 

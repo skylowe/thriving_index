@@ -870,6 +870,14 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
   - Available at county level for all states
   - Already implemented in BLS API client (similar to QCEW employment data)
 - **Data Year for Virginia**: Use most recent quarter available (likely Q2 2023 or Q2 2024)
+- **✅ DATA COLLECTED** (2025-11-17):
+  - **Year**: 2022
+  - **Records**: 802 counties
+  - **Raw Data**: `data/raw/qcew/qcew_weekly_wage_2022.csv`
+  - **Processed Data**: `data/processed/qcew_weekly_wage_2022.csv`
+  - **Script**: `scripts/data_collection/collect_component6.py`
+  - **API Client**: `scripts/api_clients/qcew_client.py` (reused from Component 1)
+  - **Statistics**: Average weekly wage: $931.61, Range: $0-$2,241
 
 ### 6.5 Top Marginal Income Tax Rate
 
@@ -894,26 +902,43 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 - **Implementation**: Manual data collection from Tax Foundation; hardcode by state
 - **Data Source**: https://taxfoundation.org/state-income-tax-rates/
 - **Data Year for Virginia**: Use most recent tax rates (2024 or 2025)
+- **✅ DATA COLLECTED** (2025-11-17):
+  - **Tax Year**: 2024
+  - **Records**: 10 states
+  - **Raw Data**: `data/raw/tax_foundation/state_income_tax_rates_2024.json`
+  - **Processed Data**: `data/processed/state_income_tax_rates_2024.csv`
+  - **Script**: `scripts/data_collection/collect_component6.py`
+  - **Statistics**: Average rate: 4.66%, Range: 0% (TN) to 6.6% (DE)
+  - **Updated Rates**: Kentucky 4.0% (reduced from 4.5%), NC 4.5% (reduced from 4.75%), GA 5.39% (will reduce to 5.19% in 2025)
 
 ### 6.6 Count of Qualified Opportunity Zones
 
 - **Nebraska Source**: U.S. Department of the Treasury, Community Development Financial Institutions Fund, 2018
 - **Nebraska Metric**: Average number of qualified opportunity zones in the counties where regional residents live
-- **Virginia API Source**: ⚠️ **NO API**
-- **Confidence**: ✅ **HIGH** (static data)
+- **Virginia API Source**: HUD Opportunity Zones ArcGIS REST API
+- **API Endpoint**: `https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/Opportunity_Zones/FeatureServer/13/query`
+- **Confidence**: ✅ **HIGH**
 - **Notes**:
   - Qualified Opportunity Zones (QOZs) designated in 2018 under Tax Cuts and Jobs Act
   - Static list: QOZs do not change frequently
-  - Treasury publishes list of all designated QOZ census tracts
-  - Can download and map to counties
-  - Data available at: https://www.cdfifund.gov/opportunity-zones
+  - HUD provides ArcGIS REST API with all 8,765 OZ tracts nationwide
   - For each county: Count number of QOZ census tracts
   - For multi-county regions: Average count across counties (weighted by population)
   - QOZs help attract capital investment to economically distressed areas
-  - One-time data collection is acceptable
-- **Implementation**: Download QOZ tract list from Treasury; map tracts to counties; count by county
-- **Data Source**: https://www.cdfifund.gov/opportunity-zones (Excel/CSV download)
+  - API supports pagination for large datasets
+- **Implementation**: Use HUD ArcGIS REST API with pagination; filter to our 10 states; aggregate to county level
+- **Data Source**: HUD ArcGIS REST API (https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/Opportunity_Zones/)
 - **Data Year for Virginia**: 2018 designations (static)
+- **✅ DATA COLLECTED** (2025-11-17):
+  - **Designation Year**: 2018
+  - **Records**: 580 counties with OZs (72% of all 802 counties)
+  - **Total OZ Tracts**: 1,709 tracts across our 10 states (8,765 nationwide)
+  - **Raw Data**: `data/raw/hud/opportunity_zones_tracts.csv` (tract-level data)
+  - **Processed Data**: `data/processed/hud_opportunity_zones_by_county.csv` (county-level counts)
+  - **Script**: `scripts/data_collection/collect_component6.py`
+  - **API Method**: HUD ArcGIS REST API with pagination (1,000 records per batch)
+  - **Statistics**: Average 2.95 OZ tracts per county, Range: 1-82 tracts
+  - **Top States**: Pennsylvania (300), Georgia (260), North Carolina (252), Virginia (213)
 
 ---
 
