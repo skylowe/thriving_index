@@ -936,6 +936,7 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
   - **Raw Data**: `data/raw/hud/opportunity_zones_tracts.csv` (tract-level data)
   - **Processed Data**: `data/processed/hud_opportunity_zones_by_county.csv` (county-level counts)
   - **Script**: `scripts/data_collection/collect_component6.py`
+  - **API Client**: `scripts/api_clients/hud_client.py` (new HUD API client created)
   - **API Method**: HUD ArcGIS REST API with pagination (1,000 records per batch)
   - **Statistics**: Average 2.95 OZ tracts per county, Range: 1-82 tracts
   - **Top States**: Pennsylvania (300), Georgia (260), North Carolina (252), Virginia (213)

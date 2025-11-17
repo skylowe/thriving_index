@@ -407,7 +407,8 @@ Data collection tasks (6 measures - see API_MAPPING.md for details):
   - ✓ Collected 802 counties for weekly wage rate (BLS QCEW 2022)
   - ✓ Collected 10 states for top marginal income tax rates (Tax Foundation 2024)
   - ✓ Collected 580 counties with Opportunity Zones via HUD ArcGIS API (1,709 OZ tracts)
-  - Created `collect_component6.py` script with HUD API pagination support
+  - ✓ Created `scripts/api_clients/hud_client.py` - new HUD API client for Opportunity Zones
+  - Created `collect_component6.py` script for measures 6.4, 6.5, and 6.6
 
 **Next Steps**:
 1. Complete Component Index 6 data collection (3 remaining measures)

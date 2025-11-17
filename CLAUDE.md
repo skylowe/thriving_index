@@ -707,10 +707,15 @@ Component Index 6 contains 6 measures. Currently collected 3 measures (6.4, 6.5,
 - 580 counties have Opportunity Zones (1,709 OZ tracts total, avg: 2.95 per county)
 
 **New Functionality Added**:
+- Created `scripts/api_clients/hud_client.py` - new HUD API client
+  - HUDClient class with methods for Opportunity Zones data
+  - get_opportunity_zones_count() - get total OZ tract count
+  - get_opportunity_zones() - fetch all OZ tracts with pagination and state filtering
+  - aggregate_oz_by_county() - aggregate tract data to county level
+  - Includes retry logic, error handling, and testable main block
 - Created `scripts/data_collection/collect_component6.py` for measures 6.4, 6.5, and 6.6
 - Utilized existing QCEW client (already had weekly wage field)
 - Created static tax rate data structure with 2024 rates
-- Implemented HUD ArcGIS REST API client with pagination for OZ tract data
 
 **Key Statistics**:
 - Weekly Wage Rate: Average $931.61, 802 counties covered
@@ -736,6 +741,7 @@ See **API_MAPPING.md** for complete details on each measure.
 
 **2025-11-17**: Component 6 Measure 6.6 Implementation
 - Added measure 6.6 (Qualified Opportunity Zones) using HUD ArcGIS REST API
+- Created new `scripts/api_clients/hud_client.py` following project API client pattern
 - Successfully collected all 8,765 OZ tracts nationwide via API pagination
 - Filtered to 1,709 OZ tracts across our 10 states
 - Aggregated to county-level: 580 counties with OZs (average 2.95 tracts per county)
@@ -743,6 +749,7 @@ See **API_MAPPING.md** for complete details on each measure.
   - Pennsylvania has the most OZ tracts (300), followed by Georgia (260)
   - 580 of 802 counties (72%) have at least one Opportunity Zone
   - Range: 1 to 82 OZ tracts per county
-- Updated `collect_component6.py` with HUD API client and pagination logic
+- Updated `collect_component6.py` to use HUD API client
+- Refactored to follow separation of concerns (API logic in client, collection logic in script)
 - Total Component 6: 1,392 records across 3 measures
 - Component 6 is now 50% complete (3 of 6 measures)
