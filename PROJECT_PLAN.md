@@ -357,7 +357,7 @@ Data collection tasks (6 measures - see API_MAPPING.md for details):
 - 580 of 802 counties (72%) have at least one Opportunity Zone
 
 ### Phase 7: Component Index 7 - Quality of Life Index
-**Status**: ⏳ In Progress - 62.5% Complete (5 of 8 measures)
+**Status**: ⏳ In Progress - 75% Complete (6 of 8 measures)
 **Last Updated**: 2025-11-17
 
 Data collection tasks (8 measures - see API_MAPPING.md for details):
@@ -366,7 +366,7 @@ Data collection tasks (8 measures - see API_MAPPING.md for details):
 - [x] 7.3: Relative Weekly Wage (BLS QCEW) - **802 records**
 - [ ] 7.4: Violent Crime Rate (FBI UCR)
 - [ ] 7.5: Property Crime Rate (FBI UCR)
-- [ ] 7.6: Climate Amenities (USDA ERS Natural Amenities Scale)
+- [x] 7.6: Climate Amenities (USDA ERS Natural Amenities Scale) - **805 records**
 - [x] 7.7: Healthcare Access (Census CBP NAICS 621+622) - **771 records**
 - [x] 7.8: Count of National Parks (NPS API with boundaries) - **802 records, 146 counties with parks**
 
@@ -374,8 +374,9 @@ Data collection tasks (8 measures - see API_MAPPING.md for details):
 - Extended `scripts/api_clients/census_client.py` with `get_commute_time()` and `get_housing_age()`
 - Extended `scripts/api_clients/cbp_client.py` with `get_healthcare_employment()`
 - Created `scripts/api_clients/nps_client.py` - NPS API client with boundary support
-- Created `scripts/data_collection/collect_component7.py` - **Integrated collection script for all 5 completed measures**
+- Created `scripts/data_collection/collect_component7.py` - **Integrated collection script for all 6 completed measures**
 - NPS park boundaries using spatial polygon intersection (255 park-county assignments across 146 counties)
+- USDA ERS Natural Amenities Scale downloaded and processed (805 counties, includes VA independent cities)
 
 ### Phase 8: Component Index 8 - Social Capital Index
 **Status**: Not Started
@@ -399,7 +400,7 @@ Data collection tasks (8 measures - see API_MAPPING.md for details):
 - [ ] Create visualizations and reports
 
 ## Current Status
-**Phase**: Phase 7 - Component Index 7 (In Progress - 62.5% Complete)
+**Phase**: Phase 7 - Component Index 7 (In Progress - 75% Complete)
 **Date**: 2025-11-17
 
 **Completed**:
@@ -453,27 +454,29 @@ Data collection tasks (8 measures - see API_MAPPING.md for details):
   - ✓ Created `scripts/api_clients/urban_institute_client.py` - new Urban Institute API client
   - ✓ Created `scripts/api_clients/hud_client.py` - new HUD API client for Opportunity Zones
   - Created `collect_component6.py` script for measures 6.2-6.6
-- ⏳ Phase 7: Component Index 7 - Quality of Life Index (**5 of 8 measures complete, ~4,000 records**)
+- ⏳ Phase 7: Component Index 7 - Quality of Life Index (**6 of 8 measures complete, ~4,800 records**)
   - ✓ Extended Census client with `get_commute_time()` and `get_housing_age()` methods
   - ✓ Extended CBP client with `get_healthcare_employment()` method
   - ✓ Created `scripts/api_clients/nps_client.py` - NPS API client with park boundary support
   - ✓ Collected 802 counties for commute time (Census ACS 2022)
   - ✓ Collected 802 counties for housing built pre-1960 (Census ACS 2022)
   - ✓ Collected 802 counties for relative weekly wage (BLS QCEW 2022)
+  - ✓ Collected 805 counties for climate amenities (USDA ERS Natural Amenities Scale, 1941-1970 data)
   - ✓ Collected 771 counties for healthcare access (Census CBP 2021, NAICS 621+622)
   - ✓ Collected 802 counties for national parks (NPS API with boundary-based spatial intersection)
   - ✓ NPS boundaries mapped to 146 counties with parks (255 park-county assignments)
-  - ✓ Created integrated `collect_component7.py` script for all 5 completed measures
+  - ✓ Created integrated `collect_component7.py` script for all 6 completed measures
 
 **Next Steps**:
-1. Complete Component Index 7 data collection (3 remaining measures)
+1. Complete Component Index 7 data collection (2 remaining measures)
    - Measure 7.4: Violent Crime Rate (FBI Uniform Crime Reporting)
    - Measure 7.5: Property Crime Rate (FBI Uniform Crime Reporting)
-   - Measure 7.6: Climate Amenities (USDA ERS Natural Amenities Scale)
-2. Continue through Component 8
+2. Continue through Component 8 - Social Capital Index (5 measures)
 3. Return to complete Component 6 Measure 6.1 (Broadband)
 4. Later: Validate and clean all component data
 5. Later: Calculate growth rates and index scores
+
+**Overall Progress**: 39 of 47 measures collected (83% complete)
 
 ## Data Confidence Summary
 See API_MAPPING.md for complete details on each measure's confidence level:
