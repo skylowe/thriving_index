@@ -80,50 +80,75 @@ def load_county_boundaries(cache_file=None):
     return counties_gdf
 
 
-def collect_nps_parks(nps_client, state_codes):
+def collect_nps_parks_with_boundaries(nps_client, state_codes):
     """
-    Collect all parks from NPS API for specified states.
+    Collect all parks from NPS API with boundary geometries.
 
     Args:
         nps_client: NPSClient instance
         state_codes: List of 2-letter state codes (e.g., ['VA', 'MD'])
 
     Returns:
-        list: List of park records with locations
+        tuple: (parks_with_boundaries, parks_with_points_only, park_raw_data)
     """
-    print(f"\nCollecting NPS Parks...")
+    print(f"\nCollecting NPS Parks and Boundaries...")
     print("-" * 60)
 
     # Fetch all parks for our states
     all_parks = nps_client.get_all_parks(state_codes=state_codes)
 
-    # Parse locations
-    park_locations = []
-    for park in all_parks:
+    parks_with_boundaries = []
+    parks_with_points_only = []
+    park_raw_data = []
+
+    print(f"\n  Fetching boundaries for {len(all_parks)} parks...")
+
+    for i, park in enumerate(all_parks, 1):
+        park_code = park.get('parkCode', '')
+        park_name = park.get('fullName', 'Unknown')
+
+        # Parse basic location info
         location = nps_client.parse_park_location(park)
+        park_raw_data.append(location)
 
-        # Only include parks with valid coordinates
-        if location['latitude'] and location['longitude']:
-            park_locations.append(location)
+        # Try to fetch boundary geometry
+        boundary = nps_client.get_park_boundary(park_code)
+
+        if boundary and 'geometry' in boundary:
+            # Park has boundary data
+            location['has_boundary'] = True
+            location['geometry'] = boundary['geometry']
+            parks_with_boundaries.append(location)
+            if i % 5 == 0:
+                print(f"    Progress: {i}/{len(all_parks)} parks (boundaries: {len(parks_with_boundaries)}, points: {len(parks_with_points_only)})")
+        elif location['latitude'] and location['longitude']:
+            # Fall back to point location
+            location['has_boundary'] = False
+            parks_with_points_only.append(location)
+            if i % 5 == 0:
+                print(f"    Progress: {i}/{len(all_parks)} parks (boundaries: {len(parks_with_boundaries)}, points: {len(parks_with_points_only)})")
         else:
-            print(f"    Warning: No coordinates for {park.get('fullName', 'Unknown')}")
+            print(f"    Warning: No boundary or coordinates for {park_name} ({park_code})")
 
-    print(f"\n✓ Total parks with coordinates: {len(park_locations)}")
+    print(f"\n  ✓ Parks with boundaries: {len(parks_with_boundaries)}")
+    print(f"  ✓ Parks with points only: {len(parks_with_points_only)}")
+    print(f"  Total parks: {len(parks_with_boundaries) + len(parks_with_points_only)}")
 
-    return park_locations
+    return parks_with_boundaries, parks_with_points_only, park_raw_data
 
 
-def map_parks_to_counties(park_locations, counties_gdf, state_fips_list):
+def map_parks_to_counties(parks_with_boundaries, parks_with_points, counties_gdf, state_fips_list):
     """
-    Map parks to counties using spatial point-in-polygon analysis.
+    Map parks to counties using spatial intersection for boundaries and point-in-polygon for points.
 
     Args:
-        park_locations: List of park location dictionaries
+        parks_with_boundaries: List of parks with boundary geometries
+        parks_with_points: List of parks with point coordinates only
         counties_gdf: GeoDataFrame with county boundaries
         state_fips_list: List of state FIPS codes to filter
 
     Returns:
-        DataFrame: Parks mapped to counties with counts
+        tuple: (county_counts DataFrame, park_county_assignments DataFrame)
     """
     print(f"\nMapping parks to counties...")
     print("-" * 60)
@@ -132,49 +157,105 @@ def map_parks_to_counties(park_locations, counties_gdf, state_fips_list):
     counties_gdf = counties_gdf[counties_gdf['STATEFP'].isin(state_fips_list)].copy()
     print(f"  Counties in scope: {len(counties_gdf)}")
 
-    # Ensure CRS is WGS84 for lat/lon coordinates
+    # Ensure CRS is WGS84
     if counties_gdf.crs != "EPSG:4326":
         counties_gdf = counties_gdf.to_crs("EPSG:4326")
 
-    # Create GeoDataFrame from park locations
-    park_points = []
-    park_data = []
+    all_park_county_assignments = []
 
-    for park in park_locations:
-        if park['latitude'] and park['longitude']:
-            point = Point(park['longitude'], park['latitude'])
-            park_points.append(point)
-            park_data.append(park)
+    # Process parks with boundaries (polygon intersection)
+    if parks_with_boundaries:
+        print(f"\n  Processing {len(parks_with_boundaries)} parks with boundaries...")
 
-    parks_gdf = gpd.GeoDataFrame(
-        park_data,
-        geometry=park_points,
-        crs="EPSG:4326"
-    )
+        for park in parks_with_boundaries:
+            try:
+                from shapely.geometry import shape
+                # Convert GeoJSON geometry to Shapely geometry
+                park_geom = shape(park['geometry'])
 
-    print(f"  Parks to map: {len(parks_gdf)}")
+                # Find all counties that intersect with this park
+                intersecting = counties_gdf[counties_gdf.intersects(park_geom)].copy()
 
-    # Spatial join: assign parks to counties
-    parks_with_counties = gpd.sjoin(
-        parks_gdf,
-        counties_gdf[['STATEFP', 'COUNTYFP', 'NAME', 'geometry']],
-        how='left',
-        predicate='within'
-    )
+                for _, county in intersecting.iterrows():
+                    all_park_county_assignments.append({
+                        'park_code': park['park_code'],
+                        'park_name': park['park_name'],
+                        'designation': park['designation'],
+                        'states': park['states'],
+                        'has_boundary': True,
+                        'STATEFP': county['STATEFP'],
+                        'COUNTYFP': county['COUNTYFP'],
+                        'county_name': county['NAME']
+                    })
 
-    # Check for unmapped parks
-    unmapped = parks_with_counties[parks_with_counties['STATEFP'].isna()]
-    if len(unmapped) > 0:
-        print(f"  Warning: {len(unmapped)} parks could not be mapped to counties:")
-        for idx, park in unmapped.iterrows():
-            print(f"    - {park['park_name']} ({park['park_code']})")
+                if len(intersecting) == 0:
+                    print(f"    Warning: No counties found for {park['park_name']}")
 
-    # Remove unmapped parks
-    mapped_parks = parks_with_counties[parks_with_counties['STATEFP'].notna()].copy()
-    print(f"  ✓ Successfully mapped {len(mapped_parks)} parks to counties")
+            except Exception as e:
+                print(f"    Error processing boundary for {park['park_name']}: {e}")
 
-    # Count parks per county
-    county_park_counts = mapped_parks.groupby(['STATEFP', 'COUNTYFP']).size().reset_index(name='park_count')
+        print(f"    ✓ Mapped to {len(all_park_county_assignments)} park-county assignments")
+
+    # Process parks with points only (point-in-polygon)
+    if parks_with_points:
+        print(f"\n  Processing {len(parks_with_points)} parks with points only...")
+
+        park_points = []
+        park_data = []
+
+        for park in parks_with_points:
+            if park['latitude'] and park['longitude']:
+                point = Point(park['longitude'], park['latitude'])
+                park_points.append(point)
+                park_data.append(park)
+
+        if park_points:
+            parks_gdf = gpd.GeoDataFrame(
+                park_data,
+                geometry=park_points,
+                crs="EPSG:4326"
+            )
+
+            # Spatial join: assign parks to counties
+            parks_with_counties = gpd.sjoin(
+                parks_gdf,
+                counties_gdf[['STATEFP', 'COUNTYFP', 'NAME', 'geometry']],
+                how='left',
+                predicate='within'
+            )
+
+            # Check for unmapped parks
+            unmapped = parks_with_counties[parks_with_counties['STATEFP'].isna()]
+            if len(unmapped) > 0:
+                print(f"    Warning: {len(unmapped)} parks could not be mapped:")
+                for idx, park in unmapped.iterrows():
+                    print(f"      - {park['park_name']} ({park['park_code']})")
+
+            # Add mapped parks to assignments
+            for idx, row in parks_with_counties.iterrows():
+                if pd.notna(row['STATEFP']):
+                    all_park_county_assignments.append({
+                        'park_code': row['park_code'],
+                        'park_name': row['park_name'],
+                        'designation': row['designation'],
+                        'states': row['states'],
+                        'has_boundary': False,
+                        'STATEFP': row['STATEFP'],
+                        'COUNTYFP': row['COUNTYFP'],
+                        'county_name': row['NAME']
+                    })
+
+            print(f"    ✓ Mapped {len(parks_with_counties[parks_with_counties['STATEFP'].notna()])} parks")
+
+    # Create DataFrame of all park-county assignments
+    park_assignments_df = pd.DataFrame(all_park_county_assignments)
+    print(f"\n  Total park-county assignments: {len(park_assignments_df)}")
+
+    # Count unique parks per county
+    county_park_counts = park_assignments_df.groupby(['STATEFP', 'COUNTYFP']).agg({
+        'park_code': 'count'  # Count parks per county
+    }).reset_index()
+    county_park_counts.columns = ['STATEFP', 'COUNTYFP', 'park_count']
 
     # Add county names
     county_names = counties_gdf[['STATEFP', 'COUNTYFP', 'NAME']].drop_duplicates()
@@ -197,7 +278,7 @@ def map_parks_to_counties(park_locations, counties_gdf, state_fips_list):
     print(f"  Counties without parks: {len(all_counties[all_counties['park_count'] == 0])}")
     print(f"  Max parks in a county: {all_counties['park_count'].max()}")
 
-    return all_counties, mapped_parks
+    return all_counties, park_assignments_df
 
 
 def save_results(county_counts, park_details, nps_raw_data):
@@ -224,9 +305,8 @@ def save_results(county_counts, park_details, nps_raw_data):
     print(f"✓ Saved: {output_file}")
 
     # Save detailed park-to-county mapping
-    park_details_df = pd.DataFrame(park_details.drop(columns=['geometry']))
     output_file = processed_dir / 'nps_parks_county_mapping.csv'
-    park_details_df.to_csv(output_file, index=False)
+    park_details.to_csv(output_file, index=False)
     print(f"✓ Saved: {output_file}")
 
     # Save raw NPS API data
@@ -236,9 +316,11 @@ def save_results(county_counts, park_details, nps_raw_data):
     print(f"✓ Saved: {output_file}")
 
     # Create summary
+    unique_parks = park_details['park_code'].nunique() if not park_details.empty else 0
     summary = {
         'collection_date': datetime.now().isoformat(),
-        'total_parks': len(park_details),
+        'total_parks': unique_parks,
+        'total_park_county_assignments': len(park_details),
         'counties_with_parks': len(county_counts[county_counts['park_count'] > 0]),
         'total_counties': len(county_counts),
         'mean_parks_per_county': float(county_counts['park_count'].mean()),
@@ -279,20 +361,20 @@ def main():
         nps_client = NPSClient()
         print("✓ Client initialized")
 
-        # Collect parks from NPS API
-        park_locations = collect_nps_parks(nps_client, state_codes)
-
-        # Save raw data for reference
-        nps_raw_data = park_locations
+        # Collect parks from NPS API with boundaries
+        parks_with_boundaries, parks_with_points, nps_raw_data = collect_nps_parks_with_boundaries(
+            nps_client, state_codes
+        )
 
         # Load county boundaries
         print("\nLoading county boundaries...")
         counties_gdf = load_county_boundaries()
         print(f"✓ Loaded {len(counties_gdf)} county boundaries")
 
-        # Map parks to counties
+        # Map parks to counties (using boundaries for spatial intersection)
         county_counts, park_details = map_parks_to_counties(
-            park_locations,
+            parks_with_boundaries,
+            parks_with_points,
             counties_gdf,
             state_fips_list
         )

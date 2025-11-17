@@ -141,6 +141,33 @@ class NPSClient:
         print(f"  ✓ Total parks retrieved: {len(all_parks)}")
         return all_parks
 
+    def get_park_boundary(self, park_code):
+        """
+        Get park boundary geometry from NPS API.
+
+        Args:
+            park_code: Park site code (e.g., 'abli', 'appa')
+
+        Returns:
+            dict: GeoJSON feature with park boundary geometry, or None if not available
+        """
+        endpoint = f'/mapdata/parkboundaries/{park_code}'
+
+        try:
+            response = self._make_request(endpoint, params={})
+
+            # Response is a GeoJSON FeatureCollection
+            if isinstance(response, dict) and response.get('type') == 'FeatureCollection':
+                features = response.get('features', [])
+                if features and len(features) > 0:
+                    return features[0]  # Return first feature
+
+            return None
+
+        except Exception as e:
+            # Park may not have boundary data
+            return None
+
     def parse_park_location(self, park):
         """
         Parse location information from park record.
