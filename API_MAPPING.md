@@ -831,24 +831,40 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 - **Implementation**: Manual mapping of interstate presence by county; one-time data collection
 - **Data Source**: Census TIGER/Line roads shapefile + county population data
 
-### 6.3 Count of 4-Year Colleges
+### 6.3 Count of 4-Year Colleges ✅ DATA COLLECTED
 
 - **Nebraska Source**: National Center for Education Statistics (NCES) College Navigator, 2020-2021
 - **Nebraska Metric**: Average number of 4-year colleges in the counties where regional residents live
-- **Virginia API Source**: NCES Integrated Postsecondary Education Data System (IPEDS) API
-- **API Endpoint**: `https://nces.ed.gov/ipeds/datacenter/data/`
-- **Confidence**: 🟡 **MEDIUM** (API unclear), ✅ **HIGH** (bulk data)
+- **Virginia API Source**: Urban Institute Education Data Portal (IPEDS directory)
+- **API Endpoint**: `https://educationdata.urban.org/api/v1/college-university/ipeds/directory/2022/`
+- **API Client**: `scripts/api_clients/urban_institute_client.py`
+- **Confidence**: ✅ **HIGH** (API implemented successfully)
+- **Collection Date**: 2025-11-17
 - **Notes**:
-  - NCES College Navigator provides institution-level data with locations
-  - IPEDS data available as bulk download or potentially via API
-  - Filter for 4-year institutions (Level: 4-year)
-  - Filter for degree-granting institutions
-  - Geocode to county using institution addresses
+  - Urban Institute provides clean API access to IPEDS institutional characteristics data
+  - Filter for `inst_level=4` (4-year institutions)
+  - Filter for `degree_granting=1` (degree-granting institutions only)
+  - Data includes county FIPS codes for direct county-level aggregation
+  - API query uses state-by-state approach for reliability (fips + inst_level filters)
+  - Local filtering applied for degree_granting status (avoids API 503 errors)
   - For multi-county regions: Average count across counties (weighted by population)
   - Influences probability of attracting/retaining young people post-graduation
-  - Can use IPEDS data download from https://nces.ed.gov/ipeds/datacenter/
-- **Implementation**: Use IPEDS bulk download, filter for 4-year colleges, map to counties
-- **Data Year for Virginia**: Use most recent IPEDS year available (likely 2022-2023)
+- **Implementation**: Urban Institute Education Data Portal API with state-by-state queries and local filtering
+- **Data Year for Virginia**: 2022 (most recent available via API)
+- **Data Files**:
+  - **Raw**: `data/raw/urban_institute/ipeds_four_year_colleges_2022.csv` (institution-level, 902 colleges)
+  - **Processed**: `data/processed/ipeds_four_year_colleges_by_county_2022.csv` (county-level counts, 345 counties)
+- **Collection Results**:
+  - Total 4-year degree-granting colleges: 902 institutions
+  - Counties with colleges: 345 of 802 counties (43%)
+  - Average colleges per county (for counties with colleges): 2.61
+  - Range: 1-23 colleges per county
+  - Top states: Pennsylvania (222), North Carolina (139), Georgia (112)
+- **Technical Notes**:
+  - API requires `state_fips_list` parameter for reliable access
+  - Combining all three filters (fips + inst_level + degree_granting) causes 503 errors
+  - Workaround: Query with fips + inst_level, then filter locally for degree_granting==1
+  - Pagination handled automatically (up to 10,000 records per page)
 
 ### 6.4 Weekly Wage Rate
 

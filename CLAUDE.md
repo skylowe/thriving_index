@@ -510,7 +510,7 @@ See **API_MAPPING.md** for complete details on each measure.
 
 ## Next Steps
 
-### Current Status: Component 6 In Progress (50% Complete)
+### Current Status: Component 6 In Progress (67% Complete)
 
 **Completed**:
 - ✅ Component 1: Growth Index (5/5 measures, 8,654 records) - **100% COMPLETE**
@@ -518,15 +518,14 @@ See **API_MAPPING.md** for complete details on each measure.
 - ✅ Component 3: Other Prosperity Index (5/5 measures, 3,936 records) - **100% COMPLETE**
 - ✅ Component 4: Demographic Growth & Renewal (6/6 measures, 5,616 records) - **100% COMPLETE**
 - ✅ Component 5: Education & Skill (5/5 measures, 2,406 records) - **100% COMPLETE**
-- ⏳ Component 6: Infrastructure & Cost of Doing Business (3/6 measures, 1,392 records) - **50% COMPLETE**
+- ⏳ Component 6: Infrastructure & Cost of Doing Business (4/6 measures, 1,737 records) - **67% COMPLETE**
 
-**Progress Summary**: 31 of 47 measures collected (66% complete)
+**Progress Summary**: 32 of 47 measures collected (68% complete)
 
 **Next Implementation**:
-1. **Complete Component 6: Infrastructure & Cost of Doing Business Index** (3 remaining measures)
+1. **Complete Component 6: Infrastructure & Cost of Doing Business Index** (2 remaining measures)
    - 6.1: Broadband Internet Access (FCC Broadband Map data - MEDIUM confidence)
    - 6.2: Interstate Highway Presence (manual GIS mapping - LOW API, HIGH manual)
-   - 6.3: Count of 4-Year Colleges (NCES IPEDS bulk data - MEDIUM confidence)
 
 2. **Continue Through Components 7-8**
    - Maintain component-by-component approach
@@ -685,48 +684,57 @@ See **API_MAPPING.md** for complete details on each measure.
 - Updated CLAUDE.md with Component 5 section and updated next steps
 - All five components (1, 2, 3, 4, 5) are now fully complete: 28 measures, ~24,500 total records (60% of project)
 
-## Component Index 6: Infrastructure & Cost of Doing Business (⏳ PARTIAL - 50% COMPLETE)
+## Component Index 6: Infrastructure & Cost of Doing Business (⏳ PARTIAL - 67% COMPLETE)
 
 **Status**: Partially Completed 2025-11-17
-**Records**: 1,392 total records across 3 of 6 measures
+**Records**: 1,737 total records across 4 of 6 measures
 
-Component Index 6 contains 6 measures. Currently collected 3 measures (6.4, 6.5, and 6.6):
+Component Index 6 contains 6 measures. Currently collected 4 measures (6.3, 6.4, 6.5, and 6.6):
 - **6.1**: Broadband Internet Access (FCC - NOT YET COLLECTED)
 - **6.2**: Interstate Highway Presence (Manual - NOT YET COLLECTED)
-- **6.3**: Count of 4-Year Colleges (NCES IPEDS - NOT YET COLLECTED)
+- **6.3**: Count of 4-Year Colleges (Urban Institute IPEDS) ✅
 - **6.4**: Weekly Wage Rate (BLS QCEW) ✅
 - **6.5**: Top Marginal Income Tax Rate (Tax Foundation) ✅
 - **6.6**: Qualified Opportunity Zones (HUD ArcGIS) ✅
 
 **Key Implementation Details**:
+- 4-year college data from Urban Institute Education Data Portal API (IPEDS directory)
 - BLS QCEW weekly wage data uses same downloadable files as Component 1
 - State income tax rates are static, state-level data from Tax Foundation
 - Opportunity Zones collected via HUD ArcGIS REST API (8,765 tracts nationwide)
+- 345 counties have 4-year colleges (902 total colleges, avg: 2.61 per county with colleges)
 - All 802 counties have weekly wage data (avg: $931.61, range: $0-$2,241)
 - All 10 states have tax rate data (avg: 4.66%, range: 0% TN to 6.6% DE)
 - 580 counties have Opportunity Zones (1,709 OZ tracts total, avg: 2.95 per county)
 
 **New Functionality Added**:
+- Created `scripts/api_clients/urban_institute_client.py` - new Urban Institute API client
+  - UrbanInstituteClient class for Education Data Portal (IPEDS)
+  - get_four_year_colleges() - fetch 4-year degree-granting institutions with pagination
+  - aggregate_colleges_by_county() - aggregate institution data to county level
+  - State-by-state queries with local filtering (avoids API 503 errors)
+  - Pagination support (up to 10,000 records per page)
 - Created `scripts/api_clients/hud_client.py` - new HUD API client
   - HUDClient class with methods for Opportunity Zones data
   - get_opportunity_zones_count() - get total OZ tract count
   - get_opportunity_zones() - fetch all OZ tracts with pagination and state filtering
   - aggregate_oz_by_county() - aggregate tract data to county level
   - Includes retry logic, error handling, and testable main block
-- Created `scripts/data_collection/collect_component6.py` for measures 6.4, 6.5, and 6.6
+- Created `scripts/data_collection/collect_component6.py` for measures 6.3-6.6
 - Utilized existing QCEW client (already had weekly wage field)
 - Created static tax rate data structure with 2024 rates
 
 **Key Statistics**:
+- 4-Year Colleges: 902 colleges across 345 counties (43% of counties have colleges)
+  - College Distribution: Pennsylvania (222), North Carolina (139), Georgia (112)
 - Weekly Wage Rate: Average $931.61, 802 counties covered
 - Tax Rates: 10 states, range 0% (Tennessee - no income tax) to 6.6% (Delaware)
 - Opportunity Zones: 580 counties with OZs, 1,709 total OZ tracts across 10 states
-- OZ Distribution: Pennsylvania (300), Georgia (260), North Carolina (252), Virginia (213)
+  - OZ Distribution: Pennsylvania (300), Georgia (260), North Carolina (252), Virginia (213)
 
 **Remaining Measures**:
 - 6.1: Broadband (FCC bulk download or API)
 - 6.2: Interstate highways (manual GIS mapping)
-- 6.3: 4-year colleges (NCES IPEDS bulk data)
 
 See **API_MAPPING.md** for complete details on each measure.
 
@@ -753,3 +761,21 @@ See **API_MAPPING.md** for complete details on each measure.
 - Refactored to follow separation of concerns (API logic in client, collection logic in script)
 - Total Component 6: 1,392 records across 3 measures
 - Component 6 is now 50% complete (3 of 6 measures)
+
+**2025-11-17**: Component 6 Measure 6.3 Implementation
+- Added measure 6.3 (Count of 4-Year Colleges) using Urban Institute Education Data Portal API
+- Created new `scripts/api_clients/urban_institute_client.py` following project API client pattern
+- Successfully collected 902 4-year degree-granting colleges across 10 states
+- Aggregated to county-level: 345 counties with colleges (average 2.61 colleges per county)
+- Key findings:
+  - Pennsylvania has the most colleges (222), followed by North Carolina (139) and Georgia (112)
+  - 345 of 802 counties (43%) have at least one 4-year degree-granting college
+  - Range: 1 to 23 colleges per county
+- API implementation notes:
+  - Urban Institute provides clean API access to IPEDS institutional characteristics
+  - Combining all filters causes 503 errors; workaround uses fips + inst_level then local filtering
+  - State-by-state queries ensure reliable data collection
+  - Pagination support handles large result sets
+- Updated `collect_component6.py` to include measure 6.3
+- Total Component 6: 1,737 records across 4 measures
+- **Component 6 is now 67% complete (4 of 6 measures)**

@@ -2,11 +2,12 @@
 Component Index 6: Infrastructure & Cost of Doing Business
 
 This script collects data for Component 6 measures:
+- 6.3: Count of 4-Year Colleges (Urban Institute IPEDS)
 - 6.4: Weekly Wage Rate (BLS QCEW)
 - 6.5: Top Marginal Income Tax Rate (Tax Foundation - static data)
 - 6.6: Qualified Opportunity Zones (HUD ArcGIS)
 
-Note: Other measures (6.1-6.3) require different collection methods and will be implemented separately.
+Note: Other measures (6.1-6.2) require different collection methods and will be implemented separately.
 """
 
 import sys
@@ -20,6 +21,7 @@ sys.path.append(str(Path(__file__).resolve().parent.parent))
 from config import PROCESSED_DATA_DIR, RAW_DATA_DIR, STATE_FIPS
 from api_clients.qcew_client import QCEWClient
 from api_clients.hud_client import HUDClient
+from api_clients.urban_institute_client import UrbanInstituteClient
 
 # State income tax rates (2024 tax year)
 # Source: Tax Foundation (https://taxfoundation.org/data/all/state/state-income-tax-rates/)
@@ -227,16 +229,93 @@ def collect_opportunity_zones():
     return county_oz_counts
 
 
-def create_collection_summary(weekly_wage_df, tax_rate_df, oz_df):
+def collect_four_year_colleges(year=2022):
+    """
+    Collect 4-year degree-granting college data from Urban Institute IPEDS API (Measure 6.3).
+
+    Source: Urban Institute Education Data Portal (IPEDS directory)
+    Args:
+        year: Year to collect (default 2022)
+
+    Returns:
+        DataFrame with county-level college counts
+    """
+    print("\n" + "="*80)
+    print("MEASURE 6.3: Count of 4-Year Colleges")
+    print("="*80)
+    print(f"Source: Urban Institute Education Data Portal (IPEDS directory)")
+    print(f"Year: {year}")
+    print(f"Metric: Count of 4-year degree-granting institutions per county")
+
+    # Initialize Urban Institute client
+    client = UrbanInstituteClient()
+
+    # Get state FIPS codes
+    our_states = list(STATE_FIPS.values())
+
+    # Fetch college data for our 10 states
+    print(f"\nFetching 4-year degree-granting colleges for {len(our_states)} states...")
+    df_colleges = client.get_four_year_colleges(year=year, state_fips_list=our_states)
+
+    # Aggregate to county level
+    county_college_counts = client.aggregate_colleges_by_county(df_colleges)
+
+    # Save raw data (institution-level)
+    raw_output = RAW_DATA_DIR / 'urban_institute' / f'ipeds_four_year_colleges_{year}.csv'
+    raw_output.parent.mkdir(parents=True, exist_ok=True)
+    df_colleges.to_csv(raw_output, index=False)
+    print(f"\n✓ Saved raw institution-level data: {raw_output}")
+
+    # Save processed data (county-level counts)
+    processed_output = PROCESSED_DATA_DIR / f'ipeds_four_year_colleges_by_county_{year}.csv'
+    county_college_counts.to_csv(processed_output, index=False)
+    print(f"✓ Saved processed county-level data: {processed_output}")
+
+    # Print summary statistics
+    print(f"\n--- Summary Statistics ---")
+    print(f"Total 4-year degree-granting colleges: {len(df_colleges)}")
+    print(f"Counties with 4-year colleges: {len(county_college_counts)}")
+    print(f"Average colleges per county (counties with colleges): {county_college_counts['college_count'].mean():.2f}")
+    print(f"Median colleges per county: {county_college_counts['college_count'].median():.0f}")
+    print(f"Min colleges: {county_college_counts['college_count'].min()}")
+    print(f"Max colleges: {county_college_counts['college_count'].max()}")
+
+    # Show breakdown by state
+    print(f"\n--- Colleges by State ---")
+    state_summary = df_colleges.groupby(['state_fips', 'state_abbr']).size().reset_index(name='college_count')
+    state_summary = state_summary.sort_values('college_count', ascending=False)
+    for _, row in state_summary.iterrows():
+        # Get state name from STATE_FIPS
+        state_name = [k for k, v in STATE_FIPS.items() if v == row['state_fips']]
+        state_name_str = state_name[0] if state_name else row['state_abbr']
+        print(f"{state_name_str:20s} ({row['state_abbr']}): {row['college_count']:4d} colleges")
+
+    return county_college_counts
+
+
+def create_collection_summary(college_df, weekly_wage_df, tax_rate_df, oz_df):
     """Create a summary of Component 6 data collection (partial)."""
     summary = {
         'component': 'Component 6: Infrastructure & Cost of Doing Business',
         'collection_date': pd.Timestamp.now().isoformat(),
-        'measures_collected': 3,
+        'measures_collected': 4,
         'total_measures': 6,
-        'completion_percentage': 50.0,
-        'notes': 'Measures 6.4, 6.5, and 6.6 collected. Measures 6.1-6.3 require different collection methods (FCC, manual GIS, NCES).',
+        'completion_percentage': 66.7,
+        'notes': 'Measures 6.3-6.6 collected. Measures 6.1-6.2 require different collection methods (FCC, manual GIS).',
         'measures': {
+            '6.3_four_year_colleges': {
+                'name': 'Count of 4-Year Colleges',
+                'source': 'Urban Institute Education Data Portal (IPEDS)',
+                'year': 2022,
+                'records': len(college_df),
+                'counties': len(college_df),
+                'total_colleges': int(college_df['college_count'].sum()) if not college_df.empty else 0,
+                'avg_colleges_per_county': float(college_df['college_count'].mean()) if not college_df.empty else 0,
+                'files': [
+                    'data/raw/urban_institute/ipeds_four_year_colleges_2022.csv',
+                    'data/processed/ipeds_four_year_colleges_by_county_2022.csv'
+                ]
+            },
             '6.4_weekly_wage': {
                 'name': 'Weekly Wage Rate',
                 'source': 'BLS QCEW',
@@ -288,11 +367,14 @@ def create_collection_summary(weekly_wage_df, tax_rate_df, oz_df):
 
 
 def main():
-    """Main function to collect Component 6 data (partial - measures 6.4, 6.5, and 6.6)."""
+    """Main function to collect Component 6 data (partial - measures 6.3-6.6)."""
     print("="*80)
     print("COMPONENT 6: INFRASTRUCTURE & COST OF DOING BUSINESS INDEX")
-    print("Partial Collection: Measures 6.4, 6.5, and 6.6")
+    print("Partial Collection: Measures 6.3, 6.4, 6.5, and 6.6")
     print("="*80)
+
+    # Collect Measure 6.3: Count of 4-Year Colleges
+    college_df = collect_four_year_colleges(year=2022)
 
     # Collect Measure 6.4: Weekly Wage Rate
     weekly_wage_df = collect_weekly_wage_data(year=2022)
@@ -304,23 +386,24 @@ def main():
     oz_df = collect_opportunity_zones()
 
     # Create collection summary
-    summary = create_collection_summary(weekly_wage_df, tax_rate_df, oz_df)
+    summary = create_collection_summary(college_df, weekly_wage_df, tax_rate_df, oz_df)
 
     print("\n" + "="*80)
     print("COMPONENT 6 PARTIAL DATA COLLECTION COMPLETE")
     print("="*80)
-    print(f"Measures collected: 3 of 6 ({summary['completion_percentage']:.1f}%)")
-    total_records = (summary['measures']['6.4_weekly_wage']['records'] +
+    print(f"Measures collected: 4 of 6 ({summary['completion_percentage']:.1f}%)")
+    total_records = (summary['measures']['6.3_four_year_colleges']['records'] +
+                     summary['measures']['6.4_weekly_wage']['records'] +
                      summary['measures']['6.5_tax_rate']['records'] +
                      summary['measures']['6.6_opportunity_zones']['records'])
     print(f"Total records: {total_records}")
+    print(f"  - 4-Year Colleges: {summary['measures']['6.3_four_year_colleges']['counties']} counties, {summary['measures']['6.3_four_year_colleges']['total_colleges']} colleges total")
     print(f"  - Weekly wages: {summary['measures']['6.4_weekly_wage']['records']} counties")
     print(f"  - Tax rates: {summary['measures']['6.5_tax_rate']['records']} states")
     print(f"  - Opportunity Zones: {summary['measures']['6.6_opportunity_zones']['counties_with_oz']} counties, {summary['measures']['6.6_opportunity_zones']['total_oz_tracts']} OZ tracts")
     print("\nRemaining measures:")
     print("  - Measure 6.1: Broadband Internet Access (FCC data)")
     print("  - Measure 6.2: Interstate Highway Presence (manual mapping)")
-    print("  - Measure 6.3: Count of 4-Year Colleges (NCES IPEDS)")
     print("="*80)
 
 
