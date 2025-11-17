@@ -364,9 +364,9 @@ Data collection tasks (8 measures - see API_MAPPING.md for details):
 - [x] 7.1: Commute Time (Census ACS S0801) - **802 records**
 - [x] 7.2: Housing Built Pre-1960 (Census ACS DP04) - **802 records**
 - [x] 7.3: Relative Weekly Wage (BLS QCEW) - **802 records**
-- [ ] 7.4: Crime Rate (FBI Crime Data Explorer)
-- [ ] 7.5: Air Quality Index (EPA Air Quality System)
-- [ ] 7.6: Recreational Amenities (Census CBP + USGS GNIS)
+- [ ] 7.4: Violent Crime Rate (FBI UCR)
+- [ ] 7.5: Property Crime Rate (FBI UCR)
+- [ ] 7.6: Climate Amenities (USDA ERS Natural Amenities Scale)
 - [x] 7.7: Healthcare Access (Census CBP NAICS 621+622) - **771 records**
 - [x] 7.8: Count of National Parks (NPS API with boundaries) - **802 records, 146 counties with parks**
 
@@ -467,9 +467,9 @@ Data collection tasks (8 measures - see API_MAPPING.md for details):
 
 **Next Steps**:
 1. Complete Component Index 7 data collection (3 remaining measures)
-   - Measure 7.4: Crime Rate (FBI Crime Data Explorer)
-   - Measure 7.5: Air Quality Index (EPA Air Quality System)
-   - Measure 7.6: Recreational Amenities (Census CBP + USGS GNIS)
+   - Measure 7.4: Violent Crime Rate (FBI Uniform Crime Reporting)
+   - Measure 7.5: Property Crime Rate (FBI Uniform Crime Reporting)
+   - Measure 7.6: Climate Amenities (USDA ERS Natural Amenities Scale)
 2. Continue through Component 8
 3. Return to complete Component 6 Measure 6.1 (Broadband)
 4. Later: Validate and clean all component data

@@ -525,9 +525,9 @@ See **API_MAPPING.md** for complete details on each measure.
 
 **Next Implementation**:
 1. **Complete Component 7: Quality of Life Index** (3 remaining measures)
-   - 7.4: Crime Rate (FBI Crime Data Explorer - HIGH confidence)
-   - 7.5: Air Quality Index (EPA Air Quality System - MEDIUM confidence)
-   - 7.6: Recreational Amenities (Census CBP + USGS GNIS - MEDIUM confidence)
+   - 7.4: Violent Crime Rate (FBI Uniform Crime Reporting - HIGH confidence)
+   - 7.5: Property Crime Rate (FBI Uniform Crime Reporting - HIGH confidence)
+   - 7.6: Climate Amenities (USDA ERS Natural Amenities Scale - MEDIUM confidence, static data)
 
 2. **Continue Through Component 8**
    - Component 8: Social Capital Index (5 measures - state election data, Census CBP)
@@ -766,9 +766,9 @@ Component Index 7 contains 8 measures. Currently collected 5 measures (7.1, 7.2,
 - **7.1**: Commute Time (Census ACS S0801) ✅
 - **7.2**: Housing Built Pre-1960 (Census ACS DP04) ✅
 - **7.3**: Relative Weekly Wage (BLS QCEW) ✅
-- **7.4**: Crime Rate (FBI Crime Data Explorer - NOT YET COLLECTED)
-- **7.5**: Air Quality Index (EPA Air Quality System - NOT YET COLLECTED)
-- **7.6**: Recreational Amenities (Census CBP + USGS GNIS - NOT YET COLLECTED)
+- **7.4**: Violent Crime Rate (FBI Uniform Crime Reporting - NOT YET COLLECTED)
+- **7.5**: Property Crime Rate (FBI Uniform Crime Reporting - NOT YET COLLECTED)
+- **7.6**: Climate Amenities (USDA ERS Natural Amenities Scale - NOT YET COLLECTED)
 - **7.7**: Healthcare Access (Census CBP NAICS 621+622) ✅
 - **7.8**: Count of National Parks (NPS API with boundaries) ✅
 
@@ -823,9 +823,9 @@ Component Index 7 contains 8 measures. Currently collected 5 measures (7.1, 7.2,
   - Previous point-based approach only assigned to 27 counties; boundary approach identifies 146 counties
 
 **Remaining Measures**:
-- 7.4: Crime Rate (FBI Crime Data Explorer)
-- 7.5: Air Quality Index (EPA)
-- 7.6: Recreational Amenities (CBP + GNIS)
+- 7.4: Violent Crime Rate (FBI Uniform Crime Reporting)
+- 7.5: Property Crime Rate (FBI Uniform Crime Reporting)
+- 7.6: Climate Amenities (USDA ERS Natural Amenities Scale)
 
 See **API_MAPPING.md** for complete details on each measure.
 
