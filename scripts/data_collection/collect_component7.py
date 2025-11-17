@@ -1,11 +1,12 @@
 """
 Component Index 7: Quality of Life - Data Collection Script
 
-Collects 4 of 8 measures for Component Index 7 for all counties in 10 states:
+Collects 5 of 8 measures for Component Index 7 for all counties in 10 states:
 7.1 Commute Time (Census ACS S0801)
 7.2 Percent of Housing Built Pre-1960 (Census ACS DP04)
 7.3 Relative Weekly Wage (BLS QCEW)
 7.7 Healthcare Access (Census CBP NAICS 621+622)
+7.8 Count of National Parks (NPS API with boundaries)
 
 States: VA, PA, MD, DE, WV, KY, TN, NC, SC, GA
 """
@@ -14,6 +15,8 @@ import sys
 from pathlib import Path
 import json
 import pandas as pd
+import geopandas as gpd
+from shapely.geometry import Point, shape
 from datetime import datetime
 
 # Add parent directory to path
@@ -23,6 +26,7 @@ from config import STATE_FIPS, RAW_DATA_DIR, PROCESSED_DATA_DIR
 from api_clients.census_client import CensusClient
 from api_clients.cbp_client import CBPClient
 from api_clients.qcew_client import QCEWClient
+from api_clients.nps_client import NPSClient
 
 
 def collect_commute_time(census_client, year, state_fips_list):
@@ -238,8 +242,246 @@ def collect_healthcare_employment(cbp_client, year, state_fips_list):
         return pd.DataFrame()
 
 
+def load_county_boundaries(cache_file=None):
+    """
+    Load county boundary data from cache (Component 6).
+
+    Args:
+        cache_file: Path to cached county boundaries pickle file
+
+    Returns:
+        GeoDataFrame: County boundaries with FIPS codes
+    """
+    if cache_file is None:
+        cache_file = RAW_DATA_DIR / 'usgs' / 'cache' / 'county_boundaries_2024.pkl'
+
+    if not cache_file.exists():
+        print(f"  County boundaries cache not found at {cache_file}")
+        print(f"  Downloading from Census TIGER...")
+
+        # Download county boundaries
+        import requests
+
+        url = "https://www2.census.gov/geo/tiger/TIGER2024/COUNTY/tl_2024_us_county.zip"
+
+        # Download ZIP file
+        print(f"    Downloading {url}...")
+        response = requests.get(url, timeout=120)
+        response.raise_for_status()
+
+        # Save ZIP temporarily
+        zip_path = cache_file.parent / 'temp_counties.zip'
+        cache_file.parent.mkdir(parents=True, exist_ok=True)
+
+        with open(zip_path, 'wb') as f:
+            f.write(response.content)
+        print(f"    ✓ Downloaded {len(response.content) / (1024*1024):.1f} MB")
+
+        # Load with geopandas
+        counties_gdf = gpd.read_file(f"zip://{zip_path}")
+
+        # Cache for future use
+        counties_gdf.to_pickle(cache_file)
+        print(f"    ✓ Cached county boundaries to {cache_file}")
+
+        # Clean up temp file
+        zip_path.unlink()
+        print(f"    ✓ Cleaned up temporary file")
+    else:
+        print(f"  Using cached county boundaries from {cache_file}")
+        counties_gdf = pd.read_pickle(cache_file)
+
+    return counties_gdf
+
+
+def collect_nps_parks(nps_client, state_codes, state_fips_list):
+    """
+    Collect national parks data and map to counties (Measure 7.8).
+
+    Args:
+        nps_client: NPSClient instance
+        state_codes: List of 2-letter state codes
+        state_fips_list: List of state FIPS codes
+
+    Returns:
+        tuple: (county_counts DataFrame, park_assignments DataFrame, raw_park_data list)
+    """
+    print(f"\nCollecting NPS Parks and Boundaries (Measure 7.8)...")
+    print("-" * 60)
+
+    # Fetch all parks for our states
+    all_parks = nps_client.get_all_parks(state_codes=state_codes)
+
+    parks_with_boundaries = []
+    parks_with_points_only = []
+    park_raw_data = []
+
+    print(f"\n  Fetching boundaries for {len(all_parks)} parks...")
+
+    for i, park in enumerate(all_parks, 1):
+        park_code = park.get('parkCode', '')
+
+        # Parse basic location info
+        location = nps_client.parse_park_location(park)
+        park_raw_data.append(location)
+
+        # Try to fetch boundary geometry
+        boundary = nps_client.get_park_boundary(park_code)
+
+        if boundary and 'geometry' in boundary:
+            # Park has boundary data
+            location['has_boundary'] = True
+            location['geometry'] = boundary['geometry']
+            parks_with_boundaries.append(location)
+            if i % 5 == 0:
+                print(f"    Progress: {i}/{len(all_parks)} parks (boundaries: {len(parks_with_boundaries)}, points: {len(parks_with_points_only)})")
+        elif location['latitude'] and location['longitude']:
+            # Fall back to point location
+            location['has_boundary'] = False
+            parks_with_points_only.append(location)
+            if i % 5 == 0:
+                print(f"    Progress: {i}/{len(all_parks)} parks (boundaries: {len(parks_with_boundaries)}, points: {len(parks_with_points_only)})")
+
+    print(f"\n  ✓ Parks with boundaries: {len(parks_with_boundaries)}")
+    print(f"  ✓ Parks with points only: {len(parks_with_points_only)}")
+    print(f"  Total parks: {len(parks_with_boundaries) + len(parks_with_points_only)}")
+
+    # Load county boundaries
+    print("\n  Loading county boundaries...")
+    counties_gdf = load_county_boundaries()
+    print(f"  ✓ Loaded {len(counties_gdf)} county boundaries")
+
+    # Filter counties to our 10 states
+    counties_gdf = counties_gdf[counties_gdf['STATEFP'].isin(state_fips_list)].copy()
+    print(f"  Counties in scope: {len(counties_gdf)}")
+
+    # Ensure CRS is WGS84
+    if counties_gdf.crs != "EPSG:4326":
+        counties_gdf = counties_gdf.to_crs("EPSG:4326")
+
+    all_park_county_assignments = []
+
+    # Process parks with boundaries (polygon intersection)
+    if parks_with_boundaries:
+        print(f"\n  Processing {len(parks_with_boundaries)} parks with boundaries...")
+
+        for park in parks_with_boundaries:
+            try:
+                # Convert GeoJSON geometry to Shapely geometry
+                park_geom = shape(park['geometry'])
+
+                # Find all counties that intersect with this park
+                intersecting = counties_gdf[counties_gdf.intersects(park_geom)].copy()
+
+                for _, county in intersecting.iterrows():
+                    all_park_county_assignments.append({
+                        'park_code': park['park_code'],
+                        'park_name': park['park_name'],
+                        'designation': park['designation'],
+                        'states': park['states'],
+                        'has_boundary': True,
+                        'STATEFP': county['STATEFP'],
+                        'COUNTYFP': county['COUNTYFP'],
+                        'county_name': county['NAME']
+                    })
+
+            except Exception as e:
+                print(f"    Error processing boundary for {park['park_name']}: {e}")
+
+        print(f"    ✓ Mapped to {len(all_park_county_assignments)} park-county assignments")
+
+    # Process parks with points only (point-in-polygon)
+    if parks_with_points_only:
+        print(f"\n  Processing {len(parks_with_points_only)} parks with points only...")
+
+        park_points = []
+        park_data = []
+
+        for park in parks_with_points_only:
+            if park['latitude'] and park['longitude']:
+                point = Point(park['longitude'], park['latitude'])
+                park_points.append(point)
+                park_data.append(park)
+
+        if park_points:
+            parks_gdf = gpd.GeoDataFrame(
+                park_data,
+                geometry=park_points,
+                crs="EPSG:4326"
+            )
+
+            # Spatial join: assign parks to counties
+            parks_with_counties = gpd.sjoin(
+                parks_gdf,
+                counties_gdf[['STATEFP', 'COUNTYFP', 'NAME', 'geometry']],
+                how='left',
+                predicate='within'
+            )
+
+            # Check for unmapped parks
+            unmapped = parks_with_counties[parks_with_counties['STATEFP'].isna()]
+            if len(unmapped) > 0:
+                print(f"    Warning: {len(unmapped)} parks could not be mapped:")
+                for idx, park in unmapped.iterrows():
+                    print(f"      - {park['park_name']} ({park['park_code']})")
+
+            # Add mapped parks to assignments
+            for idx, row in parks_with_counties.iterrows():
+                if pd.notna(row['STATEFP']):
+                    all_park_county_assignments.append({
+                        'park_code': row['park_code'],
+                        'park_name': row['park_name'],
+                        'designation': row['designation'],
+                        'states': row['states'],
+                        'has_boundary': False,
+                        'STATEFP': row['STATEFP'],
+                        'COUNTYFP': row['COUNTYFP'],
+                        'county_name': row['NAME']
+                    })
+
+            print(f"    ✓ Mapped {len(parks_with_counties[parks_with_counties['STATEFP'].notna()])} parks")
+
+    # Create DataFrame of all park-county assignments
+    park_assignments_df = pd.DataFrame(all_park_county_assignments)
+    print(f"\n  Total park-county assignments: {len(park_assignments_df)}")
+
+    # Count unique parks per county
+    if not park_assignments_df.empty:
+        county_park_counts = park_assignments_df.groupby(['STATEFP', 'COUNTYFP']).agg({
+            'park_code': 'count'
+        }).reset_index()
+        county_park_counts.columns = ['STATEFP', 'COUNTYFP', 'park_count']
+
+        # Add county names
+        county_names = counties_gdf[['STATEFP', 'COUNTYFP', 'NAME']].drop_duplicates()
+        county_park_counts = county_park_counts.merge(
+            county_names,
+            on=['STATEFP', 'COUNTYFP'],
+            how='left'
+        )
+    else:
+        county_park_counts = pd.DataFrame(columns=['STATEFP', 'COUNTYFP', 'park_count', 'NAME'])
+
+    # Create full county list (all 802 counties) with 0 counts for counties without parks
+    all_counties = counties_gdf[['STATEFP', 'COUNTYFP', 'NAME']].copy()
+    all_counties = all_counties.merge(
+        county_park_counts[['STATEFP', 'COUNTYFP', 'park_count']],
+        on=['STATEFP', 'COUNTYFP'],
+        how='left'
+    )
+    all_counties['park_count'] = all_counties['park_count'].fillna(0).astype(int)
+
+    print(f"\n  Counties with parks: {len(county_park_counts)}")
+    print(f"  Counties without parks: {len(all_counties[all_counties['park_count'] == 0])}")
+    print(f"  Max parks in a county: {all_counties['park_count'].max()}")
+
+    print(f"\n✓ Total records: {len(all_counties)}")
+
+    return all_counties, park_assignments_df, park_raw_data
+
+
 def process_and_save_data(
-    commute_df, housing_df, wage_df, healthcare_df,
+    commute_df, housing_df, wage_df, healthcare_df, parks_df, park_details_df, nps_raw_data,
     acs_year, cbp_year, qcew_year
 ):
     """
@@ -250,6 +492,9 @@ def process_and_save_data(
         housing_df: DataFrame with housing age data
         wage_df: DataFrame with weekly wage data
         healthcare_df: DataFrame with healthcare employment data
+        parks_df: DataFrame with park counts by county
+        park_details_df: DataFrame with park-to-county mapping
+        nps_raw_data: Raw NPS API park data
         acs_year: Year of ACS data
         cbp_year: Year of CBP data
         qcew_year: Year of QCEW data
@@ -359,6 +604,35 @@ def process_and_save_data(
             'max': float(healthcare_df['total_healthcare_employment'].max())
         }
 
+    # Process 7.8: National Parks
+    if not parks_df.empty:
+        # Save county-level park counts
+        output_file = processed_dir / 'nps_park_counts_by_county.csv'
+        parks_df.to_csv(output_file, index=False)
+        print(f"✓ Saved: {output_file}")
+
+        # Save detailed park-to-county mapping
+        if not park_details_df.empty:
+            output_file = processed_dir / 'nps_parks_county_mapping.csv'
+            park_details_df.to_csv(output_file, index=False)
+            print(f"✓ Saved: {output_file}")
+
+        # Save raw NPS API data
+        raw_dir = RAW_DATA_DIR / 'nps'
+        raw_dir.mkdir(parents=True, exist_ok=True)
+        output_file = raw_dir / 'nps_parks_raw_data.json'
+        with open(output_file, 'w') as f:
+            json.dump(nps_raw_data, f, indent=2)
+        print(f"✓ Saved: {output_file}")
+
+        summary['7.8_national_parks'] = {
+            'records': len(parks_df),
+            'counties_with_parks': int((parks_df['park_count'] > 0).sum()),
+            'total_parks': len(nps_raw_data) if nps_raw_data else 0,
+            'mean_parks_per_county': float(parks_df['park_count'].mean()),
+            'max_parks_in_county': int(parks_df['park_count'].max())
+        }
+
     # Save summary
     summary['collection_date'] = datetime.now().isoformat()
     summary['acs_year'] = acs_year
@@ -378,7 +652,7 @@ def main():
     """Main execution function"""
     print("=" * 60)
     print("Component 7: Quality of Life - Data Collection")
-    print("Measures: 7.1, 7.2, 7.3, 7.7")
+    print("Measures: 7.1, 7.2, 7.3, 7.7, 7.8")
     print("=" * 60)
 
     # Configuration
@@ -388,12 +662,14 @@ def main():
 
     # All 10 states
     state_fips_list = list(STATE_FIPS.values())
+    state_codes = list(STATE_FIPS.keys())
 
     # Initialize clients
     print("\nInitializing API clients...")
     census_client = CensusClient()
     cbp_client = CBPClient()
     qcew_client = QCEWClient()
+    nps_client = NPSClient()
     print("✓ Clients initialized")
 
     # Collect data for each measure
@@ -410,9 +686,12 @@ def main():
         # 7.7: Healthcare Employment
         healthcare_df = collect_healthcare_employment(cbp_client, CBP_YEAR, state_fips_list)
 
+        # 7.8: National Parks
+        parks_df, park_details_df, nps_raw_data = collect_nps_parks(nps_client, state_codes, state_fips_list)
+
         # Process and save all data
         summary = process_and_save_data(
-            commute_df, housing_df, wage_df, healthcare_df,
+            commute_df, housing_df, wage_df, healthcare_df, parks_df, park_details_df, nps_raw_data,
             ACS_YEAR, CBP_YEAR, QCEW_YEAR
         )
 
@@ -420,11 +699,14 @@ def main():
         print("\n" + "=" * 60)
         print("COLLECTION COMPLETE")
         print("=" * 60)
-        print(f"Total measures collected: 4 of 4")
+        print(f"Total measures collected: 5 of 5")
         print(f"\nSummary:")
         for measure, stats in summary.items():
             if measure.startswith('7.'):
-                print(f"  {measure}: {stats['records']} records")
+                if measure == '7.8_national_parks':
+                    print(f"  {measure}: {stats['records']} records ({stats['counties_with_parks']} counties with parks)")
+                else:
+                    print(f"  {measure}: {stats['records']} records")
 
     except Exception as e:
         print(f"\n✗ Error during collection: {e}")
