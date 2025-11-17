@@ -2,12 +2,13 @@
 Component Index 6: Infrastructure & Cost of Doing Business
 
 This script collects data for Component 6 measures:
+- 6.2: Interstate Highway Presence (USGS National Map Transportation API)
 - 6.3: Count of 4-Year Colleges (Urban Institute IPEDS)
 - 6.4: Weekly Wage Rate (BLS QCEW)
 - 6.5: Top Marginal Income Tax Rate (Tax Foundation - static data)
 - 6.6: Qualified Opportunity Zones (HUD ArcGIS)
 
-Note: Other measures (6.1-6.2) require different collection methods and will be implemented separately.
+Note: Measure 6.1 (Broadband Internet Access) requires FCC data and will be implemented separately.
 """
 
 import sys
@@ -22,6 +23,7 @@ from config import PROCESSED_DATA_DIR, RAW_DATA_DIR, STATE_FIPS
 from api_clients.qcew_client import QCEWClient
 from api_clients.hud_client import HUDClient
 from api_clients.urban_institute_client import UrbanInstituteClient
+from api_clients.usgs_client import USGSTransportationClient
 
 # State income tax rates (2024 tax year)
 # Source: Tax Foundation (https://taxfoundation.org/data/all/state/state-income-tax-rates/)
@@ -229,6 +231,78 @@ def collect_opportunity_zones():
     return county_oz_counts
 
 
+def collect_interstate_highways():
+    """
+    Identify counties with interstate highways using USGS National Map Transportation API (Measure 6.2).
+
+    Source: USGS National Map Transportation ArcGIS REST API + Census TIGER county boundaries
+    Returns:
+        DataFrame with county-level interstate presence (binary indicator)
+    """
+    print("\n" + "="*80)
+    print("MEASURE 6.2: Interstate Highway Presence")
+    print("="*80)
+    print(f"Source: USGS National Map Transportation API + Census TIGER county boundaries")
+    print(f"Metric: Binary indicator (1 = county has interstate, 0 = no interstate)")
+    print(f"Note: Uses spatial intersection of interstate geometries with county boundaries")
+
+    # Initialize USGS Transportation client
+    client = USGSTransportationClient()
+
+    # Get state FIPS codes
+    our_states = list(STATE_FIPS.values())
+
+    # Identify counties with interstates
+    print(f"\nAnalyzing interstate highway presence for counties in {len(our_states)} states...")
+    print("This will:")
+    print("  1. Download all interstate highway geometries from USGS (~194k segments)")
+    print("  2. Download Census TIGER 2024 county boundaries")
+    print("  3. Perform spatial intersection to identify counties with interstates")
+    print("\nThis may take 10-15 minutes...")
+
+    county_interstate_df = client.identify_counties_with_interstates(state_fips_list=our_states)
+
+    # Save raw data (same as processed for this binary indicator)
+    raw_output = RAW_DATA_DIR / 'usgs' / 'county_interstate_presence.csv'
+    raw_output.parent.mkdir(parents=True, exist_ok=True)
+    county_interstate_df.to_csv(raw_output, index=False)
+    print(f"\n✓ Saved raw data: {raw_output}")
+
+    # Save processed data
+    processed_output = PROCESSED_DATA_DIR / 'usgs_county_interstate_presence.csv'
+    county_interstate_df.to_csv(processed_output, index=False)
+    print(f"✓ Saved processed data: {processed_output}")
+
+    # Print detailed summary statistics
+    total_counties = len(county_interstate_df)
+    counties_with_interstate = county_interstate_df['has_interstate'].sum()
+    counties_without = total_counties - counties_with_interstate
+    pct_with = 100 * counties_with_interstate / total_counties if total_counties > 0 else 0
+
+    print(f"\n--- Summary Statistics ---")
+    print(f"Total counties analyzed: {total_counties}")
+    print(f"Counties with interstates: {counties_with_interstate} ({pct_with:.1f}%)")
+    print(f"Counties without interstates: {counties_without} ({100-pct_with:.1f}%)")
+
+    # Show breakdown by state
+    print(f"\n--- Counties with Interstates by State ---")
+    state_summary = county_interstate_df.groupby('state_fips').agg({
+        'has_interstate': ['sum', 'count']
+    }).reset_index()
+    state_summary.columns = ['state_fips', 'with_interstate', 'total_counties']
+    state_summary['pct_with_interstate'] = 100 * state_summary['with_interstate'] / state_summary['total_counties']
+
+    # Add state names
+    state_name_map = {v: k for k, v in STATE_FIPS.items()}
+    state_summary['state_name'] = state_summary['state_fips'].map(state_name_map)
+
+    state_summary = state_summary.sort_values('with_interstate', ascending=False)
+    for _, row in state_summary.iterrows():
+        print(f"{row['state_name']:20s}: {row['with_interstate']:3.0f} / {row['total_counties']:3.0f} counties ({row['pct_with_interstate']:5.1f}%)")
+
+    return county_interstate_df
+
+
 def collect_four_year_colleges(year=2022):
     """
     Collect 4-year degree-granting college data from Urban Institute IPEDS API (Measure 6.3).
@@ -293,16 +367,29 @@ def collect_four_year_colleges(year=2022):
     return county_college_counts
 
 
-def create_collection_summary(college_df, weekly_wage_df, tax_rate_df, oz_df):
-    """Create a summary of Component 6 data collection (partial)."""
+def create_collection_summary(interstate_df, college_df, weekly_wage_df, tax_rate_df, oz_df):
+    """Create a summary of Component 6 data collection."""
     summary = {
         'component': 'Component 6: Infrastructure & Cost of Doing Business',
         'collection_date': pd.Timestamp.now().isoformat(),
-        'measures_collected': 4,
+        'measures_collected': 5,
         'total_measures': 6,
-        'completion_percentage': 66.7,
-        'notes': 'Measures 6.3-6.6 collected. Measures 6.1-6.2 require different collection methods (FCC, manual GIS).',
+        'completion_percentage': 83.3,
+        'notes': 'Measures 6.2-6.6 collected. Measure 6.1 (Broadband) requires FCC data.',
         'measures': {
+            '6.2_interstate_highways': {
+                'name': 'Interstate Highway Presence',
+                'source': 'USGS National Map Transportation API + Census TIGER',
+                'year': 2024,
+                'records': len(interstate_df),
+                'counties': len(interstate_df),
+                'counties_with_interstate': int(interstate_df['has_interstate'].sum()) if not interstate_df.empty else 0,
+                'pct_with_interstate': float(100 * interstate_df['has_interstate'].mean()) if not interstate_df.empty else 0,
+                'files': [
+                    'data/raw/usgs/county_interstate_presence.csv',
+                    'data/processed/usgs_county_interstate_presence.csv'
+                ]
+            },
             '6.3_four_year_colleges': {
                 'name': 'Count of 4-Year Colleges',
                 'source': 'Urban Institute Education Data Portal (IPEDS)',
@@ -357,7 +444,7 @@ def create_collection_summary(college_df, weekly_wage_df, tax_rate_df, oz_df):
     }
 
     # Save summary
-    summary_file = PROCESSED_DATA_DIR / 'component6_partial_collection_summary.json'
+    summary_file = PROCESSED_DATA_DIR / 'component6_collection_summary.json'
     with open(summary_file, 'w') as f:
         json.dump(summary, f, indent=2)
 
@@ -367,11 +454,14 @@ def create_collection_summary(college_df, weekly_wage_df, tax_rate_df, oz_df):
 
 
 def main():
-    """Main function to collect Component 6 data (partial - measures 6.3-6.6)."""
+    """Main function to collect Component 6 data (measures 6.2-6.6)."""
     print("="*80)
     print("COMPONENT 6: INFRASTRUCTURE & COST OF DOING BUSINESS INDEX")
-    print("Partial Collection: Measures 6.3, 6.4, 6.5, and 6.6")
+    print("Collection: Measures 6.2, 6.3, 6.4, 6.5, and 6.6")
     print("="*80)
+
+    # Collect Measure 6.2: Interstate Highway Presence
+    interstate_df = collect_interstate_highways()
 
     # Collect Measure 6.3: Count of 4-Year Colleges
     college_df = collect_four_year_colleges(year=2022)
@@ -386,24 +476,25 @@ def main():
     oz_df = collect_opportunity_zones()
 
     # Create collection summary
-    summary = create_collection_summary(college_df, weekly_wage_df, tax_rate_df, oz_df)
+    summary = create_collection_summary(interstate_df, college_df, weekly_wage_df, tax_rate_df, oz_df)
 
     print("\n" + "="*80)
-    print("COMPONENT 6 PARTIAL DATA COLLECTION COMPLETE")
+    print("COMPONENT 6 DATA COLLECTION COMPLETE")
     print("="*80)
-    print(f"Measures collected: 4 of 6 ({summary['completion_percentage']:.1f}%)")
-    total_records = (summary['measures']['6.3_four_year_colleges']['records'] +
+    print(f"Measures collected: 5 of 6 ({summary['completion_percentage']:.1f}%)")
+    total_records = (summary['measures']['6.2_interstate_highways']['records'] +
+                     summary['measures']['6.3_four_year_colleges']['records'] +
                      summary['measures']['6.4_weekly_wage']['records'] +
                      summary['measures']['6.5_tax_rate']['records'] +
                      summary['measures']['6.6_opportunity_zones']['records'])
     print(f"Total records: {total_records}")
+    print(f"  - Interstate highways: {summary['measures']['6.2_interstate_highways']['counties']} counties ({summary['measures']['6.2_interstate_highways']['counties_with_interstate']} with interstates)")
     print(f"  - 4-Year Colleges: {summary['measures']['6.3_four_year_colleges']['counties']} counties, {summary['measures']['6.3_four_year_colleges']['total_colleges']} colleges total")
     print(f"  - Weekly wages: {summary['measures']['6.4_weekly_wage']['records']} counties")
     print(f"  - Tax rates: {summary['measures']['6.5_tax_rate']['records']} states")
     print(f"  - Opportunity Zones: {summary['measures']['6.6_opportunity_zones']['counties_with_oz']} counties, {summary['measures']['6.6_opportunity_zones']['total_oz_tracts']} OZ tracts")
     print("\nRemaining measures:")
     print("  - Measure 6.1: Broadband Internet Access (FCC data)")
-    print("  - Measure 6.2: Interstate Highway Presence (manual mapping)")
     print("="*80)
 
 
