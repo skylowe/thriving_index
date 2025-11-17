@@ -168,6 +168,45 @@ class CBPClient:
 
         return results
 
+    def get_healthcare_employment(self, year, state_fips):
+        """
+        Get healthcare employment data from CBP for healthcare access calculation.
+
+        Collects employment data for:
+        - NAICS 621: Ambulatory Health Care Services (physician offices, dentist offices, etc.)
+        - NAICS 622: Hospitals
+
+        Args:
+            year: Year of data
+            state_fips: State FIPS code
+
+        Returns:
+            dict: Dictionary with 'ambulatory' and 'hospitals' data
+        """
+        variables = ['NAME', 'EMP', 'ESTAB', 'NAICS2017']
+
+        results = {}
+
+        # Get ambulatory healthcare services (NAICS 621)
+        try:
+            data_621 = self.get_cbp_data(year, variables, '621', state_fips)
+            results['ambulatory'] = data_621
+            print(f"  Retrieved NAICS 621 (Ambulatory): {len(data_621) - 1} counties")
+        except Exception as e:
+            print(f"  Warning: Could not retrieve NAICS 621: {e}")
+            results['ambulatory'] = None
+
+        # Get hospitals (NAICS 622)
+        try:
+            data_622 = self.get_cbp_data(year, variables, '622', state_fips)
+            results['hospitals'] = data_622
+            print(f"  Retrieved NAICS 622 (Hospitals): {len(data_622) - 1} counties")
+        except Exception as e:
+            print(f"  Warning: Could not retrieve NAICS 622: {e}")
+            results['hospitals'] = None
+
+        return results
+
     def parse_response_to_dict(self, response):
         """
         Convert Census API response to list of dictionaries.

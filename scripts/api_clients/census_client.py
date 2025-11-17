@@ -497,6 +497,57 @@ class CensusClient:
         geography = 'county:*'
         return self.get_acs5_subject_table(year, variables, geography, state_fips)
 
+    # ===== Component 7: Quality of Life Methods =====
+
+    def get_commute_time(self, year, state_fips):
+        """
+        Get average commute time data from ACS Table S0801.
+
+        Args:
+            year: Year of ACS 5-year period end
+            state_fips: State FIPS code
+
+        Returns:
+            list: API response with commute time data
+        """
+        # S0801 - Commuting Characteristics by Sex
+        # S0801_C01_046E = Mean travel time to work (minutes)
+        variables = ['NAME', 'S0801_C01_046E']
+        geography = 'county:*'
+        return self.get_acs5_subject_table(year, variables, geography, state_fips)
+
+    def get_housing_age(self, year, state_fips):
+        """
+        Get housing age data from ACS for pre-1960 housing calculation.
+
+        Args:
+            year: Year of ACS 5-year period end
+            state_fips: State FIPS code
+
+        Returns:
+            list: API response with housing age data
+        """
+        # DP04 - Selected Housing Characteristics (Profile table)
+        # Need to use profile endpoint
+        url = f"{self.base_url}/{year}/acs/acs5/profile"
+
+        variables = [
+            'NAME',
+            'DP04_0033E',  # Total housing units
+            'DP04_0035E',  # Built 1939 or earlier
+            'DP04_0036E',  # Built 1940 to 1949
+            'DP04_0037E',  # Built 1950 to 1959
+        ]
+
+        params = {
+            'get': ','.join(variables),
+            'for': 'county:*',
+            'in': f'state:{state_fips}',
+            'key': self.api_key
+        }
+
+        return self._make_request(url, params)
+
     def parse_response_to_dict(self, response):
         """
         Convert Census API response to list of dictionaries.
