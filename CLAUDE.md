@@ -165,7 +165,7 @@ See **API_MAPPING.md** for complete details on each measure.
 
 ## Component Index 3: Other Economic Prosperity (✅ 100% COMPLETE)
 
-**Status**: Fully Completed 2025-11-16
+**Status**: Fully Completed 2025-11-17 (all 5 measures in single script)
 **Records**: 3,936 total records across ALL 5 measures (774-812 counties)
 
 Component Index 3 contains 5 measures, ALL with HIGH/MEDIUM confidence collected:
@@ -186,8 +186,8 @@ Component Index 3 contains 5 measures, ALL with HIGH/MEDIUM confidence collected
 **New Functionality Added**:
 - Extended `bea_client.py` with `get_cainc1_data()` method
 - Extended `bea_client.py` with `get_total_personal_income()` method
-- Created `scripts/data_collection/collect_component3.py`
-- Created `scripts/data_collection/collect_life_expectancy.py` for Zenodo download
+- Created `scripts/data_collection/collect_component3.py` with integrated life expectancy collection
+- Life expectancy collection integrated directly into Component 3 script (downloads from Zenodo)
 
 **Key Statistics**:
 - Income Stability CV: Average 0.1734, Range 0.0566 to 0.3685
@@ -812,3 +812,20 @@ See **API_MAPPING.md** for complete details on each measure.
 - Total Component 6: 2,539 records across 5 measures
 - **Component 6 is now 83% complete (5 of 6 measures)**
 - Only measure 6.1 (Broadband Internet Access) remains for Component 6
+
+**2025-11-17**: Component 3 Script Consolidation
+- Integrated life expectancy collection (Measure 3.3) directly into `collect_component3.py`
+- Removed separate `collect_life_expectancy.py` script (redundant after integration)
+- Component 3 now collects all 5 measures in a single script run:
+  - 3.1: Proprietor Income (BEA)
+  - 3.2: Income Stability (BEA, 15 years)
+  - 3.3: Life Expectancy (Zenodo download, integrated)
+  - 3.4: Poverty Rate (Census ACS)
+  - 3.5: DIR Income Share (BEA)
+- Benefits of integration:
+  - Simplified workflow - one script collects everything
+  - Consistent error handling and logging across all measures
+  - Single summary file includes all 5 measures
+  - Eliminated need for separate script execution
+- Testing confirmed all 5 measures collect successfully in 2-3 minutes
+- Total records: 3,936 across all 5 measures

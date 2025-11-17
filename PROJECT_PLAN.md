@@ -160,9 +160,9 @@ Data collection tasks (7 measures - see API_MAPPING.md for details):
 - All 802 counties covered where data available (BEA returns 774 counties due to Virginia independent city aggregation)
 
 ### Phase 3: Component Index 3 - Other Economic Prosperity Index
-**Status**: ✅ **FULLY COMPLETED** (All 5 measures collected)
+**Status**: ✅ **FULLY COMPLETED** (All 5 measures collected in single script)
 **Target**: Collect county-level data for all 10 states
-**Last Updated**: 2025-11-16
+**Last Updated**: 2025-11-17
 
 Data collection tasks (ALL 5 measures - see API_MAPPING.md for details):
 - [x] Set up CAINC1 support in BEA client for income stability
@@ -192,10 +192,10 @@ Data collection tasks (ALL 5 measures - see API_MAPPING.md for details):
 - `data/processed/census_poverty_2022.csv`
 - `data/processed/bea_dir_income_share_2022.csv`
 - `data/processed/component3_collection_summary.json`
-- `data/processed/life_expectancy_collection_summary.json`
 
 **Notes**:
-- **100% COMPLETE**: Successfully collected all 5 measures (3,936 total records)
+- **100% COMPLETE**: Successfully collected all 5 measures in single script (3,936 total records)
+- All measures collected via `collect_component3.py` including life expectancy integration
 - Life expectancy data downloaded from Zenodo (DOI: 10.5281/zenodo.17584421)
 - All 774 counties have complete 15-year data for income stability calculation
 - Average coefficient of variation (CV) for income stability: 0.1734
@@ -403,8 +403,10 @@ Data collection tasks (6 measures - see API_MAPPING.md for details):
   - ✓ Collected 802 counties for Nonemployer Statistics
   - ✓ Collected 19 NAICS industry sectors via CBP (industry diversity)
   - ✓ Collected 802 counties for ACS occupation and telecommuter data
-- ✅ Phase 3: Component Index 3 - Other Economic Prosperity Index (**ALL 5 measures complete**)
+- ✅ Phase 3: Component Index 3 - Other Economic Prosperity Index (**ALL 5 measures complete, 3,936 records**)
   - ✓ Extended BEA client for CAINC1 table (total personal income)
+  - ✓ All 5 measures collected via single `collect_component3.py` script
+  - ✓ Integrated life expectancy collection from Zenodo into main component script
   - ✓ Collected 774 counties for proprietor income (BEA)
   - ✓ Collected 774 counties for income stability (BEA, 15 years)
   - ✓ Collected 812 counties for life expectancy (County Health Rankings via Zenodo)

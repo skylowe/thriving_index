@@ -338,12 +338,12 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 
 ## Component Index 3: Other Economic Prosperity (5 measures)
 
-**✅ COLLECTION STATUS: 100% COMPLETE** (as of 2025-11-16)
+**✅ COLLECTION STATUS: 100% COMPLETE** (as of 2025-11-17)
 - **Total Records**: 3,936 records across all 5 measures
 - **Counties Covered**: 774-812 counties across 10 states (VA, PA, MD, DE, WV, KY, TN, NC, SC, GA)
 - **Summary File**: `data/processed/component3_collection_summary.json`
-- **Collection Scripts**: `scripts/data_collection/collect_component3.py`, `scripts/data_collection/collect_life_expectancy.py`
-- **All measures collected including life expectancy via Zenodo**
+- **Collection Script**: `scripts/data_collection/collect_component3.py` (all 5 measures in single script)
+- **All measures collected including life expectancy via integrated Zenodo download**
 
 **Note**: This index measures economic well-being beyond traditional growth metrics, following Nebraska Thriving Index methodology exactly.
 
@@ -421,7 +421,7 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
   - **Download Method**: Zenodo API programmatic download of 2025.zip file
   - **Raw Data**: `data/raw/chr/chr_life_expectancy_2025_metadata.json`
   - **Processed Data**: `data/processed/chr_life_expectancy_2025.csv`
-  - **Script**: `scripts/data_collection/collect_life_expectancy.py`
+  - **Script**: `scripts/data_collection/collect_component3.py` (integrated with other Component 3 measures)
   - **Statistics**: Mean = 73.75 years, Range: 64.32-88.91 years, Missing: 1 (99.9% complete)
   - **File Format**: CSV extracted from 50.1MB ZIP archive containing Excel and CSV files
 
