@@ -1085,24 +1085,33 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 
 - **Nebraska Source**: United States Department of Agriculture Economic Research Service, Natural Amenities Scale, 1941-1970, last updated 1999
 - **Nebraska Metric**: An index capturing average temperatures in January and July, sunny days in January, and humidity in July
-- **Virginia API Source**: ⚠️ **NO API**
+- **Virginia Data Source**: USDA ERS Natural Amenities Scale (bulk download)
 - **Confidence**: 🟡 **MEDIUM** (static data)
 - **Notes**:
   - USDA ERS Natural Amenities Scale is a county-level index based on 30-year climate data
-  - Available as bulk download: https://www.ers.usda.gov/data-products/natural-amenities-scale/
+  - Available as bulk download: https://ers.usda.gov/sites/default/files/_laserfiche/DataFiles/52201/natamenf_1_.xls?v=83168
   - Static data (based on 1941-1970 climate normals)
-  - Index components:
-    - Mean January temperature
-    - Mean July temperature
-    - Mean January days with sun
-    - Mean July relative humidity
-    - Topography (not climate but part of amenities scale)
+  - Index components (6 measures combined into composite scale):
+    - Mean January temperature (warm winter)
+    - Mean July temperature (temperate summer)
+    - Mean January days with sun (winter sun)
+    - Mean July relative humidity (low summer humidity)
+    - Topographic variation
     - Water area
   - A more comfortable climate can reduce utility costs and increase the enjoyment of outdoor activities
   - One-time data collection acceptable for static historical data
-- **Implementation**: Download USDA ERS Natural Amenities Scale county-level data
+  - XLS file contains 104 rows of documentation before data table begins
+  - Uses 'FIPS Code' column and 'Scale' column for composite amenity index
+- **Implementation**: Download USDA ERS Natural Amenities Scale XLS file and filter to our 10 states
 - **Data Source**: https://www.ers.usda.gov/data-products/natural-amenities-scale/
 - **Data Year**: Based on 1941-1970 climate normals (static)
+- **✅ DATA COLLECTED** (2025-11-17):
+  - **Records**: 805 counties across 10 states
+  - **Raw Data**: `data/raw/usda_ers/natural_amenities_scale.xls`
+  - **Filtered Data**: `data/raw/usda_ers/natural_amenities_scale_filtered.json`
+  - **Processed Data**: `data/processed/usda_ers_natural_amenities_scale.csv`
+  - **Script**: `scripts/data_collection/collect_component7.py` (integrated with other measures)
+  - **Mean Scale**: -0.01 (range: -3.98 to 3.55)
 
 ### 7.7 Healthcare Access
 

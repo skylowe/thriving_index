@@ -1,10 +1,11 @@
 """
 Component Index 7: Quality of Life - Data Collection Script
 
-Collects 5 of 8 measures for Component Index 7 for all counties in 10 states:
+Collects 6 of 8 measures for Component Index 7 for all counties in 10 states:
 7.1 Commute Time (Census ACS S0801)
 7.2 Percent of Housing Built Pre-1960 (Census ACS DP04)
 7.3 Relative Weekly Wage (BLS QCEW)
+7.6 Climate Amenities (USDA ERS Natural Amenities Scale)
 7.7 Healthcare Access (Census CBP NAICS 621+622)
 7.8 Count of National Parks (NPS API with boundaries)
 
@@ -18,6 +19,7 @@ import pandas as pd
 import geopandas as gpd
 from shapely.geometry import Point, shape
 from datetime import datetime
+import requests
 
 # Add parent directory to path
 sys.path.append(str(Path(__file__).resolve().parent.parent))
@@ -294,6 +296,88 @@ def load_county_boundaries(cache_file=None):
     return counties_gdf
 
 
+def collect_climate_amenities(state_fips_list):
+    """
+    Download and process USDA ERS Natural Amenities Scale data (Measure 7.6).
+
+    This dataset contains a composite index of climate amenities based on:
+    - Mean January temperature (warm winter)
+    - Mean January days with sun (winter sun)
+    - Mean July temperature (temperate summer)
+    - Mean July relative humidity (low summer humidity)
+    - Topographic variation
+    - Water area
+
+    Data is based on 1941-1970 climate normals (static data, last updated 1999).
+
+    Args:
+        state_fips_list: List of state FIPS codes to filter for
+
+    Returns:
+        DataFrame with natural amenities scale data for counties in our 10 states
+    """
+    print(f"\nDownloading USDA ERS Natural Amenities Scale (Measure 7.6)...")
+    print("-" * 60)
+
+    # USDA ERS download URL
+    url = 'https://ers.usda.gov/sites/default/files/_laserfiche/DataFiles/52201/natamenf_1_.xls?v=83168'
+
+    # Create raw data directory
+    raw_dir = RAW_DATA_DIR / 'usda_ers'
+    raw_dir.mkdir(parents=True, exist_ok=True)
+
+    # Download file
+    print(f"  Downloading from: {url}")
+    try:
+        response = requests.get(url, timeout=120)
+        response.raise_for_status()
+
+        # Save raw XLS file
+        xls_path = raw_dir / 'natural_amenities_scale.xls'
+        with open(xls_path, 'wb') as f:
+            f.write(response.content)
+
+        print(f"    ✓ Downloaded {len(response.content) / (1024*1024):.2f} MB")
+        print(f"    ✓ Saved to: {xls_path}")
+
+    except Exception as e:
+        print(f"    ✗ Error downloading: {e}")
+        raise
+
+    # Read XLS file with pandas
+    # Note: First 104 rows contain documentation, row 104 has headers
+    print(f"\n  Reading XLS file...")
+    try:
+        df = pd.read_excel(xls_path, skiprows=104)
+        print(f"    ✓ Loaded {len(df)} counties")
+
+    except Exception as e:
+        print(f"    ✗ Error reading XLS: {e}")
+        raise
+
+    # Filter to our 10 states
+    print(f"\n  Filtering to our 10 states...")
+
+    # Convert FIPS to string with leading zeros
+    df['fips_str'] = df['FIPS Code'].astype(str).str.zfill(5)
+    df['state_fips'] = df['fips_str'].str[:2]
+    df['county_fips'] = df['fips_str'].str[2:]
+
+    # Filter to our states
+    df_filtered = df[df['state_fips'].isin(state_fips_list)].copy()
+
+    print(f"    ✓ Filtered to {len(df_filtered)} counties in our 10 states")
+
+    # Save filtered data as JSON
+    json_path = raw_dir / 'natural_amenities_scale_filtered.json'
+    df_filtered.to_json(json_path, orient='records', indent=2)
+    print(f"    ✓ Saved filtered data to: {json_path}")
+
+    print(f"\n✓ Total records: {len(df_filtered)}")
+
+    return df_filtered
+
+
 def collect_nps_parks(nps_client, state_codes, state_fips_list):
     """
     Collect national parks data and map to counties (Measure 7.8).
@@ -481,7 +565,7 @@ def collect_nps_parks(nps_client, state_codes, state_fips_list):
 
 
 def process_and_save_data(
-    commute_df, housing_df, wage_df, healthcare_df, parks_df, park_details_df, nps_raw_data,
+    commute_df, housing_df, wage_df, climate_df, healthcare_df, parks_df, park_details_df, nps_raw_data,
     acs_year, cbp_year, qcew_year
 ):
     """
@@ -491,6 +575,7 @@ def process_and_save_data(
         commute_df: DataFrame with commute time data
         housing_df: DataFrame with housing age data
         wage_df: DataFrame with weekly wage data
+        climate_df: DataFrame with climate amenities data
         healthcare_df: DataFrame with healthcare employment data
         parks_df: DataFrame with park counts by county
         park_details_df: DataFrame with park-to-county mapping
@@ -591,6 +676,26 @@ def process_and_save_data(
             'max': float(wage_df['relative_weekly_wage'].max())
         }
 
+    # Process 7.6: Climate Amenities
+    if not climate_df.empty:
+        output_file = processed_dir / 'usda_ers_natural_amenities_scale.csv'
+        climate_df.to_csv(output_file, index=False)
+        print(f"✓ Saved: {output_file}")
+
+        # Check if 'Scale' column exists (composite amenities index)
+        if 'Scale' in climate_df.columns:
+            summary['7.6_climate_amenities'] = {
+                'records': len(climate_df),
+                'mean': float(climate_df['Scale'].mean()),
+                'min': float(climate_df['Scale'].min()),
+                'max': float(climate_df['Scale'].max())
+            }
+        else:
+            summary['7.6_climate_amenities'] = {
+                'records': len(climate_df),
+                'note': 'Amenities scale column not found in data'
+            }
+
     # Process 7.7: Healthcare Access
     if not healthcare_df.empty:
         output_file = processed_dir / f"cbp_healthcare_employment_{cbp_year}.csv"
@@ -652,7 +757,7 @@ def main():
     """Main execution function"""
     print("=" * 60)
     print("Component 7: Quality of Life - Data Collection")
-    print("Measures: 7.1, 7.2, 7.3, 7.7, 7.8")
+    print("Measures: 7.1, 7.2, 7.3, 7.6, 7.7, 7.8")
     print("=" * 60)
 
     # Configuration
@@ -683,6 +788,9 @@ def main():
         # 7.3: Relative Weekly Wage
         wage_df = collect_relative_weekly_wage(qcew_client, QCEW_YEAR, state_fips_list)
 
+        # 7.6: Climate Amenities
+        climate_df = collect_climate_amenities(state_fips_list)
+
         # 7.7: Healthcare Employment
         healthcare_df = collect_healthcare_employment(cbp_client, CBP_YEAR, state_fips_list)
 
@@ -691,7 +799,7 @@ def main():
 
         # Process and save all data
         summary = process_and_save_data(
-            commute_df, housing_df, wage_df, healthcare_df, parks_df, park_details_df, nps_raw_data,
+            commute_df, housing_df, wage_df, climate_df, healthcare_df, parks_df, park_details_df, nps_raw_data,
             ACS_YEAR, CBP_YEAR, QCEW_YEAR
         )
 
@@ -699,7 +807,7 @@ def main():
         print("\n" + "=" * 60)
         print("COLLECTION COMPLETE")
         print("=" * 60)
-        print(f"Total measures collected: 5 of 5")
+        print(f"Total measures collected: 6 of 8 (75% complete)")
         print(f"\nSummary:")
         for measure, stats in summary.items():
             if measure.startswith('7.'):

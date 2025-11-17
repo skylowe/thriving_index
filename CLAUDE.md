@@ -757,18 +757,18 @@ Component Index 6 contains 6 measures. Currently collected 5 measures (6.2, 6.3,
 
 See **API_MAPPING.md** for complete details on each measure.
 
-## Component Index 7: Quality of Life (⏳ 62.5% COMPLETE)
+## Component Index 7: Quality of Life (⏳ 75% COMPLETE)
 
 **Status**: In Progress 2025-11-17
-**Records**: ~4,000 total records across 5 of 8 measures
+**Records**: ~4,800 total records across 6 of 8 measures
 
-Component Index 7 contains 8 measures. Currently collected 5 measures (7.1, 7.2, 7.3, 7.7, and 7.8):
+Component Index 7 contains 8 measures. Currently collected 6 measures (7.1, 7.2, 7.3, 7.6, 7.7, and 7.8):
 - **7.1**: Commute Time (Census ACS S0801) ✅
 - **7.2**: Housing Built Pre-1960 (Census ACS DP04) ✅
 - **7.3**: Relative Weekly Wage (BLS QCEW) ✅
 - **7.4**: Violent Crime Rate (FBI Uniform Crime Reporting - NOT YET COLLECTED)
 - **7.5**: Property Crime Rate (FBI Uniform Crime Reporting - NOT YET COLLECTED)
-- **7.6**: Climate Amenities (USDA ERS Natural Amenities Scale - NOT YET COLLECTED)
+- **7.6**: Climate Amenities (USDA ERS Natural Amenities Scale) ✅
 - **7.7**: Healthcare Access (Census CBP NAICS 621+622) ✅
 - **7.8**: Count of National Parks (NPS API with boundaries) ✅
 
@@ -779,9 +779,11 @@ Component Index 7 contains 8 measures. Currently collected 5 measures (7.1, 7.2,
 - Commute time: Average travel time to work in minutes (Census ACS 2022)
 - Housing Pre-1960: Percentage of housing units built before 1960 (Census ACS 2022)
 - Relative Weekly Wage: County wage / state average wage ratio (BLS QCEW 2022)
+- Climate Amenities: USDA ERS Natural Amenities Scale (composite index of 6 climate/geography measures, 1941-1970 data)
 - Healthcare Access: Employment in NAICS 621 (ambulatory) + 622 (hospitals) per capita
 - National Parks: NPS API with boundary-based spatial intersection to assign parks to ALL counties they touch
 - All 802 counties covered for commute time, housing age, and weekly wage
+- 805 counties for climate amenities (includes Virginia independent cities listed separately in 1999 dataset)
 - 771 counties have healthcare employment data
 - 146 counties (18.2%) have national parks using boundary-based approach
 
@@ -798,21 +800,26 @@ Component Index 7 contains 8 measures. Currently collected 5 measures (7.1, 7.2,
   - `parse_park_location()` - extract park location metadata
   - Full support for GeoJSON FeatureCollection boundary geometries
 - Created `scripts/data_collection/collect_component7.py` - **INTEGRATED collection script**
-  - Collects all 5 completed measures in single script run
+  - Collects all 6 completed measures in single script run
   - Includes NPS collection with spatial analysis (previously in separate script)
   - `collect_commute_time()` - Census ACS commute data
   - `collect_housing_age()` - Census ACS housing age data
   - `collect_relative_weekly_wage()` - BLS QCEW wage data with state-level aggregation
+  - `collect_climate_amenities()` - USDA ERS Natural Amenities Scale download and processing
   - `collect_healthcare_employment()` - Census CBP healthcare establishments
   - `collect_nps_parks()` - NPS parks with boundary-based spatial intersection
   - `load_county_boundaries()` - Load/cache Census TIGER county boundaries for spatial analysis
   - Integrated workflow similar to Component 3 (all measures in one script)
-- Installed geopandas and shapely for spatial analysis (used for Component 6 as well)
+- Installed geopandas, shapely, xlrd for spatial analysis and XLS file processing
 
 **Key Statistics**:
 - Commute Time: Average 27.1 minutes across all counties
 - Housing Pre-1960: Average 28.5% of housing stock
 - Relative Weekly Wage: Average 1.0 (ratio to state), range 0.4 to 1.8
+- Climate Amenities: Average -0.01 (scale), range -3.98 to 3.55
+  - Based on 1941-1970 climate normals (static dataset from 1999)
+  - Composite index of 6 measures: January temp, July temp, January sun, July humidity, topography, water area
+  - 805 counties (includes Virginia independent cities listed separately)
 - Healthcare Employment: 771 counties with healthcare establishments
 - National Parks:
   - 33 parks across 10 states
@@ -825,7 +832,6 @@ Component Index 7 contains 8 measures. Currently collected 5 measures (7.1, 7.2,
 **Remaining Measures**:
 - 7.4: Violent Crime Rate (FBI Uniform Crime Reporting)
 - 7.5: Property Crime Rate (FBI Uniform Crime Reporting)
-- 7.6: Climate Amenities (USDA ERS Natural Amenities Scale)
 
 See **API_MAPPING.md** for complete details on each measure.
 
