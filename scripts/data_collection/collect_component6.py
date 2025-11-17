@@ -12,6 +12,8 @@ import sys
 from pathlib import Path
 import pandas as pd
 import json
+import requests
+import time
 
 # Add parent directory to path
 sys.path.append(str(Path(__file__).resolve().parent.parent))
@@ -167,15 +169,158 @@ def collect_tax_rate_data():
     return result
 
 
-def create_collection_summary(weekly_wage_df, tax_rate_df):
+def collect_opportunity_zones():
+    """
+    Collect Qualified Opportunity Zones data from HUD ArcGIS API (Measure 6.6).
+
+    Source: HUD Opportunity Zones ArcGIS REST API
+    Returns:
+        DataFrame with county-level OZ counts
+    """
+    print("\n" + "="*80)
+    print("MEASURE 6.6: Qualified Opportunity Zones")
+    print("="*80)
+    print(f"Source: HUD Opportunity Zones ArcGIS REST API")
+    print(f"Metric: Count of Qualified Opportunity Zone census tracts per county")
+    print(f"Note: QOZs designated in 2018 under Tax Cuts and Jobs Act")
+
+    # ArcGIS REST API endpoint
+    base_url = "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/Opportunity_Zones/FeatureServer/13/query"
+
+    # First, get total count
+    count_params = {
+        'where': '1=1',
+        'returnCountOnly': 'true',
+        'f': 'json'
+    }
+
+    print(f"\nFetching total count of Opportunity Zones...")
+    response = requests.get(base_url, params=count_params)
+    response.raise_for_status()
+    total_count = response.json()['count']
+    print(f"Total OZ tracts nationwide: {total_count:,}")
+
+    # Fetch all records with pagination
+    all_features = []
+    batch_size = 1000
+    offset = 0
+
+    print(f"\nFetching all OZ tract data (this may take a moment)...")
+
+    while offset < total_count:
+        params = {
+            'where': '1=1',
+            'outFields': 'STATE,COUNTY,TRACT,GEOID10,STUSAB,STATE_NAME',
+            'f': 'json',
+            'resultOffset': offset,
+            'resultRecordCount': batch_size
+        }
+
+        try:
+            response = requests.get(base_url, params=params, timeout=30)
+            response.raise_for_status()
+            data = response.json()
+
+            if 'features' in data:
+                features = data['features']
+                all_features.extend(features)
+                offset += len(features)
+                print(f"  Retrieved {offset:,} / {total_count:,} records ({100*offset/total_count:.1f}%)")
+
+                if len(features) == 0:
+                    break
+            else:
+                print(f"  Warning: No features in response at offset {offset}")
+                break
+
+            time.sleep(0.2)  # Be polite to the API
+
+        except Exception as e:
+            print(f"  Error at offset {offset}: {e}")
+            break
+
+    print(f"\n✓ Retrieved {len(all_features):,} total OZ tracts")
+
+    # Convert to DataFrame
+    oz_data = []
+    for feature in all_features:
+        attrs = feature['attributes']
+        oz_data.append({
+            'state_fips': attrs['STATE'],
+            'county_fips': attrs['COUNTY'],
+            'tract': attrs['TRACT'],
+            'geoid10': attrs['GEOID10'],
+            'state_abbr': attrs['STUSAB'],
+            'state_name': attrs['STATE_NAME']
+        })
+
+    df = pd.DataFrame(oz_data)
+
+    # Create full county FIPS (state + county)
+    df['county_fips_full'] = df['state_fips'] + df['county_fips']
+
+    # Filter to our 10 states
+    our_states = list(STATE_FIPS.values())
+    df_filtered = df[df['state_fips'].isin(our_states)].copy()
+
+    print(f"\n--- Filtering to our 10 states ---")
+    print(f"OZ tracts in our 10 states: {len(df_filtered):,}")
+
+    # Count OZ tracts per county
+    county_oz_counts = df_filtered.groupby('county_fips_full').agg({
+        'tract': 'count',
+        'state_fips': 'first',
+        'state_name': 'first',
+        'state_abbr': 'first'
+    }).reset_index()
+
+    county_oz_counts.rename(columns={
+        'county_fips_full': 'area_fips',
+        'tract': 'oz_tract_count'
+    }, inplace=True)
+
+    # Convert area_fips to integer for consistency
+    county_oz_counts['area_fips'] = county_oz_counts['area_fips'].astype(int)
+
+    # Save raw data (all features for our 10 states)
+    raw_output = RAW_DATA_DIR / 'hud' / 'opportunity_zones_tracts.csv'
+    raw_output.parent.mkdir(parents=True, exist_ok=True)
+    df_filtered.to_csv(raw_output, index=False)
+    print(f"\n✓ Saved raw tract-level data: {raw_output}")
+
+    # Save processed data (county-level counts)
+    processed_output = PROCESSED_DATA_DIR / 'hud_opportunity_zones_by_county.csv'
+    county_oz_counts.to_csv(processed_output, index=False)
+    print(f"✓ Saved processed county-level data: {processed_output}")
+
+    # Print summary statistics
+    print(f"\n--- Summary Statistics ---")
+    print(f"Total counties with OZs in our 10 states: {len(county_oz_counts)}")
+    print(f"Total OZ tracts in our 10 states: {county_oz_counts['oz_tract_count'].sum()}")
+    print(f"Average OZ tracts per county: {county_oz_counts['oz_tract_count'].mean():.2f}")
+    print(f"Median OZ tracts per county: {county_oz_counts['oz_tract_count'].median():.0f}")
+    print(f"Min OZ tracts: {county_oz_counts['oz_tract_count'].min()}")
+    print(f"Max OZ tracts: {county_oz_counts['oz_tract_count'].max()}")
+
+    # Show breakdown by state
+    print(f"\n--- OZ Tracts by State ---")
+    state_summary = df_filtered.groupby(['state_fips', 'state_name']).size().reset_index(name='oz_tracts')
+    state_summary = state_summary.sort_values('oz_tracts', ascending=False)
+    for _, row in state_summary.iterrows():
+        print(f"{row['state_name']:20s}: {row['oz_tracts']:4d} OZ tracts")
+
+    return county_oz_counts
+
+
+def create_collection_summary(weekly_wage_df, tax_rate_df, oz_df):
     """Create a summary of Component 6 data collection (partial)."""
     summary = {
         'component': 'Component 6: Infrastructure & Cost of Doing Business',
         'collection_date': pd.Timestamp.now().isoformat(),
-        'measures_collected': 2,
+        'measures_collected': 3,
         'total_measures': 6,
-        'completion_percentage': 33.3,
-        'notes': 'Only measures 6.4 and 6.5 collected in this script. Measures 6.1-6.3 and 6.6 require different collection methods.',
+        'completion_percentage': 50.0,
+        'notes': 'Measures 6.4, 6.5, and 6.6 collected. Measures 6.1-6.3 require different collection methods (FCC, manual GIS, NCES).',
         'measures': {
             '6.4_weekly_wage': {
                 'name': 'Weekly Wage Rate',
@@ -200,6 +345,19 @@ def create_collection_summary(weekly_wage_df, tax_rate_df):
                     'data/raw/tax_foundation/state_income_tax_rates_2024.json',
                     'data/processed/state_income_tax_rates_2024.csv'
                 ]
+            },
+            '6.6_opportunity_zones': {
+                'name': 'Qualified Opportunity Zones',
+                'source': 'HUD ArcGIS REST API',
+                'designation_year': 2018,
+                'records': len(oz_df),
+                'counties_with_oz': len(oz_df),
+                'total_oz_tracts': int(oz_df['oz_tract_count'].sum()) if not oz_df.empty else 0,
+                'avg_oz_per_county': float(oz_df['oz_tract_count'].mean()) if not oz_df.empty else 0,
+                'files': [
+                    'data/raw/hud/opportunity_zones_tracts.csv',
+                    'data/processed/hud_opportunity_zones_by_county.csv'
+                ]
             }
         }
     }
@@ -215,10 +373,10 @@ def create_collection_summary(weekly_wage_df, tax_rate_df):
 
 
 def main():
-    """Main function to collect Component 6 data (partial - measures 6.4 and 6.5)."""
+    """Main function to collect Component 6 data (partial - measures 6.4, 6.5, and 6.6)."""
     print("="*80)
     print("COMPONENT 6: INFRASTRUCTURE & COST OF DOING BUSINESS INDEX")
-    print("Partial Collection: Measures 6.4 and 6.5")
+    print("Partial Collection: Measures 6.4, 6.5, and 6.6")
     print("="*80)
 
     # Collect Measure 6.4: Weekly Wage Rate
@@ -227,19 +385,27 @@ def main():
     # Collect Measure 6.5: Top Marginal Income Tax Rate
     tax_rate_df = collect_tax_rate_data()
 
+    # Collect Measure 6.6: Qualified Opportunity Zones
+    oz_df = collect_opportunity_zones()
+
     # Create collection summary
-    summary = create_collection_summary(weekly_wage_df, tax_rate_df)
+    summary = create_collection_summary(weekly_wage_df, tax_rate_df, oz_df)
 
     print("\n" + "="*80)
     print("COMPONENT 6 PARTIAL DATA COLLECTION COMPLETE")
     print("="*80)
-    print(f"Measures collected: 2 of 6 ({summary['completion_percentage']:.1f}%)")
-    print(f"Total records: {summary['measures']['6.4_weekly_wage']['records'] + summary['measures']['6.5_tax_rate']['records']}")
-    print("\nNext steps:")
+    print(f"Measures collected: 3 of 6 ({summary['completion_percentage']:.1f}%)")
+    total_records = (summary['measures']['6.4_weekly_wage']['records'] +
+                     summary['measures']['6.5_tax_rate']['records'] +
+                     summary['measures']['6.6_opportunity_zones']['records'])
+    print(f"Total records: {total_records}")
+    print(f"  - Weekly wages: {summary['measures']['6.4_weekly_wage']['records']} counties")
+    print(f"  - Tax rates: {summary['measures']['6.5_tax_rate']['records']} states")
+    print(f"  - Opportunity Zones: {summary['measures']['6.6_opportunity_zones']['counties_with_oz']} counties, {summary['measures']['6.6_opportunity_zones']['total_oz_tracts']} OZ tracts")
+    print("\nRemaining measures:")
     print("  - Measure 6.1: Broadband Internet Access (FCC data)")
     print("  - Measure 6.2: Interstate Highway Presence (manual mapping)")
     print("  - Measure 6.3: Count of 4-Year Colleges (NCES IPEDS)")
-    print("  - Measure 6.6: Qualified Opportunity Zones (IRS data)")
     print("="*80)
 
 
