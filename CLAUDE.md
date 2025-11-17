@@ -510,7 +510,7 @@ See **API_MAPPING.md** for complete details on each measure.
 
 ## Next Steps
 
-### Current Status: Ready for Component 6
+### Current Status: Component 6 In Progress (33% Complete)
 
 **Completed**:
 - ✅ Component 1: Growth Index (5/5 measures, 8,654 records) - **100% COMPLETE**
@@ -518,17 +518,16 @@ See **API_MAPPING.md** for complete details on each measure.
 - ✅ Component 3: Other Prosperity Index (5/5 measures, 3,936 records) - **100% COMPLETE**
 - ✅ Component 4: Demographic Growth & Renewal (6/6 measures, 5,616 records) - **100% COMPLETE**
 - ✅ Component 5: Education & Skill (5/5 measures, 2,406 records) - **100% COMPLETE**
+- ⏳ Component 6: Infrastructure & Cost of Doing Business (2/6 measures, 812 records) - **33% COMPLETE**
 
-**Progress Summary**: 28 of 47 measures collected (60% complete)
+**Progress Summary**: 30 of 47 measures collected (64% complete)
 
 **Next Implementation**:
-1. **Component 6: Infrastructure & Cost of Doing Business Index** (6 measures)
-   - Broadband Internet Access (FCC data)
-   - Interstate Highway Presence (manual mapping)
-   - Count of 4-Year Colleges (NCES IPEDS)
-   - Weekly Wage Rate (BLS QCEW)
-   - Top Marginal Income Tax Rate (static data)
-   - Building Permits (HUD data)
+1. **Complete Component 6: Infrastructure & Cost of Doing Business Index** (4 remaining measures)
+   - 6.1: Broadband Internet Access (FCC Broadband Map data - MEDIUM confidence)
+   - 6.2: Interstate Highway Presence (manual GIS mapping - LOW API, HIGH manual)
+   - 6.3: Count of 4-Year Colleges (NCES IPEDS bulk data - MEDIUM confidence)
+   - 6.6: Qualified Opportunity Zones (IRS static list - HIGH confidence)
 
 2. **Continue Through Components 7-8**
    - Maintain component-by-component approach
@@ -686,3 +685,49 @@ See **API_MAPPING.md** for complete details on each measure.
 - Updated API_MAPPING.md with Component 5 data collection details and collection status section
 - Updated CLAUDE.md with Component 5 section and updated next steps
 - All five components (1, 2, 3, 4, 5) are now fully complete: 28 measures, ~24,500 total records (60% of project)
+
+## Component Index 6: Infrastructure & Cost of Doing Business (⏳ PARTIAL - 33% COMPLETE)
+
+**Status**: Partially Completed 2025-11-17
+**Records**: 812 total records across 2 of 6 measures
+
+Component Index 6 contains 6 measures. Currently collected 2 measures (6.4 and 6.5):
+- **6.1**: Broadband Internet Access (FCC - NOT YET COLLECTED)
+- **6.2**: Interstate Highway Presence (Manual - NOT YET COLLECTED)
+- **6.3**: Count of 4-Year Colleges (NCES IPEDS - NOT YET COLLECTED)
+- **6.4**: Weekly Wage Rate (BLS QCEW) ✅
+- **6.5**: Top Marginal Income Tax Rate (Tax Foundation) ✅
+- **6.6**: Qualified Opportunity Zones (IRS - NOT YET COLLECTED)
+
+**Key Implementation Details**:
+- BLS QCEW weekly wage data uses same downloadable files as Component 1
+- State income tax rates are static, state-level data from Tax Foundation
+- All 802 counties have weekly wage data (avg: $931.61, range: $0-$2,241)
+- All 10 states have tax rate data (avg: 4.66%, range: 0% TN to 6.6% DE)
+
+**New Functionality Added**:
+- Created `scripts/data_collection/collect_component6.py` for measures 6.4 and 6.5
+- Utilized existing QCEW client (already had weekly wage field)
+- Created static tax rate data structure with 2024 rates
+
+**Key Statistics**:
+- Weekly Wage Rate: Average $931.61, 802 counties covered
+- Tax Rates: 10 states, range 0% (Tennessee - no income tax) to 6.6% (Delaware)
+- Tax rate notes include future rate changes (e.g., GA reducing to 5.19% in 2025)
+
+**Remaining Measures**:
+- 6.1: Broadband (FCC bulk download or API)
+- 6.2: Interstate highways (manual GIS mapping)
+- 6.3: 4-year colleges (NCES IPEDS bulk data)
+- 6.6: Opportunity zones (IRS static list)
+
+See **API_MAPPING.md** for complete details on each measure.
+
+**2025-11-17**: Component 6 Partial Implementation
+- Implemented measures 6.4 (Weekly Wage Rate) and 6.5 (Top Marginal Income Tax Rate)
+- Created `collect_component6.py` script
+- Collected 802 counties for weekly wage data (BLS QCEW 2022)
+- Collected 10 states for income tax rates (Tax Foundation 2024)
+- Total: 812 records across 2 measures
+- Component 6 is 33% complete (2 of 6 measures)
+- Remaining measures require different collection methods (FCC, NCES, IRS, manual GIS)
