@@ -151,18 +151,45 @@ class USGSTransportationClient:
         url = f'https://www2.census.gov/geo/tiger/TIGER{year}/COUNTY/tl_{year}_us_county.zip'
 
         try:
-            # Read directly from URL into GeoDataFrame
-            counties = gpd.read_file(url)
-            print(f"✓ Loaded {len(counties):,} county boundaries")
+            # Download the ZIP file first
+            import tempfile
+            import zipfile
+            import os
 
-            # Ensure GEOID is string and 5 digits
-            counties['GEOID'] = counties['GEOID'].astype(str).str.zfill(5)
+            # Create temporary directory
+            with tempfile.TemporaryDirectory() as tmpdir:
+                zip_path = os.path.join(tmpdir, f'tl_{year}_us_county.zip')
 
-            # Reproject to match highway data (EPSG:4326 / WGS84)
-            if counties.crs != "EPSG:4326":
-                counties = counties.to_crs("EPSG:4326")
+                # Download ZIP file
+                print(f"  Downloading ZIP file...")
+                response = self.session.get(url, timeout=300)
+                response.raise_for_status()
 
-            return counties
+                with open(zip_path, 'wb') as f:
+                    f.write(response.content)
+
+                print(f"  Extracting shapefile...")
+                # Extract ZIP
+                with zipfile.ZipFile(zip_path, 'r') as zip_ref:
+                    zip_ref.extractall(tmpdir)
+
+                # Find the shapefile
+                shp_file = [f for f in os.listdir(tmpdir) if f.endswith('.shp')][0]
+                shp_path = os.path.join(tmpdir, shp_file)
+
+                # Read shapefile
+                print(f"  Loading county boundaries...")
+                counties = gpd.read_file(shp_path)
+                print(f"✓ Loaded {len(counties):,} county boundaries")
+
+                # Ensure GEOID is string and 5 digits
+                counties['GEOID'] = counties['GEOID'].astype(str).str.zfill(5)
+
+                # Reproject to match highway data (EPSG:4326 / WGS84)
+                if counties.crs != "EPSG:4326":
+                    counties = counties.to_crs("EPSG:4326")
+
+                return counties
 
         except Exception as e:
             raise Exception(f"Failed to download county boundaries: {str(e)}")
