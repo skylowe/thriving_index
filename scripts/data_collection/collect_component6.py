@@ -4,22 +4,22 @@ Component Index 6: Infrastructure & Cost of Doing Business
 This script collects data for Component 6 measures:
 - 6.4: Weekly Wage Rate (BLS QCEW)
 - 6.5: Top Marginal Income Tax Rate (Tax Foundation - static data)
+- 6.6: Qualified Opportunity Zones (HUD ArcGIS)
 
-Note: Other measures (6.1-6.3, 6.6) require different collection methods and will be implemented separately.
+Note: Other measures (6.1-6.3) require different collection methods and will be implemented separately.
 """
 
 import sys
 from pathlib import Path
 import pandas as pd
 import json
-import requests
-import time
 
 # Add parent directory to path
 sys.path.append(str(Path(__file__).resolve().parent.parent))
 
 from config import PROCESSED_DATA_DIR, RAW_DATA_DIR, STATE_FIPS
 from api_clients.qcew_client import QCEWClient
+from api_clients.hud_client import HUDClient
 
 # State income tax rates (2024 tax year)
 # Source: Tax Foundation (https://taxfoundation.org/data/all/state/state-income-tax-rates/)
@@ -184,108 +184,23 @@ def collect_opportunity_zones():
     print(f"Metric: Count of Qualified Opportunity Zone census tracts per county")
     print(f"Note: QOZs designated in 2018 under Tax Cuts and Jobs Act")
 
-    # ArcGIS REST API endpoint
-    base_url = "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/Opportunity_Zones/FeatureServer/13/query"
+    # Initialize HUD client
+    client = HUDClient()
 
-    # First, get total count
-    count_params = {
-        'where': '1=1',
-        'returnCountOnly': 'true',
-        'f': 'json'
-    }
-
-    print(f"\nFetching total count of Opportunity Zones...")
-    response = requests.get(base_url, params=count_params)
-    response.raise_for_status()
-    total_count = response.json()['count']
-    print(f"Total OZ tracts nationwide: {total_count:,}")
-
-    # Fetch all records with pagination
-    all_features = []
-    batch_size = 1000
-    offset = 0
-
-    print(f"\nFetching all OZ tract data (this may take a moment)...")
-
-    while offset < total_count:
-        params = {
-            'where': '1=1',
-            'outFields': 'STATE,COUNTY,TRACT,GEOID10,STUSAB,STATE_NAME',
-            'f': 'json',
-            'resultOffset': offset,
-            'resultRecordCount': batch_size
-        }
-
-        try:
-            response = requests.get(base_url, params=params, timeout=30)
-            response.raise_for_status()
-            data = response.json()
-
-            if 'features' in data:
-                features = data['features']
-                all_features.extend(features)
-                offset += len(features)
-                print(f"  Retrieved {offset:,} / {total_count:,} records ({100*offset/total_count:.1f}%)")
-
-                if len(features) == 0:
-                    break
-            else:
-                print(f"  Warning: No features in response at offset {offset}")
-                break
-
-            time.sleep(0.2)  # Be polite to the API
-
-        except Exception as e:
-            print(f"  Error at offset {offset}: {e}")
-            break
-
-    print(f"\n✓ Retrieved {len(all_features):,} total OZ tracts")
-
-    # Convert to DataFrame
-    oz_data = []
-    for feature in all_features:
-        attrs = feature['attributes']
-        oz_data.append({
-            'state_fips': attrs['STATE'],
-            'county_fips': attrs['COUNTY'],
-            'tract': attrs['TRACT'],
-            'geoid10': attrs['GEOID10'],
-            'state_abbr': attrs['STUSAB'],
-            'state_name': attrs['STATE_NAME']
-        })
-
-    df = pd.DataFrame(oz_data)
-
-    # Create full county FIPS (state + county)
-    df['county_fips_full'] = df['state_fips'] + df['county_fips']
-
-    # Filter to our 10 states
+    # Get state FIPS codes
     our_states = list(STATE_FIPS.values())
-    df_filtered = df[df['state_fips'].isin(our_states)].copy()
 
-    print(f"\n--- Filtering to our 10 states ---")
-    print(f"OZ tracts in our 10 states: {len(df_filtered):,}")
+    # Fetch OZ data for our 10 states
+    print(f"\nFetching Opportunity Zones for {len(our_states)} states...")
+    df_tracts = client.get_opportunity_zones(state_fips_list=our_states)
 
-    # Count OZ tracts per county
-    county_oz_counts = df_filtered.groupby('county_fips_full').agg({
-        'tract': 'count',
-        'state_fips': 'first',
-        'state_name': 'first',
-        'state_abbr': 'first'
-    }).reset_index()
+    # Aggregate to county level
+    county_oz_counts = client.aggregate_oz_by_county(df_tracts)
 
-    county_oz_counts.rename(columns={
-        'county_fips_full': 'area_fips',
-        'tract': 'oz_tract_count'
-    }, inplace=True)
-
-    # Convert area_fips to integer for consistency
-    county_oz_counts['area_fips'] = county_oz_counts['area_fips'].astype(int)
-
-    # Save raw data (all features for our 10 states)
+    # Save raw data (tract-level)
     raw_output = RAW_DATA_DIR / 'hud' / 'opportunity_zones_tracts.csv'
     raw_output.parent.mkdir(parents=True, exist_ok=True)
-    df_filtered.to_csv(raw_output, index=False)
+    df_tracts.to_csv(raw_output, index=False)
     print(f"\n✓ Saved raw tract-level data: {raw_output}")
 
     # Save processed data (county-level counts)
@@ -304,7 +219,7 @@ def collect_opportunity_zones():
 
     # Show breakdown by state
     print(f"\n--- OZ Tracts by State ---")
-    state_summary = df_filtered.groupby(['state_fips', 'state_name']).size().reset_index(name='oz_tracts')
+    state_summary = df_tracts.groupby(['state_fips', 'state_name']).size().reset_index(name='oz_tracts')
     state_summary = state_summary.sort_values('oz_tracts', ascending=False)
     for _, row in state_summary.iterrows():
         print(f"{row['state_name']:20s}: {row['oz_tracts']:4d} OZ tracts")
