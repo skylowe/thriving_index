@@ -392,9 +392,10 @@ Data collection tasks (ALL 8 measures - see API_MAPPING.md for details):
 - Extended `scripts/api_clients/census_client.py` with `get_commute_time()` and `get_housing_age()`
 - Extended `scripts/api_clients/cbp_client.py` with `get_healthcare_employment()`
 - Created `scripts/api_clients/nps_client.py` - NPS API client with boundary support
-- Created `scripts/api_clients/fbi_cde_client.py` - FBI Crime Data Explorer API client
-- Created `scripts/data_collection/collect_component7.py` - Integrated collection script for measures 7.1-7.3, 7.6-7.8
-- Created `scripts/data_collection/collect_measure_7_4_7_5_crime.py` - FBI crime data collection script
+- Created `scripts/api_clients/fbi_cde_client.py` - FBI Crime Data Explorer API client with caching
+- Created `scripts/data_collection/collect_component7.py` - Integrated collection script for ALL 8 measures (7.1-7.8)
+  - Supports `--crime` flag to optionally include FBI crime data collection
+  - Usage: `python collect_component7.py` (6 measures) or `python collect_component7.py --crime` (all 8 measures)
 - `data/processed/fbi_crime_counties_2023.csv` - County-level crime data (804 counties)
 - `data/processed/fbi_crime_agencies_2023.json` - Agency-level crime data (5,749 agencies)
 - `data/processed/fbi_crime_summary_2023.json` - Collection summary and statistics
@@ -435,8 +436,8 @@ Data collection tasks (ALL 8 measures - see API_MAPPING.md for details):
 - [ ] Create visualizations and reports
 
 ## Current Status
-**Phase**: Phase 7 - Component Index 7 (**COMPLETE!**)
-**Date**: 2025-11-17
+**Phase**: Phases 6 & 7 - Components 6 & 7 (**BOTH COMPLETE!**)
+**Date**: 2025-11-18
 
 **Completed**:
 - ✓ Phase 0: Project setup and infrastructure
@@ -479,16 +480,18 @@ Data collection tasks (ALL 8 measures - see API_MAPPING.md for details):
   - ✓ Collected 802 counties for bachelor's degree attainment rate (exclusive)
   - ✓ Collected 802 counties for labor force participation rate
   - ✓ Collected 802 counties for knowledge workers (occupation-based proxy)
-- ✅ Phase 6: Component Index 6 - Infrastructure & Cost of Doing Business Index (**5 of 6 measures complete, 2,539 records**)
+- ✅ Phase 6: Component Index 6 - Infrastructure & Cost of Doing Business Index (**ALL 6 measures complete, 3,341 records**) - **100% COMPLETE** ✨
+  - ✓ Collected 802 counties for broadband internet access via FCC BDC Public Data API (avg 99.96% coverage)
   - ✓ Collected 391 counties with interstate highways via USGS Transportation API (194,210 segments)
   - ✓ Collected 345 counties with 4-year colleges via Urban Institute IPEDS API (902 colleges)
   - ✓ Collected 802 counties for weekly wage rate (BLS QCEW 2022)
   - ✓ Collected 10 states for top marginal income tax rates (Tax Foundation 2024)
   - ✓ Collected 580 counties with Opportunity Zones via HUD ArcGIS API (1,709 OZ tracts)
+  - ✓ Created `scripts/api_clients/fcc_client.py` - new FCC Broadband Data Collection API client
   - ✓ Created `scripts/api_clients/usgs_client.py` - new USGS Transportation API client
   - ✓ Created `scripts/api_clients/urban_institute_client.py` - new Urban Institute API client
   - ✓ Created `scripts/api_clients/hud_client.py` - new HUD API client for Opportunity Zones
-  - Created `collect_component6.py` script for measures 6.2-6.6
+  - ✓ Created `collect_component6.py` script for all 6 measures (6.1-6.6)
 - ✅ Phase 7: Component Index 7 - Quality of Life Index (**ALL 8 measures COMPLETE, 100%!**)
   - ✓ Extended Census client with `get_commute_time()` and `get_housing_age()` methods
   - ✓ Extended CBP client with `get_healthcare_employment()` method
@@ -501,18 +504,19 @@ Data collection tasks (ALL 8 measures - see API_MAPPING.md for details):
   - ✓ Collected 771 counties for healthcare access (Census CBP 2021, NAICS 621+622)
   - ✓ Collected 802 counties for national parks (NPS API with boundary-based spatial intersection)
   - ✓ NPS boundaries mapped to 146 counties with parks (255 park-county assignments)
-  - ✓ Created integrated `collect_component7.py` script for measures 7.1-7.3, 7.6-7.8
+  - ✓ Created integrated `collect_component7.py` script for ALL 8 measures (7.1-7.8)
+  - ✓ Script supports `--crime` flag to optionally include FBI crime data collection
   - ✓ **FBI Crime Data FULLY COLLECTED** (2025-11-17): 5,749 agencies, 804 counties, 10,624 API calls
   - ✓ Total violent crimes: 248,963 | Total property crimes: 1,278,315
   - ✓ No API rate limit encountered - full collection completed in single run
+  - ✓ FBI crime data uses comprehensive caching (89 MB cache) for fast re-runs
 
 **Next Steps**:
 1. Continue through Component 8 - Social Capital Index (5 measures)
-2. Return to complete Component 6 Measure 6.1 (Broadband)
-3. Later: Validate and clean all component data
-4. Later: Calculate growth rates and index scores
+2. Later: Validate and clean all component data
+3. Later: Calculate growth rates and index scores
 
-**Overall Progress**: 41 of 47 measures fully collected (87% complete)
+**Overall Progress**: 42 of 47 measures fully collected (89% complete)
 
 ## Data Confidence Summary
 See API_MAPPING.md for complete details on each measure's confidence level:

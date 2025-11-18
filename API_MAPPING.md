@@ -1,7 +1,7 @@
 # Virginia Thriving Index - API Source Mapping
 
-**Last Updated**: 2025-11-17
-**Status**: Components 1-5 complete (100%); Component 6 near complete (83%, 5 of 6 measures); Component 7 complete (100%); Component 8 not started
+**Last Updated**: 2025-11-18
+**Status**: Components 1-7 complete (100%); Component 8 not started (5 measures remaining)
 
 ---
 
@@ -1122,7 +1122,7 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
   - **Processed Data**: `data/processed/fbi_crime_counties_2023.csv` (804 counties)
   - **Agency Data**: `data/processed/fbi_crime_agencies_2023.json` (5,749 agencies, 80 MB)
   - **Summary**: `data/processed/fbi_crime_summary_2023.json`
-  - **Script**: `scripts/data_collection/collect_measure_7_4_7_5_crime.py`
+  - **Script**: `scripts/data_collection/collect_component7.py --crime` (integrated with other Component 7 measures)
   - **API Client**: `scripts/api_clients/fbi_cde_client.py`
 
 ### 7.5 Property Crime Rate
@@ -1153,7 +1153,7 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
   - **Processed Data**: `data/processed/fbi_crime_counties_2023.csv` (shared with 7.4)
   - **Agency Data**: `data/processed/fbi_crime_agencies_2023.json` (shared with 7.4)
   - **Summary**: `data/processed/fbi_crime_summary_2023.json` (shared with 7.4)
-  - **Script**: `scripts/data_collection/collect_measure_7_4_7_5_crime.py` (shared with 7.4)
+  - **Script**: `scripts/data_collection/collect_component7.py --crime` (integrated, shared with 7.4)
   - **API Client**: `scripts/api_clients/fbi_cde_client.py` (shared with 7.4)
 
 ### 7.6 Climate Amenities

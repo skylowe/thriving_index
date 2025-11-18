@@ -834,12 +834,15 @@ Component Index 7 contains 8 measures. All 8 measures fully collected:
   - `collect_healthcare_employment()` - Census CBP healthcare establishments
   - `collect_nps_parks()` - NPS parks with boundary-based spatial intersection
   - `load_county_boundaries()` - Load/cache Census TIGER county boundaries for spatial analysis
-  - Integrated workflow similar to Component 3 (all measures in one script)
-- Created `scripts/data_collection/collect_measure_7_4_7_5_crime.py` - **NEW** FBI crime collection script
+  - Integrated workflow for all 8 measures in one script
+- Enhanced `scripts/data_collection/collect_component7.py` with optional `--crime` flag
+  - Without `--crime`: Collects 6 measures (7.1-7.3, 7.6-7.8) - default behavior
+  - With `--crime`: Collects all 8 measures including FBI crime data (7.1-7.8)
+  - FBI crime collection integrated into main component script
   - Loads ORI crosswalk to map 5,749 law enforcement agencies to counties
   - Collects both violent and property crime data for each agency
   - Aggregates agency-level data to county level
-  - Test mode enabled by default (TEST_LIMIT and TEST_STATE parameters)
+  - Uses comprehensive caching (89 MB) for fast re-runs
   - Outputs: agency-level JSON, county-level CSV, summary JSON
 - Installed geopandas, shapely, xlrd for spatial analysis and XLS file processing
 
@@ -869,7 +872,8 @@ Component Index 7 contains 8 measures. All 8 measures fully collected:
 
 **FBI Crime Data Collection (Measures 7.4 & 7.5)** - ✅ **COMPLETE**:
 - **API Client**: `scripts/api_clients/fbi_cde_client.py`
-- **Collection Script**: `scripts/data_collection/collect_measure_7_4_7_5_crime.py`
+- **Collection Script**: `scripts/data_collection/collect_component7.py --crime`
+- **Integration**: Crime data collection integrated into Component 7 script with optional `--crime` flag
 - **Data Source**: FBI Crime Data Explorer API (2023 full-year data)
 - **Agency Mapping**: `ori_crosswalk.tsv` (5,749 agencies with ORI9 codes)
 - **Full Collection Completed**: 2025-11-17
@@ -1051,3 +1055,33 @@ See **API_MAPPING.md** for complete details on each measure.
 - **Total Component 6**: 3,341 records across ALL 6 measures
 - **Component 6 is now 100% COMPLETE** (all 6 measures collected)
 - Updated PROJECT_PLAN.md, API_MAPPING.md, and CLAUDE.md to reflect completion
+
+**2025-11-18**: Component 7 Crime Data Integration and Script Consolidation
+- **INTEGRATION COMPLETE** - Integrated FBI crime data collection (measures 7.4 and 7.5) into main Component 7 script
+- Enhanced `scripts/data_collection/collect_component7.py` with optional `--crime` command-line argument
+  - Added argparse support for flexible crime data collection
+  - Added `collect_crime_data()` function to handle FBI crime collection
+  - Modified `process_and_save_data()` to accept optional crime_df and crime_year parameters
+  - Script now supports two modes:
+    - Default (no arguments): Collects 6 measures (7.1-7.3, 7.6-7.8)
+    - With `--crime` flag: Collects all 8 measures including FBI crime data (7.1-7.8)
+  - FBI client conditionally initialized only when `--crime` flag is provided
+  - Maintains full caching functionality (89 MB cache) for fast re-runs
+- Bug fixes during integration:
+  - Fixed state name mapping issue: ORI crosswalk uses full uppercase state names (e.g., 'VIRGINIA') not abbreviations (e.g., 'VA')
+  - Added `state_abbr_to_name` mapping dictionary to correctly filter agencies by state
+- Testing results:
+  - Successfully loaded and processed all 5,749 agencies
+  - 0 API calls on re-run (full cache utilization)
+  - Completed in ~3-4 minutes (vs. 2-3 hours without cache)
+  - All 8 measures collected successfully
+- Removed obsolete files:
+  - Deleted `scripts/data_collection/collect_measure_7_4_7_5_crime.py` (standalone crime script no longer needed)
+- Benefits of integration:
+  - Simplified workflow - one command collects all Component 7 measures
+  - Optional crime collection via `--crime` flag for flexibility
+  - Consistent error handling and logging across all measures
+  - Single summary file includes all 8 measures when using `--crime`
+  - Eliminated need for separate script execution
+- **Component 7 remains 100% COMPLETE** with improved collection workflow
+- Updated PROJECT_PLAN.md, API_MAPPING.md, and CLAUDE.md to reflect integration

@@ -1,15 +1,21 @@
 """
 Component Index 7: Quality of Life - Data Collection Script
 
-Collects 6 of 8 measures for Component Index 7 for all counties in 10 states:
+Collects up to 8 measures for Component Index 7 for all counties in 10 states:
 7.1 Commute Time (Census ACS S0801)
 7.2 Percent of Housing Built Pre-1960 (Census ACS DP04)
 7.3 Relative Weekly Wage (BLS QCEW)
+7.4 Violent Crime Rate (FBI UCR) - optional
+7.5 Property Crime Rate (FBI UCR) - optional
 7.6 Climate Amenities (USDA ERS Natural Amenities Scale)
 7.7 Healthcare Access (Census CBP NAICS 621+622)
 7.8 Count of National Parks (NPS API with boundaries)
 
 States: VA, PA, MD, DE, WV, KY, TN, NC, SC, GA
+
+Usage:
+  python collect_component7.py              # Collect measures 7.1-7.3, 7.6-7.8 (6 measures)
+  python collect_component7.py --crime      # Collect all 8 measures including crime data
 """
 
 import sys
@@ -20,15 +26,19 @@ import geopandas as gpd
 from shapely.geometry import Point, shape
 from datetime import datetime
 import requests
+import argparse
+from collections import defaultdict
+import csv
 
 # Add parent directory to path
 sys.path.append(str(Path(__file__).resolve().parent.parent))
 
-from config import STATE_FIPS, RAW_DATA_DIR, PROCESSED_DATA_DIR
+from config import STATE_FIPS, RAW_DATA_DIR, PROCESSED_DATA_DIR, PROJECT_ROOT
 from api_clients.census_client import CensusClient
 from api_clients.cbp_client import CBPClient
 from api_clients.qcew_client import QCEWClient
 from api_clients.nps_client import NPSClient
+from api_clients.fbi_cde_client import FBICrimeClient
 
 
 def collect_commute_time(census_client, year, state_fips_list):
@@ -564,9 +574,190 @@ def collect_nps_parks(nps_client, state_codes, state_fips_list):
     return all_counties, park_assignments_df, park_raw_data
 
 
+def collect_crime_data(fbi_client, from_date, to_date, year, state_fips_list):
+    """
+    Collect FBI crime data for measures 7.4 and 7.5.
+
+    Args:
+        fbi_client: FBICrimeClient instance
+        from_date: Start date (MM-YYYY)
+        to_date: End date (MM-YYYY)
+        year: Year string for file naming
+        state_fips_list: List of state FIPS codes
+
+    Returns:
+        DataFrame with county-level crime data
+    """
+    print(f"\nCollecting FBI Crime Data (Measures 7.4 and 7.5)...")
+    print("-" * 60)
+
+    # Load ORI crosswalk file
+    crosswalk_path = PROJECT_ROOT / 'ori_crosswalk.tsv'
+
+    if not crosswalk_path.exists():
+        print(f"  ✗ Error: ORI crosswalk file not found at {crosswalk_path}")
+        return pd.DataFrame()
+
+    print(f"  Loading ORI crosswalk from: {crosswalk_path}")
+
+    # Load and filter ORI crosswalk
+    # Map state abbreviations to full state names (as used in ORI crosswalk)
+    state_abbr_to_name = {
+        'VA': 'VIRGINIA',
+        'PA': 'PENNSYLVANIA',
+        'MD': 'MARYLAND',
+        'DE': 'DELAWARE',
+        'WV': 'WEST VIRGINIA',
+        'KY': 'KENTUCKY',
+        'TN': 'TENNESSEE',
+        'NC': 'NORTH CAROLINA',
+        'SC': 'SOUTH CAROLINA',
+        'GA': 'GEORGIA'
+    }
+
+    target_states = []
+    for state_abbr, state_fips in STATE_FIPS.items():
+        if state_fips in state_fips_list:
+            target_states.append(state_abbr_to_name[state_abbr])
+
+    oris = []
+    with open(crosswalk_path, 'r', encoding='utf-8') as f:
+        reader = csv.DictReader(f, delimiter='\t')
+        for row in reader:
+            if (row.get('STATENAME', '') in target_states and
+                row.get('ORI9', '') and
+                row.get('ORI9', '') != '-1' and
+                row.get('REPORT_FLAG', '') == '1' and
+                row.get('FIPS', '')):
+                oris.append({
+                    'ori': row['ORI9'],
+                    'name': row.get('NAME', ''),
+                    'fips': row['FIPS'],
+                    'state_fips': row['FIPS_ST'],
+                    'county_fips': row['FIPS_COUNTY'],
+                    'state_name': row['STATENAME'],
+                    'county_name': row.get('COUNTYNAME', '')
+                })
+
+    print(f"  ✓ Loaded {len(oris)} reporting agencies")
+
+    # Collect crime data for each ORI
+    print(f"\n  Collecting crime data for {len(oris)} agencies...")
+    print(f"  Date range: {from_date} to {to_date}")
+
+    ori_results = {}
+
+    for i, ori_record in enumerate(oris, 1):
+        ori = ori_record['ori']
+
+        if i % 100 == 0 or i == 1:
+            print(f"    Progress: {i}/{len(oris)} agencies ({i/len(oris)*100:.1f}%) - API calls: {fbi_client.api_calls_made}")
+
+        try:
+            # Get both violent and property crime data
+            crime_data = fbi_client.get_all_crime_data(ori, from_date, to_date)
+
+            # Extract totals
+            violent_total = extract_crime_totals(crime_data['violent'])
+            property_total = extract_crime_totals(crime_data['property'])
+
+            ori_results[ori] = {
+                'ori': ori,
+                'name': ori_record['name'],
+                'fips': ori_record['fips'],
+                'state_fips': ori_record['state_fips'],
+                'county_fips': ori_record['county_fips'],
+                'state_name': ori_record['state_name'],
+                'county_name': ori_record['county_name'],
+                'violent_crimes': violent_total,
+                'property_crimes': property_total
+            }
+
+        except Exception as e:
+            print(f"    Error processing ORI {ori}: {e}")
+            ori_results[ori] = {
+                'ori': ori,
+                'error': str(e)
+            }
+
+    print(f"\n  Collection complete!")
+    print(f"  Total API calls made: {fbi_client.api_calls_made}")
+    print(f"  Successfully collected: {len([r for r in ori_results.values() if 'error' not in r])} agencies")
+
+    # Aggregate to county level
+    print(f"\n  Aggregating to county level...")
+    county_data = defaultdict(lambda: {
+        'violent_crimes': 0,
+        'property_crimes': 0,
+        'agency_count': 0
+    })
+
+    for ori, data in ori_results.items():
+        if 'error' in data:
+            continue
+
+        fips = data['fips']
+        county_data[fips]['violent_crimes'] += data.get('violent_crimes', 0)
+        county_data[fips]['property_crimes'] += data.get('property_crimes', 0)
+        county_data[fips]['agency_count'] += 1
+
+        # Store metadata
+        if 'state_fips' not in county_data[fips]:
+            county_data[fips]['state_fips'] = data['state_fips']
+            county_data[fips]['county_fips'] = data['county_fips']
+            county_data[fips]['state_name'] = data['state_name']
+            county_data[fips]['county_name'] = data['county_name']
+            county_data[fips]['fips'] = fips
+
+    # Convert to DataFrame
+    crime_df = pd.DataFrame([v for v in county_data.values()])
+
+    print(f"  ✓ Aggregated to {len(crime_df)} counties")
+    print(f"\n✓ Total records: {len(crime_df)}")
+
+    return crime_df
+
+
+def extract_crime_totals(crime_data):
+    """
+    Extract total crimes from FBI API response.
+
+    Args:
+        crime_data: API response dictionary
+
+    Returns:
+        int: Total crime count, or 0 if no data
+    """
+    if not crime_data or 'offenses' not in crime_data:
+        return 0
+
+    offenses = crime_data['offenses']
+    actuals = offenses.get('actuals')
+
+    if not actuals:
+        return 0
+
+    # Sum up all crime counts across all months
+    total = 0
+    for agency_name, monthly_data in actuals.items():
+        # Skip clearances entries
+        if 'Clearances' in agency_name:
+            continue
+
+        # Sum all monthly values
+        if isinstance(monthly_data, dict):
+            for month, count in monthly_data.items():
+                try:
+                    total += int(count)
+                except (ValueError, TypeError):
+                    pass
+
+    return total
+
+
 def process_and_save_data(
     commute_df, housing_df, wage_df, climate_df, healthcare_df, parks_df, park_details_df, nps_raw_data,
-    acs_year, cbp_year, qcew_year
+    acs_year, cbp_year, qcew_year, crime_df=None, crime_year=None
 ):
     """
     Process collected data and save to CSV files.
@@ -583,6 +774,8 @@ def process_and_save_data(
         acs_year: Year of ACS data
         cbp_year: Year of CBP data
         qcew_year: Year of QCEW data
+        crime_df: DataFrame with crime data (optional, default None)
+        crime_year: Year of crime data (optional, default None)
 
     Returns:
         dict: Summary statistics
@@ -676,6 +869,28 @@ def process_and_save_data(
             'max': float(wage_df['relative_weekly_wage'].max())
         }
 
+    # Process 7.4 and 7.5: Crime Data (if collected)
+    if crime_df is not None and not crime_df.empty:
+        output_file = processed_dir / f"fbi_crime_counties_{crime_year}.csv"
+        crime_df.to_csv(output_file, index=False)
+        print(f"✓ Saved: {output_file}")
+
+        summary['7.4_violent_crime'] = {
+            'records': len(crime_df),
+            'total_crimes': int(crime_df['violent_crimes'].sum()),
+            'mean': float(crime_df['violent_crimes'].mean()),
+            'min': int(crime_df['violent_crimes'].min()),
+            'max': int(crime_df['violent_crimes'].max())
+        }
+
+        summary['7.5_property_crime'] = {
+            'records': len(crime_df),
+            'total_crimes': int(crime_df['property_crimes'].sum()),
+            'mean': float(crime_df['property_crimes'].mean()),
+            'min': int(crime_df['property_crimes'].min()),
+            'max': int(crime_df['property_crimes'].max())
+        }
+
     # Process 7.6: Climate Amenities
     if not climate_df.empty:
         output_file = processed_dir / 'usda_ers_natural_amenities_scale.csv'
@@ -743,6 +958,8 @@ def process_and_save_data(
     summary['acs_year'] = acs_year
     summary['cbp_year'] = cbp_year
     summary['qcew_year'] = qcew_year
+    if crime_year:
+        summary['crime_year'] = crime_year
     summary['states'] = list(STATE_FIPS.keys())
 
     summary_file = processed_dir / 'component7_collection_summary.json'
@@ -755,15 +972,42 @@ def process_and_save_data(
 
 def main():
     """Main execution function"""
+    # Parse command-line arguments
+    parser = argparse.ArgumentParser(
+        description='Collect Component 7: Quality of Life measures',
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog='''
+Examples:
+  %(prog)s              # Collect 6 measures (7.1-7.3, 7.6-7.8)
+  %(prog)s --crime      # Collect all 8 measures including crime data (7.1-7.8)
+        '''
+    )
+    parser.add_argument(
+        '--crime',
+        action='store_true',
+        help='Include FBI crime data collection (measures 7.4 and 7.5)'
+    )
+    args = parser.parse_args()
+
+    # Determine which measures to collect
+    measures_str = "7.1-7.3, 7.6-7.8"
+    measures_count = 6
+    if args.crime:
+        measures_str = "7.1-7.8 (all measures)"
+        measures_count = 8
+
     print("=" * 60)
     print("Component 7: Quality of Life - Data Collection")
-    print("Measures: 7.1, 7.2, 7.3, 7.6, 7.7, 7.8")
+    print(f"Measures: {measures_str}")
     print("=" * 60)
 
     # Configuration
     ACS_YEAR = 2022  # 2018-2022 5-year estimates
     CBP_YEAR = 2021  # Most recent CBP year
     QCEW_YEAR = 2022  # Most recent QCEW year
+    CRIME_YEAR = '2023'  # FBI crime data year
+    CRIME_FROM_DATE = '01-2023'
+    CRIME_TO_DATE = '12-2023'
 
     # All 10 states
     state_fips_list = list(STATE_FIPS.values())
@@ -775,7 +1019,13 @@ def main():
     cbp_client = CBPClient()
     qcew_client = QCEWClient()
     nps_client = NPSClient()
-    print("✓ Clients initialized")
+
+    if args.crime:
+        fbi_client = FBICrimeClient()
+        print("✓ Clients initialized (including FBI Crime Data Explorer)")
+    else:
+        fbi_client = None
+        print("✓ Clients initialized")
 
     # Collect data for each measure
     try:
@@ -787,6 +1037,19 @@ def main():
 
         # 7.3: Relative Weekly Wage
         wage_df = collect_relative_weekly_wage(qcew_client, QCEW_YEAR, state_fips_list)
+
+        # 7.4 and 7.5: Crime Data (optional)
+        if args.crime:
+            crime_df = collect_crime_data(
+                fbi_client,
+                CRIME_FROM_DATE,
+                CRIME_TO_DATE,
+                CRIME_YEAR,
+                state_fips_list
+            )
+        else:
+            crime_df = None
+            print("\nSkipping FBI Crime Data (use --crime to include)")
 
         # 7.6: Climate Amenities
         climate_df = collect_climate_amenities(state_fips_list)
@@ -800,19 +1063,22 @@ def main():
         # Process and save all data
         summary = process_and_save_data(
             commute_df, housing_df, wage_df, climate_df, healthcare_df, parks_df, park_details_df, nps_raw_data,
-            ACS_YEAR, CBP_YEAR, QCEW_YEAR
+            ACS_YEAR, CBP_YEAR, QCEW_YEAR, crime_df, CRIME_YEAR
         )
 
         # Print summary
         print("\n" + "=" * 60)
         print("COLLECTION COMPLETE")
         print("=" * 60)
-        print(f"Total measures collected: 6 of 8 (75% complete)")
+        completion_pct = (measures_count / 8) * 100
+        print(f"Total measures collected: {measures_count} of 8 ({completion_pct:.0f}% complete)")
         print(f"\nSummary:")
         for measure, stats in summary.items():
             if measure.startswith('7.'):
                 if measure == '7.8_national_parks':
                     print(f"  {measure}: {stats['records']} records ({stats['counties_with_parks']} counties with parks)")
+                elif measure in ['7.4_violent_crime', '7.5_property_crime']:
+                    print(f"  {measure}: {stats['records']} records (total: {stats['total_crimes']:,})")
                 else:
                     print(f"  {measure}: {stats['records']} records")
 
