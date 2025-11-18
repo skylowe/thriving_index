@@ -47,10 +47,10 @@ Process:
 **See PROJECT_PLAN.md for detailed progress tracking and component status.**
 
 **Quick Summary**:
-- **Progress**: 45 of 47 measures collected (96% complete)
-- **Completed**: Components 1-7 (100% complete)
-- **In Progress**: Component 8 - Social Capital (3 of 5 measures complete, 60%)
-- **Total Records**: ~34,500+ data points across all measures
+- **Progress**: ✅ **47 of 47 measures collected (100% COMPLETE!)**
+- **Completed**: All 8 Components (100% complete)
+- **Total Records**: ~38,500+ data points across all measures
+- **Data Confidence**: 95.7% HIGH confidence (45 of 47 measures)
 
 **Component Status** (see PROJECT_PLAN.md for details):
 - ✅ Component 1: Growth Index (5/5 measures)
@@ -60,11 +60,13 @@ Process:
 - ✅ Component 5: Education & Skill (5/5 measures)
 - ✅ Component 6: Infrastructure & Cost of Doing Business (6/6 measures)
 - ✅ Component 7: Quality of Life (8/8 measures)
-- 🔄 Component 8: Social Capital (3/5 measures) - measures 8.1, 8.3, and 8.4 complete
+- ✅ Component 8: Social Capital (5/5 measures) - ALL measures complete!
 
-**Remaining Work**:
-- Component 8: Measures 8.2 (Volunteer Rate - not implementing), 8.5 (Tree City USA)
-- Later: Regional aggregation, peer matching, index calculation
+**Next Steps**:
+- Data validation and quality checks
+- Regional aggregation (multi-county Virginia regions)
+- Peer region matching using Mahalanobis distance
+- Index calculation and scoring
 
 **For measure-specific details**, see **API_MAPPING.md**.
 
@@ -76,7 +78,8 @@ Process:
 - **BEA Regional API**: Employment, wages, income data (774 counties - VA independent cities aggregated)
 - **BLS QCEW**: Employment and wage data (downloadable files, ~500MB)
 - **Census APIs**: ACS (demographics), BDS (business dynamics), CBP (establishments), Nonemployer Stats
-- **County Health Rankings**: Life expectancy, voter turnout (via Zenodo)
+- **County Health Rankings**: Life expectancy, voter turnout, social associations (via Zenodo)
+- **Social Capital Atlas**: Volunteering rates, civic organizations density (Meta/Facebook research)
 - **FBI Crime Data Explorer**: Violent and property crime (5,749 agencies)
 - **IRS Exempt Organizations**: 501(c)(3) nonprofits (bulk download)
 - **FCC Broadband Data**: Internet access (BDC Public Data API)
@@ -134,11 +137,12 @@ scripts/
 │   ├── fbi_cde_client.py
 │   ├── irs_client.py
 │   ├── fcc_client.py
-│   └── ... (15+ clients total)
+│   ├── social_capital_client.py  # NEW - Social Capital Atlas
+│   └── ... (16 clients total)
 ├── data_collection/       # Data collection scripts (one per component)
 │   ├── collect_component1.py
 │   ├── collect_component2.py
-│   └── ... (8 component scripts)
+│   └── ... (8 component scripts - all complete)
 └── processing/            # Data processing and cleaning (future)
 
 data/
@@ -148,6 +152,7 @@ data/
 │   ├── census/
 │   ├── chr/               # County Health Rankings
 │   ├── fbi/
+│   ├── social_capital/    # Social Capital Atlas (NEW)
 │   └── ...
 ├── processed/             # Cleaned and processed data (CSV files)
 └── results/               # Calculated indexes and scores (future)
@@ -251,6 +256,7 @@ See **API_MAPPING.md** for confidence level of each measure.
 - **QCEW Access**: Time Series API doesn't support county-level data - must use downloadable files
 - **FBI Crime API**: No batch endpoints available; must call each agency individually
 - **County Health Rankings**: Contains many useful measures beyond life expectancy (discovered voter turnout in v177_rawvalue column)
+- **Social Capital Atlas**: Excellent county-level replacement for state-level AmeriCorps data; Humanitarian Data Exchange provides direct CSV download; no API key required
 
 ### Data Availability Insights
 - **BEA**: Consistently returns 774 counties (Virginia independent cities aggregated) - expected behavior
@@ -260,11 +266,12 @@ See **API_MAPPING.md** for confidence level of each measure.
 
 ### Technical Approaches That Worked
 - **Environment Variable Fallback**: Provides flexibility across environments
-- **Caching Large Downloads**: Saves significant time during development (QCEW files, CHR data, FBI crime)
+- **Caching Large Downloads**: Saves significant time during development (QCEW files, CHR data, FBI crime, Social Capital Atlas)
 - **State-by-State API Calls**: Better error handling for Census data
 - **Storing Raw + Processed**: Enables reproducibility and debugging
 - **Spatial Libraries**: Geopandas essential for interstate highways, national parks analysis
-- **Integrated Collection Scripts**: Collecting multiple related measures in single script (e.g., Component 8 measures 8.1 and 8.4)
+- **Integrated Collection Scripts**: Collecting multiple related measures in single script (Component 8 collects all 5 measures)
+- **Data Source Replacement**: When better county-level data available, replace state-level or binary measures (Social Capital Atlas for measures 8.2 & 8.5)
 
 ### Code Quality Practices
 - **Separate API Clients**: One client per data source improves maintainability
@@ -324,17 +331,29 @@ For detailed updates, see PROJECT_PLAN.md. Major milestones listed below:
 - Created FBI Crime client with comprehensive caching (89 MB cache, 5,749 agencies)
 - Integrated crime data collection with optional `--crime` flag
 
-**2025-11-18**: Component 8 In Progress (Social Capital - 60% complete)
+**2025-11-18**: ✅ **Component 8 Complete - ALL DATA COLLECTION FINISHED!** (Social Capital - 100% complete)
 - Measure 8.1: Created IRS Exempt Organizations client, ZIP-to-FIPS crosswalk (343,917 orgs, 86.9% mapping success)
+- Measure 8.2: **Implemented Volunteer Rate from Social Capital Atlas** (782 counties, mean: 6.36% participation) ✅ NEW
+  - **REPLACEMENT**: County-level Facebook data instead of state-level AmeriCorps
+  - Upgraded from MEDIUM to HIGH confidence
+  - Source: Meta/Facebook Social Capital Atlas research (Harvard/NYU/Stanford collaboration)
+  - Measures participation in volunteering/activism groups via Facebook network data
 - Measure 8.3: **Replaced "Volunteer Hours" with "Social Associations"** from CHR dataset (804 counties, mean: 10.63 per 10k pop)
   - Changed from state-level AmeriCorps data to county-level CBP data (NAICS 813)
   - Upgraded from MEDIUM to HIGH confidence
   - 100% coverage with no missing data
   - Measures civic infrastructure availability (membership associations) vs volunteer intensity
 - Measure 8.4: Discovered voter turnout in CHR dataset - upgraded from MEDIUM to HIGH confidence (804 counties, 2020 Presidential Election)
-- 2 measures remaining: 8.2 (Volunteer Rate - not implementing), 8.5 (Tree City USA)
+- Measure 8.5: **Implemented Civic Organizations Density from Social Capital Atlas** (782 counties, mean: 0.0176 per 1k users) ✅ NEW
+  - **REPLACEMENT**: Continuous density measure instead of binary Tree City USA designation
+  - Upgraded from MEDIUM to HIGH confidence
+  - Measures number of civic organizations with Facebook pages per 1,000 Facebook users
+  - Source: Same Social Capital Atlas dataset as measure 8.2
+- Created new Social Capital Atlas API client (`social_capital_client.py`)
+- All Component 8 measures now integrated in single collection script
 
-**Overall Progress**: 45 of 47 measures collected (96% complete)
+**Overall Progress**: ✅ **47 of 47 measures collected (100% COMPLETE!)**
+**Data Confidence**: 95.7% HIGH confidence (45 of 47 measures)
 
 ## Resources and References
 
@@ -346,4 +365,5 @@ For detailed updates, see PROJECT_PLAN.md. Major milestones listed below:
 - BLS API: https://www.bls.gov/developers/
 - Census API: https://www.census.gov/data/developers.html
 - County Health Rankings: https://zenodo.org/records/17584421
+- Social Capital Atlas: https://socialcapital.org / https://data.humdata.org/dataset/social-capital-atlas
 - FBI Crime Data Explorer: https://cde.ucr.cjis.gov/LATEST/webapp/#/pages/docApi
