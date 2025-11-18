@@ -594,11 +594,53 @@ Data collection tasks (5 measures - see API_MAPPING.md for details):
   - ✓ Measure 8.5: Civic Organizations Density from Social Capital Atlas (782 counties, mean: 0.0176 per 1k users) ✅ NEW
   - ✓ **REPLACEMENT**: Continuous density measure instead of binary Tree City USA
 
+### Phase 9: Regional Definitions
+**Status**: ✓ Virginia Complete; Other States Pending
+**Last Updated**: 2025-11-18
+
+**Objective**: Define multi-county regions for Virginia and the 9 comparison states to enable regional aggregation and peer matching.
+
+Virginia Regions (GO Virginia Framework):
+- [x] Research regional frameworks for Virginia
+- [x] Identify GO Virginia regions as optimal framework (9 economic development regions)
+- [x] Extract complete county/city-to-region mappings from VEDP and DHCD sources
+- [x] Create regional data file: `data/regions/virginia_go_regions.csv`
+- [x] Create regional data management script: `scripts/regions.py`
+- [x] Validate complete coverage: 133 localities (95 counties + 38 independent cities)
+- [x] Identify 6 rural regions for analysis (excluding Northern VA, Hampton Roads, Greater Richmond)
+
+**Virginia Regions Summary**:
+- Region 1: Southwest Virginia (13 counties, 3 cities) - Rural
+- Region 2: Central/Western Virginia (13 counties, 5 cities) - Rural
+- Region 3: Southside Virginia (13 counties, 2 cities) - Rural
+- Region 4: Greater Richmond (12 counties, 5 cities) - Metro
+- Region 5: Hampton Roads (6 counties, 10 cities) - Metro
+- Region 6: Mary Ball Washington Regional Council (14 counties, 1 city) - Rural
+- Region 7: Northern Virginia (4 counties, 5 cities) - Metro
+- Region 8: Shenandoah Valley (10 counties, 6 cities) - Rural
+- Region 9: Central Virginia (10 counties, 1 city) - Rural
+
+Comparison State Regions (USDA EDA Framework):
+- [ ] Research USDA EDA regions for Pennsylvania
+- [ ] Research USDA EDA regions for Maryland
+- [ ] Research USDA EDA regions for Delaware
+- [ ] Research USDA EDA regions for West Virginia
+- [ ] Research USDA EDA regions for Kentucky
+- [ ] Research USDA EDA regions for Tennessee
+- [ ] Research USDA EDA regions for North Carolina
+- [ ] Research USDA EDA regions for South Carolina
+- [ ] Research USDA EDA regions for Georgia
+- [ ] Create regional data files for all comparison states
+- [ ] Extend regional data management script for multi-state support
+
 **Next Steps**:
 1. ✅ **DATA COLLECTION COMPLETE**: All 47 measures collected!
-2. Later: Validate and clean all component data
-3. Later: Calculate growth rates and index scores
-4. Later: Regional aggregation and peer matching
+2. ✅ **VIRGINIA REGIONAL DEFINITIONS COMPLETE**: 9 GO Virginia regions defined
+3. Next: Define comparison state regions (USDA EDA framework)
+4. Later: Validate and clean all component data
+5. Later: Regional data aggregation (county-level to region-level)
+6. Later: Calculate growth rates and index scores
+7. Later: Peer region matching using Mahalanobis distance
 
 **Overall Progress**: ✅ **47 of 47 measures fully collected (100% COMPLETE!)**
 

@@ -1,6 +1,8 @@
 .Renviron
 .claude/settings.local.json
-/data
+/data/raw
+/data/processed
+/data/results
 
 __pycache__/
 *.pyc

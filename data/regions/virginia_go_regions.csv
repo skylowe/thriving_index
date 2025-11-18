@@ -1,0 +1,134 @@
+region_id,region_name,locality_name,locality_type,state_fips
+1,Southwest Virginia,Bland County,County,51
+1,Southwest Virginia,Buchanan County,County,51
+1,Southwest Virginia,Carroll County,County,51
+1,Southwest Virginia,Dickenson County,County,51
+1,Southwest Virginia,Grayson County,County,51
+1,Southwest Virginia,Lee County,County,51
+1,Southwest Virginia,Russell County,County,51
+1,Southwest Virginia,Scott County,County,51
+1,Southwest Virginia,Smyth County,County,51
+1,Southwest Virginia,Tazewell County,County,51
+1,Southwest Virginia,Washington County,County,51
+1,Southwest Virginia,Wise County,County,51
+1,Southwest Virginia,Wythe County,County,51
+1,Southwest Virginia,Bristol city,City,51
+1,Southwest Virginia,Galax city,City,51
+1,Southwest Virginia,Norton city,City,51
+2,Central/Western Virginia,Alleghany County,County,51
+2,Central/Western Virginia,Amherst County,County,51
+2,Central/Western Virginia,Appomattox County,County,51
+2,Central/Western Virginia,Bedford County,County,51
+2,Central/Western Virginia,Botetourt County,County,51
+2,Central/Western Virginia,Campbell County,County,51
+2,Central/Western Virginia,Craig County,County,51
+2,Central/Western Virginia,Floyd County,County,51
+2,Central/Western Virginia,Franklin County,County,51
+2,Central/Western Virginia,Giles County,County,51
+2,Central/Western Virginia,Montgomery County,County,51
+2,Central/Western Virginia,Pulaski County,County,51
+2,Central/Western Virginia,Roanoke County,County,51
+2,Central/Western Virginia,Covington city,City,51
+2,Central/Western Virginia,Lynchburg city,City,51
+2,Central/Western Virginia,Radford city,City,51
+2,Central/Western Virginia,Roanoke city,City,51
+2,Central/Western Virginia,Salem city,City,51
+3,Southside Virginia,Amelia County,County,51
+3,Southside Virginia,Brunswick County,County,51
+3,Southside Virginia,Buckingham County,County,51
+3,Southside Virginia,Charlotte County,County,51
+3,Southside Virginia,Cumberland County,County,51
+3,Southside Virginia,Halifax County,County,51
+3,Southside Virginia,Henry County,County,51
+3,Southside Virginia,Lunenburg County,County,51
+3,Southside Virginia,Mecklenburg County,County,51
+3,Southside Virginia,Nottoway County,County,51
+3,Southside Virginia,Patrick County,County,51
+3,Southside Virginia,Pittsylvania County,County,51
+3,Southside Virginia,Prince Edward County,County,51
+3,Southside Virginia,Danville city,City,51
+3,Southside Virginia,Martinsville city,City,51
+4,Greater Richmond,Charles City County,County,51
+4,Greater Richmond,Chesterfield County,County,51
+4,Greater Richmond,Dinwiddie County,County,51
+4,Greater Richmond,Goochland County,County,51
+4,Greater Richmond,Greensville County,County,51
+4,Greater Richmond,Hanover County,County,51
+4,Greater Richmond,Henrico County,County,51
+4,Greater Richmond,New Kent County,County,51
+4,Greater Richmond,Powhatan County,County,51
+4,Greater Richmond,Prince George County,County,51
+4,Greater Richmond,Surry County,County,51
+4,Greater Richmond,Sussex County,County,51
+4,Greater Richmond,Colonial Heights city,City,51
+4,Greater Richmond,Emporia city,City,51
+4,Greater Richmond,Hopewell city,City,51
+4,Greater Richmond,Petersburg city,City,51
+4,Greater Richmond,Richmond city,City,51
+5,Hampton Roads,Accomack County,County,51
+5,Hampton Roads,Isle of Wight County,County,51
+5,Hampton Roads,James City County,County,51
+5,Hampton Roads,Northampton County,County,51
+5,Hampton Roads,Southampton County,County,51
+5,Hampton Roads,York County,County,51
+5,Hampton Roads,Chesapeake city,City,51
+5,Hampton Roads,Franklin city,City,51
+5,Hampton Roads,Hampton city,City,51
+5,Hampton Roads,Newport News city,City,51
+5,Hampton Roads,Norfolk city,City,51
+5,Hampton Roads,Poquoson city,City,51
+5,Hampton Roads,Portsmouth city,City,51
+5,Hampton Roads,Suffolk city,City,51
+5,Hampton Roads,Virginia Beach city,City,51
+5,Hampton Roads,Williamsburg city,City,51
+6,Mary Ball Washington Regional Council,Caroline County,County,51
+6,Mary Ball Washington Regional Council,Essex County,County,51
+6,Mary Ball Washington Regional Council,Gloucester County,County,51
+6,Mary Ball Washington Regional Council,King and Queen County,County,51
+6,Mary Ball Washington Regional Council,King George County,County,51
+6,Mary Ball Washington Regional Council,King William County,County,51
+6,Mary Ball Washington Regional Council,Lancaster County,County,51
+6,Mary Ball Washington Regional Council,Mathews County,County,51
+6,Mary Ball Washington Regional Council,Middlesex County,County,51
+6,Mary Ball Washington Regional Council,Northumberland County,County,51
+6,Mary Ball Washington Regional Council,Richmond County,County,51
+6,Mary Ball Washington Regional Council,Spotsylvania County,County,51
+6,Mary Ball Washington Regional Council,Stafford County,County,51
+6,Mary Ball Washington Regional Council,Westmoreland County,County,51
+6,Mary Ball Washington Regional Council,Fredericksburg city,City,51
+7,Northern Virginia,Arlington County,County,51
+7,Northern Virginia,Fairfax County,County,51
+7,Northern Virginia,Loudoun County,County,51
+7,Northern Virginia,Prince William County,County,51
+7,Northern Virginia,Alexandria city,City,51
+7,Northern Virginia,Fairfax city,City,51
+7,Northern Virginia,Falls Church city,City,51
+7,Northern Virginia,Manassas city,City,51
+7,Northern Virginia,Manassas Park city,City,51
+8,Shenandoah Valley,Augusta County,County,51
+8,Shenandoah Valley,Bath County,County,51
+8,Shenandoah Valley,Clarke County,County,51
+8,Shenandoah Valley,Frederick County,County,51
+8,Shenandoah Valley,Highland County,County,51
+8,Shenandoah Valley,Page County,County,51
+8,Shenandoah Valley,Rockbridge County,County,51
+8,Shenandoah Valley,Rockingham County,County,51
+8,Shenandoah Valley,Shenandoah County,County,51
+8,Shenandoah Valley,Warren County,County,51
+8,Shenandoah Valley,Buena Vista city,City,51
+8,Shenandoah Valley,Harrisonburg city,City,51
+8,Shenandoah Valley,Lexington city,City,51
+8,Shenandoah Valley,Staunton city,City,51
+8,Shenandoah Valley,Waynesboro city,City,51
+8,Shenandoah Valley,Winchester city,City,51
+9,Central Virginia,Albemarle County,County,51
+9,Central Virginia,Culpeper County,County,51
+9,Central Virginia,Fauquier County,County,51
+9,Central Virginia,Fluvanna County,County,51
+9,Central Virginia,Greene County,County,51
+9,Central Virginia,Louisa County,County,51
+9,Central Virginia,Madison County,County,51
+9,Central Virginia,Nelson County,County,51
+9,Central Virginia,Orange County,County,51
+9,Central Virginia,Rappahannock County,County,51
+9,Central Virginia,Charlottesville city,City,51

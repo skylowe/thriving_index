@@ -42,6 +42,40 @@ Process:
 2. Then, aggregate counties into Virginia regions and comparison regions
 3. Finally, use Mahalanobis distance to select 5-8 peer regions for each Virginia region
 
+### Regional Definitions
+**Status**: Virginia regions defined; comparison state regions pending
+
+#### Virginia Regions (GO Virginia)
+Virginia uses **GO Virginia regions** - 9 economic development regions established for regional economic planning:
+
+| Region ID | Region Name | Counties | Cities | Total Localities | Rural/Metro |
+|-----------|-------------|----------|--------|------------------|-------------|
+| 1 | Southwest Virginia | 13 | 3 | 16 | Rural |
+| 2 | Central/Western Virginia | 13 | 5 | 18 | Rural |
+| 3 | Southside Virginia | 13 | 2 | 15 | Rural |
+| 4 | Greater Richmond | 12 | 5 | 17 | Metro |
+| 5 | Hampton Roads | 6 | 10 | 16 | Metro |
+| 6 | Mary Ball Washington Regional Council | 14 | 1 | 15 | Rural |
+| 7 | Northern Virginia | 4 | 5 | 9 | Metro |
+| 8 | Shenandoah Valley | 10 | 6 | 16 | Rural |
+| 9 | Central Virginia | 10 | 1 | 11 | Rural |
+
+**Coverage**: All 133 Virginia localities (95 counties + 38 independent cities)
+
+**Rural Focus**: 6 of 9 regions classified as rural (excluding Northern Virginia, Hampton Roads, Greater Richmond)
+
+**Data Files**:
+- `data/regions/virginia_go_regions.csv` - County/city to region mapping
+- `scripts/regions.py` - VirginiaRegions class for working with regional data
+
+#### Comparison State Regions (Pending)
+For the 9 comparison states (PA, MD, DE, WV, KY, TN, NC, SC, GA), the plan is to use **USDA Economic Development Administration (EDA) regions**:
+- Pre-defined, stable boundaries used for economic development planning
+- Same framework used by Nebraska Thriving Index for peer region selection
+- Facilitates direct comparison with existing research
+
+**Implementation approach**: Contact USDA EDA or state economic development offices for region definitions and shapefiles.
+
 ## Current Project Status
 
 **See PROJECT_PLAN.md for detailed progress tracking and component status.**
@@ -64,7 +98,9 @@ Process:
 
 **Next Steps**:
 - Data validation and quality checks
-- Regional aggregation (multi-county Virginia regions)
+- ✅ Regional definitions for Virginia (GO Virginia regions - COMPLETE)
+- Define comparison regions for other 9 states (PA, MD, DE, WV, KY, TN, NC, SC, GA)
+- Regional data aggregation (county-level to region-level)
 - Peer region matching using Mahalanobis distance
 - Index calculation and scoring
 
@@ -354,6 +390,23 @@ For detailed updates, see PROJECT_PLAN.md. Major milestones listed below:
 
 **Overall Progress**: ✅ **47 of 47 measures collected (100% COMPLETE!)**
 **Data Confidence**: 95.7% HIGH confidence (45 of 47 measures)
+
+**2025-11-18**: Virginia Regional Definitions Complete
+- Defined Virginia regions using **GO Virginia regions** framework
+  - 9 economic development regions covering all 133 Virginia localities (95 counties + 38 independent cities)
+  - Pre-defined, stable boundaries designed for regional economic analysis
+  - Aligns with Nebraska methodology (USDA EDA regions for comparison states)
+- Created regional data infrastructure:
+  - `data/regions/virginia_go_regions.csv` - Complete county/city-to-region mapping
+  - `scripts/regions.py` - VirginiaRegions class with lookup, validation, and filtering functions
+- Identified 6 rural regions (excluding Northern Virginia, Hampton Roads, Greater Richmond):
+  - Region 1: Southwest Virginia (13 counties, 3 cities)
+  - Region 2: Central/Western Virginia (13 counties, 5 cities)
+  - Region 3: Southside Virginia (13 counties, 2 cities)
+  - Region 6: Mary Ball Washington Regional Council (14 counties, 1 city)
+  - Region 8: Shenandoah Valley (10 counties, 6 cities)
+  - Region 9: Central Virginia (10 counties, 1 city)
+- Next steps: Define comparison regions for the other 9 states (PA, MD, DE, WV, KY, TN, NC, SC, GA)
 
 ## Resources and References
 
