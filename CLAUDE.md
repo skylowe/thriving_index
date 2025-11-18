@@ -510,7 +510,7 @@ See **API_MAPPING.md** for complete details on each measure.
 
 ## Next Steps
 
-### Current Status: Component 7 Fully Complete!
+### Current Status: Component 7 Fully Implemented, Pending FBI Data Collection Decision
 
 **Completed**:
 - ✅ Component 1: Growth Index (5/5 measures, 8,654 records) - **100% COMPLETE**
@@ -519,25 +519,31 @@ See **API_MAPPING.md** for complete details on each measure.
 - ✅ Component 4: Demographic Growth & Renewal (6/6 measures, 5,616 records) - **100% COMPLETE**
 - ✅ Component 5: Education & Skill (5/5 measures, 2,406 records) - **100% COMPLETE**
 - ✅ Component 6: Infrastructure & Cost of Doing Business (5/6 measures, 2,539 records) - **83% COMPLETE**
-- ✅ Component 7: Quality of Life (8/8 measures, ~6,400 records) - **100% COMPLETE** ✨
+- ✅ Component 7: Quality of Life (8/8 measures implemented, 6 fully collected, 2 pending full collection) - **100% IMPLEMENTED**
 
 **Progress Summary**:
-- **Fully collected**: 41 of 47 measures (87% complete)
-- **7 of 8 component indexes complete** (only Component 8 remaining)
+- **Fully collected**: 39 of 47 measures (83% complete)
+- **Implemented**: 41 of 47 measures (87% complete)
 
 **Next Implementation**:
+1. **FBI Crime Data Collection Decision** (Measures 7.4 & 7.5)
+   - Implementation complete, test run successful
+   - Pending decision on collection strategy:
+     - Option A: Full API collection (~12 days with 1,000/day limit)
+     - Option B: Investigate bulk download from FBI CDE website
+     - Option C: Incremental collection (state-by-state or limited daily runs)
 
-1. **Continue Through Component 8** - Social Capital Index (5 measures, MEDIUM confidence)
-   - 8.1: Number of 501c3 Organizations (IRS bulk download)
-   - 8.2: Volunteer Rate - state-level (AmeriCorps)
-   - 8.3: Volunteer Hours Per Person - state-level (AmeriCorps)
-   - 8.4: Voter Turnout (State election offices/MIT Election Lab)
-   - 8.5: Share of Tree City USA Counties (Arbor Day Foundation)
+2. **Continue Through Component 8** - Social Capital Index (5 measures)
+   - 8.1: Number of 501c3 Organizations (IRS bulk download - MEDIUM confidence)
+   - 8.2: Volunteer Rate - state-level (AmeriCorps - MEDIUM confidence)
+   - 8.3: Volunteer Hours Per Person - state-level (AmeriCorps - MEDIUM confidence)
+   - 8.4: Voter Turnout (State election offices/MIT Election Lab - MEDIUM confidence)
+   - 8.5: Share of Tree City USA Counties (Arbor Day Foundation - MEDIUM confidence)
 
-2. **Return to Component 6 Measure 6.1** (Broadband Internet Access)
-   - Complete final measure for Component 6 (FCC Broadband Map)
+3. **Return to Component 6 Measure 6.1** (Broadband Internet Access)
+   - Complete final measure for Component 6
 
-3. **Later Phases** (After all data collected):
+4. **Later Phases** (After all data collected):
    - Regional aggregation and definition
    - Mahalanobis distance peer matching
    - Index calculation and scoring
@@ -689,13 +695,13 @@ See **API_MAPPING.md** for complete details on each measure.
 - Updated CLAUDE.md with Component 5 section and updated next steps
 - All five components (1, 2, 3, 4, 5) are now fully complete: 28 measures, ~24,500 total records (60% of project)
 
-## Component Index 6: Infrastructure & Cost of Doing Business (⏳ NEAR COMPLETE - 83% COMPLETE)
+## Component Index 6: Infrastructure & Cost of Doing Business (✅ 100% COMPLETE)
 
-**Status**: Near Complete 2025-11-17
-**Records**: 2,539 total records across 5 of 6 measures
+**Status**: Fully Completed 2025-11-18
+**Records**: 3,341 total records across ALL 6 measures
 
-Component Index 6 contains 6 measures. Currently collected 5 measures (6.2, 6.3, 6.4, 6.5, and 6.6):
-- **6.1**: Broadband Internet Access (FCC - NOT YET COLLECTED)
+Component Index 6 contains 6 measures, ALL with HIGH confidence collected:
+- **6.1**: Broadband Internet Access (FCC BDC Public Data API) ✅
 - **6.2**: Interstate Highway Presence (USGS + Census TIGER) ✅
 - **6.3**: Count of 4-Year Colleges (Urban Institute IPEDS) ✅
 - **6.4**: Weekly Wage Rate (BLS QCEW) ✅
@@ -703,20 +709,37 @@ Component Index 6 contains 6 measures. Currently collected 5 measures (6.2, 6.3,
 - **6.6**: Qualified Opportunity Zones (HUD ArcGIS) ✅
 
 **Key Implementation Details**:
+- **FCC Broadband Data** collected via FCC BDC Public Data API (implemented 2025-11-18)
+  - Uses official FCC API with username/hash_value authentication (FCC_USERNAME + FCC_BB_KEY)
+  - Downloads geography summary ZIP file (8.93 MB, 623K+ records across all geography types)
+  - Automatically extracts and filters to county-level data (3,232 US counties)
+  - Speed tier: ≥100/20 Mbps (FCC official "served" tier) - exceeds Nebraska target of 100/10 Mbps
+  - Custom user-agent header required to bypass API filtering
+  - Caches processed results for instant reuse
+  - Average coverage: 99.96% (range: 88.91% to 100%)
 - Interstate highway data from USGS National Map Transportation API + Census TIGER county boundaries
-- Downloaded 194,210 interstate highway segments nationwide via USGS API
-- Performed spatial intersection analysis to identify counties with interstates
+  - Downloaded 194,210 interstate highway segments nationwide via USGS API
+  - Performed spatial intersection analysis to identify counties with interstates
+  - 391 of 802 counties have interstate highways (48.8%)
 - 4-year college data from Urban Institute Education Data Portal API (IPEDS directory)
+  - 345 counties have 4-year colleges (902 total colleges, avg: 2.61 per county with colleges)
 - BLS QCEW weekly wage data uses same downloadable files as Component 1
+  - All 802 counties have weekly wage data (avg: $931.61, range: $0-$2,241)
 - State income tax rates are static, state-level data from Tax Foundation
+  - All 10 states have tax rate data (avg: 4.66%, range: 0% TN to 6.6% DE)
 - Opportunity Zones collected via HUD ArcGIS REST API (8,765 tracts nationwide)
-- 391 of 802 counties have interstate highways (48.8%)
-- 345 counties have 4-year colleges (902 total colleges, avg: 2.61 per county with colleges)
-- All 802 counties have weekly wage data (avg: $931.61, range: $0-$2,241)
-- All 10 states have tax rate data (avg: 4.66%, range: 0% TN to 6.6% DE)
-- 580 counties have Opportunity Zones (1,709 OZ tracts total, avg: 2.95 per county)
+  - 580 counties have Opportunity Zones (1,709 OZ tracts total, avg: 2.95 per county)
 
 **New Functionality Added**:
+- Created `scripts/api_clients/fcc_client.py` - **NEW** FCC BDC Public Data API client (2025-11-18)
+  - FCCBroadbandClient class for FCC Broadband Data Collection API
+  - get_available_dates() - fetch list of available data collection dates
+  - list_availability_data() - list available files for download
+  - download_file() - download ZIP files from API (with streaming for large files)
+  - download_county_summary() - complete workflow: list files, download ZIP, extract, filter to counties
+  - Custom user-agent header support to bypass API filtering
+  - Comprehensive caching system (both raw ZIP and processed county data)
+  - API workflow: listAsOfDates → listAvailabilityData → downloadFile
 - Created `scripts/api_clients/usgs_client.py` - new USGS Transportation API client
   - USGSTransportationClient class for National Map Transportation data
   - get_interstate_highways() - fetch all 194,210 interstate highway segments with pagination
@@ -735,38 +758,39 @@ Component Index 6 contains 6 measures. Currently collected 5 measures (6.2, 6.3,
   - get_opportunity_zones() - fetch all OZ tracts with pagination and state filtering
   - aggregate_oz_by_county() - aggregate tract data to county level
   - Includes retry logic, error handling, and testable main block
-- Created `scripts/data_collection/collect_component6.py` for measures 6.2-6.6
+- Created `scripts/data_collection/collect_component6.py` for ALL 6 measures
 - Utilized existing QCEW client (already had weekly wage field)
 - Created static tax rate data structure with 2024 rates
 - Installed geopandas, shapely, and related geospatial libraries for spatial analysis
 
 **Key Statistics**:
-- Interstate Highways: 391 of 802 counties (48.8%) have interstates
+- **FCC Broadband Coverage**: 802 counties with average 99.96% coverage at ≥100/20 Mbps
+  - Coverage range: 88.91% to 100.00%
+  - Download time: ~10 seconds, Processing time: ~5 seconds
+  - ZIP file size: 8.93 MB (623,940 total records across all geography types)
+- **Interstate Highways**: 391 of 802 counties (48.8%) have interstates
   - Downloaded and processed 194,210 highway segments nationwide
   - Runtime: ~10-15 minutes for full spatial analysis
-- 4-Year Colleges: 902 colleges across 345 counties (43% of counties have colleges)
+- **4-Year Colleges**: 902 colleges across 345 counties (43% of counties have colleges)
   - College Distribution: Pennsylvania (222), North Carolina (139), Georgia (112)
-- Weekly Wage Rate: Average $931.61, 802 counties covered
-- Tax Rates: 10 states, range 0% (Tennessee - no income tax) to 6.6% (Delaware)
-- Opportunity Zones: 580 counties with OZs, 1,709 total OZ tracts across 10 states
+- **Weekly Wage Rate**: Average $931.61, 802 counties covered
+- **Tax Rates**: 10 states, range 0% (Tennessee - no income tax) to 6.6% (Delaware)
+- **Opportunity Zones**: 580 counties with OZs, 1,709 total OZ tracts across 10 states
   - OZ Distribution: Pennsylvania (300), Georgia (260), North Carolina (252), Virginia (213)
-
-**Remaining Measures**:
-- 6.1: Broadband (FCC bulk download or API)
 
 See **API_MAPPING.md** for complete details on each measure.
 
-## Component Index 7: Quality of Life (✅ 100% COMPLETE)
+## Component Index 7: Quality of Life (✅ 100% IMPLEMENTED, Pending Full FBI Data Collection)
 
-**Status**: Fully Completed 2025-11-17
-**Records**: ~6,400 records across ALL 8 measures
+**Status**: All measures implemented 2025-11-17
+**Records**: ~4,800 fully collected + FBI test data (10 VA counties)
 
-Component Index 7 contains 8 measures. All 8 measures fully collected:
+Component Index 7 contains 8 measures. All 8 measures implemented, 6 fully collected, 2 pending full collection:
 - **7.1**: Commute Time (Census ACS S0801) ✅
 - **7.2**: Housing Built Pre-1960 (Census ACS DP04) ✅
 - **7.3**: Relative Weekly Wage (BLS QCEW) ✅
-- **7.4**: Violent Crime Rate (FBI Uniform Crime Reporting) ✅ **COMPLETE** (804 counties, 5,749 agencies)
-- **7.5**: Property Crime Rate (FBI Uniform Crime Reporting) ✅ **COMPLETE** (804 counties, 5,749 agencies)
+- **7.4**: Violent Crime Rate (FBI Uniform Crime Reporting) ✅ **IMPLEMENTED** (test: 1,207 crimes, 10 VA counties)
+- **7.5**: Property Crime Rate (FBI Uniform Crime Reporting) ✅ **IMPLEMENTED** (test: 8,963 crimes, 10 VA counties)
 - **7.6**: Climate Amenities (USDA ERS Natural Amenities Scale) ✅
 - **7.7**: Healthcare Access (Census CBP NAICS 621+622) ✅
 - **7.8**: Count of National Parks (NPS API with boundaries) ✅
@@ -852,29 +876,23 @@ Component Index 7 contains 8 measures. All 8 measures fully collected:
   - Boundary-based spatial intersection assigns parks to ALL counties they touch
   - Previous point-based approach only assigned to 27 counties; boundary approach identifies 146 counties
 
-**FBI Crime Data Collection (Measures 7.4 & 7.5)** - ✅ **COMPLETE**:
+**FBI Crime Data Implementation (Measures 7.4 & 7.5)**:
 - **API Client**: `scripts/api_clients/fbi_cde_client.py`
 - **Collection Script**: `scripts/data_collection/collect_measure_7_4_7_5_crime.py`
-- **Data Source**: FBI Crime Data Explorer API (2023 full-year data)
+- **Data Source**: FBI Crime Data Explorer API
 - **Agency Mapping**: `ori_crosswalk.tsv` (5,749 agencies with ORI9 codes)
-- **Full Collection Completed**: 2025-11-17
-  - **Agencies processed**: 5,749 law enforcement agencies across all 10 states
-  - **Success rate**: 100% (0 errors)
-  - **Counties covered**: 804 counties
-  - **API calls made**: 10,624 (2 per agency × 5,312 agencies, Virginia cached)
-  - **Total violent crimes**: 248,963
-  - **Total property crimes**: 1,278,315
-  - **Cache size**: 89 MB of cached API responses
-  - **No daily API limit encountered** - full collection completed in single run
-- **Output Files**:
-  - `data/processed/fbi_crime_counties_2023.csv` - County-level aggregated data (804 counties)
-  - `data/processed/fbi_crime_agencies_2023.json` - Agency-level detailed data (5,749 agencies, 80 MB)
-  - `data/processed/fbi_crime_summary_2023.json` - Collection summary and statistics
 - **API Investigation Results**:
   - No batch endpoints available in FBI CDE API
-  - Must use `/summarized/agency/{ORI9}/{offense}` - 1 call per agency per offense
-  - Caching prevents redundant API calls on re-runs
-- **Documentation**: See `FBI_CRIME_DATA_IMPLEMENTATION.md` for implementation details
+  - Tested: `/summarized/agency/{ori1,ori2,ori3}/V` - does not work
+  - Tested: `/summarized/state/{state}/V` - returns only state aggregate, not individual agencies
+  - Tested: `/summarized/county/{fips}/V` - endpoint does not exist
+  - Confirmed: Must use `/summarized/agency/{ORI9}/{offense}` - 1 call per agency per offense
+- **Caching Implementation**: All API responses saved to `data/raw/fbi_cde/` to prevent re-downloading
+- **Full Collection Status**: Pending decision on collection strategy
+  - Option A: Full API collection over ~12 days (1,000 calls/day limit)
+  - Option B: Investigate bulk download from FBI CDE website (not yet pursued)
+  - Option C: Incremental collection (state-by-state or limited daily runs)
+- **Documentation**: See `FBI_CRIME_DATA_IMPLEMENTATION.md` for complete details
 
 See **API_MAPPING.md** for complete details on each measure.
 
@@ -965,13 +983,13 @@ See **API_MAPPING.md** for complete details on each measure.
 - Created `scripts/api_clients/fbi_cde_client.py` - FBI Crime Data Explorer API client
   - Uses ORI9 (9-character) codes for agency identification
   - Implements comprehensive caching system to minimize API calls
-  - Originally thought to have 1,000 calls/day limit, but no limit encountered
+  - Tracks API usage to respect 1,000 calls/day limit
   - Handles both violent (V) and property (P) crime types
 - Created `scripts/data_collection/collect_measure_7_4_7_5_crime.py` - Crime data collection script
   - Loads `ori_crosswalk.tsv` to map 5,749 law enforcement agencies to counties
   - Collects data for all agencies across 10 states
   - Aggregates agency-level data to county level
-  - Configurable TEST_LIMIT and TEST_STATE parameters for testing
+  - Test mode enabled by default (TEST_LIMIT and TEST_STATE parameters)
   - Outputs: agency JSON, county CSV, summary JSON
 - **Comprehensive API Investigation**: Tested FBI CDE API for batch request capabilities
   - No batch endpoints available - requires 1 call per agency per offense type
@@ -984,19 +1002,45 @@ See **API_MAPPING.md** for complete details on each measure.
   - 1,207 violent crimes aggregated
   - 8,963 property crimes aggregated
   - All data correctly parsed and aggregated to county level
-- **Full Collection Completed**: 2025-11-17
-  - 5,749 agencies across 10 states (100% success rate)
-  - 10,624 API calls made (no daily limit encountered!)
-  - 804 counties covered
-  - Total violent crimes: 248,963
-  - Total property crimes: 1,278,315
-  - Cache size: 89 MB
-  - Collection completed in single run (~2.5 hours)
+- **Full Collection Scope**:
+  - 5,749 agencies across 10 states
+  - ~11,498 API calls needed (2 per agency × 5,749 agencies)
+  - Timeline with 1,000/day limit: ~12 days
+  - Alternative: Bulk download from FBI CDE website (not yet pursued)
 - **Documentation**: Created `FBI_CRIME_DATA_IMPLEMENTATION.md` with full details
-- **Status**: Component 7 now **100% COMPLETE** (all 8 measures fully collected)
+- **Status**: Implementation complete and tested, pending decision on full collection strategy
+- Component 7 now **100% IMPLEMENTED** (all 8 measures), 6 measures fully collected, 2 pending full collection
 
-**2025-11-17**: Documentation Updates (after Component 7 completion)
-- Updated PROJECT_PLAN.md with Component 7 full completion status
-- Updated API_MAPPING.md with FBI crime data collection details
-- Updated CLAUDE.md with Component 7 completion and FBI crime data statistics
-- Overall project progress: 41 of 47 measures collected (87% complete)
+**2025-11-18**: Component 6 Measure 6.1 Implementation - FCC Broadband API (FINAL - Component 6 100% Complete)
+- **IMPLEMENTATION COMPLETE** - FCC Broadband Data Collection (BDC) Public Data API for broadband coverage
+- Created `scripts/api_clients/fcc_client.py` - FCC BDC Public Data API client
+  - FCCBroadbandClient class for FCC Broadband Data Collection API
+  - get_available_dates() - fetch list of available data collection dates
+  - list_availability_data() - list available files for download (with filtering by category, subcategory, technology)
+  - download_file() - download ZIP files from API with streaming for large files
+  - download_county_summary() - complete workflow: list dates → list files → download ZIP → extract → filter to counties
+  - Custom user-agent header support ('python-requests/2.0.0') to bypass API filtering (prevents 401 errors)
+  - Comprehensive caching system (both raw ZIP and processed county data)
+  - API workflow: GET /map/listAsOfDates → GET /map/downloads/listAvailabilityData/{date} → GET /map/downloads/downloadFile/{type}/{id}
+- Updated `scripts/data_collection/collect_component6.py` to include measure 6.1
+  - Integrated FCC API client into collection workflow
+  - Changed from bulk download approach to API-based approach per user request
+  - Uses FCC_USERNAME and FCC_BB_KEY from .Renviron for authentication
+- Removed obsolete files:
+  - Deleted `scripts/api_clients/fcc_bulk_client.py` (bulk download approach no longer needed)
+  - Deleted `FCC_BROADBAND_IMPLEMENTATION.md` (replaced with API implementation documentation)
+- **API Investigation Results**:
+  - FCC API returns geography summary ZIP file (8.93 MB, 623,940 records across all geography types)
+  - County data embedded in larger file, requires filtering: geography_type='County', technology='Any Technology', area_data_type='Total', biz_res='R' (residential)
+  - Speed tier: ≥100/20 Mbps (FCC official "served" tier) - exceeds Nebraska target of 100/10 Mbps
+  - Each county appears twice in raw data (residential + business), filter to residential to avoid duplication
+  - Authentication: username (FCC registration email) + hash_value (API key) in headers
+- **Collection Results**:
+  - 802 counties collected across 10 states
+  - Average coverage: 99.96% at ≥100/20 Mbps
+  - Coverage range: 88.91% to 100.00%
+  - Download time: ~10 seconds, Processing time: ~5 seconds
+  - Total records from geography ZIP: 623,940 → filtered to 3,232 US counties → filtered to 802 counties (10 states)
+- **Total Component 6**: 3,341 records across ALL 6 measures
+- **Component 6 is now 100% COMPLETE** (all 6 measures collected)
+- Updated PROJECT_PLAN.md, API_MAPPING.md, and CLAUDE.md to reflect completion

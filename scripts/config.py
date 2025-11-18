@@ -77,6 +77,8 @@ BLS_API_KEY = get_api_key('BLS_API_KEY', ENV_VARS)
 NASSQS_TOKEN = get_api_key('NASSQS_TOKEN', ENV_VARS)
 FBI_UCR_KEY = get_api_key('FBI_UCR_KEY', ENV_VARS)
 NPS_API_KEY = get_api_key('NPS_KEY', ENV_VARS)
+FCC_BB_KEY = get_api_key('FCC_BB_KEY', ENV_VARS)
+FCC_USERNAME = get_api_key('FCC_USERNAME', ENV_VARS)
 
 # Project paths
 PROJECT_ROOT = Path(__file__).resolve().parent.parent

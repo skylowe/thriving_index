@@ -792,25 +792,69 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 
 ---
 
-## Component Index 6: Infrastructure & Cost of Doing Business (6 measures)
+## Component Index 6: Infrastructure & Cost of Doing Business (6 measures) - COLLECTION STATUS
+
+**✅ COLLECTION STATUS: COMPLETE** (as of 2025-11-18)
+- **Total Records**: 3,341 records across all 6 measures
+- **Counties Covered**: 802 counties across 10 states (VA, PA, MD, DE, WV, KY, TN, NC, SC, GA)
+- **Summary File**: `data/processed/component6_collection_summary.json`
+- **Collection Script**: `scripts/data_collection/collect_component6.py`
+
+**Key Statistics**:
+- FCC Broadband Coverage: Average 99.96% at ≥100/20 Mbps (range: 88.91% to 100%)
+- Interstate Highway Presence: 391 of 802 counties (48.8%) have interstates
+- 4-Year Colleges: 345 counties with colleges, 902 total colleges
+- Weekly Wage Rate: Average $931.61 (range: $0 to $2,241)
+- State Income Tax Rates: 0% (Tennessee) to 6.6% (Delaware)
+- Opportunity Zones: 580 counties with OZs, 1,709 total OZ tracts
 
 **Note**: This index measures infrastructure quality and business environment conditions following Nebraska Thriving Index methodology exactly.
 
-### 6.1 Broadband Internet Access
+---
+
+### 6.1 Broadband Internet Access ✅ DATA COLLECTED
 
 - **Nebraska Source**: FCC Broadband Availability, December 2020
 - **Nebraska Metric**: Percent of population with one or more broadband providers with 100/10Mbps capacity
-- **Virginia API Source**: FCC Broadband Map API
-- **API Endpoint**: `https://broadbandmap.fcc.gov/api`
-- **Technology**: ADSL, Cable, Fiber, Fixed Wireless, Satellite, Other at ≥100/10 Mbps
-- **Confidence**: 🟡 **MEDIUM**
+- **Virginia API Source**: FCC Broadband Data Collection (BDC) Public Data API
+- **API Endpoint**: `https://broadbandmap.fcc.gov/api/public/map`
+- **API Client**: `scripts/api_clients/fcc_client.py`
+- **Authentication**: Requires username + hash_value headers (FCC_USERNAME and FCC_BB_KEY in .Renviron)
+- **Technology**: Fixed Broadband, Any Technology at ≥100/20 Mbps (FCC "served" tier)
+- **Confidence**: ✅ **HIGH** (API implemented successfully)
+- **Collection Date**: 2025-11-18
 - **Notes**:
-  - FCC API key pending (FCC_API_KEY environment variable not yet available)
-  - Placeholder implementation strategy documented in FCC_PLACEHOLDER_DESIGN.md
-  - Can use FCC National Broadband Map bulk data as alternative
+  - FCC BDC Public Data API provides comprehensive broadband coverage data
+  - API workflow: listAsOfDates → listAvailabilityData → downloadFile (ZIP extraction required)
+  - Downloads geography summary ZIP file (8.93 MB, 623,940 records across all geography types)
+  - Automatically extracts and filters to county-level data (3,232 US counties total)
+  - Speed tier: 100/20 Mbps (download/upload) - exceeds Nebraska target of 100/10 Mbps
+  - FCC "served" definition: ≥100/20 Mbps for Fixed Broadband
+  - Custom user-agent header required to bypass API filtering
+  - Caching implemented: processed county results cached for instant reuse
   - Critical infrastructure measure for business operations and attraction
-  - Available at county level
-- **Data Year for Virginia**: Use most recent FCC Broadband Map data available (likely 2022-2023)
+  - Available at county level with excellent coverage (avg 99.96%)
+- **Implementation**: FCC BDC Public Data API with authentication, ZIP download, extraction, and filtering
+- **Data Year for Virginia**: December 2024 (as_of_date: 2024-12-31)
+- **Data Files**:
+  - **Raw ZIP**: `data/raw/fcc/api_cache/geo_summary_2024-12-31.zip` (8.93 MB)
+  - **Extracted Cache**: `data/raw/fcc/api_cache/extracted/` (geography summary CSV)
+  - **Processed Cache**: `data/raw/fcc/api_cache/county_summary_2024-12-31.csv` (county-level, 3,232 US counties)
+  - **Filtered Output**: `data/raw/fcc/api/fcc_broadband_100_20.csv` (802 counties, 10 states)
+  - **Processed**: `data/processed/fcc_broadband_availability_100_20.csv` (802 counties)
+- **Collection Results**:
+  - Total counties collected: 802 counties across 10 states
+  - Average coverage: 99.96% at ≥100/20 Mbps
+  - Coverage range: 88.91% to 100.00%
+  - Speed tier: ≥100/20 Mbps (download/upload)
+  - Download time: ~10 seconds, Processing time: ~5 seconds
+- **Technical Notes**:
+  - API Swagger spec: https://www.fcc.gov/sites/default/files/bdc-public-data-api-spec.pdf
+  - Filtering logic: geography_type='County', technology='Any Technology', area_data_type='Total', biz_res='R' (residential)
+  - Each county appears twice in raw data (residential + business), filter to residential to avoid duplication
+  - Authentication headers: username (FCC registration email), hash_value (API key)
+  - Custom user-agent: 'python-requests/2.0.0' (prevents 401 errors from API filtering)
+  - Coverage metric: speed_100_20 column (percentage 0-100)
 
 ### 6.2 Presence of Interstate Highway ✅ DATA COLLECTED
 

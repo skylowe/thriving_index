@@ -2,13 +2,14 @@
 Component Index 6: Infrastructure & Cost of Doing Business
 
 This script collects data for Component 6 measures:
+- 6.1: Broadband Internet Access (FCC BDC Public Data API)
 - 6.2: Interstate Highway Presence (USGS National Map Transportation API)
 - 6.3: Count of 4-Year Colleges (Urban Institute IPEDS)
 - 6.4: Weekly Wage Rate (BLS QCEW)
 - 6.5: Top Marginal Income Tax Rate (Tax Foundation - static data)
 - 6.6: Qualified Opportunity Zones (HUD ArcGIS)
 
-Note: Measure 6.1 (Broadband Internet Access) requires FCC data and will be implemented separately.
+All 6 measures are now implemented and can be collected via this script.
 """
 
 import sys
@@ -24,6 +25,8 @@ from api_clients.qcew_client import QCEWClient
 from api_clients.hud_client import HUDClient
 from api_clients.urban_institute_client import UrbanInstituteClient
 from api_clients.usgs_client import USGSTransportationClient
+from api_clients.fcc_client import FCCBroadbandClient  # Using API approach
+from api_clients.census_client import CensusClient
 
 # State income tax rates (2024 tax year)
 # Source: Tax Foundation (https://taxfoundation.org/data/all/state/state-income-tax-rates/)
@@ -231,6 +234,98 @@ def collect_opportunity_zones():
     return county_oz_counts
 
 
+def collect_broadband_data(min_download_speed=100, min_upload_speed=20, as_of_date=None):
+    """
+    Collect broadband availability data from FCC Broadband Data Collection API (Measure 6.1).
+
+    Source: FCC Broadband Data Collection (BDC) Public Data API
+    Method: API download of geography summary file, extract and filter to counties
+
+    Args:
+        min_download_speed: Minimum download speed in Mbps (default 100)
+        min_upload_speed: Minimum upload speed in Mbps (default 20, FCC "served" tier)
+        as_of_date: Data collection date (YYYY-MM-DD) or None for latest
+
+    Returns:
+        DataFrame with county-level broadband availability data
+    """
+    print("\n" + "="*80)
+    print("MEASURE 6.1: Broadband Internet Access")
+    print("="*80)
+    print(f"Source: FCC Broadband Data Collection (BDC) Public Data API")
+    print(f"Method: API download and local processing")
+    print(f"Metric: Percent of locations with broadband ≥{min_download_speed}/{min_upload_speed} Mbps")
+
+    # Initialize FCC Broadband API client
+    try:
+        client = FCCBroadbandClient()
+    except Exception as e:
+        print(f"\nError initializing FCC API client: {str(e)}")
+        print("Note: This requires FCC_BB_KEY and FCC_USERNAME in .Renviron or environment variables")
+        return pd.DataFrame()
+
+    # Get state FIPS codes
+    state_fips_list = list(STATE_FIPS.values())
+    print(f"\nFetching broadband data for {len(state_fips_list)} states...")
+
+    # Download and process broadband data using API
+    try:
+        result = client.download_county_summary(
+            as_of_date=as_of_date,  # None will fetch latest
+            state_fips_list=state_fips_list,
+            use_cache=True
+        )
+
+    except ValueError as e:
+        # API credentials not set
+        print(f"\n{str(e)}")
+        print("\nBroadband data collection requires FCC API credentials.")
+        print("Set FCC_BB_KEY and FCC_USERNAME in your .Renviron file.")
+        print("Returning empty DataFrame.")
+        return pd.DataFrame()
+
+    except Exception as e:
+        print(f"\nError collecting broadband data: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        return pd.DataFrame()
+
+    if result.empty:
+        print("ERROR: No broadband data collected")
+        return pd.DataFrame()
+
+    # Rename columns to match expected format
+    # API returns: county_fips, county_name, total_locations, percent_covered_100_20
+    result = result.rename(columns={
+        'percent_covered_100_20': 'percent_covered'
+    })
+
+    # Add speed tier columns for documentation
+    result['min_download_mbps'] = min_download_speed
+    result['min_upload_mbps'] = min_upload_speed
+
+    # Save raw data
+    raw_output = RAW_DATA_DIR / 'fcc' / 'api' / f'fcc_broadband_{min_download_speed}_{min_upload_speed}.csv'
+    raw_output.parent.mkdir(parents=True, exist_ok=True)
+    result.to_csv(raw_output, index=False)
+    print(f"\n✓ Saved raw data: {raw_output}")
+
+    # Save processed data
+    processed_output = PROCESSED_DATA_DIR / f'fcc_broadband_availability_{min_download_speed}_{min_upload_speed}.csv'
+    result.to_csv(processed_output, index=False)
+    print(f"✓ Saved processed data: {processed_output}")
+
+    # Print summary statistics
+    print(f"\n--- Summary Statistics ---")
+    print(f"Total counties: {len(result)}")
+    print(f"Average broadband coverage: {result['percent_covered'].mean():.2f}%")
+    print(f"Median broadband coverage: {result['percent_covered'].median():.2f}%")
+    print(f"Min coverage: {result['percent_covered'].min():.2f}%")
+    print(f"Max coverage: {result['percent_covered'].max():.2f}%")
+
+    return result
+
+
 def collect_interstate_highways():
     """
     Identify counties with interstate highways using USGS National Map Transportation API (Measure 6.2).
@@ -367,16 +462,36 @@ def collect_four_year_colleges(year=2022):
     return county_college_counts
 
 
-def create_collection_summary(interstate_df, college_df, weekly_wage_df, tax_rate_df, oz_df):
+def create_collection_summary(broadband_df, interstate_df, college_df, weekly_wage_df, tax_rate_df, oz_df):
     """Create a summary of Component 6 data collection."""
+
+    # Determine completion status
+    measures_collected = 5  # Default (6.2-6.6)
+    if not broadband_df.empty:
+        measures_collected = 6  # All 6 measures
+
+    completion_pct = (measures_collected / 6) * 100
+
     summary = {
         'component': 'Component 6: Infrastructure & Cost of Doing Business',
         'collection_date': pd.Timestamp.now().isoformat(),
-        'measures_collected': 5,
+        'measures_collected': measures_collected,
         'total_measures': 6,
-        'completion_percentage': 83.3,
-        'notes': 'Measures 6.2-6.6 collected. Measure 6.1 (Broadband) requires FCC data.',
+        'completion_percentage': completion_pct,
+        'notes': f'{measures_collected} of 6 measures collected.',
         'measures': {
+            '6.1_broadband': {
+                'name': 'Broadband Internet Access',
+                'source': 'FCC Broadband Data Collection (BDC) Public Data API',
+                'year': 2024,
+                'records': len(broadband_df),
+                'counties': len(broadband_df),
+                'avg_coverage': float(broadband_df['percent_covered'].mean()) if not broadband_df.empty and 'percent_covered' in broadband_df.columns else None,
+                'files': [
+                    'data/raw/fcc/fcc_broadband_100_10.csv',
+                    'data/processed/fcc_broadband_availability_100_10.csv'
+                ]
+            },
             '6.2_interstate_highways': {
                 'name': 'Interstate Highway Presence',
                 'source': 'USGS National Map Transportation API + Census TIGER',
@@ -454,11 +569,19 @@ def create_collection_summary(interstate_df, college_df, weekly_wage_df, tax_rat
 
 
 def main():
-    """Main function to collect Component 6 data (measures 6.2-6.6)."""
+    """Main function to collect Component 6 data (all 6 measures)."""
     print("="*80)
     print("COMPONENT 6: INFRASTRUCTURE & COST OF DOING BUSINESS INDEX")
-    print("Collection: Measures 6.2, 6.3, 6.4, 6.5, and 6.6")
+    print("Collection: All 6 measures (6.1-6.6)")
     print("="*80)
+
+    # Collect Measure 6.1: Broadband Internet Access
+    try:
+        broadband_df = collect_broadband_data(min_download_speed=100, min_upload_speed=10)
+    except Exception as e:
+        print(f"\nWarning: Broadband data collection failed: {str(e)}")
+        print("Continuing with remaining measures...")
+        broadband_df = pd.DataFrame()  # Empty DataFrame if collection fails
 
     # Collect Measure 6.2: Interstate Highway Presence
     interstate_df = collect_interstate_highways()
@@ -476,25 +599,43 @@ def main():
     oz_df = collect_opportunity_zones()
 
     # Create collection summary
-    summary = create_collection_summary(interstate_df, college_df, weekly_wage_df, tax_rate_df, oz_df)
+    summary = create_collection_summary(broadband_df, interstate_df, college_df, weekly_wage_df, tax_rate_df, oz_df)
 
     print("\n" + "="*80)
     print("COMPONENT 6 DATA COLLECTION COMPLETE")
     print("="*80)
-    print(f"Measures collected: 5 of 6 ({summary['completion_percentage']:.1f}%)")
-    total_records = (summary['measures']['6.2_interstate_highways']['records'] +
-                     summary['measures']['6.3_four_year_colleges']['records'] +
-                     summary['measures']['6.4_weekly_wage']['records'] +
-                     summary['measures']['6.5_tax_rate']['records'] +
-                     summary['measures']['6.6_opportunity_zones']['records'])
+    print(f"Measures collected: {summary['measures_collected']} of 6 ({summary['completion_percentage']:.1f}%)")
+
+    # Calculate total records
+    total_records = (
+        summary['measures']['6.1_broadband']['records'] +
+        summary['measures']['6.2_interstate_highways']['records'] +
+        summary['measures']['6.3_four_year_colleges']['records'] +
+        summary['measures']['6.4_weekly_wage']['records'] +
+        summary['measures']['6.5_tax_rate']['records'] +
+        summary['measures']['6.6_opportunity_zones']['records']
+    )
     print(f"Total records: {total_records}")
+
+    # Print measure-by-measure summary
+    if summary['measures']['6.1_broadband']['records'] > 0:
+        avg_coverage = summary['measures']['6.1_broadband']['avg_coverage']
+        if avg_coverage is not None:
+            print(f"  - Broadband: {summary['measures']['6.1_broadband']['counties']} counties (avg coverage: {avg_coverage:.2f}%)")
+        else:
+            print(f"  - Broadband: {summary['measures']['6.1_broadband']['counties']} counties")
+    else:
+        print(f"  - Broadband: Not collected (FCC API key may be missing or invalid)")
+
     print(f"  - Interstate highways: {summary['measures']['6.2_interstate_highways']['counties']} counties ({summary['measures']['6.2_interstate_highways']['counties_with_interstate']} with interstates)")
     print(f"  - 4-Year Colleges: {summary['measures']['6.3_four_year_colleges']['counties']} counties, {summary['measures']['6.3_four_year_colleges']['total_colleges']} colleges total")
     print(f"  - Weekly wages: {summary['measures']['6.4_weekly_wage']['records']} counties")
     print(f"  - Tax rates: {summary['measures']['6.5_tax_rate']['records']} states")
     print(f"  - Opportunity Zones: {summary['measures']['6.6_opportunity_zones']['counties_with_oz']} counties, {summary['measures']['6.6_opportunity_zones']['total_oz_tracts']} OZ tracts")
-    print("\nRemaining measures:")
-    print("  - Measure 6.1: Broadband Internet Access (FCC data)")
+
+    if summary['measures_collected'] < 6:
+        print("\nNote: Some measures were not collected. Check error messages above.")
+
     print("="*80)
 
 
