@@ -285,15 +285,15 @@ def main():
     # Configuration
     CROSSWALK_FILE = PROJECT_ROOT / 'ori_crosswalk.tsv'
     OUTPUT_DIR = PROCESSED_DATA_DIR
-    FROM_DATE = '01-2022'  # Full year 2022
-    TO_DATE = '12-2022'
-    YEAR = '2022'
+    FROM_DATE = '01-2023'  # Full year 2023
+    TO_DATE = '12-2023'
+    YEAR = '2023'
 
     # TEST MODE: Set to a small number for testing, None for full collection
     # WARNING: Full collection requires ~11,486 API calls (5,743 agencies × 2)
-    TEST_LIMIT = 30  # Test with 30 agencies
-    TEST_STATE = 'VIRGINIA'  # Test with a specific state that has data
-    # TEST_LIMIT = None  # Uncomment for full collection
+    # TEST_LIMIT = 30  # Test with 30 agencies
+    TEST_STATE = 'VIRGINIA'  # Collecting Virginia agencies only
+    TEST_LIMIT = None  # Full collection for Virginia
     # TEST_STATE = None  # Uncomment to include all states
 
     if TEST_LIMIT or TEST_STATE:
