@@ -1,7 +1,7 @@
 # Virginia Thriving Index - API Source Mapping
 
 **Last Updated**: 2025-11-18
-**Status**: Components 1-7 complete (100%); Component 8 not started (5 measures remaining)
+**Status**: Components 1-7 complete (100%); Component 8 in progress (1 of 5 measures complete - 20%)
 
 ---
 
@@ -1253,18 +1253,35 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 - **Nebraska Source**: Tax Exempt World, 2022
 - **Nebraska Metric**: Count of non-profit 501(c)(3) organizations per 1,000 persons
 - **Virginia API Source**: IRS Exempt Organizations Business Master File (EO BMF)
-- **Data Source**: IRS bulk download
+- **Data Source**: IRS bulk download (state-level CSV files)
 - **Confidence**: 🟡 **MEDIUM** (bulk download, no direct API)
+- **Collection Status**: ✅ **COLLECTED** (2025-11-18)
 - **Notes**:
   - IRS publishes Exempt Organizations Business Master File monthly
-  - Available as CSV/JSON bulk download from IRS.gov
+  - Available as CSV bulk download from IRS.gov (separate file per state)
   - Filter by subsection code "03" for 501(c)(3) organizations
-  - County FIPS codes included in download
-  - For multi-county regions: Sum organizations, divide by total population
+  - Download URL: `https://www.irs.gov/pub/irs-soi/eo_{state}.csv`
+  - Organizations mapped to counties using ZIP-to-FIPS crosswalk
   - Formula: `(Count_501c3 / Population) * 1000`
   - Measures opportunities for volunteering and building social capital networks
-- **Data Period for Virginia**: Use most recent IRS EO BMF extract (monthly updates)
+- **Data Period for Virginia**: 2022 (IRS EO BMF extract + Census ACS population)
 - **Download URL**: https://www.irs.gov/charities-non-profits/exempt-organizations-business-master-file-extract-eo-bmf
+- **✅ DATA COLLECTED** (2025-11-18):
+  - **Total Organizations**: 343,917 across all 10 states
+  - **Organizations Mapped**: 298,734 (86.9% success rate)
+  - **Organizations Unmapped**: 45,183 (13.1% - outdated ZIPs, PO boxes)
+  - **Counties Covered**: 807 counties
+  - **Counties with Organizations**: 787 (97.5%)
+  - **Mean per 1,000 persons**: 4.27
+  - **Median per 1,000 persons**: 3.81
+  - **Range**: 0.00 to 146.98 per 1,000 persons
+  - **Raw Data**: `data/raw/irs/eo_[STATE]_raw.csv` (10 files, cached)
+  - **Filtered Data**: `data/raw/irs/eo_[STATE]_501c3.json` (10 files)
+  - **Crosswalk**: `data/raw/irs/zip_to_fips_crosswalk.json` (41,173 ZIP-FIPS mappings)
+  - **Processed Data**: `data/processed/irs_501c3_by_county_2022.csv` (807 counties)
+  - **Summary**: `data/processed/component8_collection_summary.json`
+- **API Client**: `scripts/api_clients/irs_client.py` - IRS Exempt Organizations client
+- **Collection Script**: `scripts/data_collection/collect_component8.py` (measure 8.1 only)
 
 ### 8.2 Volunteer Rate (State Level)
 

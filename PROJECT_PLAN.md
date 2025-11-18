@@ -415,9 +415,40 @@ Data collection tasks (ALL 8 measures - see API_MAPPING.md for details):
 - See `FBI_CRIME_DATA_IMPLEMENTATION.md` for implementation details
 
 ### Phase 8: Component Index 8 - Social Capital Index
-**Status**: Not Started
-- [ ] Collect data for 5 measures (State Election Data, Census CBP)
-- [ ] Validate and clean data
+**Status**: In Progress (1 of 5 measures complete - 20%)
+**Last Updated**: 2025-11-18
+
+Data collection tasks (5 measures - see API_MAPPING.md for details):
+- [x] 8.1: Number of 501(c)(3) Organizations Per 1,000 Persons (IRS EO BMF) - **807 records**
+- [ ] 8.2: Volunteer Rate - State Level (AmeriCorps)
+- [ ] 8.3: Volunteer Hours Per Person - State Level (AmeriCorps)
+- [ ] 8.4: Voter Turnout (State Election Offices/MIT Election Lab)
+- [ ] 8.5: Share of Tree City USA Counties (Arbor Day Foundation)
+
+**Total Records Collected**: 807 records for 1 measure
+
+**Data Collected**:
+- IRS 501(c)(3) Organizations (2022): 807 counties ✓
+  - Total organizations: 343,917 across all 10 states
+  - Organizations mapped to counties: 298,734 (86.9% success rate)
+  - Mean: 4.27 organizations per 1,000 persons
+  - Median: 3.81 organizations per 1,000 persons
+
+**Files Created**:
+- `scripts/api_clients/irs_client.py` - IRS Exempt Organizations API client
+- `scripts/data_collection/collect_component8.py` - Component 8 collection script (measure 8.1)
+- `data/raw/irs/eo_[STATE]_raw.csv` - Raw IRS files (10 states, cached)
+- `data/raw/irs/eo_[STATE]_501c3.json` - Filtered 501(c)(3) organizations (10 states)
+- `data/raw/irs/zip_to_fips_crosswalk.json` - ZIP to county FIPS mapping (41,173 mappings)
+- `data/processed/irs_501c3_by_county_2022.csv` - County-level organization counts and per capita metrics
+- `data/processed/component8_collection_summary.json` - Collection summary
+
+**Notes**:
+- **100% COMPLETE for Measure 8.1**: Successfully collected all 501(c)(3) organization data
+- Used ZIP-to-FIPS crosswalk from GitHub (bgruber/zip2fips) for geocoding
+- 13.1% of organizations could not be mapped due to outdated ZIPs or PO boxes
+- All 807 counties covered (802 target + 5 extra from Census data)
+- Measures 8.2-8.5 require different data sources (state-level data, manual collection)
 
 ### Phase 9: Regional Aggregation and Peer Selection
 **Status**: Not Started
@@ -436,7 +467,7 @@ Data collection tasks (ALL 8 measures - see API_MAPPING.md for details):
 - [ ] Create visualizations and reports
 
 ## Current Status
-**Phase**: Phases 6 & 7 - Components 6 & 7 (**BOTH COMPLETE!**)
+**Phase**: Phase 8 - Component 8 (**IN PROGRESS - 1 of 5 measures complete**)
 **Date**: 2025-11-18
 
 **Completed**:
@@ -510,13 +541,23 @@ Data collection tasks (ALL 8 measures - see API_MAPPING.md for details):
   - ✓ Total violent crimes: 248,963 | Total property crimes: 1,278,315
   - ✓ No API rate limit encountered - full collection completed in single run
   - ✓ FBI crime data uses comprehensive caching (89 MB cache) for fast re-runs
+- 🔄 Phase 8: Component Index 8 - Social Capital Index (**IN PROGRESS - 1 of 5 measures complete, 807 records**)
+  - ✓ Created `scripts/api_clients/irs_client.py` - IRS Exempt Organizations API client with ZIP-FIPS crosswalk
+  - ✓ Created `scripts/data_collection/collect_component8.py` - Component 8 collection script
+  - ✓ Collected 807 counties for 501(c)(3) organizations per 1,000 persons (measure 8.1)
+  - ✓ Total organizations collected: 343,917 across all 10 states
+  - ✓ Successfully mapped 298,734 organizations (86.9%) to counties using ZIP-FIPS crosswalk
+  - ⏳ Measure 8.2: Volunteer Rate (state-level data) - NOT STARTED
+  - ⏳ Measure 8.3: Volunteer Hours Per Person (state-level data) - NOT STARTED
+  - ⏳ Measure 8.4: Voter Turnout (county-level data) - NOT STARTED
+  - ⏳ Measure 8.5: Tree City USA Counties - NOT STARTED
 
 **Next Steps**:
-1. Continue through Component 8 - Social Capital Index (5 measures)
+1. Continue through Component 8 - Social Capital Index (4 remaining measures: 8.2-8.5)
 2. Later: Validate and clean all component data
 3. Later: Calculate growth rates and index scores
 
-**Overall Progress**: 42 of 47 measures fully collected (89% complete)
+**Overall Progress**: 43 of 47 measures fully collected (91% complete)
 
 ## Data Confidence Summary
 See API_MAPPING.md for complete details on each measure's confidence level:

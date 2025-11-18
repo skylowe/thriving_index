@@ -508,9 +508,66 @@ Component Index 5 contains 5 measures, ALL with HIGH confidence collected:
 
 See **API_MAPPING.md** for complete details on each measure.
 
+## Component Index 8: Social Capital (🔄 IN PROGRESS - 1 of 5 measures complete)
+
+**Status**: Started 2025-11-18 (20% complete)
+**Records**: 807 counties for measure 8.1
+
+Component Index 8 contains 5 measures. 1 measure fully collected, 4 remaining:
+- **8.1**: Number of 501(c)(3) Organizations Per 1,000 Persons (IRS EO BMF) ✅ **COMPLETE**
+- **8.2**: Volunteer Rate - State Level (AmeriCorps) ⏳ **NOT STARTED**
+- **8.3**: Volunteer Hours Per Person - State Level (AmeriCorps) ⏳ **NOT STARTED**
+- **8.4**: Voter Turnout (State Election Offices/MIT Election Lab) ⏳ **NOT STARTED**
+- **8.5**: Share of Tree City USA Counties (Arbor Day Foundation) ⏳ **NOT STARTED**
+
+**Key Implementation Details**:
+- Created IRS Exempt Organizations API client for bulk data downloads
+- Downloaded state-level CSV files from IRS.gov for all 10 states
+- Implemented ZIP-to-FIPS crosswalk for geocoding organizations to counties
+- Crosswalk from GitHub (bgruber/zip2fips): 41,173 ZIP-FIPS mappings
+- 86.9% mapping success rate (13.1% unmapped due to outdated ZIPs, PO boxes)
+- Collected 343,917 total 501(c)(3) organizations across 10 states
+- Successfully mapped 298,734 organizations to 807 counties
+
+**New Functionality Added**:
+- Created `scripts/api_clients/irs_client.py` - IRS Exempt Organizations client
+  - `get_501c3_organizations()` - Download and filter to 501(c)(3) orgs by state
+  - `get_zip_to_fips_crosswalk()` - Download and cache ZIP-FIPS mappings
+  - `map_organizations_to_counties()` - Geocode orgs to counties
+  - `count_organizations_by_county()` - Aggregate to county-level counts
+- Created `scripts/data_collection/collect_component8.py` (measure 8.1 only)
+  - Integrated IRS and Census population data
+  - Calculates organizations per 1,000 persons automatically
+  - Comprehensive caching for all downloads
+
+**Key Statistics**:
+- Total 501(c)(3) Organizations: 343,917 across all 10 states
+- Organizations Mapped to Counties: 298,734 (86.9%)
+- Organizations Unmapped: 45,183 (13.1% - outdated ZIPs, PO boxes)
+- Counties Covered: 807 counties
+- Counties with Organizations: 787 (97.5%)
+- Mean per 1,000 persons: 4.27
+- Median per 1,000 persons: 3.81
+- Range: 0.00 to 146.98 per 1,000 persons
+
+**Data Files**:
+- Raw: `data/raw/irs/eo_[STATE]_raw.csv` (10 files, cached)
+- Filtered: `data/raw/irs/eo_[STATE]_501c3.json` (10 files)
+- Crosswalk: `data/raw/irs/zip_to_fips_crosswalk.json`
+- Processed: `data/processed/irs_501c3_by_county_2022.csv` (807 counties)
+- Summary: `data/processed/component8_collection_summary.json`
+
+**Technical Notes**:
+- No direct IRS API available - uses bulk CSV downloads
+- ZIP-to-FIPS crosswalk enables county-level geocoding
+- Organizations without valid ZIP codes cannot be mapped to counties
+- Remaining measures (8.2-8.5) require different data sources and collection methods
+
+See **API_MAPPING.md** for complete details on each measure.
+
 ## Next Steps
 
-### Current Status: Components 6 and 7 Fully Complete!
+### Current Status: Component 8 In Progress!
 
 **Completed**:
 - ✅ Component 1: Growth Index (5/5 measures, 8,654 records) - **100% COMPLETE**
@@ -518,21 +575,23 @@ See **API_MAPPING.md** for complete details on each measure.
 - ✅ Component 3: Other Prosperity Index (5/5 measures, 3,936 records) - **100% COMPLETE**
 - ✅ Component 4: Demographic Growth & Renewal (6/6 measures, 5,616 records) - **100% COMPLETE**
 - ✅ Component 5: Education & Skill (5/5 measures, 2,406 records) - **100% COMPLETE**
-- ✅ Component 6: Infrastructure & Cost of Doing Business (6/6 measures, 3,341 records) - **100% COMPLETE** ✨
-- ✅ Component 7: Quality of Life (8/8 measures, ~6,400 records) - **100% COMPLETE** ✨
+- ✅ Component 6: Infrastructure & Cost of Doing Business (6/6 measures, 3,341 records) - **100% COMPLETE**
+- ✅ Component 7: Quality of Life (8/8 measures, ~6,400 records) - **100% COMPLETE**
+- 🔄 Component 8: Social Capital (1/5 measures, 807 records) - **20% COMPLETE**
 
 **Progress Summary**:
-- **Fully collected**: 42 of 47 measures (89% complete)
-- **7 of 8 component indexes complete** (only Component 8 remaining)
+- **Fully collected**: 43 of 47 measures (91% complete)
+- **7 of 8 component indexes fully complete**
+- **Component 8 in progress** (1 of 5 measures complete)
 
 **Next Implementation**:
 
-1. **Continue Through Component 8** - Social Capital Index (5 measures, MEDIUM confidence)
-   - 8.1: Number of 501c3 Organizations (IRS bulk download)
-   - 8.2: Volunteer Rate - state-level (AmeriCorps)
-   - 8.3: Volunteer Hours Per Person - state-level (AmeriCorps)
-   - 8.4: Voter Turnout (State election offices/MIT Election Lab)
-   - 8.5: Share of Tree City USA Counties (Arbor Day Foundation)
+1. **Continue Through Component 8** - Social Capital Index (4 remaining measures, MEDIUM confidence)
+   - ✅ 8.1: Number of 501c3 Organizations (IRS bulk download) - **COMPLETE**
+   - ⏳ 8.2: Volunteer Rate - state-level (AmeriCorps)
+   - ⏳ 8.3: Volunteer Hours Per Person - state-level (AmeriCorps)
+   - ⏳ 8.4: Voter Turnout (State election offices/MIT Election Lab)
+   - ⏳ 8.5: Share of Tree City USA Counties (Arbor Day Foundation)
 
 2. **Later Phases** (After all data collected):
    - Regional aggregation and definition
@@ -569,6 +628,14 @@ See **API_MAPPING.md** for complete details on each measure.
 - Validates methodology and data pipeline early
 - Easier debugging and quality control
 - Provides working subset for testing regional aggregation
+
+### Documentation Update Policy
+**IMPORTANT**: After every significant commit (new measures, components, or major changes), the following documentation files MUST be updated:
+1. **PROJECT_PLAN.md** - Update component status, progress percentages, completion checkboxes
+2. **API_MAPPING.md** - Add collection status, data file locations, and statistics for completed measures
+3. **CLAUDE.md** - Add component section if new, update "Next Steps", and add entry to "Updates Log"
+
+This ensures documentation stays synchronized with code changes and provides accurate project status at all times.
 
 ## Updates Log
 
@@ -1085,3 +1152,41 @@ See **API_MAPPING.md** for complete details on each measure.
   - Eliminated need for separate script execution
 - **Component 7 remains 100% COMPLETE** with improved collection workflow
 - Updated PROJECT_PLAN.md, API_MAPPING.md, and CLAUDE.md to reflect integration
+
+**2025-11-18**: Component 8 Measure 8.1 Implementation - 501(c)(3) Organizations
+- **IMPLEMENTATION COMPLETE** - Component 8 Measure 8.1: Number of 501(c)(3) Organizations Per 1,000 Persons
+- Created `scripts/api_clients/irs_client.py` - IRS Exempt Organizations Business Master File API client
+  - IRSExemptOrgClient class for downloading and processing IRS EO BMF data
+  - `get_501c3_organizations()` - Download state-level CSV files and filter to 501(c)(3) orgs
+  - `get_zip_to_fips_crosswalk()` - Download and cache ZIP-to-FIPS county crosswalk
+  - `map_organizations_to_counties()` - Geocode organizations to counties using ZIP codes
+  - `count_organizations_by_county()` - Aggregate organization counts by county
+  - Comprehensive caching system for all downloads (CSV files and crosswalk)
+- Created `scripts/data_collection/collect_component8.py` - Component 8 collection script
+  - Collects measure 8.1 for all 10 states
+  - Integrates IRS organization data with Census population data
+  - Calculates organizations per 1,000 persons automatically
+  - State-by-state CSV download from IRS.gov
+- **Data Collection Results**:
+  - Total 501(c)(3) organizations collected: 343,917 across all 10 states
+  - Organizations successfully mapped to counties: 298,734 (86.9% success rate)
+  - Organizations unmapped: 45,183 (13.1% - due to outdated ZIP codes, PO boxes)
+  - Counties covered: 807 counties
+  - Counties with organizations: 787 (97.5%)
+  - Mean: 4.27 organizations per 1,000 persons
+  - Median: 3.81 organizations per 1,000 persons
+  - Range: 0.00 to 146.98 per 1,000 persons
+- **ZIP-to-FIPS Crosswalk**:
+  - Downloaded from GitHub (bgruber/zip2fips public repository)
+  - 41,173 ZIP-to-FIPS county code mappings
+  - Enables geocoding of organizations to counties
+  - Cached locally for fast re-runs
+- **Output Files**:
+  - Raw: `data/raw/irs/eo_[STATE]_raw.csv` (10 files, cached)
+  - Filtered: `data/raw/irs/eo_[STATE]_501c3.json` (10 files)
+  - Crosswalk: `data/raw/irs/zip_to_fips_crosswalk.json`
+  - Processed: `data/processed/irs_501c3_by_county_2022.csv` (807 counties)
+  - Summary: `data/processed/component8_collection_summary.json`
+- **Status**: Component 8 now **20% COMPLETE** (1 of 5 measures collected)
+- Overall project progress: **43 of 47 measures collected (91% complete)**
+- Updated PROJECT_PLAN.md, API_MAPPING.md, and CLAUDE.md to reflect Component 8 progress
