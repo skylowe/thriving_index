@@ -292,9 +292,8 @@ def main():
     # TEST MODE: Set to a small number for testing, None for full collection
     # WARNING: Full collection requires ~11,486 API calls (5,743 agencies × 2)
     # TEST_LIMIT = 30  # Test with 30 agencies
-    TEST_STATE = 'VIRGINIA'  # Collecting Virginia agencies only
-    TEST_LIMIT = None  # Full collection for Virginia
-    # TEST_STATE = None  # Uncomment to include all states
+    TEST_STATE = None  # Collecting ALL 10 states
+    TEST_LIMIT = None  # Full collection for all states
 
     if TEST_LIMIT or TEST_STATE:
         if TEST_LIMIT:
