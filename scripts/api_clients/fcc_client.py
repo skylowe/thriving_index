@@ -17,7 +17,7 @@ import json
 
 # Add parent directory to path to import config
 sys.path.append(str(Path(__file__).resolve().parent.parent))
-from config import REQUEST_DELAY, MAX_RETRIES, TIMEOUT, RAW_DATA_DIR, FCC_BB_KEY
+from config import REQUEST_DELAY, MAX_RETRIES, TIMEOUT, RAW_DATA_DIR, FCC_BB_KEY, FCC_USERNAME
 
 
 class FCCBroadbandClient:
@@ -33,7 +33,7 @@ class FCCBroadbandClient:
         """
         self.api_key = api_key or FCC_BB_KEY
         # Username should be from FCC User Registration
-        self.username = username or "thriving_index@example.com"
+        self.username = username or FCC_USERNAME or "thriving_index@example.com"
         self.base_url = 'https://broadbandmap.fcc.gov/api/public'  # Correct base per swagger spec
         self.session = requests.Session()
 
@@ -106,34 +106,78 @@ class FCCBroadbandClient:
         print(f"  Found {len(dates)} available date(s)")
         return dates
 
-    def get_county_summary(self, county_fips, as_of_date=None, min_download_speed=100, min_upload_speed=10):
+    def list_availability_data(self, as_of_date, category='Summary', subcategory=None,
+                               technology_type='Fixed Broadband', speed_tier=None):
         """
-        Get broadband availability summary for a specific county.
+        Get list of available data files for download.
+
+        Per swagger spec: GET /map/downloads/listAvailabilityData/{as_of_date}
 
         Args:
-            county_fips: 5-digit county FIPS code (state + county)
-            as_of_date: Data collection date (YYYY-MM-DD format) or None for latest
-            min_download_speed: Minimum download speed in Mbps (default 100)
-            min_upload_speed: Minimum upload speed in Mbps (default 10)
+            as_of_date: Data collection date (YYYY-MM-DD format)
+            category: 'Summary', 'State', or 'Provider' (default: 'Summary')
+            subcategory: Optional subcategory filter
+            technology_type: 'Fixed Broadband', 'Mobile Broadband', or 'Mobile Voice'
+            speed_tier: Optional speed tier filter (e.g., '35/3', '7/1')
 
         Returns:
-            dict: County broadband availability data
+            list: Available files with metadata (file_id, file_name, etc.)
         """
-        params = {
-            'fips': county_fips,
-            'minDownloadSpeed': min_download_speed,
-            'minUploadSpeed': min_upload_speed
-        }
+        endpoint = f'map/downloads/listAvailabilityData/{as_of_date}'
+        params = {}
 
-        if as_of_date:
-            params['asOfDate'] = as_of_date
+        if category:
+            params['category'] = category
+        if subcategory:
+            params['subcategory'] = subcategory
+        if technology_type:
+            params['technology_type'] = technology_type
+        if speed_tier:
+            params['speed_tier'] = speed_tier
 
+        print(f"Listing availability data for {as_of_date}...")
+        response = self._make_request(endpoint, params=params)
+
+        if isinstance(response, dict) and 'data' in response:
+            files = response['data']
+            print(f"  Found {len(files)} file(s)")
+            return files
+        else:
+            return []
+
+    def download_file(self, data_type, file_id, output_path):
+        """
+        Download a data file.
+
+        Per swagger spec: GET /map/downloads/downloadFile/{data_type}/{file_id}
+
+        Args:
+            data_type: Type of data ('availability' or 'challenge')
+            file_id: File ID from list_availability_data()
+            output_path: Path to save the downloaded file
+
+        Returns:
+            bool: True if successful, False otherwise
+        """
+        endpoint = f'map/downloads/downloadFile/{data_type}/{file_id}'
+
+        print(f"Downloading file {file_id}...")
         try:
-            response = self._make_request('county', params=params)
-            return response
+            response = self._make_request(endpoint, params=None)
+
+            # Save the file
+            output_path = Path(output_path)
+            output_path.parent.mkdir(parents=True, exist_ok=True)
+
+            with open(output_path, 'wb') as f:
+                f.write(response.content if hasattr(response, 'content') else response.encode())
+
+            print(f"  ✓ Downloaded to: {output_path}")
+            return True
+
         except Exception as e:
-            print(f"  Error fetching data for county {county_fips}: {str(e)}")
-            return None
+            print(f"  Error downloading file {file_id}: {str(e)}")
+            return False
 
     def get_broadband_availability_batch(self, county_fips_list, as_of_date=None,
                                          min_download_speed=100, min_upload_speed=10,
@@ -258,16 +302,26 @@ def main():
     else:
         print("No dates available or API key not configured")
 
-    # Test 2: Get data for a single county (Fairfax County, VA: 51059)
-    print("\nTest 2: Get broadband data for Fairfax County, VA (FIPS: 51059)")
+    # Test 2: List available data files
+    print("\nTest 2: List available data files for latest date")
     print("-"*80)
-    test_county = '51059'
-    county_data = client.get_county_summary(test_county, min_download_speed=100, min_upload_speed=10)
-    if county_data:
-        print(f"County data retrieved:")
-        print(json.dumps(county_data, indent=2)[:500])  # Print first 500 chars
+    if latest_date:
+        files = client.list_availability_data(
+            as_of_date=latest_date,
+            category='Summary',
+            technology_type='Fixed Broadband'
+        )
+        if files:
+            print(f"\nSample files available for download:")
+            for f in files[:5]:  # Show first 5 files
+                print(f"  - File ID: {f.get('file_id')}")
+                print(f"    Name: {f.get('file_name')}")
+                print(f"    Category: {f.get('category')} / {f.get('subcategory')}")
+                print(f"    Speed Tier: {f.get('speed_tier')}")
+                print(f"    Records: {f.get('record_count')}")
+                print()
     else:
-        print("No data retrieved for test county")
+        print("No date available to test")
 
     print("\n" + "="*80)
     print("TEST COMPLETE")
