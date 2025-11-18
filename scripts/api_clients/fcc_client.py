@@ -14,6 +14,7 @@ import pandas as pd
 from pathlib import Path
 import sys
 import json
+import zipfile
 
 # Add parent directory to path to import config
 sys.path.append(str(Path(__file__).resolve().parent.parent))
@@ -29,25 +30,25 @@ class FCCBroadbandClient:
 
         Args:
             api_key: FCC API hash_value (defaults to FCC_BB_KEY from config)
-            username: FCC API username/email (optional, defaults to generic email)
+            username: FCC API username/email (optional, defaults to FCC_USERNAME)
         """
         self.api_key = api_key or FCC_BB_KEY
         # Username should be from FCC User Registration
-        self.username = username or FCC_USERNAME or "thriving_index@example.com"
-        self.base_url = 'https://broadbandmap.fcc.gov/api/public'  # Correct base per swagger spec
+        self.username = username or FCC_USERNAME
+        self.base_url = 'https://broadbandmap.fcc.gov/api/public'  # Per swagger spec
         self.session = requests.Session()
 
         # Set up authentication headers (per BDC Public Data API swagger spec)
-        if self.api_key:
-            self.session.headers.clear()  # Clear default headers first
+        # IMPORTANT: Custom user-agent required to avoid blocking (per Stack Overflow workaround)
+        if self.api_key and self.username:
             self.session.headers.update({
                 'username': self.username,
                 'hash_value': self.api_key,
-                'user-agent': 'VATrivingIndex/1.0'
+                'user-agent': 'python-requests/2.0.0'  # Custom UA to bypass filtering
             })
 
         # Set up cache directory
-        self.cache_dir = RAW_DATA_DIR / 'fcc' / 'cache'
+        self.cache_dir = RAW_DATA_DIR / 'fcc' / 'api_cache'
         self.cache_dir.mkdir(parents=True, exist_ok=True)
 
     def _make_request(self, endpoint, params=None, retries=MAX_RETRIES):
@@ -88,41 +89,55 @@ class FCCBroadbandClient:
         """
         Get list of available data collection dates.
 
-        Per swagger spec: GET /map/listAsOfDates
+        Per Swagger spec: GET /map/listAsOfDates
+        Requires authentication headers: username, hash_value
 
         Returns:
             list: Available as-of dates for broadband data
+                  Format: [{'data_type': 'availability', 'as_of_date': '2024-06-30'}, ...]
         """
         print("Fetching available data collection dates...")
+
+        if not self.api_key or not self.username:
+            raise ValueError("API credentials required. Set FCC_BB_KEY and FCC_USERNAME in .Renviron")
+
         response = self._make_request('map/listAsOfDates')
 
         if isinstance(response, dict) and 'data' in response:
-            dates = [item['as_of_date'] for item in response['data']]
-        elif isinstance(response, list):
-            dates = response
-        else:
-            dates = []
+            dates = response['data']
+            print(f"  Found {len(dates)} available date(s)")
 
-        print(f"  Found {len(dates)} available date(s)")
-        return dates
+            # Extract just availability dates for easier use
+            availability_dates = [item['as_of_date'] for item in dates if item.get('data_type') == 'availability']
+            return availability_dates
+        else:
+            print(f"  Warning: Unexpected response format: {response}")
+            return []
 
     def list_availability_data(self, as_of_date, category='Summary', subcategory=None,
                                technology_type='Fixed Broadband', speed_tier=None):
         """
         Get list of available data files for download.
 
-        Per swagger spec: GET /map/downloads/listAvailabilityData/{as_of_date}
+        Per Swagger spec: GET /map/downloads/listAvailabilityData/{as_of_date}
+        Returns file_id values that can be used with download_file()
 
         Args:
             as_of_date: Data collection date (YYYY-MM-DD format)
             category: 'Summary', 'State', or 'Provider' (default: 'Summary')
             subcategory: Optional subcategory filter
+                Options: 'Summary by Geography Type - Census Place',
+                        'Summary by Geography Type - Other Geographies', etc.
             technology_type: 'Fixed Broadband', 'Mobile Broadband', or 'Mobile Voice'
             speed_tier: Optional speed tier filter (e.g., '35/3', '7/1')
 
         Returns:
-            list: Available files with metadata (file_id, file_name, etc.)
+            list: Available files with metadata
+                  Each item: {file_id, category, subcategory, file_name, record_count, ...}
         """
+        if not self.api_key or not self.username:
+            raise ValueError("API credentials required. Set FCC_BB_KEY and FCC_USERNAME in .Renviron")
+
         endpoint = f'map/downloads/listAvailabilityData/{as_of_date}'
         params = {}
 
@@ -136,6 +151,11 @@ class FCCBroadbandClient:
             params['speed_tier'] = speed_tier
 
         print(f"Listing availability data for {as_of_date}...")
+        if category:
+            print(f"  Category: {category}")
+        if subcategory:
+            print(f"  Subcategory: {subcategory}")
+
         response = self._make_request(endpoint, params=params)
 
         if isinstance(response, dict) and 'data' in response:
@@ -143,13 +163,15 @@ class FCCBroadbandClient:
             print(f"  Found {len(files)} file(s)")
             return files
         else:
+            print(f"  Warning: Unexpected response format")
             return []
 
     def download_file(self, data_type, file_id, output_path):
         """
         Download a data file.
 
-        Per swagger spec: GET /map/downloads/downloadFile/{data_type}/{file_id}
+        Per Swagger spec: GET /map/downloads/downloadFile/{data_type}/{file_id}
+        Returns binary file content (CSV, ZIP, etc.)
 
         Args:
             data_type: Type of data ('availability' or 'challenge')
@@ -159,127 +181,183 @@ class FCCBroadbandClient:
         Returns:
             bool: True if successful, False otherwise
         """
+        if not self.api_key or not self.username:
+            raise ValueError("API credentials required. Set FCC_BB_KEY and FCC_USERNAME in .Renviron")
+
         endpoint = f'map/downloads/downloadFile/{data_type}/{file_id}'
 
-        print(f"Downloading file {file_id}...")
+        print(f"Downloading file ID {file_id}...")
+
         try:
-            response = self._make_request(endpoint, params=None)
+            # Make request with streaming for large files
+            url = f"{self.base_url}/{endpoint}"
+            response = self.session.get(url, timeout=TIMEOUT, stream=True)
+            response.raise_for_status()
 
             # Save the file
             output_path = Path(output_path)
             output_path.parent.mkdir(parents=True, exist_ok=True)
 
+            # Write in chunks for memory efficiency
+            total_size = 0
             with open(output_path, 'wb') as f:
-                f.write(response.content if hasattr(response, 'content') else response.encode())
+                for chunk in response.iter_content(chunk_size=8192):
+                    if chunk:
+                        f.write(chunk)
+                        total_size += len(chunk)
 
-            print(f"  ✓ Downloaded to: {output_path}")
+            # Convert to MB
+            total_mb = total_size / (1024 * 1024)
+            print(f"  ✓ Downloaded {total_mb:.2f} MB to: {output_path}")
             return True
 
         except Exception as e:
             print(f"  Error downloading file {file_id}: {str(e)}")
             return False
 
-    def get_broadband_availability_batch(self, county_fips_list, as_of_date=None,
-                                         min_download_speed=100, min_upload_speed=10,
-                                         use_cache=True):
+    def download_county_summary(self, as_of_date=None, state_fips_list=None,
+                                min_download_mbps=100, min_upload_mbps=10, use_cache=True):
         """
-        Get broadband availability data for multiple counties.
+        Download and process county-level broadband summary via API.
+
+        This method:
+        1. Lists available files via API
+        2. Finds the county summary file
+        3. Downloads it via API
+        4. Processes and filters the data
 
         Args:
-            county_fips_list: List of 5-digit county FIPS codes
-            as_of_date: Data collection date or None for latest
-            min_download_speed: Minimum download speed in Mbps (default 100)
-            min_upload_speed: Minimum upload speed in Mbps (default 10)
-            use_cache: Whether to use cached data if available
+            as_of_date: Data collection date (YYYY-MM-DD) or None for latest
+            state_fips_list: List of 2-digit state FIPS codes to filter
+            min_download_mbps: Minimum download speed (default 100)
+            min_upload_mbps: Minimum upload speed (default 10)
+            use_cache: Whether to use cached download
 
         Returns:
-            DataFrame: County-level broadband availability data
+            DataFrame: County-level broadband availability
         """
-        # Create cache filename
-        cache_key = f"broadband_{min_download_speed}_{min_upload_speed}"
-        if as_of_date:
-            cache_key += f"_{as_of_date}"
-        cache_file = self.cache_dir / f'{cache_key}.pkl'
+        print("\n" + "="*80)
+        print("FCC BROADBAND API DOWNLOAD")
+        print("="*80)
+
+        # Get available dates if not specified
+        if not as_of_date:
+            print("Fetching latest available date...")
+            dates = self.get_available_dates()
+            if dates:
+                as_of_date = dates[-1]  # Use most recent
+                print(f"  Using latest date: {as_of_date}")
+            else:
+                raise ValueError("No data dates available from API")
 
         # Check cache
+        cache_file = self.cache_dir / f'county_summary_{as_of_date}.csv'
         if use_cache and cache_file.exists():
-            print(f"Loading broadband data from cache: {cache_file}")
-            try:
-                df = pd.read_pickle(cache_file)
-                print(f"✓ Loaded {len(df):,} counties from cache")
-                return df
-            except Exception as e:
-                print(f"  Cache load failed: {str(e)}, fetching fresh data...")
+            print(f"\nLoading from cache: {cache_file}")
+            df = pd.read_csv(cache_file, dtype={'county_fips': str})
+            print(f"✓ Loaded {len(df):,} records from cache")
 
-        # Fetch data for each county
-        print(f"Fetching broadband data for {len(county_fips_list):,} counties...")
-        print(f"  Download speed: ≥{min_download_speed} Mbps")
-        print(f"  Upload speed: ≥{min_upload_speed} Mbps")
+            # Apply filtering if needed
+            if state_fips_list:
+                df = df[df['county_fips'].str[:2].isin(state_fips_list)]
+                print(f"✓ Filtered to {len(state_fips_list)} states: {len(df):,} counties")
 
-        results = []
-        for i, county_fips in enumerate(county_fips_list):
-            if (i + 1) % 100 == 0:
-                print(f"  Progress: {i + 1:,} / {len(county_fips_list):,} counties")
+            return df
 
-            data = self.get_county_summary(
-                county_fips,
-                as_of_date=as_of_date,
-                min_download_speed=min_download_speed,
-                min_upload_speed=min_upload_speed
-            )
+        # List available files
+        print(f"\nListing available county summary files...")
+        files = self.list_availability_data(
+            as_of_date=as_of_date,
+            category='Summary',
+            subcategory='Summary by Geography Type - Other Geographies',
+            technology_type='Fixed Broadband'
+        )
 
-            if data:
-                # Extract relevant fields from API response
-                # Note: Actual field names will depend on API response structure
-                result = {
-                    'county_fips': county_fips,
-                    'as_of_date': as_of_date,
-                    'min_download_speed': min_download_speed,
-                    'min_upload_speed': min_upload_speed,
-                    'raw_data': data  # Store full response for now
-                }
-                results.append(result)
+        # Find geography summary file (contains county data)
+        geo_file = None
+        for file in files:
+            file_name = file.get('file_name', '').lower()
+            # Look for "summary_by_geography" file (contains all geography types including county)
+            if 'summary_by_geography' in file_name and '_us_' in file_name:
+                geo_file = file
+                print(f"\n  Found geography summary file: {file['file_name']}")
+                print(f"    File ID: {file['file_id']}")
+                print(f"    Records: {file.get('record_count', 'unknown')}")
+                break
 
-        # Create DataFrame
-        df = pd.DataFrame(results)
+        if not geo_file:
+            raise FileNotFoundError(f"Geography summary file not found for {as_of_date}")
 
-        # Cache the results
-        if len(df) > 0:
-            df.to_pickle(cache_file)
-            print(f"✓ Cached broadband data: {cache_file}")
+        # Download the file (it's a ZIP)
+        print(f"\nDownloading geography summary file (ZIP)...")
+        zip_path = cache_file.parent / f"geo_summary_{as_of_date}.zip"
+        success = self.download_file(
+            data_type='availability',
+            file_id=geo_file['file_id'],
+            output_path=zip_path
+        )
 
-        print(f"✓ Retrieved broadband data for {len(df):,} counties")
-        return df
+        if not success:
+            raise Exception("Failed to download geography summary file")
 
-    def parse_broadband_coverage(self, raw_data):
-        """
-        Parse broadband coverage data from API response.
+        # Extract the ZIP file
+        print(f"\nExtracting ZIP file...")
+        extract_dir = cache_file.parent / 'extracted'
+        extract_dir.mkdir(exist_ok=True)
 
-        Args:
-            raw_data: Raw API response data
+        with zipfile.ZipFile(zip_path, 'r') as zip_ref:
+            zip_ref.extractall(extract_dir)
+            file_list = zip_ref.namelist()
+            print(f"  Extracted: {file_list[0]}")
 
-        Returns:
-            dict: Parsed coverage metrics (percent_covered, provider_count, etc.)
-        """
-        # This function will need to be customized based on actual API response structure
-        # Placeholder implementation
-        if not raw_data:
-            return {
-                'percent_covered': None,
-                'provider_count': None,
-                'total_locations': None,
-                'covered_locations': None
-            }
+        # Read the extracted CSV
+        csv_file = extract_dir / file_list[0]
+        print(f"\nLoading extracted CSV...")
+        df = pd.read_csv(csv_file, low_memory=False)
+        print(f"  ✓ Loaded {len(df):,} total records")
 
-        # Parse based on API response structure
-        # Actual implementation will depend on API response format
-        return {
-            'percent_covered': raw_data.get('percent_covered'),
-            'provider_count': raw_data.get('provider_count'),
-            'total_locations': raw_data.get('total_locations'),
-            'covered_locations': raw_data.get('covered_locations'),
-            'raw_data': raw_data
-        }
+        # Filter to county records only
+        print(f"\nFiltering to county-level data...")
+        counties = df[
+            (df['geography_type'] == 'County') &
+            (df['technology'] == 'Any Technology') &
+            (df['area_data_type'] == 'Total') &
+            (df['biz_res'] == 'R')  # Residential (avoids duplication with Business)
+        ].copy()
+
+        print(f"  ✓ Found {len(counties):,} counties")
+
+        # Extract county FIPS from geography_id
+        counties['county_fips'] = counties['geography_id'].astype(str).str.zfill(5)
+        counties['state_fips'] = counties['county_fips'].str[:2]
+
+        # Apply state filtering if needed
+        if state_fips_list:
+            counties = counties[counties['state_fips'].isin(state_fips_list)]
+            print(f"  ✓ Filtered to {len(state_fips_list)} states: {len(counties):,} counties")
+
+        # Select and rename columns for clarity
+        result = counties[[
+            'county_fips',
+            'geography_desc',
+            'total_units',
+            'speed_100_20'
+        ]].copy()
+
+        result = result.rename(columns={
+            'geography_desc': 'county_name',
+            'total_units': 'total_locations',
+            'speed_100_20': 'percent_covered_100_20'
+        })
+
+        # Convert percent to actual percentage (it's a decimal 0-1)
+        result['percent_covered_100_20'] = result['percent_covered_100_20'] * 100
+
+        # Cache the processed result
+        result.to_csv(cache_file, index=False)
+        print(f"\n✓ Cached processed data: {cache_file}")
+
+        return result
 
 
 def main():
@@ -288,40 +366,85 @@ def main():
     print("FCC BROADBAND DATA COLLECTION API CLIENT TEST")
     print("="*80)
 
-    # Initialize client
-    client = FCCBroadbandClient()
+    try:
+        # Initialize client
+        client = FCCBroadbandClient()
 
-    # Test 1: Get available dates
-    print("\nTest 1: Get available data collection dates")
-    print("-"*80)
-    dates = client.get_available_dates()
-    if dates:
-        print(f"Available dates: {dates}")
-        latest_date = dates[-1] if isinstance(dates, list) else None
-        print(f"Latest date: {latest_date}")
-    else:
-        print("No dates available or API key not configured")
+        # Test 1: Get available dates
+        print("\nTest 1: Get available data collection dates")
+        print("-"*80)
 
-    # Test 2: List available data files
-    print("\nTest 2: List available data files for latest date")
-    print("-"*80)
-    if latest_date:
-        files = client.list_availability_data(
-            as_of_date=latest_date,
-            category='Summary',
-            technology_type='Fixed Broadband'
-        )
-        if files:
-            print(f"\nSample files available for download:")
-            for f in files[:5]:  # Show first 5 files
-                print(f"  - File ID: {f.get('file_id')}")
-                print(f"    Name: {f.get('file_name')}")
-                print(f"    Category: {f.get('category')} / {f.get('subcategory')}")
-                print(f"    Speed Tier: {f.get('speed_tier')}")
-                print(f"    Records: {f.get('record_count')}")
-                print()
-    else:
-        print("No date available to test")
+        try:
+            dates = client.get_available_dates()
+            if dates:
+                print(f"✓ Available dates: {dates}")
+                latest_date = dates[-1]
+                print(f"✓ Latest date: {latest_date}")
+            else:
+                print("⚠ No dates available")
+                return
+
+        except Exception as e:
+            print(f"✗ Error: {str(e)}")
+            print("\nNote: This requires valid FCC API credentials (FCC_BB_KEY and FCC_USERNAME)")
+            print("      Set these in your .Renviron file or environment variables")
+            return
+
+        # Test 2: List available data files
+        print("\nTest 2: List county summary files")
+        print("-"*80)
+
+        try:
+            files = client.list_availability_data(
+                as_of_date=latest_date,
+                category='Summary',
+                subcategory='Summary by Geography Type - Other Geographies',
+                technology_type='Fixed Broadband'
+            )
+
+            if files:
+                print(f"\n✓ Found {len(files)} files")
+                print(f"\nCounty summary files:")
+                for f in files:
+                    if 'county' in f.get('file_name', '').lower():
+                        print(f"  - File ID: {f.get('file_id')}")
+                        print(f"    Name: {f.get('file_name')}")
+                        print(f"    Records: {f.get('record_count')}")
+                        print()
+            else:
+                print("⚠ No files found")
+
+        except Exception as e:
+            print(f"✗ Error: {str(e)}")
+            return
+
+        # Test 3: Download county summary (for 2 states only as test)
+        print("\nTest 3: Download and process county summary (VA, MD)")
+        print("-"*80)
+
+        try:
+            test_states = ['51', '24']  # VA, MD
+            df = client.download_county_summary(
+                as_of_date=latest_date,
+                state_fips_list=test_states,
+                use_cache=True
+            )
+
+            print(f"\n✓ SUCCESS - Retrieved {len(df):,} counties")
+            print(f"\nColumn names:")
+            print(f"  {list(df.columns)}")
+            print(f"\nSample data (first 5 rows):")
+            print(df.head().to_string(index=False))
+
+        except Exception as e:
+            print(f"✗ Error: {str(e)}")
+            import traceback
+            traceback.print_exc()
+
+    except Exception as e:
+        print(f"\n✗ Fatal error: {str(e)}")
+        import traceback
+        traceback.print_exc()
 
     print("\n" + "="*80)
     print("TEST COMPLETE")
