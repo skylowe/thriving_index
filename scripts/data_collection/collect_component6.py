@@ -24,7 +24,7 @@ from api_clients.qcew_client import QCEWClient
 from api_clients.hud_client import HUDClient
 from api_clients.urban_institute_client import UrbanInstituteClient
 from api_clients.usgs_client import USGSTransportationClient
-from api_clients.fcc_client import FCCBroadbandClient
+from api_clients.fcc_bulk_client import FCCBroadbandBulkClient  # Using bulk download instead of API
 from api_clients.census_client import CensusClient
 
 # State income tax rates (2024 tax year)
@@ -235,13 +235,15 @@ def collect_opportunity_zones():
 
 def collect_broadband_data(min_download_speed=100, min_upload_speed=10, as_of_date=None):
     """
-    Collect broadband availability data from FCC Broadband Data Collection API (Measure 6.1).
+    Collect broadband availability data from FCC Broadband Data Collection bulk downloads (Measure 6.1).
 
-    Source: FCC Broadband Data Collection (BDC) Public Data API
+    Source: FCC Broadband Data Collection (BDC) - County Summary CSV
+    Method: Download bulk county summary file and filter locally
+
     Args:
         min_download_speed: Minimum download speed in Mbps (default 100)
         min_upload_speed: Minimum upload speed in Mbps (default 10)
-        as_of_date: Data collection date (YYYY-MM-DD) or None for latest
+        as_of_date: Data collection date (YYYY-MM-DD) or None for latest (default '2024-06-30')
 
     Returns:
         DataFrame with county-level broadband availability data
@@ -249,79 +251,53 @@ def collect_broadband_data(min_download_speed=100, min_upload_speed=10, as_of_da
     print("\n" + "="*80)
     print("MEASURE 6.1: Broadband Internet Access")
     print("="*80)
-    print(f"Source: FCC Broadband Data Collection (BDC) Public Data API")
-    print(f"Metric: Percent of population with broadband ≥{min_download_speed}/{min_upload_speed} Mbps")
-    print(f"Note: Broadband availability at county level")
+    print(f"Source: FCC Broadband Data Collection (BDC) - Bulk Download")
+    print(f"Method: Download county summary CSV and filter locally")
+    print(f"Metric: Percent of locations with broadband ≥{min_download_speed}/{min_upload_speed} Mbps")
 
-    # Initialize FCC Broadband client
-    client = FCCBroadbandClient()
+    # Initialize FCC Broadband bulk client
+    client = FCCBroadbandBulkClient()
 
-    # Get available data collection dates
-    available_dates = client.get_available_dates()
-    if available_dates:
-        print(f"\nAvailable data dates: {available_dates}")
-        if not as_of_date and isinstance(available_dates, list) and len(available_dates) > 0:
-            as_of_date = available_dates[-1]
-            print(f"Using latest date: {as_of_date}")
+    # Default to June 2024 if not specified
+    if not as_of_date:
+        as_of_date = '2024-06-30'
+        print(f"Using default data date: {as_of_date}")
 
-    # Get list of all county FIPS codes from our 10 states
-    # We'll use Census API to get complete county list
-    print("\nFetching county list for our 10 states...")
-    census_client = CensusClient()
-    all_counties = []
+    # Get state FIPS codes
+    state_fips_list = list(STATE_FIPS.values())
+    print(f"\nFetching broadband data for {len(state_fips_list)} states...")
 
-    for state_abbr, state_fips in STATE_FIPS.items():
-        try:
-            # Get counties for this state using Census API
-            # We'll use a simple population query to get county list
-            response = census_client._make_request(
-                dataset='2022/acs/acs5',
-                variables=['NAME'],
-                geography=f'for=county:*&in=state:{state_fips}'
-            )
+    # Download and process broadband data using bulk download approach
+    try:
+        result = client.get_broadband_availability(
+            state_fips_list=state_fips_list,
+            min_download_mbps=min_download_speed,
+            min_upload_mbps=min_upload_speed,
+            as_of_date=as_of_date,
+            use_cache=True
+        )
 
-            if response and len(response) > 1:
-                for row in response[1:]:  # Skip header row
-                    state_code = row[-2]
-                    county_code = row[-1]
-                    county_fips = f"{state_code}{county_code}"
-                    all_counties.append(county_fips)
+    except FileNotFoundError as e:
+        # This is expected if the file hasn't been downloaded yet
+        print(f"\n{str(e)}")
+        print("\nBroadband data collection requires manual download.")
+        print("Returning empty DataFrame. Please download the file and re-run.")
+        return pd.DataFrame()
 
-        except Exception as e:
-            print(f"  Warning: Could not fetch counties for {state_abbr}: {str(e)}")
+    except Exception as e:
+        print(f"\nError collecting broadband data: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        return pd.DataFrame()
 
-    print(f"Found {len(all_counties)} counties across our 10 states")
-
-    # Fetch broadband data for all counties
-    df_broadband = client.get_broadband_availability_batch(
-        county_fips_list=all_counties,
-        as_of_date=as_of_date,
-        min_download_speed=min_download_speed,
-        min_upload_speed=min_upload_speed,
-        use_cache=True
-    )
-
-    if df_broadband.empty:
+    if result.empty:
         print("ERROR: No broadband data collected")
         return pd.DataFrame()
 
-    # Parse the raw data to extract coverage metrics
-    print("\nParsing broadband coverage data...")
-    parsed_data = []
-    for _, row in df_broadband.iterrows():
-        parsed = client.parse_broadband_coverage(row['raw_data'])
-        parsed['county_fips'] = row['county_fips']
-        parsed['as_of_date'] = row['as_of_date']
-        parsed['min_download_speed'] = row['min_download_speed']
-        parsed['min_upload_speed'] = row['min_upload_speed']
-        parsed_data.append(parsed)
-
-    result = pd.DataFrame(parsed_data)
-
     # Save raw data
-    raw_output = RAW_DATA_DIR / 'fcc' / f'fcc_broadband_{min_download_speed}_{min_upload_speed}.csv'
+    raw_output = RAW_DATA_DIR / 'fcc' / 'bulk' / f'fcc_broadband_{min_download_speed}_{min_upload_speed}.csv'
     raw_output.parent.mkdir(parents=True, exist_ok=True)
-    df_broadband.to_csv(raw_output, index=False)
+    result.to_csv(raw_output, index=False)
     print(f"\n✓ Saved raw data: {raw_output}")
 
     # Save processed data

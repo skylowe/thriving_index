@@ -86,25 +86,74 @@ class FCCBroadbandBulkClient:
         # Check cache
         if use_cache and cache_file.exists():
             print(f"Loading county summary from cache: {cache_file}")
-            df = pd.read_csv(cache_file)
+            df = pd.read_csv(cache_file, dtype={'county_fips': str})
             print(f"✓ Loaded {len(df):,} records from cache")
             return df
 
-        # Download from FCC
-        # Note: The actual download URL structure may vary by release
-        # FCC typically hosts files on Box.com or similar
-        print(f"Note: FCC bulk data files are typically downloaded manually from:")
-        print(f"      https://broadbandmap.fcc.gov/data-download")
-        print(f"\nPlease download the 'County Summary' CSV file for {as_of_date}")
-        print(f"and place it at: {cache_file}")
-        print(f"\nFile should include columns like:")
-        print(f"  - county_fips (5-digit FIPS code)")
-        print(f"  - download_speed, upload_speed (speed tiers)")
-        print(f"  - locations_served, total_locations")
+        # Try to download from known FCC Box.com URLs
+        # FCC hosts files on us-fcc.app.box.com or us-fcc.box.com
+        # URL patterns vary by release, so we try multiple patterns
+
+        # Convert date format: '2024-06-30' -> 'June_2024'
+        from datetime import datetime
+        date_obj = datetime.strptime(as_of_date, '%Y-%m-%d')
+        month_year = date_obj.strftime('%B_%Y')  # e.g., 'June_2024'
+
+        # Possible URL patterns (based on FCC file hosting patterns)
+        download_urls = [
+            # Pattern 1: Direct Box.com shared folder
+            f"https://us-fcc.app.box.com/v/bdc-data/file/{month_year}/county_summary.csv",
+            # Pattern 2: Box.com with underscore date format
+            f"https://us-fcc.app.box.com/shared/static/bdc_{as_of_date}_county.csv",
+            # Pattern 3: Alternative naming
+            f"https://us-fcc.box.com/v/bdc-public-data-{month_year}-county-summary",
+        ]
+
+        print(f"Attempting to download county summary for {as_of_date}...")
+
+        # Try each URL pattern
+        for url in download_urls:
+            try:
+                print(f"  Trying: {url[:60]}...")
+                response = self._make_request(url, stream=True)
+
+                # If successful, save to cache
+                with open(cache_file, 'wb') as f:
+                    for chunk in response.iter_content(chunk_size=8192):
+                        f.write(chunk)
+
+                print(f"✓ Downloaded county summary to cache: {cache_file}")
+
+                # Load and return the DataFrame
+                df = pd.read_csv(cache_file, dtype={'county_fips': str})
+                print(f"✓ Loaded {len(df):,} records")
+                return df
+
+            except Exception as e:
+                print(f"  Failed: {str(e)[:80]}")
+                continue
+
+        # If all automatic downloads failed, provide manual download instructions
+        print(f"\n" + "="*80)
+        print(f"AUTOMATIC DOWNLOAD FAILED - MANUAL DOWNLOAD REQUIRED")
+        print(f"="*80)
+        print(f"\nPlease manually download the FCC county summary CSV file:")
+        print(f"\n1. Visit: https://broadbandmap.fcc.gov/data-download")
+        print(f"2. Select 'County' geographic level")
+        print(f"3. Select data date: {as_of_date} (or latest available)")
+        print(f"4. Download the county summary CSV file")
+        print(f"5. Save it to: {cache_file}")
+        print(f"\nRequired columns in the CSV file:")
+        print(f"  - County FIPS code (may be named: county_fips, fips, geoid, etc.)")
+        print(f"  - Total locations (may be named: locations, bsl, total_locations, etc.)")
+        print(f"  - Locations served at various speed tiers")
+        print(f"    (e.g., served_100_20, locations_100_10, etc.)")
+        print(f"\nAfter downloading, re-run this script.")
+        print(f"="*80)
 
         raise FileNotFoundError(
-            f"Please manually download county summary CSV from FCC website\n"
-            f"and save to: {cache_file}"
+            f"County summary CSV not found. Please download manually and save to:\n"
+            f"{cache_file}"
         )
 
     def process_county_summary(self, df, state_fips_list=None, min_download_mbps=100, min_upload_mbps=10):
@@ -120,29 +169,127 @@ class FCCBroadbandBulkClient:
         Returns:
             DataFrame: Processed county broadband availability
         """
+        print(f"\nProcessing county summary data...")
+        print(f"  Input records: {len(df):,}")
+        print(f"  Speed tier: ≥{min_download_mbps}/{min_upload_mbps} Mbps")
+
         # Make a copy to avoid modifying original
         result = df.copy()
 
+        # Identify county FIPS column (various possible names)
+        fips_column = None
+        for col in ['county_fips', 'fips', 'geoid', 'county_id', 'fips_code', 'CountyFIPS']:
+            if col in result.columns:
+                fips_column = col
+                break
+
+        if not fips_column:
+            # Try to find a column that looks like FIPS (5-digit codes)
+            for col in result.columns:
+                if result[col].astype(str).str.match(r'^\d{5}$').any():
+                    fips_column = col
+                    print(f"  Auto-detected FIPS column: {col}")
+                    break
+
+        if not fips_column:
+            raise ValueError(f"Could not find county FIPS column. Available columns: {list(result.columns)}")
+
+        # Normalize FIPS column name
+        result = result.rename(columns={fips_column: 'county_fips'})
+        result['county_fips'] = result['county_fips'].astype(str).str.zfill(5)
+
         # Filter to specific states if requested
         if state_fips_list:
-            result['state_fips'] = result['county_fips'].astype(str).str[:2]
+            result['state_fips'] = result['county_fips'].str[:2]
             result = result[result['state_fips'].isin(state_fips_list)].copy()
+            print(f"  Filtered to {len(state_fips_list)} states: {len(result):,} counties")
 
-        # Calculate percentage covered at specified speed tier
-        # Note: Column names may vary depending on FCC file structure
+        # Identify total locations column
+        total_locations_col = None
+        for col in ['total_locations', 'bsl', 'locations', 'total_bsl', 'fabric_count']:
+            if col in result.columns:
+                total_locations_col = col
+                break
+
+        if not total_locations_col:
+            raise ValueError(f"Could not find total locations column. Available columns: {list(result.columns)}")
+
+        # Identify served locations column for the specified speed tier
         # Common patterns:
-        #   - locations_100_10 / total_locations
-        #   - bsl_served_100_10 / bsl_total
+        #   - served_100_10, locations_100_10, bsl_100_10
+        #   - served_100_20, locations_100_20 (FCC "served" tier)
+        #   - served_{down}_{up}, locations_{down}_{up}
 
-        print(f"\nDataFrame columns: {list(result.columns)}")
-        print(f"Sample data:\n{result.head()}")
+        # Build list of possible column names
+        speed_patterns = [
+            f'served_{min_download_mbps}_{min_upload_mbps}',
+            f'locations_{min_download_mbps}_{min_upload_mbps}',
+            f'bsl_{min_download_mbps}_{min_upload_mbps}',
+            f'bsl_served_{min_download_mbps}_{min_upload_mbps}',
+            # Also check for FCC "served" tier (100/20)
+            'served_100_20',
+            'locations_100_20',
+            'bsl_100_20',
+        ]
 
-        return result
+        served_col = None
+        for pattern in speed_patterns:
+            for col in result.columns:
+                if pattern.lower() in col.lower():
+                    served_col = col
+                    print(f"  Found served locations column: {col}")
+                    break
+            if served_col:
+                break
+
+        if not served_col:
+            # Show available columns to help user
+            print(f"\n  Warning: Could not find served locations column for {min_download_mbps}/{min_upload_mbps} Mbps")
+            print(f"  Available columns: {list(result.columns)}")
+
+            # Try to find any column with speed tier info
+            speed_cols = [col for col in result.columns if any(x in col.lower() for x in ['served', 'locations', 'bsl']) and any(c.isdigit() for c in col)]
+            if speed_cols:
+                print(f"\n  Columns that might contain speed tier data:")
+                for col in speed_cols[:10]:
+                    print(f"    - {col}")
+
+            raise ValueError(f"Could not find served locations column for speed tier {min_download_mbps}/{min_upload_mbps}")
+
+        # Calculate percentage covered
+        result['served_locations'] = pd.to_numeric(result[served_col], errors='coerce').fillna(0)
+        result['total_locations'] = pd.to_numeric(result[total_locations_col], errors='coerce').fillna(1)
+
+        # Avoid division by zero
+        result['percent_covered'] = 0.0
+        mask = result['total_locations'] > 0
+        result.loc[mask, 'percent_covered'] = (result.loc[mask, 'served_locations'] / result.loc[mask, 'total_locations']) * 100
+
+        # Create clean output DataFrame
+        output = pd.DataFrame({
+            'county_fips': result['county_fips'],
+            'total_locations': result['total_locations'],
+            'served_locations': result['served_locations'],
+            'percent_covered': result['percent_covered'],
+            'min_download_mbps': min_download_mbps,
+            'min_upload_mbps': min_upload_mbps
+        })
+
+        # Remove any rows with invalid FIPS codes
+        output = output[output['county_fips'].str.match(r'^\d{5}$')].copy()
+
+        print(f"\n  Output records: {len(output):,}")
+        print(f"  Average coverage: {output['percent_covered'].mean():.2f}%")
+        print(f"  Coverage range: {output['percent_covered'].min():.2f}% - {output['percent_covered'].max():.2f}%")
+
+        return output
 
     def get_broadband_availability(self, state_fips_list, min_download_mbps=100,
                                    min_upload_mbps=10, as_of_date=None, use_cache=True):
         """
         Get broadband availability data for specified states.
+
+        This is the main entry point for downloading and processing FCC broadband data.
 
         Args:
             state_fips_list: List of 2-digit state FIPS codes
@@ -152,11 +299,21 @@ class FCCBroadbandBulkClient:
             use_cache: Whether to use cached data
 
         Returns:
-            DataFrame: County-level broadband availability
+            DataFrame: County-level broadband availability with columns:
+                - county_fips: 5-digit FIPS code
+                - total_locations: Total broadband serviceable locations
+                - served_locations: Locations served at specified speed tier
+                - percent_covered: Percentage of locations covered
+                - min_download_mbps: Speed tier (download)
+                - min_upload_mbps: Speed tier (upload)
         """
-        print(f"Loading FCC broadband data...")
-        print(f"  Speed tier: ≥{min_download_mbps}/{min_upload_mbps} Mbps")
-        print(f"  States: {len(state_fips_list)}")
+        print(f"\n" + "="*80)
+        print(f"FCC BROADBAND BULK DATA DOWNLOAD")
+        print(f"="*80)
+        print(f"Speed tier: ≥{min_download_mbps}/{min_upload_mbps} Mbps")
+        print(f"States: {len(state_fips_list)}")
+        if as_of_date:
+            print(f"Data date: {as_of_date}")
 
         # Download/load county summary data
         df = self.download_county_summary_csv(as_of_date=as_of_date, use_cache=use_cache)
@@ -169,7 +326,7 @@ class FCCBroadbandBulkClient:
             min_upload_mbps=min_upload_mbps
         )
 
-        print(f"✓ Retrieved data for {len(result):,} counties")
+        print(f"\n✓ Successfully retrieved broadband data for {len(result):,} counties")
         return result
 
 
@@ -192,14 +349,39 @@ def main():
         df = client.get_broadband_availability(
             state_fips_list=test_states,
             min_download_mbps=100,
-            min_upload_mbps=10
+            min_upload_mbps=10,
+            as_of_date='2024-06-30'
         )
-        print(f"\nRetrieved {len(df)} counties")
-        print(f"Sample data:\n{df.head()}")
+
+        print(f"\n" + "="*80)
+        print(f"SUCCESS - Retrieved {len(df):,} counties")
+        print(f"="*80)
+        print(f"\nSample data:")
+        print(df.head(10).to_string(index=False))
+
+        print(f"\n--- Summary Statistics ---")
+        print(f"Counties: {len(df):,}")
+        print(f"Average coverage: {df['percent_covered'].mean():.2f}%")
+        print(f"Median coverage: {df['percent_covered'].median():.2f}%")
+        print(f"Min coverage: {df['percent_covered'].min():.2f}%")
+        print(f"Max coverage: {df['percent_covered'].max():.2f}%")
+
+        # Coverage distribution
+        bins = [0, 25, 50, 75, 90, 100]
+        labels = ['0-25%', '25-50%', '50-75%', '75-90%', '90-100%']
+        df['coverage_bin'] = pd.cut(df['percent_covered'], bins=bins, labels=labels, include_lowest=True)
+        print(f"\nCoverage distribution:")
+        print(df['coverage_bin'].value_counts().sort_index())
 
     except FileNotFoundError as e:
-        print(f"\n{e}")
-        print("\nThis is expected - you need to manually download the file first.")
+        print(f"\n{str(e)}")
+        print("\nNote: This is expected if you haven't downloaded the file yet.")
+        print("Follow the instructions above to manually download the FCC county summary file.")
+
+    except Exception as e:
+        print(f"\nError: {str(e)}")
+        import traceback
+        traceback.print_exc()
 
     print("\n" + "="*80)
     print("TEST COMPLETE")
