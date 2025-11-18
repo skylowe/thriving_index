@@ -29,18 +29,20 @@ class FCCBroadbandClient:
 
         Args:
             api_key: FCC API hash_value (defaults to FCC_BB_KEY from config)
-            username: FCC API username (optional, for authentication)
+            username: FCC API username/email (optional, defaults to generic email)
         """
         self.api_key = api_key or FCC_BB_KEY
-        self.username = username or "api_user"  # Default username
+        # Username should be an email address for FCC API
+        self.username = username or "thriving_index@example.com"
         self.base_url = 'https://broadbandmap.fcc.gov/api/public/map'
         self.session = requests.Session()
 
-        # Set up authentication headers
+        # Set up authentication headers (following FCC API spec)
         if self.api_key:
+            self.session.headers.clear()  # Clear default headers first
             self.session.headers.update({
-                'hash_value': self.api_key,
                 'username': self.username,
+                'hash_value': self.api_key,
                 'user-agent': 'VATrivingIndex/1.0'
             })
 
