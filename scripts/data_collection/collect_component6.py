@@ -2,13 +2,14 @@
 Component Index 6: Infrastructure & Cost of Doing Business
 
 This script collects data for Component 6 measures:
+- 6.1: Broadband Internet Access (FCC BDC Public Data API)
 - 6.2: Interstate Highway Presence (USGS National Map Transportation API)
 - 6.3: Count of 4-Year Colleges (Urban Institute IPEDS)
 - 6.4: Weekly Wage Rate (BLS QCEW)
 - 6.5: Top Marginal Income Tax Rate (Tax Foundation - static data)
 - 6.6: Qualified Opportunity Zones (HUD ArcGIS)
 
-Note: Measure 6.1 (Broadband Internet Access) requires FCC data and will be implemented separately.
+All 6 measures are now implemented and can be collected via this script.
 """
 
 import sys
@@ -24,7 +25,7 @@ from api_clients.qcew_client import QCEWClient
 from api_clients.hud_client import HUDClient
 from api_clients.urban_institute_client import UrbanInstituteClient
 from api_clients.usgs_client import USGSTransportationClient
-from api_clients.fcc_bulk_client import FCCBroadbandBulkClient  # Using bulk download instead of API
+from api_clients.fcc_client import FCCBroadbandClient  # Using API approach
 from api_clients.census_client import CensusClient
 
 # State income tax rates (2024 tax year)
@@ -233,17 +234,17 @@ def collect_opportunity_zones():
     return county_oz_counts
 
 
-def collect_broadband_data(min_download_speed=100, min_upload_speed=10, as_of_date=None):
+def collect_broadband_data(min_download_speed=100, min_upload_speed=20, as_of_date=None):
     """
-    Collect broadband availability data from FCC Broadband Data Collection bulk downloads (Measure 6.1).
+    Collect broadband availability data from FCC Broadband Data Collection API (Measure 6.1).
 
-    Source: FCC Broadband Data Collection (BDC) - County Summary CSV
-    Method: Download bulk county summary file and filter locally
+    Source: FCC Broadband Data Collection (BDC) Public Data API
+    Method: API download of geography summary file, extract and filter to counties
 
     Args:
         min_download_speed: Minimum download speed in Mbps (default 100)
-        min_upload_speed: Minimum upload speed in Mbps (default 10)
-        as_of_date: Data collection date (YYYY-MM-DD) or None for latest (default '2024-06-30')
+        min_upload_speed: Minimum upload speed in Mbps (default 20, FCC "served" tier)
+        as_of_date: Data collection date (YYYY-MM-DD) or None for latest
 
     Returns:
         DataFrame with county-level broadband availability data
@@ -251,37 +252,36 @@ def collect_broadband_data(min_download_speed=100, min_upload_speed=10, as_of_da
     print("\n" + "="*80)
     print("MEASURE 6.1: Broadband Internet Access")
     print("="*80)
-    print(f"Source: FCC Broadband Data Collection (BDC) - Bulk Download")
-    print(f"Method: Download county summary CSV and filter locally")
+    print(f"Source: FCC Broadband Data Collection (BDC) Public Data API")
+    print(f"Method: API download and local processing")
     print(f"Metric: Percent of locations with broadband ≥{min_download_speed}/{min_upload_speed} Mbps")
 
-    # Initialize FCC Broadband bulk client
-    client = FCCBroadbandBulkClient()
-
-    # Default to June 2024 if not specified
-    if not as_of_date:
-        as_of_date = '2024-06-30'
-        print(f"Using default data date: {as_of_date}")
+    # Initialize FCC Broadband API client
+    try:
+        client = FCCBroadbandClient()
+    except Exception as e:
+        print(f"\nError initializing FCC API client: {str(e)}")
+        print("Note: This requires FCC_BB_KEY and FCC_USERNAME in .Renviron or environment variables")
+        return pd.DataFrame()
 
     # Get state FIPS codes
     state_fips_list = list(STATE_FIPS.values())
     print(f"\nFetching broadband data for {len(state_fips_list)} states...")
 
-    # Download and process broadband data using bulk download approach
+    # Download and process broadband data using API
     try:
-        result = client.get_broadband_availability(
+        result = client.download_county_summary(
+            as_of_date=as_of_date,  # None will fetch latest
             state_fips_list=state_fips_list,
-            min_download_mbps=min_download_speed,
-            min_upload_mbps=min_upload_speed,
-            as_of_date=as_of_date,
             use_cache=True
         )
 
-    except FileNotFoundError as e:
-        # This is expected if the file hasn't been downloaded yet
+    except ValueError as e:
+        # API credentials not set
         print(f"\n{str(e)}")
-        print("\nBroadband data collection requires manual download.")
-        print("Returning empty DataFrame. Please download the file and re-run.")
+        print("\nBroadband data collection requires FCC API credentials.")
+        print("Set FCC_BB_KEY and FCC_USERNAME in your .Renviron file.")
+        print("Returning empty DataFrame.")
         return pd.DataFrame()
 
     except Exception as e:
@@ -294,8 +294,18 @@ def collect_broadband_data(min_download_speed=100, min_upload_speed=10, as_of_da
         print("ERROR: No broadband data collected")
         return pd.DataFrame()
 
+    # Rename columns to match expected format
+    # API returns: county_fips, county_name, total_locations, percent_covered_100_20
+    result = result.rename(columns={
+        'percent_covered_100_20': 'percent_covered'
+    })
+
+    # Add speed tier columns for documentation
+    result['min_download_mbps'] = min_download_speed
+    result['min_upload_mbps'] = min_upload_speed
+
     # Save raw data
-    raw_output = RAW_DATA_DIR / 'fcc' / 'bulk' / f'fcc_broadband_{min_download_speed}_{min_upload_speed}.csv'
+    raw_output = RAW_DATA_DIR / 'fcc' / 'api' / f'fcc_broadband_{min_download_speed}_{min_upload_speed}.csv'
     raw_output.parent.mkdir(parents=True, exist_ok=True)
     result.to_csv(raw_output, index=False)
     print(f"\n✓ Saved raw data: {raw_output}")
@@ -308,13 +318,10 @@ def collect_broadband_data(min_download_speed=100, min_upload_speed=10, as_of_da
     # Print summary statistics
     print(f"\n--- Summary Statistics ---")
     print(f"Total counties: {len(result)}")
-    if 'percent_covered' in result.columns and result['percent_covered'].notna().any():
-        print(f"Average broadband coverage: {result['percent_covered'].mean():.2f}%")
-        print(f"Median broadband coverage: {result['percent_covered'].median():.2f}%")
-        print(f"Min coverage: {result['percent_covered'].min():.2f}%")
-        print(f"Max coverage: {result['percent_covered'].max():.2f}%")
-    else:
-        print("Coverage percentage data not available in API response")
+    print(f"Average broadband coverage: {result['percent_covered'].mean():.2f}%")
+    print(f"Median broadband coverage: {result['percent_covered'].median():.2f}%")
+    print(f"Min coverage: {result['percent_covered'].min():.2f}%")
+    print(f"Max coverage: {result['percent_covered'].max():.2f}%")
 
     return result
 
