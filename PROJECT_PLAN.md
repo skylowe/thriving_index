@@ -415,17 +415,17 @@ Data collection tasks (ALL 8 measures - see API_MAPPING.md for details):
 - See `FBI_CRIME_DATA_IMPLEMENTATION.md` for implementation details
 
 ### Phase 8: Component Index 8 - Social Capital Index
-**Status**: In Progress (1 of 5 measures complete - 20%)
+**Status**: In Progress (3 of 5 measures complete - 60%)
 **Last Updated**: 2025-11-18
 
 Data collection tasks (5 measures - see API_MAPPING.md for details):
 - [x] 8.1: Number of 501(c)(3) Organizations Per 1,000 Persons (IRS EO BMF) - **807 records**
-- [ ] 8.2: Volunteer Rate - State Level (AmeriCorps)
-- [ ] 8.3: Volunteer Hours Per Person - State Level (AmeriCorps)
-- [ ] 8.4: Voter Turnout (State Election Offices/MIT Election Lab)
+- [ ] 8.2: Volunteer Rate - State Level (NOT IMPLEMENTING - future: socialcapital.org)
+- [x] 8.3: Social Associations Per 10,000 Population (County Health Rankings) - **804 records** ✅
+- [x] 8.4: Voter Turnout (County Health Rankings - 2020 Presidential Election) - **804 records**
 - [ ] 8.5: Share of Tree City USA Counties (Arbor Day Foundation)
 
-**Total Records Collected**: 807 records for 1 measure
+**Total Records Collected**: 2,415 records across 3 measures (8.1, 8.3, 8.4)
 
 **Data Collected**:
 - IRS 501(c)(3) Organizations (2022): 807 counties ✓
@@ -433,25 +433,42 @@ Data collection tasks (5 measures - see API_MAPPING.md for details):
   - Organizations mapped to counties: 298,734 (86.9% success rate)
   - Mean: 4.27 organizations per 1,000 persons
   - Median: 3.81 organizations per 1,000 persons
+- Social Associations (2025 CHR release): 804 counties ✓
+  - Data source: County Business Patterns (NAICS 813 - membership associations)
+  - Mean: 10.63 associations per 10,000 population
+  - Median: 10.40 associations per 10,000 population
+  - Range: 0.00 to 29.93
+  - **REPLACEMENT MEASURE**: Replaced "Volunteer Hours Per Person" (state-level) with county-level data
+- Voter Turnout (2020 Presidential Election): 804 counties ✓
+  - Mean turnout: 63.67%
+  - Median turnout: 63.07%
+  - Range: 19.42% to 90.55%
 
 **Files Created**:
 - `scripts/api_clients/irs_client.py` - IRS Exempt Organizations API client
-- `scripts/data_collection/collect_component8.py` - Component 8 collection script (measures 8.1 and 8.4)
+- `scripts/data_collection/collect_component8.py` - Component 8 collection script (measures 8.1, 8.3, and 8.4)
 - `data/raw/irs/eo_[STATE]_raw.csv` - Raw IRS files (10 states, cached)
 - `data/raw/irs/eo_[STATE]_501c3.json` - Filtered 501(c)(3) organizations (10 states)
 - `data/raw/irs/zip_to_fips_crosswalk.json` - ZIP to county FIPS mapping (41,173 mappings)
+- `data/raw/chr/chr_social_associations_2025_metadata.json` - County Health Rankings social associations metadata
 - `data/raw/chr/chr_voter_turnout_2025_metadata.json` - County Health Rankings voter turnout metadata
-- `data/processed/component8_social_capital_2022.csv` - County-level data for measures 8.1 and 8.4
-- `data/processed/component8_collection_summary.json` - Collection summary for both measures
+- `data/processed/component8_social_capital_2022.csv` - County-level data for measures 8.1, 8.3, and 8.4
+- `data/processed/component8_collection_summary.json` - Collection summary for all three measures
 
 **Notes**:
 - **100% COMPLETE for Measure 8.1**: Successfully collected all 501(c)(3) organization data
+- **100% COMPLETE for Measure 8.3**: Successfully collected social associations data (REPLACEMENT MEASURE)
+  - Replaced original "Volunteer Hours Per Person" (state-level AmeriCorps) with "Social Associations" (county-level CHR)
+  - County-level granularity >> state-level
+  - 100% coverage with no missing data
+  - Measures civic infrastructure (availability) rather than volunteer hours (intensity)
+  - Data from County Business Patterns (NAICS 813: membership associations)
 - **100% COMPLETE for Measure 8.4**: Successfully collected voter turnout data from County Health Rankings
 - Used ZIP-to-FIPS crosswalk from GitHub (bgruber/zip2fips) for geocoding organizations
-- Voter turnout data from 2020 Presidential Election (99.6% county coverage)
 - 13.1% of organizations could not be mapped due to outdated ZIPs or PO boxes
 - All 807 counties covered (802 target + 5 extra from Census data)
-- Measures 8.2, 8.3, 8.5 require different data sources (state-level AmeriCorps data, Arbor Day Foundation data)
+- Measure 8.2: NOT implementing (future: may use socialcapital.org)
+- Measure 8.5: Remaining measure to collect (Tree City USA data from Arbor Day Foundation)
 
 ### Phase 9: Regional Aggregation and Peer Selection
 **Status**: Not Started
@@ -544,24 +561,26 @@ Data collection tasks (5 measures - see API_MAPPING.md for details):
   - ✓ Total violent crimes: 248,963 | Total property crimes: 1,278,315
   - ✓ No API rate limit encountered - full collection completed in single run
   - ✓ FBI crime data uses comprehensive caching (89 MB cache) for fast re-runs
-- 🔄 Phase 8: Component Index 8 - Social Capital Index (**IN PROGRESS - 2 of 5 measures complete, 1,619 records**)
+- 🔄 Phase 8: Component Index 8 - Social Capital Index (**IN PROGRESS - 3 of 5 measures complete, 2,415 records, 60%**)
   - ✓ Created `scripts/api_clients/irs_client.py` - IRS Exempt Organizations API client with ZIP-FIPS crosswalk
-  - ✓ Updated `scripts/data_collection/collect_component8.py` - Component 8 collection script (measures 8.1 and 8.4)
+  - ✓ Updated `scripts/data_collection/collect_component8.py` - Component 8 collection script (measures 8.1, 8.3, and 8.4)
   - ✓ Measure 8.1: 501(c)(3) Organizations Per 1,000 Persons (807 counties, mean: 4.27 per 1,000)
   - ✓ Total organizations collected: 343,917 across all 10 states
   - ✓ Successfully mapped 298,734 organizations (86.9%) to counties using ZIP-FIPS crosswalk
+  - ✓ Measure 8.3: Social Associations Per 10,000 Pop (804 counties, mean: 10.63 per 10k) - **REPLACEMENT MEASURE**
+  - ✓ Replaced "Volunteer Hours Per Person" (state-level) with county-level Social Associations data
+  - ✓ Social Associations from County Health Rankings (HIGH confidence, 100% coverage)
   - ✓ Measure 8.4: Voter Turnout - 2020 Presidential Election (804 counties, mean: 63.67%)
   - ✓ Voter turnout from County Health Rankings (HIGH confidence, 99.6% coverage)
-  - ⏳ Measure 8.2: Volunteer Rate (state-level data) - NOT STARTED
-  - ⏳ Measure 8.3: Volunteer Hours Per Person (state-level data) - NOT STARTED
+  - ⏳ Measure 8.2: Volunteer Rate (NOT IMPLEMENTING - future: may use socialcapital.org)
   - ⏳ Measure 8.5: Tree City USA Counties - NOT STARTED
 
 **Next Steps**:
-1. Continue through Component 8 - Social Capital Index (3 remaining measures: 8.2, 8.3, 8.5)
+1. Complete Component 8 - Social Capital Index (1 remaining measure: 8.5 Tree City USA)
 2. Later: Validate and clean all component data
 3. Later: Calculate growth rates and index scores
 
-**Overall Progress**: 44 of 47 measures fully collected (94% complete)
+**Overall Progress**: 45 of 47 measures fully collected (96% complete)
 
 ## Data Confidence Summary
 See API_MAPPING.md for complete details on each measure's confidence level:

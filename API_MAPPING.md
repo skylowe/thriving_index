@@ -1300,21 +1300,45 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 - **Data Period for Virginia**: Use most recent AmeriCorps Volunteering in America data
 - **Download URL**: https://americorps.gov/about/our-impact/volunteering-civic-engagement-research
 
-### 8.3 Volunteer Hours Per Person (State Level)
+### 8.3 Social Associations
 
-- **Nebraska Source**: Corporation for National & Community Service, 2017
-- **Nebraska Metric**: Number of volunteer hours per person in the state
-- **Virginia API Source**: AmeriCorps Volunteering and Civic Life in America
-- **Data Source**: AmeriCorps annual reports and data downloads
-- **Confidence**: 🟡 **MEDIUM** (bulk data, state-level only, not county-level)
+- **Nebraska Source**: Not in original Nebraska methodology (new measure)
+- **Nebraska Metric**: N/A
+- **Virginia Data Source**: County Health Rankings & Roadmaps 2025 (via Zenodo API)
+- **API Endpoint**: `https://zenodo.org/api/records/17584421/files/2025.zip/content`
+- **Variable Code**: v140_rawvalue (Social Associations raw value)
+- **Metric**: Number of membership associations per 10,000 population
+- **Confidence**: 🟢 **HIGH** (reliable API, county-level data, 100% coverage)
+- **Collection Status**: ✅ **COLLECTED** (2025-11-18)
 - **Notes**:
-  - Same source as measure 8.2
-  - STATE-LEVEL DATA ONLY (not available at county/regional level)
-  - All regions within same state receive same volunteer hours per person
-  - Represents intensity of participation in volunteering (beyond just % who volunteer)
-  - Use most recent available year
-- **Data Period for Virginia**: Use most recent AmeriCorps Volunteering in America data
-- **Download URL**: https://americorps.gov/about/our-impact/volunteering-civic-engagement-research
+  - **REPLACEMENT MEASURE**: Replaces original "Volunteer Hours Per Person" (state-level AmeriCorps data)
+  - Measures availability of civic organizations (infrastructure for social capital)
+  - Data source: County Business Patterns (CBP), NAICS 813
+  - NAICS 813 includes: Religious, Grantmaking, Civic, Professional, Labor, Political, Business, and other Membership Organizations
+  - County-level data (much better than state-level original)
+  - 100% coverage across all counties (no missing data)
+  - Collected from same CHR Zenodo download as voter turnout (measures 8.4) and life expectancy (3.3)
+  - Formula: (Total membership associations / Population) × 10,000
+  - Complements measure 8.1 (501c3 orgs from IRS) - different source (CBP vs IRS), different criteria
+  - Membership associations are organizations where people join and participate (churches, civic groups, professional orgs, etc.)
+- **Why This Replacement?**:
+  - County-level vs state-level (better granularity for peer region comparisons)
+  - 100% coverage vs potential gaps in AmeriCorps data
+  - Measures social infrastructure (places to participate) vs just volunteer hours
+  - More relevant for thriving index: availability of organizations to join
+  - From reliable Census source (CBP) with consistent methodology
+- **Data Year**: 2025 CHR release (underlying CBP data likely 2021-2022)
+- **Records Collected**: 804 counties (99.5% coverage of 807 target counties)
+- **Statistics**:
+  - Mean: 10.63 associations per 10,000 population
+  - Median: 10.40 associations per 10,000 population
+  - Range: 0.00 to 29.93
+  - Standard deviation: 4.43
+- **Data Files**:
+  - Raw metadata: `data/raw/chr/chr_social_associations_2025_metadata.json`
+  - Processed: `data/processed/component8_social_capital_2022.csv` (includes measures 8.1, 8.3, and 8.4)
+  - Summary: `data/processed/component8_collection_summary.json`
+- **Collection Script**: `scripts/data_collection/collect_component8.py`
 
 ### 8.4 Voter Turnout
 
@@ -1345,7 +1369,7 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
   - Measures civic involvement through electoral participation
 - **Data Files**:
   - Raw metadata: `data/raw/chr/chr_voter_turnout_2025_metadata.json`
-  - Processed: `data/processed/component8_social_capital_2022.csv` (includes measure 8.1 and 8.4)
+  - Processed: `data/processed/component8_social_capital_2022.csv` (includes measures 8.1, 8.3, and 8.4)
   - Summary: `data/processed/component8_collection_summary.json`
 
 ### 8.5 Share of Tree City USA Counties

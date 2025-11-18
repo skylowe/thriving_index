@@ -3,6 +3,7 @@ Component Index 8: Social Capital - Data Collection Script
 
 Collects measures for Component Index 8 for all counties in 10 states:
 8.1 Number of 501(c)(3) Organizations Per 1,000 Persons (IRS EO BMF)
+8.3 Social Associations (County Health Rankings - membership associations per 10,000 pop)
 8.4 Voter Turnout (County Health Rankings - 2020 Presidential Election)
 
 States: VA, PA, MD, DE, WV, KY, TN, NC, SC, GA
@@ -294,6 +295,150 @@ def collect_voter_turnout(chr_year, state_fips_dict):
     return result_df
 
 
+def collect_social_associations(chr_year, state_fips_dict):
+    """
+    Collect social associations data from County Health Rankings via Zenodo (Measure 8.3).
+
+    Args:
+        chr_year: Year of CHR data release (e.g., 2025)
+        state_fips_dict: Dictionary of state abbreviations to FIPS codes
+
+    Returns:
+        DataFrame with social associations data (membership associations per 10,000 pop)
+    """
+    print("\nCollecting Social Associations Data (Measure 8.3)...")
+    print(f"Source: County Health Rankings & Roadmaps {chr_year} (Zenodo)")
+    print("Measure: Number of membership associations per 10,000 population")
+    print("-" * 60)
+
+    # Download from Zenodo (same data source as voter turnout)
+    print(f"Downloading data from Zenodo... (this may take a minute, ~50 MB)")
+    url = f"https://zenodo.org/api/records/17584421/files/{chr_year}.zip/content"
+
+    try:
+        response = requests.get(url, timeout=300)
+        response.raise_for_status()
+        file_size_mb = len(response.content) / (1024 * 1024)
+        print(f"✓ Downloaded {file_size_mb:.1f} MB")
+    except requests.exceptions.RequestException as e:
+        raise Exception(f"Failed to download CHR data: {str(e)}")
+
+    # Extract ZIP and find social associations data
+    print("Extracting and locating social associations data...")
+    zip_data = io.BytesIO(response.content)
+
+    with zipfile.ZipFile(zip_data, 'r') as zip_ref:
+        file_list = zip_ref.namelist()
+
+        # Look for analytic data file
+        analytic_files = [
+            f for f in file_list
+            if ('analytic' in f.lower() or 'data' in f.lower())
+            and f.endswith('.csv')
+            and not f.startswith('__MACOSX')
+        ]
+
+        if not analytic_files:
+            analytic_files = [f for f in file_list if f.endswith('.csv') and not f.startswith('__MACOSX')]
+
+        if not analytic_files:
+            raise Exception("No CSV data files found in ZIP")
+
+        # Read the first analytic file
+        filename = analytic_files[0]
+        print(f"Reading: {filename}")
+
+        with zip_ref.open(filename) as f:
+            df = pd.read_csv(f, encoding='utf-8', low_memory=False)
+
+        # Save metadata
+        raw_dir = RAW_DATA_DIR / 'chr'
+        raw_dir.mkdir(parents=True, exist_ok=True)
+
+        metadata = {
+            'source': 'County Health Rankings & Roadmaps',
+            'zenodo_doi': '10.5281/zenodo.17584421',
+            'year': chr_year,
+            'download_date': datetime.now().isoformat(),
+            'source_file': filename,
+            'records_downloaded': len(df),
+            'measure': 'Social Associations (v140_rawvalue)',
+            'description': 'Number of membership associations per 10,000 population'
+        }
+
+        metadata_file = raw_dir / f'chr_social_associations_{chr_year}_metadata.json'
+        with open(metadata_file, 'w') as f_out:
+            json.dump(metadata, f_out, indent=2)
+        print(f"Saved metadata: {metadata_file}")
+
+    # Process the data
+    # Look for social associations columns (v140_rawvalue or "Social Associations raw value")
+    social_cols = [
+        col for col in df.columns
+        if any(pattern in str(col).lower() for pattern in [
+            'social associations raw', 'v140_rawvalue'
+        ])
+    ]
+
+    if not social_cols:
+        raise Exception("Could not find social associations column")
+
+    social_col = social_cols[0]
+    print(f"Using column: {social_col}")
+
+    # Find FIPS columns
+    fips_5digit_cols = [c for c in df.columns if '5-digit' in c.lower() and 'fips' in c.lower()]
+    if fips_5digit_cols:
+        df['full_fips'] = df[fips_5digit_cols[0]].astype(str).str.zfill(5)
+    elif any('fipscode' in c.lower() for c in df.columns):
+        fips_col = next((c for c in df.columns if 'fipscode' in c.lower()), None)
+        df['full_fips'] = df[fips_col].astype(str).str.zfill(5)
+    else:
+        # Look for state and county FIPS columns
+        state_cols = [c for c in df.columns if 'state' in c.lower() and 'fips' in c.lower()]
+        county_cols = [c for c in df.columns if 'county' in c.lower() and 'fips' in c.lower()]
+
+        if state_cols and county_cols:
+            df['full_fips'] = (
+                df[state_cols[0]].astype(str).str.zfill(2) +
+                df[county_cols[0]].astype(str).str.zfill(3)
+            )
+        else:
+            raise Exception("Cannot determine FIPS code structure")
+
+    # Extract state FIPS and filter
+    df['state_fips'] = df['full_fips'].str[:2]
+    target_state_fips = list(state_fips_dict.values())
+    filtered_df = df[df['state_fips'].isin(target_state_fips)].copy()
+
+    print(f"✓ Retrieved {len(filtered_df)} records for target states")
+
+    # Select and rename columns
+    name_columns = [
+        col for col in df.columns
+        if any(pattern in str(col).lower() for pattern in ['name', 'county_name', 'county name'])
+    ]
+
+    result_df = filtered_df[['full_fips', 'state_fips', social_col]].copy()
+    if name_columns:
+        result_df['county_name'] = filtered_df[name_columns[0]]
+
+    result_df = result_df.rename(columns={social_col: 'social_associations_per_10k'})
+
+    # Convert to numeric
+    result_df['social_associations_per_10k'] = pd.to_numeric(
+        result_df['social_associations_per_10k'],
+        errors='coerce'
+    )
+
+    print(f"  Mean: {result_df['social_associations_per_10k'].mean():.2f} per 10,000 pop")
+    print(f"  Median: {result_df['social_associations_per_10k'].median():.2f} per 10,000 pop")
+    print(f"  Range: {result_df['social_associations_per_10k'].min():.2f} - {result_df['social_associations_per_10k'].max():.2f}")
+    print(f"  Missing values: {result_df['social_associations_per_10k'].isna().sum()}")
+
+    return result_df
+
+
 def calculate_orgs_per_capita(county_counts, population_df):
     """
     Calculate 501(c)(3) organizations per 1,000 persons.
@@ -338,7 +483,7 @@ def calculate_orgs_per_capita(county_counts, population_df):
     return merged
 
 
-def process_and_save_data(county_counts, population_df, year, voter_turnout_df=None):
+def process_and_save_data(county_counts, population_df, year, social_associations_df=None, voter_turnout_df=None):
     """
     Process all data and save to CSV files.
 
@@ -346,6 +491,7 @@ def process_and_save_data(county_counts, population_df, year, voter_turnout_df=N
         county_counts: Dictionary mapping county FIPS to organization count
         population_df: DataFrame with population data
         year: Year of data collection
+        social_associations_df: Optional DataFrame with social associations data
         voter_turnout_df: Optional DataFrame with voter turnout data
 
     Returns:
@@ -356,6 +502,20 @@ def process_and_save_data(county_counts, population_df, year, voter_turnout_df=N
 
     # Calculate per capita metrics for 501(c)(3) organizations
     final_df = calculate_orgs_per_capita(county_counts, population_df)
+
+    # Merge with social associations data if provided
+    if social_associations_df is not None:
+        print("\nMerging social associations data...")
+        # Ensure both have consistent FIPS codes
+        social_associations_df = social_associations_df.rename(columns={'full_fips': 'fips'})
+        social_merge = social_associations_df[['fips', 'social_associations_per_10k']].copy()
+
+        final_df = final_df.merge(
+            social_merge,
+            on='fips',
+            how='left'  # Left join to keep all counties from 501(c)(3) data
+        )
+        print(f"✓ Merged social associations data for {final_df['social_associations_per_10k'].notna().sum()} counties")
 
     # Merge with voter turnout data if provided
     if voter_turnout_df is not None:
@@ -402,6 +562,19 @@ def process_and_save_data(county_counts, population_df, year, voter_turnout_df=N
         }
     }
 
+    # Add social associations summary if data was collected
+    if social_associations_df is not None and 'social_associations_per_10k' in final_df.columns:
+        summary['measures']['8.3'] = {
+            'name': 'Social Associations (membership associations per 10,000 pop)',
+            'source': 'County Health Rankings & Roadmaps (Zenodo)',
+            'data_source': 'County Business Patterns (NAICS 813)',
+            'records': int(final_df['social_associations_per_10k'].notna().sum()),
+            'mean_per_10k': float(final_df['social_associations_per_10k'].mean()),
+            'median_per_10k': float(final_df['social_associations_per_10k'].median()),
+            'min_per_10k': float(final_df['social_associations_per_10k'].min()),
+            'max_per_10k': float(final_df['social_associations_per_10k'].max())
+        }
+
     # Add voter turnout summary if data was collected
     if voter_turnout_df is not None and 'voter_turnout_pct' in final_df.columns:
         summary['measures']['8.4'] = {
@@ -428,6 +601,7 @@ def main():
     print("=" * 80)
     print("Component Index 8: Social Capital - Data Collection")
     print("Measure 8.1: 501(c)(3) Organizations Per 1,000 Persons")
+    print("Measure 8.3: Social Associations (per 10,000 population)")
     print("Measure 8.4: Voter Turnout (2020 Presidential Election)")
     print("=" * 80)
 
@@ -448,16 +622,30 @@ def main():
     # Step 2: Get population data for per capita calculation
     population_df = get_population_data(census_client, year, state_fips_list)
 
-    # Step 3: Collect voter turnout data
+    # Step 3: Collect social associations data
+    social_associations_df = None
+    try:
+        social_associations_df = collect_social_associations(chr_year, STATE_FIPS)
+    except Exception as e:
+        print(f"\n✗ Error collecting social associations data: {e}")
+        print("  Continuing without social associations data...")
+
+    # Step 4: Collect voter turnout data
     voter_turnout_df = None
     try:
         voter_turnout_df = collect_voter_turnout(chr_year, STATE_FIPS)
     except Exception as e:
         print(f"\n✗ Error collecting voter turnout data: {e}")
-        print("  Continuing with 501(c)(3) data only...")
+        print("  Continuing without voter turnout data...")
 
-    # Step 4: Calculate per capita metrics and save
-    final_df = process_and_save_data(county_counts, population_df, year, voter_turnout_df)
+    # Step 5: Calculate per capita metrics and save
+    final_df = process_and_save_data(
+        county_counts,
+        population_df,
+        year,
+        social_associations_df,
+        voter_turnout_df
+    )
 
     # Print final summary
     print("\n" + "=" * 80)
@@ -469,6 +657,14 @@ def main():
     print(f"  Counties with organizations: {(final_df['org_count_501c3'] > 0).sum()}")
     print(f"  Total organizations: {final_df['org_count_501c3'].sum():,}")
     print(f"  Mean per 1,000 persons: {final_df['orgs_per_1000'].mean():.2f}")
+
+    if 'social_associations_per_10k' in final_df.columns:
+        print()
+        print("Measure 8.3: Social Associations")
+        print(f"  Counties with data: {final_df['social_associations_per_10k'].notna().sum()}")
+        print(f"  Mean per 10,000 pop: {final_df['social_associations_per_10k'].mean():.2f}")
+        print(f"  Median per 10,000 pop: {final_df['social_associations_per_10k'].median():.2f}")
+
     if 'voter_turnout_pct' in final_df.columns:
         print()
         print("Measure 8.4: Voter Turnout (2020 Presidential Election)")

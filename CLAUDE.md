@@ -47,10 +47,10 @@ Process:
 **See PROJECT_PLAN.md for detailed progress tracking and component status.**
 
 **Quick Summary**:
-- **Progress**: 44 of 47 measures collected (94% complete)
+- **Progress**: 45 of 47 measures collected (96% complete)
 - **Completed**: Components 1-7 (100% complete)
-- **In Progress**: Component 8 - Social Capital (2 of 5 measures complete, 40%)
-- **Total Records**: ~32,000+ data points across all measures
+- **In Progress**: Component 8 - Social Capital (3 of 5 measures complete, 60%)
+- **Total Records**: ~34,500+ data points across all measures
 
 **Component Status** (see PROJECT_PLAN.md for details):
 - ✅ Component 1: Growth Index (5/5 measures)
@@ -60,10 +60,10 @@ Process:
 - ✅ Component 5: Education & Skill (5/5 measures)
 - ✅ Component 6: Infrastructure & Cost of Doing Business (6/6 measures)
 - ✅ Component 7: Quality of Life (8/8 measures)
-- 🔄 Component 8: Social Capital (2/5 measures) - measures 8.1 and 8.4 complete
+- 🔄 Component 8: Social Capital (3/5 measures) - measures 8.1, 8.3, and 8.4 complete
 
 **Remaining Work**:
-- Component 8: Measures 8.2 (Volunteer Rate), 8.3 (Volunteer Hours), 8.5 (Tree City USA)
+- Component 8: Measures 8.2 (Volunteer Rate - not implementing), 8.5 (Tree City USA)
 - Later: Regional aggregation, peer matching, index calculation
 
 **For measure-specific details**, see **API_MAPPING.md**.
@@ -324,12 +324,17 @@ For detailed updates, see PROJECT_PLAN.md. Major milestones listed below:
 - Created FBI Crime client with comprehensive caching (89 MB cache, 5,749 agencies)
 - Integrated crime data collection with optional `--crime` flag
 
-**2025-11-18**: Component 8 In Progress (Social Capital - 40% complete)
+**2025-11-18**: Component 8 In Progress (Social Capital - 60% complete)
 - Measure 8.1: Created IRS Exempt Organizations client, ZIP-to-FIPS crosswalk (343,917 orgs, 86.9% mapping success)
+- Measure 8.3: **Replaced "Volunteer Hours" with "Social Associations"** from CHR dataset (804 counties, mean: 10.63 per 10k pop)
+  - Changed from state-level AmeriCorps data to county-level CBP data (NAICS 813)
+  - Upgraded from MEDIUM to HIGH confidence
+  - 100% coverage with no missing data
+  - Measures civic infrastructure availability (membership associations) vs volunteer intensity
 - Measure 8.4: Discovered voter turnout in CHR dataset - upgraded from MEDIUM to HIGH confidence (804 counties, 2020 Presidential Election)
-- 3 measures remaining: 8.2 (Volunteer Rate), 8.3 (Volunteer Hours), 8.5 (Tree City USA)
+- 2 measures remaining: 8.2 (Volunteer Rate - not implementing), 8.5 (Tree City USA)
 
-**Overall Progress**: 44 of 47 measures collected (94% complete)
+**Overall Progress**: 45 of 47 measures collected (96% complete)
 
 ## Resources and References
 
