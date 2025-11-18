@@ -1320,20 +1320,33 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 
 - **Nebraska Source**: State by State Voter Turnout, 2018
 - **Nebraska Metric**: Percentage of registered voters who participated in fall 2018 general election
-- **Virginia API Source**: State election offices and MIT Election Lab
-- **Data Source**: State-level election results (bulk data collection)
-- **Confidence**: 🟡 **MEDIUM** (bulk data, requires state-by-state collection)
+- **Virginia API Source**: County Health Rankings & Roadmaps (via Zenodo API)
+- **Data Source**: County Health Rankings 2025 release (2020 Presidential Election)
+- **Confidence**: 🟢 **HIGH** (reliable API, county-level data, 100% coverage)
+- **Collection Status**: ✅ **COLLECTED** (2025-11-18)
+- **API Endpoint**: `https://zenodo.org/api/records/17584421/files/2025.zip/content`
+- **Variable**: `v177_rawvalue` (Voter Turnout raw value)
+- **Formula**: Percentage of citizen population aged 18 or older who voted in 2020 U.S. Presidential election
+- **Data Period**: 2020 Presidential Election
+- **Records Collected**: 804 counties (99.6% coverage)
+- **Statistics**:
+  - Mean turnout: 63.67%
+  - Median turnout: 63.07%
+  - Range: 19.42% to 90.55%
 - **Notes**:
-  - No unified API across states
-  - Each state publishes election results on Secretary of State websites
-  - MIT Election Data and Science Lab aggregates county-level results
-  - Use most recent general election (2022 or 2020) for consistency
-  - For multi-county regions: Calculate weighted average turnout by county
-  - Formula: `(Total_Votes_Cast / Registered_Voters) * 100`
-  - Measures civic involvement short of formally volunteering
-  - County-level data generally available from state election offices
-- **Data Period for Virginia**: Use most recent general election (2022 recommended)
-- **Alternative Source**: MIT Election Data + Science Lab (https://electionlab.mit.edu/)
+  - Originally planned to use state election offices/MIT Election Lab
+  - Discovered County Health Rankings contains voter turnout data (v177_rawvalue column)
+  - Data from 2020 Presidential Election (most recent before CHR 2025 release)
+  - Presidential elections have higher turnout than midterms, providing good measure of civic engagement
+  - Same Zenodo download used for life expectancy (Component 3, Measure 3.3)
+  - CHR data includes confidence intervals (v177_cilow, v177_cihigh)
+  - Voter turnout stored as proportion (0-1) in raw data, converted to percentage
+  - For multi-county regions: Calculate weighted average turnout by county population
+  - Measures civic involvement through electoral participation
+- **Data Files**:
+  - Raw metadata: `data/raw/chr/chr_voter_turnout_2025_metadata.json`
+  - Processed: `data/processed/component8_social_capital_2022.csv` (includes measure 8.1 and 8.4)
+  - Summary: `data/processed/component8_collection_summary.json`
 
 ### 8.5 Share of Tree City USA Counties
 

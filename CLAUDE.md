@@ -508,26 +508,31 @@ Component Index 5 contains 5 measures, ALL with HIGH confidence collected:
 
 See **API_MAPPING.md** for complete details on each measure.
 
-## Component Index 8: Social Capital (🔄 IN PROGRESS - 1 of 5 measures complete)
+## Component Index 8: Social Capital (🔄 IN PROGRESS - 2 of 5 measures complete)
 
-**Status**: Started 2025-11-18 (20% complete)
-**Records**: 807 counties for measure 8.1
+**Status**: Started 2025-11-18 (40% complete)
+**Records**: 1,619 total records across measures 8.1 and 8.4
 
-Component Index 8 contains 5 measures. 1 measure fully collected, 4 remaining:
+Component Index 8 contains 5 measures. 2 measures fully collected, 3 remaining:
 - **8.1**: Number of 501(c)(3) Organizations Per 1,000 Persons (IRS EO BMF) ✅ **COMPLETE**
 - **8.2**: Volunteer Rate - State Level (AmeriCorps) ⏳ **NOT STARTED**
 - **8.3**: Volunteer Hours Per Person - State Level (AmeriCorps) ⏳ **NOT STARTED**
-- **8.4**: Voter Turnout (State Election Offices/MIT Election Lab) ⏳ **NOT STARTED**
+- **8.4**: Voter Turnout - 2020 Presidential Election (County Health Rankings) ✅ **COMPLETE**
 - **8.5**: Share of Tree City USA Counties (Arbor Day Foundation) ⏳ **NOT STARTED**
 
 **Key Implementation Details**:
-- Created IRS Exempt Organizations API client for bulk data downloads
-- Downloaded state-level CSV files from IRS.gov for all 10 states
-- Implemented ZIP-to-FIPS crosswalk for geocoding organizations to counties
-- Crosswalk from GitHub (bgruber/zip2fips): 41,173 ZIP-FIPS mappings
-- 86.9% mapping success rate (13.1% unmapped due to outdated ZIPs, PO boxes)
-- Collected 343,917 total 501(c)(3) organizations across 10 states
-- Successfully mapped 298,734 organizations to 807 counties
+- **Measure 8.1**: Created IRS Exempt Organizations API client for bulk data downloads
+  - Downloaded state-level CSV files from IRS.gov for all 10 states
+  - Implemented ZIP-to-FIPS crosswalk for geocoding organizations to counties
+  - Crosswalk from GitHub (bgruber/zip2fips): 41,173 ZIP-FIPS mappings
+  - 86.9% mapping success rate (13.1% unmapped due to outdated ZIPs, PO boxes)
+  - Collected 343,917 total 501(c)(3) organizations across 10 states
+  - Successfully mapped 298,734 organizations to 807 counties
+- **Measure 8.4**: Collected voter turnout from County Health Rankings (via Zenodo)
+  - Uses same CHR 2025 dataset as Component 3 Measure 3.3 (life expectancy)
+  - Data from 2020 U.S. Presidential Election
+  - 804 counties with voter turnout data (99.6% coverage)
+  - Changed from planned source (state election offices/MIT Election Lab) to HIGH confidence CHR data
 
 **New Functionality Added**:
 - Created `scripts/api_clients/irs_client.py` - IRS Exempt Organizations client
@@ -535,33 +540,45 @@ Component Index 8 contains 5 measures. 1 measure fully collected, 4 remaining:
   - `get_zip_to_fips_crosswalk()` - Download and cache ZIP-FIPS mappings
   - `map_organizations_to_counties()` - Geocode orgs to counties
   - `count_organizations_by_county()` - Aggregate to county-level counts
-- Created `scripts/data_collection/collect_component8.py` (measure 8.1 only)
+- Updated `scripts/data_collection/collect_component8.py` (measures 8.1 and 8.4)
+  - Added `collect_voter_turnout()` function for CHR data download
   - Integrated IRS and Census population data
   - Calculates organizations per 1,000 persons automatically
+  - Merges voter turnout data with 501(c)(3) data
   - Comprehensive caching for all downloads
 
 **Key Statistics**:
-- Total 501(c)(3) Organizations: 343,917 across all 10 states
-- Organizations Mapped to Counties: 298,734 (86.9%)
-- Organizations Unmapped: 45,183 (13.1% - outdated ZIPs, PO boxes)
-- Counties Covered: 807 counties
-- Counties with Organizations: 787 (97.5%)
-- Mean per 1,000 persons: 4.27
-- Median per 1,000 persons: 3.81
-- Range: 0.00 to 146.98 per 1,000 persons
+- **Measure 8.1 - 501(c)(3) Organizations**:
+  - Total Organizations: 343,917 across all 10 states
+  - Organizations Mapped to Counties: 298,734 (86.9%)
+  - Organizations Unmapped: 45,183 (13.1% - outdated ZIPs, PO boxes)
+  - Counties Covered: 807 counties
+  - Counties with Organizations: 787 (97.5%)
+  - Mean per 1,000 persons: 4.27
+  - Median per 1,000 persons: 3.81
+  - Range: 0.00 to 146.98 per 1,000 persons
+- **Measure 8.4 - Voter Turnout (2020 Presidential Election)**:
+  - Counties with Data: 804 (99.6% coverage)
+  - Mean Turnout: 63.67%
+  - Median Turnout: 63.07%
+  - Range: 19.42% to 90.55%
+  - Data Source: County Health Rankings 2025 (variable v177_rawvalue)
 
 **Data Files**:
-- Raw: `data/raw/irs/eo_[STATE]_raw.csv` (10 files, cached)
-- Filtered: `data/raw/irs/eo_[STATE]_501c3.json` (10 files)
-- Crosswalk: `data/raw/irs/zip_to_fips_crosswalk.json`
-- Processed: `data/processed/irs_501c3_by_county_2022.csv` (807 counties)
+- Raw IRS: `data/raw/irs/eo_[STATE]_raw.csv` (10 files, cached)
+- Filtered IRS: `data/raw/irs/eo_[STATE]_501c3.json` (10 files)
+- ZIP Crosswalk: `data/raw/irs/zip_to_fips_crosswalk.json`
+- CHR Metadata: `data/raw/chr/chr_voter_turnout_2025_metadata.json`
+- Processed: `data/processed/component8_social_capital_2022.csv` (807 counties, measures 8.1 and 8.4)
 - Summary: `data/processed/component8_collection_summary.json`
 
 **Technical Notes**:
-- No direct IRS API available - uses bulk CSV downloads
-- ZIP-to-FIPS crosswalk enables county-level geocoding
-- Organizations without valid ZIP codes cannot be mapped to counties
-- Remaining measures (8.2-8.5) require different data sources and collection methods
+- **Measure 8.1**: No direct IRS API available - uses bulk CSV downloads
+- **Measure 8.1**: ZIP-to-FIPS crosswalk enables county-level geocoding
+- **Measure 8.1**: Organizations without valid ZIP codes cannot be mapped to counties
+- **Measure 8.4**: Voter turnout discovered in CHR dataset, upgraded from MEDIUM to HIGH confidence
+- **Measure 8.4**: Uses same Zenodo download as Component 3 Measure 3.3 (efficient reuse)
+- Remaining measures (8.2, 8.3, 8.5) require different data sources and collection methods
 
 See **API_MAPPING.md** for complete details on each measure.
 
@@ -577,20 +594,20 @@ See **API_MAPPING.md** for complete details on each measure.
 - ✅ Component 5: Education & Skill (5/5 measures, 2,406 records) - **100% COMPLETE**
 - ✅ Component 6: Infrastructure & Cost of Doing Business (6/6 measures, 3,341 records) - **100% COMPLETE**
 - ✅ Component 7: Quality of Life (8/8 measures, ~6,400 records) - **100% COMPLETE**
-- 🔄 Component 8: Social Capital (1/5 measures, 807 records) - **20% COMPLETE**
+- 🔄 Component 8: Social Capital (2/5 measures, 1,619 records) - **40% COMPLETE**
 
 **Progress Summary**:
-- **Fully collected**: 43 of 47 measures (91% complete)
+- **Fully collected**: 44 of 47 measures (94% complete)
 - **7 of 8 component indexes fully complete**
-- **Component 8 in progress** (1 of 5 measures complete)
+- **Component 8 in progress** (2 of 5 measures complete)
 
 **Next Implementation**:
 
-1. **Continue Through Component 8** - Social Capital Index (4 remaining measures, MEDIUM confidence)
+1. **Continue Through Component 8** - Social Capital Index (3 remaining measures, MEDIUM confidence)
    - ✅ 8.1: Number of 501c3 Organizations (IRS bulk download) - **COMPLETE**
    - ⏳ 8.2: Volunteer Rate - state-level (AmeriCorps)
    - ⏳ 8.3: Volunteer Hours Per Person - state-level (AmeriCorps)
-   - ⏳ 8.4: Voter Turnout (State election offices/MIT Election Lab)
+   - ✅ 8.4: Voter Turnout - 2020 Presidential Election (County Health Rankings) - **COMPLETE**
    - ⏳ 8.5: Share of Tree City USA Counties (Arbor Day Foundation)
 
 2. **Later Phases** (After all data collected):
@@ -1190,3 +1207,36 @@ See **API_MAPPING.md** for complete details on each measure.
 - **Status**: Component 8 now **20% COMPLETE** (1 of 5 measures collected)
 - Overall project progress: **43 of 47 measures collected (91% complete)**
 - Updated PROJECT_PLAN.md, API_MAPPING.md, and CLAUDE.md to reflect Component 8 progress
+
+**2025-11-18**: Component 8 Measure 8.4 Implementation - Voter Turnout
+- **IMPLEMENTATION COMPLETE** - Component 8 Measure 8.4: Voter Turnout (2020 Presidential Election)
+- Updated `scripts/data_collection/collect_component8.py` to collect both measures 8.1 and 8.4
+  - Added `collect_voter_turnout()` function for County Health Rankings data
+  - Updated `process_and_save_data()` to merge voter turnout with 501(c)(3) data
+  - Updated `main()` to collect both measures in single script run
+- **Data Source Discovery**:
+  - Originally planned to use state election offices/MIT Election Lab (MEDIUM confidence)
+  - Discovered County Health Rankings contains voter turnout data (HIGH confidence)
+  - Variable v177_rawvalue: Percentage of citizens 18+ who voted in 2020 Presidential election
+  - Same Zenodo download used for Component 3 Measure 3.3 (life expectancy)
+  - Upgraded from MEDIUM to HIGH confidence with 100% county coverage
+- **Data Collection Results**:
+  - Election: 2020 U.S. Presidential Election
+  - Counties with data: 804 (99.6% coverage)
+  - Mean turnout: 63.67%
+  - Median turnout: 63.07%
+  - Range: 19.42% to 90.55%
+  - Only 3 counties missing data (0.4%)
+- **Implementation Notes**:
+  - Downloads CHR 2025 dataset from Zenodo (~50 MB)
+  - Extracts voter turnout column (v177_rawvalue) from analytic CSV
+  - Converts from proportion (0-1) to percentage (0-100)
+  - Merges with 501(c)(3) data for integrated Component 8 dataset
+  - Presidential election data provides good measure of civic engagement (higher turnout than midterms)
+- **Output Files**:
+  - Raw metadata: `data/raw/chr/chr_voter_turnout_2025_metadata.json`
+  - Processed: `data/processed/component8_social_capital_2022.csv` (807 counties, measures 8.1 and 8.4)
+  - Summary: `data/processed/component8_collection_summary.json` (includes both measures)
+- **Status**: Component 8 now **40% COMPLETE** (2 of 5 measures collected)
+- Overall project progress: **44 of 47 measures collected (94% complete)**
+- Updated PROJECT_PLAN.md, API_MAPPING.md, and CLAUDE.md to reflect Component 8 measure 8.4 completion
