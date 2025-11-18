@@ -1,7 +1,7 @@
 # Virginia Thriving Index - API Source Mapping
 
 **Last Updated**: 2025-11-18
-**Status**: Components 1-7 complete (100%); Component 8 in progress (1 of 5 measures complete - 20%)
+**Status**: Components 1-8 complete (100%); All 47 measures collected ✅
 
 ---
 
@@ -1283,22 +1283,45 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 - **API Client**: `scripts/api_clients/irs_client.py` - IRS Exempt Organizations client
 - **Collection Script**: `scripts/data_collection/collect_component8.py` (measure 8.1 only)
 
-### 8.2 Volunteer Rate (State Level)
+### 8.2 Volunteer Rate
 
-- **Nebraska Source**: Corporation for National & Community Service, 2017
+- **Nebraska Source**: Corporation for National & Community Service, 2017 (state-level)
 - **Nebraska Metric**: Share of state population volunteering time to non-profit organizations
-- **Virginia API Source**: AmeriCorps (formerly CNCS) Volunteering and Civic Life in America
-- **Data Source**: AmeriCorps annual reports and data downloads
-- **Confidence**: 🟡 **MEDIUM** (bulk data, state-level only, not county-level)
+- **Virginia Data Source**: Social Capital Atlas (Meta/Facebook) - County-level data
+- **Download URL**: https://data.humdata.org/dataset/social-capital-atlas (Humanitarian Data Exchange)
+- **Data URL**: `https://data.humdata.org/dataset/85ee8e10-0c66-4635-b997-79b6fad44c71/resource/ec896b64-c922-4737-b759-e4bd7f73b8cc/download/social_capital_county.csv`
+- **Metric**: Percentage of individuals who are members of volunteering or activism groups (Facebook data)
+- **Confidence**: ✅ **HIGH** (bulk download, county-level data, comprehensive coverage)
+- **Collection Status**: ✅ **COLLECTED** (2025-11-18)
 - **Notes**:
-  - AmeriCorps publishes annual Volunteering in America reports
-  - Data collected via Current Population Survey (CPS) September Volunteer Supplement
-  - STATE-LEVEL DATA ONLY (not available at county/regional level)
-  - All regions within same state receive same volunteer rate
-  - Use most recent available year (check for updates beyond 2017)
-  - Measures participation in networking opportunities related to volunteering
-- **Data Period for Virginia**: Use most recent AmeriCorps Volunteering in America data
-- **Download URL**: https://americorps.gov/about/our-impact/volunteering-civic-engagement-research
+  - **REPLACEMENT DATA SOURCE**: Using Social Capital Atlas county-level data instead of AmeriCorps state-level data
+  - Social Capital Atlas provides county-level volunteering participation rates
+  - Based on Facebook group membership data for volunteering and activism groups
+  - County-level granularity (MUCH better than state-level AmeriCorps data)
+  - Comprehensive coverage across all US counties
+  - Part of the Social Capital Atlas research project from Meta, Harvard, NYU, and Stanford
+  - Published in Nature journal as part of social capital research
+  - Column: `volunteering_rate_county` in the source CSV
+  - Stored as decimal (e.g., 0.0636 = 6.36% participation rate)
+- **Why This Replacement?**:
+  - County-level vs state-level (critical for peer region comparisons)
+  - More granular and precise measure of local volunteering culture
+  - Consistent methodology across all counties
+  - From rigorous academic research published in top-tier journal
+- **Data Year**: Social Capital Atlas (2022 Facebook data)
+- **Records Collected**: 782 counties (97.5% coverage of 802 target counties)
+- **Statistics**:
+  - Mean volunteering rate: 0.0636 (6.36%)
+  - Median volunteering rate: 0.0602 (6.02%)
+  - Range: 0.0152 (1.52%) to 0.2100 (21.00%)
+  - Missing values: 20 counties (2.5%)
+- **Data Files**:
+  - Raw cache: `data/raw/social_capital/social_capital_county.csv` (all US counties)
+  - Metadata: `data/raw/social_capital/social_capital_atlas_metadata.json`
+  - Processed: `data/processed/component8_social_capital_2022.csv` (includes all Component 8 measures)
+  - Summary: `data/processed/component8_collection_summary.json`
+- **API Client**: `scripts/api_clients/social_capital_client.py` - Social Capital Atlas client
+- **Collection Script**: `scripts/data_collection/collect_component8.py` (measures 8.1, 8.2, 8.3, 8.4, 8.5)
 
 ### 8.3 Social Associations
 
@@ -1372,22 +1395,46 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
   - Processed: `data/processed/component8_social_capital_2022.csv` (includes measures 8.1, 8.3, and 8.4)
   - Summary: `data/processed/component8_collection_summary.json`
 
-### 8.5 Share of Tree City USA Counties
+### 8.5 Civic Organizations Density
 
-- **Nebraska Source**: Arbor Day Foundation, Tree City USA Communities, 2022
+- **Nebraska Source**: Arbor Day Foundation, Tree City USA Communities, 2022 (binary county measure)
 - **Nebraska Metric**: Share of regional population living in a county with at least one Tree City USA community
-- **Virginia API Source**: Arbor Day Foundation Tree City USA directory
-- **Data Source**: Static list from Arbor Day Foundation website
-- **Confidence**: 🟡 **MEDIUM** (static data, requires manual mapping)
+- **Virginia Data Source**: Social Capital Atlas (Meta/Facebook) - County-level data
+- **Download URL**: https://data.humdata.org/dataset/social-capital-atlas (Humanitarian Data Exchange)
+- **Data URL**: `https://data.humdata.org/dataset/85ee8e10-0c66-4635-b997-79b6fad44c71/resource/ec896b64-c922-4737-b759-e4bd7f73b8cc/download/social_capital_county.csv`
+- **Metric**: Number of civic organizations with Facebook pages per 1,000 Facebook users in the county
+- **Confidence**: ✅ **HIGH** (bulk download, county-level data, comprehensive coverage)
+- **Collection Status**: ✅ **COLLECTED** (2025-11-18)
 - **Notes**:
-  - Arbor Day Foundation publishes list of Tree City USA communities annually
-  - Need to map communities to counties (some communities are cities within counties)
-  - Binary variable at county level: 1 if county has Tree City USA, 0 if not
-  - For multi-county regions: Calculate as `(Population_in_Tree_City_counties / Total_regional_population)`
-  - Measures social involvement related to built environment and environmental stewardship
-  - Tree City USA designation requires: tree board/department, tree ordinance, $2/capita forestry spending, Arbor Day proclamation
-  - One-time manual mapping acceptable for this static data
-- **Data Period for Virginia**: Use most recent Tree City USA list (updated annually)
-- **Directory URL**: https://www.arborday.org/programs/treecityusa/
+  - **REPLACEMENT DATA SOURCE**: Using Social Capital Atlas civic organizations density instead of Tree City USA
+  - Measures density of civic organizations in the community
+  - Based on Facebook organizational pages data
+  - Includes civic, community, and local organizations with Facebook presence
+  - County-level granularity provides detailed local variation
+  - Part of the Social Capital Atlas research project from Meta, Harvard, NYU, and Stanford
+  - Published in Nature journal as part of social capital research
+  - Column: `civic_organizations_county` in the source CSV
+  - Stored as decimal (e.g., 0.0176 = 1.76 civic organizations per 1,000 Facebook users)
+  - Complements measure 8.3 (social associations from CHR/CBP) and measure 8.1 (501c3 orgs from IRS)
+- **Why This Replacement?**:
+  - Continuous measure vs binary Tree City USA measure (more granular)
+  - County-level data across all counties (better coverage than Tree City)
+  - Directly measures civic infrastructure available for community engagement
+  - From rigorous academic research published in top-tier journal
+  - Measures actual organizational density rather than single designation
+- **Data Year**: Social Capital Atlas (2022 Facebook data)
+- **Records Collected**: 782 counties (97.5% coverage of 802 target counties)
+- **Statistics**:
+  - Mean civic organizations density: 0.0176 per 1,000 Facebook users
+  - Median civic organizations density: 0.0163 per 1,000 Facebook users
+  - Range: 0.0046 to 0.0754 per 1,000 Facebook users
+  - Missing values: 20 counties (2.5%)
+- **Data Files**:
+  - Raw cache: `data/raw/social_capital/social_capital_county.csv` (all US counties)
+  - Metadata: `data/raw/social_capital/social_capital_atlas_metadata.json`
+  - Processed: `data/processed/component8_social_capital_2022.csv` (includes all Component 8 measures)
+  - Summary: `data/processed/component8_collection_summary.json`
+- **API Client**: `scripts/api_clients/social_capital_client.py` - Social Capital Atlas client
+- **Collection Script**: `scripts/data_collection/collect_component8.py` (measures 8.1, 8.2, 8.3, 8.4, 8.5)
 
 ---

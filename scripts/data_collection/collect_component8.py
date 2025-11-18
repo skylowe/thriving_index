@@ -3,8 +3,10 @@ Component Index 8: Social Capital - Data Collection Script
 
 Collects measures for Component Index 8 for all counties in 10 states:
 8.1 Number of 501(c)(3) Organizations Per 1,000 Persons (IRS EO BMF)
+8.2 Volunteer Rate (Social Capital Atlas - volunteering/activism participation)
 8.3 Social Associations (County Health Rankings - membership associations per 10,000 pop)
 8.4 Voter Turnout (County Health Rankings - 2020 Presidential Election)
+8.5 Civic Organizations Density (Social Capital Atlas - civic orgs per 1,000 Facebook users)
 
 States: VA, PA, MD, DE, WV, KY, TN, NC, SC, GA
 """
@@ -24,6 +26,7 @@ sys.path.append(str(Path(__file__).resolve().parent.parent))
 from config import STATE_FIPS, RAW_DATA_DIR, PROCESSED_DATA_DIR
 from api_clients.irs_client import IRSExemptOrgClient
 from api_clients.census_client import CensusClient
+from api_clients.social_capital_client import SocialCapitalAtlasClient
 
 
 # State names from STATE_FIPS mapping (imported from config)
@@ -439,6 +442,51 @@ def collect_social_associations(chr_year, state_fips_dict):
     return result_df
 
 
+def collect_social_capital_atlas(social_capital_client, state_fips_list):
+    """
+    Collect volunteering and civic organizations data from Social Capital Atlas (Measures 8.2 & 8.5).
+
+    Args:
+        social_capital_client: SocialCapitalAtlasClient instance
+        state_fips_list: List of state FIPS codes to filter
+
+    Returns:
+        DataFrame with volunteering_rate and civic_organizations columns
+    """
+    print("\nCollecting Social Capital Atlas Data (Measures 8.2 & 8.5)...")
+    print(f"Source: Social Capital Atlas (Meta/Facebook)")
+    print("Measure 8.2: Volunteer Rate (volunteering/activism participation)")
+    print("Measure 8.5: Civic Organizations Density (per 1,000 Facebook users)")
+    print("-" * 60)
+
+    try:
+        # Get county-level data
+        df = social_capital_client.get_volunteering_civic_data(state_fips_list=state_fips_list)
+
+        # Save metadata
+        raw_dir = RAW_DATA_DIR / 'social_capital'
+        raw_dir.mkdir(parents=True, exist_ok=True)
+
+        metadata_file = raw_dir / 'social_capital_atlas_metadata.json'
+        social_capital_client.save_metadata(df, metadata_file)
+
+        print(f"\n✓ Retrieved {len(df)} counties from Social Capital Atlas")
+
+        # Rename columns for clarity
+        df_renamed = df.rename(columns={
+            'volunteering_rate_county': 'volunteering_rate',
+            'civic_organizations_county': 'civic_organizations_per_1k'
+        })
+
+        return df_renamed
+
+    except Exception as e:
+        print(f"\n✗ Error collecting Social Capital Atlas data: {e}")
+        import traceback
+        traceback.print_exc()
+        return None
+
+
 def calculate_orgs_per_capita(county_counts, population_df):
     """
     Calculate 501(c)(3) organizations per 1,000 persons.
@@ -483,7 +531,8 @@ def calculate_orgs_per_capita(county_counts, population_df):
     return merged
 
 
-def process_and_save_data(county_counts, population_df, year, social_associations_df=None, voter_turnout_df=None):
+def process_and_save_data(county_counts, population_df, year, social_associations_df=None,
+                          voter_turnout_df=None, social_capital_df=None):
     """
     Process all data and save to CSV files.
 
@@ -493,6 +542,7 @@ def process_and_save_data(county_counts, population_df, year, social_association
         year: Year of data collection
         social_associations_df: Optional DataFrame with social associations data
         voter_turnout_df: Optional DataFrame with voter turnout data
+        social_capital_df: Optional DataFrame with Social Capital Atlas data (measures 8.2 & 8.5)
 
     Returns:
         DataFrame with all processed data
@@ -530,6 +580,20 @@ def process_and_save_data(county_counts, population_df, year, social_association
             how='left'  # Left join to keep all counties from 501(c)(3) data
         )
         print(f"✓ Merged voter turnout data for {final_df['voter_turnout_pct'].notna().sum()} counties")
+
+    # Merge with Social Capital Atlas data if provided (measures 8.2 & 8.5)
+    if social_capital_df is not None:
+        print("\nMerging Social Capital Atlas data (measures 8.2 & 8.5)...")
+        # Select only the columns we need
+        social_capital_merge = social_capital_df[['fips', 'volunteering_rate', 'civic_organizations_per_1k']].copy()
+
+        final_df = final_df.merge(
+            social_capital_merge,
+            on='fips',
+            how='left'  # Left join to keep all counties
+        )
+        print(f"✓ Merged volunteering rate data for {final_df['volunteering_rate'].notna().sum()} counties")
+        print(f"✓ Merged civic organizations data for {final_df['civic_organizations_per_1k'].notna().sum()} counties")
 
     # Save to CSV
     processed_dir = Path(PROCESSED_DATA_DIR)
@@ -588,6 +652,32 @@ def process_and_save_data(county_counts, population_df, year, social_association
             'max_turnout_pct': float(final_df['voter_turnout_pct'].max())
         }
 
+    # Add Social Capital Atlas summary if data was collected (measures 8.2 & 8.5)
+    if social_capital_df is not None:
+        if 'volunteering_rate' in final_df.columns:
+            summary['measures']['8.2'] = {
+                'name': 'Volunteer Rate (volunteering/activism participation)',
+                'source': 'Social Capital Atlas (Meta/Facebook)',
+                'source_url': 'https://socialcapital.org',
+                'records': int(final_df['volunteering_rate'].notna().sum()),
+                'mean_rate': float(final_df['volunteering_rate'].mean()),
+                'median_rate': float(final_df['volunteering_rate'].median()),
+                'min_rate': float(final_df['volunteering_rate'].min()),
+                'max_rate': float(final_df['volunteering_rate'].max())
+            }
+
+        if 'civic_organizations_per_1k' in final_df.columns:
+            summary['measures']['8.5'] = {
+                'name': 'Civic Organizations Density (per 1,000 Facebook users)',
+                'source': 'Social Capital Atlas (Meta/Facebook)',
+                'source_url': 'https://socialcapital.org',
+                'records': int(final_df['civic_organizations_per_1k'].notna().sum()),
+                'mean_per_1k': float(final_df['civic_organizations_per_1k'].mean()),
+                'median_per_1k': float(final_df['civic_organizations_per_1k'].median()),
+                'min_per_1k': float(final_df['civic_organizations_per_1k'].min()),
+                'max_per_1k': float(final_df['civic_organizations_per_1k'].max())
+            }
+
     summary_file = processed_dir / f"component8_collection_summary.json"
     with open(summary_file, 'w') as f:
         json.dump(summary, f, indent=2)
@@ -601,13 +691,16 @@ def main():
     print("=" * 80)
     print("Component Index 8: Social Capital - Data Collection")
     print("Measure 8.1: 501(c)(3) Organizations Per 1,000 Persons")
+    print("Measure 8.2: Volunteer Rate (Social Capital Atlas)")
     print("Measure 8.3: Social Associations (per 10,000 population)")
     print("Measure 8.4: Voter Turnout (2020 Presidential Election)")
+    print("Measure 8.5: Civic Organizations Density (Social Capital Atlas)")
     print("=" * 80)
 
     # Initialize clients
     irs_client = IRSExemptOrgClient()
     census_client = CensusClient()
+    social_capital_client = SocialCapitalAtlasClient()
 
     # Define target states (all 10 states)
     state_fips_list = list(STATE_FIPS.values())
@@ -638,13 +731,22 @@ def main():
         print(f"\n✗ Error collecting voter turnout data: {e}")
         print("  Continuing without voter turnout data...")
 
-    # Step 5: Calculate per capita metrics and save
+    # Step 5: Collect Social Capital Atlas data (measures 8.2 & 8.5)
+    social_capital_df = None
+    try:
+        social_capital_df = collect_social_capital_atlas(social_capital_client, state_fips_list)
+    except Exception as e:
+        print(f"\n✗ Error collecting Social Capital Atlas data: {e}")
+        print("  Continuing without Social Capital Atlas data...")
+
+    # Step 6: Calculate per capita metrics and save
     final_df = process_and_save_data(
         county_counts,
         population_df,
         year,
         social_associations_df,
-        voter_turnout_df
+        voter_turnout_df,
+        social_capital_df
     )
 
     # Print final summary
@@ -657,6 +759,13 @@ def main():
     print(f"  Counties with organizations: {(final_df['org_count_501c3'] > 0).sum()}")
     print(f"  Total organizations: {final_df['org_count_501c3'].sum():,}")
     print(f"  Mean per 1,000 persons: {final_df['orgs_per_1000'].mean():.2f}")
+
+    if 'volunteering_rate' in final_df.columns:
+        print()
+        print("Measure 8.2: Volunteer Rate (Social Capital Atlas)")
+        print(f"  Counties with data: {final_df['volunteering_rate'].notna().sum()}")
+        print(f"  Mean rate: {final_df['volunteering_rate'].mean():.4f}")
+        print(f"  Median rate: {final_df['volunteering_rate'].median():.4f}")
 
     if 'social_associations_per_10k' in final_df.columns:
         print()
@@ -671,6 +780,13 @@ def main():
         print(f"  Counties with data: {final_df['voter_turnout_pct'].notna().sum()}")
         print(f"  Mean turnout: {final_df['voter_turnout_pct'].mean():.2f}%")
         print(f"  Median turnout: {final_df['voter_turnout_pct'].median():.2f}%")
+
+    if 'civic_organizations_per_1k' in final_df.columns:
+        print()
+        print("Measure 8.5: Civic Organizations Density (Social Capital Atlas)")
+        print(f"  Counties with data: {final_df['civic_organizations_per_1k'].notna().sum()}")
+        print(f"  Mean per 1,000 Facebook users: {final_df['civic_organizations_per_1k'].mean():.4f}")
+        print(f"  Median per 1,000 Facebook users: {final_df['civic_organizations_per_1k'].median():.4f}")
     print("=" * 80)
 
 
