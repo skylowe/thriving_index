@@ -32,12 +32,12 @@ class FCCBroadbandClient:
             username: FCC API username/email (optional, defaults to generic email)
         """
         self.api_key = api_key or FCC_BB_KEY
-        # Username should be an email address for FCC API
+        # Username should be from FCC User Registration
         self.username = username or "thriving_index@example.com"
-        self.base_url = 'https://broadbandmap.fcc.gov/api/public/map'
+        self.base_url = 'https://broadbandmap.fcc.gov/api/public'  # Correct base per swagger spec
         self.session = requests.Session()
 
-        # Set up authentication headers (following FCC API spec)
+        # Set up authentication headers (per BDC Public Data API swagger spec)
         if self.api_key:
             self.session.headers.clear()  # Clear default headers first
             self.session.headers.update({
@@ -88,14 +88,16 @@ class FCCBroadbandClient:
         """
         Get list of available data collection dates.
 
+        Per swagger spec: GET /map/listAsOfDates
+
         Returns:
             list: Available as-of dates for broadband data
         """
         print("Fetching available data collection dates...")
-        response = self._make_request('listAsOfDates')
+        response = self._make_request('map/listAsOfDates')
 
         if isinstance(response, dict) and 'data' in response:
-            dates = response['data']
+            dates = [item['as_of_date'] for item in response['data']]
         elif isinstance(response, list):
             dates = response
         else:
