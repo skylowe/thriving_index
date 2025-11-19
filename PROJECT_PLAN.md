@@ -670,12 +670,30 @@ Component Aggregation Status:
 - Geographic isolation varies: some regions 6 miles from small MSA, others 75+ miles
 - Distance to large MSAs ranges from 11 miles (Central Savannah River, GA near Augusta) to 193 miles (Southwest GA)
 
+**Peer Region Selection Complete**:
+- ✅ Implemented Mahalanobis distance algorithm using numpy
+- ✅ Calculated covariance matrix and inverse for all 94 regions
+- ✅ Selected 8 peer regions for each of 6 Virginia rural regions (48 total)
+- ✅ Saved results to `data/peer_regions_selected.csv`
+
+**Peer Selection Results**:
+- **48 peer regions** selected across 6 Virginia rural regions
+- **Mahalanobis distance range**: 0.689 to 2.349 (mean: 1.508)
+- **State distribution**: Tennessee (10), South Carolina (9), Kentucky (8), Pennsylvania (5), Georgia (4), Maryland (4), Virginia (3), North Carolina (3), West Virginia (2)
+- **Script**: `scripts/select_peer_regions.py` - Automated peer selection (280 lines)
+
+**Sample Peer Matches**:
+- **Southwest Virginia (51_1)**: Catawba SC, Northwest PA, Region VII WV, Northern Tier PA
+- **Central/Western Virginia (51_2)**: First TN DD, Southeast TN DD, Southwest TN DD, Pee Dee SC
+- **Southside Virginia (51_3)**: Lake Cumberland KY, Buffalo Trace KY, South Central TN, Northwest TN
+- **Mary Ball Washington (51_6)**: MidSouth TN, Berkeley-Charleston SC, Tri-County Southern MD
+- **Shenandoah Valley (51_8)**: Georgia Mountains, Eastern Carolina NC, Barren River KY, Santee Lynches SC
+- **Central Virginia (51_9)**: Central Midlands SC, Greater Richmond VA, Berkeley-Charleston SC, Kentuckiana KY
+
 **Next Steps**:
-1. ✅ Data validation and quality checks
-2. Implement Mahalanobis distance algorithm
-3. Calculate distance matrix between all 94 regions
-4. Select 5-8 peer regions for each of 6 Virginia rural regions
-5. Document peer region selections with justifications
+1. Review peer region selections for appropriateness and comparability
+2. Calculate thriving index scores using peer region averages (Phase 12)
+3. Generate regional comparison reports and visualizations
 
 ### Phase 12: Index Calculation and Analysis
 **Status**: Not Started
@@ -686,7 +704,7 @@ Component Aggregation Status:
 - [ ] Create visualizations and reports
 
 ## Current Status
-**Phase**: **Phase 11: Peer Region Matching** ⚙️ (57% - 4 of 7 variables gathered)
+**Phase**: **Phase 11: Peer Region Matching** ✅ COMPLETE
 **Date**: 2025-11-18
 
 **Completed**:

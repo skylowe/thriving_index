@@ -616,12 +616,59 @@ For detailed updates, see PROJECT_PLAN.md. Major milestones listed below:
 - **Metro Adjacent**: 0% micropolitan, 0% mining, 95%+ services (e.g., Northern Virginia)
 - **Industrial Belt**: 30-40% manufacturing, moderate services, minimal farm/mining
 
-**Next Steps**:
-1. Implement Mahalanobis distance algorithm for multi-dimensional matching
-2. Calculate distance matrix between all 94 regions
-3. Normalize/standardize variables for equal weighting
-4. Select 5-8 peer regions for each of 6 Virginia rural regions
-5. Document peer selections with distance scores and rationale
+**Peer Region Selection Complete**:
+- ✅ Implemented Mahalanobis distance algorithm (numpy implementation)
+- ✅ Calculated covariance matrix and inverse for 8-dimensional variable space
+- ✅ Standardized all variables using z-score normalization
+- ✅ Selected 8 peer regions for each of 6 Virginia rural regions (48 total peers)
+- ✅ Saved complete peer selections to `data/peer_regions_selected.csv`
+
+**Peer Selection Results**:
+- **48 total peer regions** identified across 6 Virginia rural regions (8 peers each)
+- **Mahalanobis distances**: 0.689 to 2.349 (mean: 1.508) - excellent matching quality
+- **State distribution**: Tennessee leads with 10 peer regions, followed by South Carolina (9) and Kentucky (8)
+- **Geographic diversity**: Peers span 9 states, ensuring robust comparisons
+- **Script created**: `scripts/select_peer_regions.py` - Automated peer selection (280 lines)
+
+**Notable Peer Matches**:
+- **Southwest Virginia (51_1)** - Mining-focused Appalachian region:
+  - Best match: Catawba SC (distance: 1.97)
+  - Also matched: Northwest PA, Region VII WV (mining), Northern Tier PA
+  - Common traits: Manufacturing base, mining presence, moderate population
+
+- **Central/Western Virginia (51_2)** - Balanced economy:
+  - Best match: First Tennessee DD (distance: 0.69) - closest peer overall
+  - Also matched: Southeast/Southwest TN, Pee Dee SC, Northern KY
+  - Common traits: Mix of services/manufacturing, no mining, moderate size
+
+- **Southside Virginia (51_3)** - High micropolitan, agricultural:
+  - Best match: Lake Cumberland KY (distance: 1.14)
+  - Also matched: Buffalo Trace KY, South Central TN, Northwest TN
+  - Common traits: 45-50% micropolitan, farm income 1-2%, manufacturing focus
+
+- **Mary Ball Washington (51_6)** - Service-dominated, coastal:
+  - Best match: MidSouth TN (distance: 0.83)
+  - Also matched: Berkeley-Charleston SC, Tri-County Southern MD
+  - Common traits: 95%+ services, minimal manufacturing/mining, metro-adjacent
+
+- **Shenandoah Valley (51_8)** - Agricultural valley region:
+  - Best match: Georgia Mountains (distance: 1.13)
+  - Also matched: Eastern Carolina NC, Barren River KY, Santee Lynches SC
+  - Common traits: 2%+ farm income, balanced services/manufacturing, small MSA proximity
+
+- **Central Virginia (51_9)** - Service economy, college towns:
+  - Best match: Central Midlands SC (distance: 0.79)
+  - Also matched: Greater Richmond VA, Berkeley-Charleston SC, Kentuckiana KY
+  - Common traits: 90%+ services, minimal manufacturing, educated workforce
+
+**Validation Insights**:
+- Closest match overall: Central/Western VA ↔ First Tennessee DD (0.69)
+- Furthest match: Southwest VA ↔ South Central TN DD (2.35)
+- Average distance 1.51 indicates strong peer matching quality
+- Virginia regions excluded from each other's peer groups to ensure external comparisons
+- 3 Virginia metro regions (Northern VA, Hampton Roads, Greater Richmond) included as peers for service-heavy rural regions
+
+**Next Phase**: Calculate Thriving Index scores using peer region averages as benchmarks (Phase 12)
 
 ## Resources and References
 
