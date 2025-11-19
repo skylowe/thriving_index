@@ -451,13 +451,13 @@ def main():
         st.markdown("""
         **Explore Virginia regions and their peer comparison regions on an interactive map.**
 
-        Select a Virginia region to see its location and compare it with peer regions identified
-        using Mahalanobis distance matching. The map shows:
+        Select a Virginia region using the dropdown below or by clicking on a blue/gray Virginia region on the map.
+        The map shows peer regions identified using Mahalanobis distance matching:
         - **Blue**: Selected Virginia region
         - **Orange**: Peer comparison regions (top 8 matches)
         - **Gray**: Other regions
 
-        *Hover over regions for details. Use mouse to zoom and pan.*
+        *Hover over regions for details. Click Virginia regions to select. Use mouse to zoom and pan.*
         """)
 
         # Load geographic data
@@ -469,13 +469,37 @@ def main():
             va_region_options = {row['virginia_region_name']: row['virginia_region_key']
                                 for _, row in va_regions.iterrows()}
 
-            # Selection dropdown
+            # Reverse mapping for looking up names from keys
+            va_region_names = {v: k for k, v in va_region_options.items()}
+
+            # Initialize session state for selected region if not exists
+            if 'selected_va_region' not in st.session_state:
+                st.session_state.selected_va_region = list(va_region_options.values())[0]
+
+            # Check for map click event
+            if 'regional_map' in st.session_state and st.session_state.regional_map:
+                selection = st.session_state.regional_map.get('selection', {})
+                if selection and 'points' in selection and len(selection['points']) > 0:
+                    # Get clicked region key from customdata
+                    clicked_region_key = selection['points'][0]['customdata'][0]
+                    # Only update if it's a Virginia region
+                    if clicked_region_key in va_region_names:
+                        st.session_state.selected_va_region = clicked_region_key
+
+            # Selection dropdown - sync with session state
+            current_name = va_region_names.get(st.session_state.selected_va_region, list(va_region_options.keys())[0])
             selected_name = st.selectbox(
                 "Select Virginia Region:",
                 options=list(va_region_options.keys()),
-                index=0
+                index=list(va_region_options.keys()).index(current_name),
+                key='region_dropdown'
             )
-            selected_va_region = va_region_options[selected_name]
+
+            # Update session state from dropdown if changed
+            if va_region_options[selected_name] != st.session_state.selected_va_region:
+                st.session_state.selected_va_region = va_region_options[selected_name]
+
+            selected_va_region = st.session_state.selected_va_region
 
             # Get peer regions for selected VA region
             peer_rows = peers_df[peers_df['virginia_region_key'] == selected_va_region].copy()
@@ -534,7 +558,7 @@ def main():
                     lon=lons,
                     lat=lats,
                     mode='lines',
-                    line=dict(width=2.5, color='rgba(80,80,80,0.7)'),
+                    line=dict(width=5, color='rgba(40,40,40,0.9)'),  # Much bolder and darker
                     showlegend=False,
                     hoverinfo='skip',
                     name=''
@@ -566,12 +590,13 @@ def main():
                         mode='lines',
                         fill='toself',
                         fillcolor=color_map[category],
-                        line=dict(width=1.5, color='rgba(0,0,0,0.6)'),
+                        line=dict(width=1, color='rgba(0,0,0,0.4)'),  # Thinner, lighter region borders
                         name=category,
                         legendgroup=category,
                         showlegend=bool(idx == subset.index[0]),  # Convert to Python bool
                         text=hover_text,
-                        hoverinfo='text'
+                        hoverinfo='text',
+                        customdata=[[row['region_key']]]  # Store region_key for click events
                     ))
 
             # Update layout
@@ -609,7 +634,7 @@ def main():
                 )
             )
 
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, use_container_width=True, key='regional_map', on_select='rerun')
 
             # Comparison table
             st.subheader("Component Score Comparison")
