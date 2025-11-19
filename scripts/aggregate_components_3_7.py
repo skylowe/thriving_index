@@ -26,18 +26,32 @@ def ensure_fips_column(df: pd.DataFrame) -> pd.DataFrame:
     """
     Ensure DataFrame has a 'fips' column with 5-digit FIPS codes.
     Auto-detects from various column formats.
+    IMPORTANT: Check full FIPS codes first, then combined state+county codes.
     """
     if 'fips' in df.columns:
         df['fips'] = df['fips'].astype(str).str.zfill(5)
     elif 'full_fips' in df.columns:
         df['fips'] = df['full_fips'].astype(str).str.zfill(5)
-    elif 'county_fips' in df.columns:
-        df['fips'] = df['county_fips'].astype(str).str.zfill(5)
+    elif 'area_fips' in df.columns:
+        df['fips'] = df['area_fips'].astype(str).str.zfill(5)
+    elif 'fips_str' in df.columns:
+        df['fips'] = df['fips_str'].astype(str).str.zfill(5)
+    elif 'FIPS Code' in df.columns:
+        df['fips'] = df['FIPS Code'].astype(str).str.zfill(5)
+    elif 'STATEFP' in df.columns and 'COUNTYFP' in df.columns:
+        df['fips'] = (df['STATEFP'].astype(str).str.zfill(2) +
+                      df['COUNTYFP'].astype(str).str.zfill(3))
     elif 'state' in df.columns and 'county' in df.columns:
         df['fips'] = (df['state'].astype(str).str.zfill(2) +
                       df['county'].astype(str).str.zfill(3))
+    elif 'state_fips' in df.columns and 'county_fips' in df.columns:
+        df['fips'] = (df['state_fips'].astype(str).str.zfill(2) +
+                      df['county_fips'].astype(str).str.zfill(3))
+    elif 'county_fips' in df.columns:
+        # Last resort - county_fips alone is insufficient, but keep for backwards compatibility
+        df['fips'] = df['county_fips'].astype(str).str.zfill(5)
     else:
-        raise ValueError("Cannot find FIPS code columns in DataFrame")
+        raise ValueError(f"Cannot find FIPS code columns in DataFrame. Columns: {df.columns.tolist()}")
     return df
 
 
@@ -399,6 +413,7 @@ def aggregate_component6(rdm: RegionalDataManager) -> pd.DataFrame:
     # 6.2: Interstate Highway Presence
     print("\n[6.2] Interstate Highway Presence...")
     interstate = pd.read_csv(data_dir / 'usgs_county_interstate_presence.csv')
+    # File already has county_fips column
     interstate = extract_region_key(rdm, interstate)
     interstate = interstate.dropna(subset=['region_key'])
 
@@ -421,12 +436,24 @@ def aggregate_component6(rdm: RegionalDataManager) -> pd.DataFrame:
     wage = extract_region_key(rdm, wage)
     wage = wage.dropna(subset=['region_key'])
 
-    # Weighted average by employment
-    regional_wage = wage.groupby('region_key').apply(
-        lambda x: np.average(x['avg_weekly_wage'], weights=x['annual_avg_emplvl'])
-    ).reset_index()
-    regional_wage.columns = ['region_key', 'weekly_wage']
-    print(f"  Regions: {len(regional_wage)}, Mean: ${regional_wage['weekly_wage'].mean():.2f}")
+    # Weighted average by employment (check if column exists)
+    if 'annual_avg_emplvl' in wage.columns:
+        weight_col = 'annual_avg_emplvl'
+    elif 'avg_annual_employment' in wage.columns:
+        weight_col = 'avg_annual_employment'
+    else:
+        # Simple mean if no employment weights available
+        regional_wage = wage.groupby('region_key')['avg_weekly_wage'].mean().reset_index()
+        regional_wage.columns = ['region_key', 'weekly_wage']
+        print(f"  Regions: {len(regional_wage)}, Mean: ${regional_wage['weekly_wage'].mean():.2f}")
+        weight_col = None
+
+    if weight_col:
+        regional_wage = wage.groupby('region_key').apply(
+            lambda x: np.average(x['avg_weekly_wage'], weights=x[weight_col])
+        ).reset_index()
+        regional_wage.columns = ['region_key', 'weekly_wage']
+        print(f"  Regions: {len(regional_wage)}, Mean: ${regional_wage['weekly_wage'].mean():.2f}")
 
     # 6.5: Income Tax Rate (state-level)
     print("\n[6.5] Income Tax Rate...")
@@ -488,9 +515,16 @@ def aggregate_component7(rdm: RegionalDataManager) -> pd.DataFrame:
     commute = extract_region_key(rdm, commute)
     commute = commute.dropna(subset=['region_key'])
 
+    # Merge with labor force data to get population weights
+    labor_force = pd.read_csv(data_dir / 'census_labor_force_2022.csv')
+    labor_force = labor_force[['fips', 'total_16_plus']].copy()
+    labor_force['fips'] = labor_force['fips'].astype(str).str.zfill(5)
+
+    commute_merged = pd.merge(commute, labor_force, on='fips', how='left')
+
     # Weighted average by workers
-    regional_commute = commute.groupby('region_key').apply(
-        lambda x: np.average(x['mean_commute_time'], weights=x['workers_16_plus'])
+    regional_commute = commute_merged.groupby('region_key').apply(
+        lambda x: np.average(x['mean_commute_time'], weights=x['total_16_plus'])
     ).reset_index()
     regional_commute.columns = ['region_key', 'mean_commute_time']
     print(f"  Regions: {len(regional_commute)}, Mean: {regional_commute['mean_commute_time'].mean():.2f} min")
@@ -501,26 +535,38 @@ def aggregate_component7(rdm: RegionalDataManager) -> pd.DataFrame:
     housing = extract_region_key(rdm, housing)
     housing = housing.dropna(subset=['region_key'])
 
-    # Aggregate counts
-    regional_housing = housing.groupby('region_key').agg({
-        'housing_pre1960': 'sum',
-        'total_housing_units': 'sum'
-    }).reset_index()
-    regional_housing['housing_pre1960_pct'] = (regional_housing['housing_pre1960'] /
-                                                regional_housing['total_housing_units']) * 100
+    # Weighted average by total housing units (data has some quality issues with unit counts)
+    regional_housing = housing.groupby('region_key').apply(
+        lambda x: np.average(x['pct_pre_1960'], weights=x['total_units'])
+    ).reset_index()
+    regional_housing.columns = ['region_key', 'housing_pre1960_pct']
     print(f"  Regions: {len(regional_housing)}, Mean: {regional_housing['housing_pre1960_pct'].mean():.2f}%")
 
     # 7.3: Relative Wage (regional wage / state average wage)
     print("\n[7.3] Relative Weekly Wage...")
-    rel_wage = pd.read_csv(data_dir / 'qcew_relative_weekly_wage_2022.csv')
+    # Use raw QCEW file with employment counts for proper weighting
+    rel_wage = pd.read_csv(Path('data/raw/qcew') / 'qcew_private_employment_wages_2020_2022.csv')
+    rel_wage = rel_wage[(rel_wage['own_code'] == 5) & (rel_wage['year'] == 2022)].copy()
     rel_wage = extract_region_key(rdm, rel_wage)
     rel_wage = rel_wage.dropna(subset=['region_key'])
 
-    # Recalculate: regional average wage / state average wage
-    # First get regional wage (employment-weighted)
+    # Extract state FIPS for state-level calculations
+    rel_wage['state_fips'] = rel_wage['area_fips'].astype(str).str.zfill(5).str[:2]
+
+    # Calculate state-level average wage (employment-weighted)
+    state_wages = rel_wage.groupby('state_fips').apply(
+        lambda x: np.average(x['annual_avg_wkly_wage'], weights=x['annual_avg_emplvl']) if x['annual_avg_emplvl'].sum() > 0 else 0
+    ).reset_index()
+    state_wages.columns = ['state_fips', 'state_avg_wage']
+
+    # Merge state averages back
+    rel_wage = pd.merge(rel_wage, state_wages, on='state_fips', how='left')
+
+    # Calculate regional wage (employment-weighted) and relative wage
     regional_rel_wage = rel_wage.groupby('region_key').apply(
-        lambda x: (np.average(x['avg_weekly_wage'], weights=x['annual_avg_emplvl']) /
-                   np.average(x['state_avg_weekly_wage'], weights=x['annual_avg_emplvl']))
+        lambda x: (np.average(x['annual_avg_wkly_wage'], weights=x['annual_avg_emplvl']) /
+                   np.average(x['state_avg_wage'], weights=x['annual_avg_emplvl']))
+        if x['annual_avg_emplvl'].sum() > 0 else 0
     ).reset_index()
     regional_rel_wage.columns = ['region_key', 'relative_weekly_wage']
     print(f"  Regions: {len(regional_rel_wage)}, Mean: {regional_rel_wage['relative_weekly_wage'].mean():.3f}")
@@ -540,13 +586,13 @@ def aggregate_component7(rdm: RegionalDataManager) -> pd.DataFrame:
 
     # Aggregate crime counts and population
     regional_crime = crime_merged.groupby('region_key').agg({
-        'violent_crime': 'sum',
-        'property_crime': 'sum',
+        'violent_crimes': 'sum',
+        'property_crimes': 'sum',
         'population_2022': 'sum'
     }).reset_index()
-    regional_crime['violent_crime_rate'] = (regional_crime['violent_crime'] /
+    regional_crime['violent_crime_rate'] = (regional_crime['violent_crimes'] /
                                              regional_crime['population_2022']) * 100000
-    regional_crime['property_crime_rate'] = (regional_crime['property_crime'] /
+    regional_crime['property_crime_rate'] = (regional_crime['property_crimes'] /
                                               regional_crime['population_2022']) * 100000
     print(f"  Regions: {len(regional_crime)}")
     print(f"  Violent: {regional_crime['violent_crime_rate'].mean():.2f} per 100k")
@@ -558,8 +604,9 @@ def aggregate_component7(rdm: RegionalDataManager) -> pd.DataFrame:
     amenities = extract_region_key(rdm, amenities)
     amenities = amenities.dropna(subset=['region_key'])
 
-    # Simple mean (scale is already normalized)
-    regional_amenities = amenities.groupby('region_key')['natural_amenities_scale'].mean().reset_index()
+    # Simple mean (scale is 1-7, column name has leading space)
+    regional_amenities = amenities.groupby('region_key')[' 1=Low  7=High'].mean().reset_index()
+    regional_amenities.columns = ['region_key', 'natural_amenities_scale']
     print(f"  Regions: {len(regional_amenities)}, Mean: {regional_amenities['natural_amenities_scale'].mean():.3f}")
 
     # 7.7: Healthcare Access
@@ -573,10 +620,10 @@ def aggregate_component7(rdm: RegionalDataManager) -> pd.DataFrame:
 
     # Aggregate healthcare employment and population
     regional_healthcare = healthcare_merged.groupby('region_key').agg({
-        'EMP': 'sum',
+        'total_healthcare_employment': 'sum',
         'population_2022': 'sum'
     }).reset_index()
-    regional_healthcare['healthcare_workers_per_1k'] = (regional_healthcare['EMP'] /
+    regional_healthcare['healthcare_workers_per_1k'] = (regional_healthcare['total_healthcare_employment'] /
                                                          regional_healthcare['population_2022']) * 1000
     print(f"  Regions: {len(regional_healthcare)}, Mean: {regional_healthcare['healthcare_workers_per_1k'].mean():.2f} per 1k")
 
