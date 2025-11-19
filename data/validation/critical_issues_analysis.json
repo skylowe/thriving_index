@@ -1,0 +1,443 @@
+{
+  "total_critical_issues": 72,
+  "issues_by_type": {
+    "coverage": 12,
+    "range": 1,
+    "fips_invalid": 56,
+    "fips_missing": 3
+  },
+  "detailed_issues": [
+    {
+      "severity": "CRITICAL",
+      "file": "cbp_industry_naics11_2021.csv",
+      "issue": "Coverage: 60.3% (484/802 counties)",
+      "type": "coverage"
+    },
+    {
+      "severity": "CRITICAL",
+      "file": "cbp_industry_naics21_2021.csv",
+      "issue": "Coverage: 31.2% (250/802 counties)",
+      "type": "coverage"
+    },
+    {
+      "severity": "CRITICAL",
+      "file": "cbp_industry_naics22_2021.csv",
+      "issue": "Coverage: 46.3% (371/802 counties)",
+      "type": "coverage"
+    },
+    {
+      "severity": "CRITICAL",
+      "file": "cbp_industry_naics51_2021.csv",
+      "issue": "Coverage: 85.0% (682/802 counties)",
+      "type": "coverage"
+    },
+    {
+      "severity": "CRITICAL",
+      "file": "cbp_industry_naics55_2021.csv",
+      "issue": "Coverage: 42.8% (343/802 counties)",
+      "type": "coverage"
+    },
+    {
+      "severity": "CRITICAL",
+      "file": "cbp_industry_naics61_2021.csv",
+      "issue": "Coverage: 62.8% (504/802 counties)",
+      "type": "coverage"
+    },
+    {
+      "severity": "CRITICAL",
+      "file": "cbp_industry_naics71_2021.csv",
+      "issue": "Coverage: 77.1% (618/802 counties)",
+      "type": "coverage"
+    },
+    {
+      "severity": "CRITICAL",
+      "file": "census_poverty_2022.csv",
+      "issue": "Coverage: 0.0% (0/802 counties)",
+      "type": "coverage"
+    },
+    {
+      "severity": "CRITICAL",
+      "file": "hud_opportunity_zones_by_county.csv",
+      "issue": "Coverage: 71.9% (577/802 counties)",
+      "type": "coverage"
+    },
+    {
+      "severity": "CRITICAL",
+      "file": "ipeds_four_year_colleges_by_county_2022.csv",
+      "issue": "Coverage: 42.8% (343/802 counties)",
+      "type": "coverage"
+    },
+    {
+      "severity": "CRITICAL",
+      "file": "qcew_relative_weekly_wage_2022.csv",
+      "issue": "Coverage: 0.0% (0/802 counties)",
+      "type": "coverage"
+    },
+    {
+      "severity": "CRITICAL",
+      "file": "usda_ers_natural_amenities_scale.csv",
+      "issue": "Coverage: 0.0% (0/802 counties)",
+      "type": "coverage"
+    },
+    {
+      "severity": "HIGH",
+      "file": "census_housing_pre1960_2022_BACKUP.csv",
+      "issue": "pct_pre_1960: Exceeds 100% (max: 575.81)",
+      "type": "range"
+    },
+    {
+      "severity": "HIGH",
+      "file": "bds_business_dynamics_2021.csv",
+      "issue": "3 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "bea_dir_income_processed.csv",
+      "issue": "9 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "bea_dir_income_share_2022.csv",
+      "issue": "3 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "bea_employment_processed.csv",
+      "issue": "9 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "bea_income_stability_2008_2022.csv",
+      "issue": "3 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "bea_proprietors_2022.csv",
+      "issue": "3 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "bea_proprietor_income_2022.csv",
+      "issue": "3 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "cbp_establishments_2021.csv",
+      "issue": "3 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "cbp_healthcare_employment_2021.csv",
+      "issue": "3 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "cbp_industry_naics11_2021.csv",
+      "issue": "3 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "cbp_industry_naics21_2021.csv",
+      "issue": "3 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "cbp_industry_naics22_2021.csv",
+      "issue": "3 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "cbp_industry_naics23_2021.csv",
+      "issue": "3 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "cbp_industry_naics31-33_2021.csv",
+      "issue": "3 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "cbp_industry_naics42_2021.csv",
+      "issue": "3 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "cbp_industry_naics44-45_2021.csv",
+      "issue": "3 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "cbp_industry_naics48-49_2021.csv",
+      "issue": "3 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "cbp_industry_naics51_2021.csv",
+      "issue": "3 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "cbp_industry_naics52_2021.csv",
+      "issue": "3 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "cbp_industry_naics53_2021.csv",
+      "issue": "3 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "cbp_industry_naics54_2021.csv",
+      "issue": "3 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "cbp_industry_naics55_2021.csv",
+      "issue": "3 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "cbp_industry_naics56_2021.csv",
+      "issue": "3 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "cbp_industry_naics61_2021.csv",
+      "issue": "3 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "cbp_industry_naics62_2021.csv",
+      "issue": "3 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "cbp_industry_naics71_2021.csv",
+      "issue": "3 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "cbp_industry_naics72_2021.csv",
+      "issue": "3 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "cbp_industry_naics81_2021.csv",
+      "issue": "3 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "census_commute_time_2022.csv",
+      "issue": "3 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "census_dependency_ratio_2022.csv",
+      "issue": "3 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "census_education_attainment_2022.csv",
+      "issue": "3 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "census_hispanic_2022.csv",
+      "issue": "3 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "census_households_children_processed.csv",
+      "issue": "6 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "census_housing_pre1960_2022.csv",
+      "issue": "3 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "census_housing_pre1960_2022_BACKUP.csv",
+      "issue": "3 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "census_knowledge_workers_2022.csv",
+      "issue": "3 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "census_labor_force_2022.csv",
+      "issue": "3 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "census_median_age_2022.csv",
+      "issue": "3 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "census_millennial_genz_change_2017_2022.csv",
+      "issue": "3 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "census_occupation_2022.csv",
+      "issue": "3 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "census_population_growth_2000_2022.csv",
+      "issue": "3 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "census_poverty_2022.csv",
+      "issue": "802 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "census_race_2022.csv",
+      "issue": "3 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "census_telecommuter_2022.csv",
+      "issue": "3 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "chr_life_expectancy_2025.csv",
+      "issue": "4 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "component8_social_capital_2022.csv",
+      "issue": "4 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "fbi_crime_counties_2023.csv",
+      "issue": "3 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "fcc_broadband_availability_100_10.csv",
+      "issue": "3 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "hud_opportunity_zones_by_county.csv",
+      "issue": "3 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "ipeds_four_year_colleges_by_county_2022.csv",
+      "issue": "2 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "nonemp_firms_2021.csv",
+      "issue": "3 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "MEDIUM",
+      "file": "nps_parks_county_mapping.csv",
+      "issue": "No FIPS code column found",
+      "type": "fips_missing"
+    },
+    {
+      "severity": "MEDIUM",
+      "file": "nps_park_counts_by_county.csv",
+      "issue": "No FIPS code column found",
+      "type": "fips_missing"
+    },
+    {
+      "severity": "HIGH",
+      "file": "qcew_private_employment_wages_2020_2022.csv",
+      "issue": "9 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "qcew_relative_weekly_wage_2022.csv",
+      "issue": "802 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "qcew_weekly_wage_2022.csv",
+      "issue": "3 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "MEDIUM",
+      "file": "state_income_tax_rates_2024.csv",
+      "issue": "No FIPS code column found",
+      "type": "fips_missing"
+    },
+    {
+      "severity": "HIGH",
+      "file": "usda_ers_natural_amenities_scale.csv",
+      "issue": "805 records with invalid state FIPS",
+      "type": "fips_invalid"
+    },
+    {
+      "severity": "HIGH",
+      "file": "usgs_county_interstate_presence.csv",
+      "issue": "3 records with invalid state FIPS",
+      "type": "fips_invalid"
+    }
+  ]
+}

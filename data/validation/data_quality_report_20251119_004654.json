@@ -1,0 +1,2690 @@
+{
+  "summary": {
+    "total_files": 58,
+    "files_with_issues": 58,
+    "files_clean": 0,
+    "issue_counts": {
+      "FIPS errors": 64,
+      "Missing values": 9,
+      "Outliers": 132,
+      "Range errors": 3
+    }
+  },
+  "coverage": [
+    {
+      "file": "bea_dir_income_processed.csv",
+      "counties": 771,
+      "coverage_pct": 96.1
+    },
+    {
+      "file": "bea_dir_income_share_2022.csv",
+      "counties": 771,
+      "coverage_pct": 96.1
+    },
+    {
+      "file": "bea_employment_processed.csv",
+      "counties": 771,
+      "coverage_pct": 96.1
+    },
+    {
+      "file": "bea_income_stability_2008_2022.csv",
+      "counties": 771,
+      "coverage_pct": 96.1
+    },
+    {
+      "file": "bea_proprietors_2022.csv",
+      "counties": 771,
+      "coverage_pct": 96.1
+    },
+    {
+      "file": "bea_proprietor_income_2022.csv",
+      "counties": 771,
+      "coverage_pct": 96.1
+    },
+    {
+      "file": "census_dependency_ratio_2022.csv",
+      "counties": 799,
+      "coverage_pct": 99.6
+    },
+    {
+      "file": "census_education_attainment_2022.csv",
+      "counties": 799,
+      "coverage_pct": 99.6
+    },
+    {
+      "file": "census_hispanic_2022.csv",
+      "counties": 799,
+      "coverage_pct": 99.6
+    },
+    {
+      "file": "census_households_children_processed.csv",
+      "counties": 799,
+      "coverage_pct": 99.6
+    },
+    {
+      "file": "census_knowledge_workers_2022.csv",
+      "counties": 799,
+      "coverage_pct": 99.6
+    },
+    {
+      "file": "census_labor_force_2022.csv",
+      "counties": 799,
+      "coverage_pct": 99.6
+    },
+    {
+      "file": "census_median_age_2022.csv",
+      "counties": 799,
+      "coverage_pct": 99.6
+    },
+    {
+      "file": "census_millennial_genz_change_2017_2022.csv",
+      "counties": 799,
+      "coverage_pct": 99.6
+    },
+    {
+      "file": "census_population_growth_2000_2022.csv",
+      "counties": 801,
+      "coverage_pct": 99.9
+    },
+    {
+      "file": "census_poverty_2022.csv",
+      "counties": 0,
+      "coverage_pct": 0.0
+    },
+    {
+      "file": "census_race_2022.csv",
+      "counties": 799,
+      "coverage_pct": 99.6
+    },
+    {
+      "file": "component8_social_capital_2022.csv",
+      "counties": 803,
+      "coverage_pct": 100.1
+    },
+    {
+      "file": "fbi_crime_counties_2023.csv",
+      "counties": 801,
+      "coverage_pct": 99.9
+    },
+    {
+      "file": "fcc_broadband_availability_100_10.csv",
+      "counties": 799,
+      "coverage_pct": 99.6
+    },
+    {
+      "file": "qcew_relative_weekly_wage_2022.csv",
+      "counties": 0,
+      "coverage_pct": 0.0
+    },
+    {
+      "file": "usda_ers_natural_amenities_scale.csv",
+      "counties": 0,
+      "coverage_pct": 0.0
+    }
+  ],
+  "detailed_results": [
+    {
+      "file_name": "bds_business_dynamics_2021.csv",
+      "validation_date": "2025-11-19T00:46:54.099015",
+      "record_count": 802,
+      "column_count": 7,
+      "columns": [
+        "ESTABS_ENTRY",
+        "ESTABS_EXIT",
+        "ESTAB",
+        "YEAR",
+        "NAICS",
+        "state",
+        "county"
+      ],
+      "issues": {
+        "fips": [
+          "No FIPS code column found"
+        ],
+        "outliers": [
+          {
+            "column": "ESTABS_ENTRY",
+            "count": 71,
+            "percentage": 8.85,
+            "range": "[0.00, 5389.00]",
+            "bounds": "(-329.00, 483.00)"
+          },
+          {
+            "column": "ESTABS_EXIT",
+            "count": 67,
+            "percentage": 8.35,
+            "range": "[0.00, 3965.00]",
+            "bounds": "(-303.25, 451.00)"
+          },
+          {
+            "column": "ESTAB",
+            "count": 61,
+            "percentage": 7.61,
+            "range": "[17.00, 34085.00]",
+            "bounds": "(-3598.00, 5320.00)"
+          }
+        ]
+      },
+      "coverage": {}
+    },
+    {
+      "file_name": "bea_dir_income_processed.csv",
+      "validation_date": "2025-11-19T00:46:54.111323",
+      "record_count": 2322,
+      "column_count": 8,
+      "columns": [
+        "Code",
+        "GeoFips",
+        "GeoName",
+        "TimePeriod",
+        "CL_UNIT",
+        "UNIT_MULT",
+        "DataValue",
+        "NoteRef"
+      ],
+      "issues": {
+        "fips": [
+          "9 records with invalid state FIPS",
+          "2322 duplicate FIPS codes"
+        ],
+        "outliers": [
+          {
+            "column": "DataValue",
+            "count": 212,
+            "percentage": 9.13,
+            "range": "[7294.00, 29427987.00]",
+            "bounds": "(-1484675.50, 2186465.75)"
+          }
+        ]
+      },
+      "coverage": {
+        "total_records": 2322,
+        "valid_state_records": 2313,
+        "unique_counties": 771,
+        "coverage_pct": 96.1,
+        "counties_by_state": {
+          "13": 159,
+          "21": 120,
+          "24": 24,
+          "37": 100,
+          "42": 67,
+          "45": 46,
+          "47": 95,
+          "51": 105,
+          "54": 55
+        }
+      }
+    },
+    {
+      "file_name": "bea_dir_income_share_2022.csv",
+      "validation_date": "2025-11-19T00:46:54.129796",
+      "record_count": 774,
+      "column_count": 5,
+      "columns": [
+        "county_fips",
+        "county_name",
+        "dir_income",
+        "total_income",
+        "dir_share_pct"
+      ],
+      "issues": {
+        "fips": [
+          "3 records with invalid state FIPS"
+        ],
+        "outliers": [
+          {
+            "column": "dir_income",
+            "count": 70,
+            "percentage": 9.04,
+            "range": "[7294.00, 29427987.00]",
+            "bounds": "(-1642350.50, 2403086.00)"
+          },
+          {
+            "column": "total_income",
+            "count": 65,
+            "percentage": 8.4,
+            "range": "[69974.00, 121167220.00]",
+            "bounds": "(-10061504.50, 15066390.25)"
+          },
+          {
+            "column": "dir_share_pct",
+            "count": 10,
+            "percentage": 1.29,
+            "range": "[6.09, 45.52]",
+            "bounds": "(-3.92, 32.30)"
+          }
+        ]
+      },
+      "coverage": {
+        "total_records": 774,
+        "valid_state_records": 771,
+        "unique_counties": 771,
+        "coverage_pct": 96.1,
+        "counties_by_state": {
+          "13": 159,
+          "21": 120,
+          "24": 24,
+          "37": 100,
+          "42": 67,
+          "45": 46,
+          "47": 95,
+          "51": 105,
+          "54": 55
+        }
+      }
+    },
+    {
+      "file_name": "bea_employment_processed.csv",
+      "validation_date": "2025-11-19T00:46:54.141078",
+      "record_count": 2322,
+      "column_count": 8,
+      "columns": [
+        "Code",
+        "GeoFips",
+        "GeoName",
+        "TimePeriod",
+        "CL_UNIT",
+        "UNIT_MULT",
+        "DataValue",
+        "NoteRef"
+      ],
+      "issues": {
+        "fips": [
+          "9 records with invalid state FIPS",
+          "2322 duplicate FIPS codes"
+        ],
+        "outliers": [
+          {
+            "column": "DataValue",
+            "count": 197,
+            "percentage": 8.48,
+            "range": "[59533.00, 121167220.00]",
+            "bounds": "(-9416650.75, 14140430.00)"
+          }
+        ]
+      },
+      "coverage": {
+        "total_records": 2322,
+        "valid_state_records": 2313,
+        "unique_counties": 771,
+        "coverage_pct": 96.1,
+        "counties_by_state": {
+          "13": 159,
+          "21": 120,
+          "24": 24,
+          "37": 100,
+          "42": 67,
+          "45": 46,
+          "47": 95,
+          "51": 105,
+          "54": 55
+        }
+      }
+    },
+    {
+      "file_name": "bea_income_stability_2008_2022.csv",
+      "validation_date": "2025-11-19T00:46:54.155144",
+      "record_count": 774,
+      "column_count": 6,
+      "columns": [
+        "county_fips",
+        "county_name",
+        "years_data",
+        "mean_income",
+        "std_income",
+        "coefficient_of_variation"
+      ],
+      "issues": {
+        "fips": [
+          "3 records with invalid state FIPS"
+        ],
+        "outliers": [
+          {
+            "column": "mean_income",
+            "count": 65,
+            "percentage": 8.4,
+            "range": "[51488.33, 90511351.40]",
+            "bounds": "(-7166629.12, 10795557.78)"
+          },
+          {
+            "column": "std_income",
+            "count": 72,
+            "percentage": 9.3,
+            "range": "[8965.24, 19792391.78]",
+            "bounds": "(-1351738.68, 1992620.60)"
+          },
+          {
+            "column": "coefficient_of_variation",
+            "count": 1,
+            "percentage": 0.13,
+            "range": "[0.06, 0.37]",
+            "bounds": "(-0.03, 0.37)"
+          }
+        ]
+      },
+      "coverage": {
+        "total_records": 774,
+        "valid_state_records": 771,
+        "unique_counties": 771,
+        "coverage_pct": 96.1,
+        "counties_by_state": {
+          "13": 159,
+          "21": 120,
+          "24": 24,
+          "37": 100,
+          "42": 67,
+          "45": 46,
+          "47": 95,
+          "51": 105,
+          "54": 55
+        }
+      }
+    },
+    {
+      "file_name": "bea_proprietors_2022.csv",
+      "validation_date": "2025-11-19T00:46:54.167204",
+      "record_count": 774,
+      "column_count": 8,
+      "columns": [
+        "Code",
+        "GeoFips",
+        "GeoName",
+        "TimePeriod",
+        "CL_UNIT",
+        "UNIT_MULT",
+        "DataValue",
+        "NoteRef"
+      ],
+      "issues": {
+        "fips": [
+          "3 records with invalid state FIPS"
+        ],
+        "outliers": [
+          {
+            "column": "DataValue",
+            "count": 68,
+            "percentage": 8.79,
+            "range": "[-178506.00, 15789164.00]",
+            "bounds": "(-660207.25, 948816.25)"
+          }
+        ]
+      },
+      "coverage": {
+        "total_records": 774,
+        "valid_state_records": 771,
+        "unique_counties": 771,
+        "coverage_pct": 96.1,
+        "counties_by_state": {
+          "13": 159,
+          "21": 120,
+          "24": 24,
+          "37": 100,
+          "42": 67,
+          "45": 46,
+          "47": 95,
+          "51": 105,
+          "54": 55
+        }
+      }
+    },
+    {
+      "file_name": "bea_proprietor_income_2022.csv",
+      "validation_date": "2025-11-19T00:46:54.177634",
+      "record_count": 774,
+      "column_count": 6,
+      "columns": [
+        "county_fips",
+        "county_name",
+        "year",
+        "proprietor_income",
+        "unit",
+        "unit_mult"
+      ],
+      "issues": {
+        "fips": [
+          "3 records with invalid state FIPS"
+        ],
+        "outliers": [
+          {
+            "column": "proprietor_income",
+            "count": 68,
+            "percentage": 8.79,
+            "range": "[-178506.00, 15789164.00]",
+            "bounds": "(-660207.25, 948816.25)"
+          }
+        ]
+      },
+      "coverage": {
+        "total_records": 774,
+        "valid_state_records": 771,
+        "unique_counties": 771,
+        "coverage_pct": 96.1,
+        "counties_by_state": {
+          "13": 159,
+          "21": 120,
+          "24": 24,
+          "37": 100,
+          "42": 67,
+          "45": 46,
+          "47": 95,
+          "51": 105,
+          "54": 55
+        }
+      }
+    },
+    {
+      "file_name": "cbp_establishments_2021.csv",
+      "validation_date": "2025-11-19T00:46:54.186809",
+      "record_count": 802,
+      "column_count": 6,
+      "columns": [
+        "NAME",
+        "ESTAB",
+        "EMP",
+        "NAICS2017",
+        "state",
+        "county"
+      ],
+      "issues": {
+        "fips": [
+          "No FIPS code column found"
+        ],
+        "outliers": [
+          {
+            "column": "ESTAB",
+            "count": 64,
+            "percentage": 7.98,
+            "range": "[17.00, 40620.00]",
+            "bounds": "(-3878.50, 5743.00)"
+          },
+          {
+            "column": "EMP",
+            "count": 67,
+            "percentage": 8.35,
+            "range": "[138.00, 811802.00]",
+            "bounds": "(-58515.00, 84348.00)"
+          }
+        ]
+      },
+      "coverage": {}
+    },
+    {
+      "file_name": "cbp_healthcare_employment_2021.csv",
+      "validation_date": "2025-11-19T00:46:54.190949",
+      "record_count": 771,
+      "column_count": 6,
+      "columns": [
+        "state",
+        "county",
+        "NAME",
+        "EMP_ambulatory",
+        "EMP_hospitals",
+        "total_healthcare_employment"
+      ],
+      "issues": {
+        "fips": [
+          "No FIPS code column found"
+        ],
+        "outliers": [
+          {
+            "column": "EMP_ambulatory",
+            "count": 68,
+            "percentage": 8.82,
+            "range": "[8.00, 52184.00]",
+            "bounds": "(-4129.50, 5849.00)"
+          },
+          {
+            "column": "EMP_hospitals",
+            "count": 132,
+            "percentage": 17.12,
+            "range": "[0.00, 65352.00]",
+            "bounds": "(0.00, 0.00)"
+          },
+          {
+            "column": "total_healthcare_employment",
+            "count": 88,
+            "percentage": 11.41,
+            "range": "[8.00, 116443.00]",
+            "bounds": "(-4485.00, 6323.00)"
+          }
+        ]
+      },
+      "coverage": {}
+    },
+    {
+      "file_name": "cbp_industry_naics11_2021.csv",
+      "validation_date": "2025-11-19T00:46:54.195538",
+      "record_count": 487,
+      "column_count": 6,
+      "columns": [
+        "NAME",
+        "EMP",
+        "ESTAB",
+        "NAICS2017",
+        "state",
+        "county"
+      ],
+      "issues": {
+        "fips": [
+          "No FIPS code column found"
+        ],
+        "outliers": [
+          {
+            "column": "EMP",
+            "count": 15,
+            "percentage": 3.08,
+            "range": "[1.00, 571.00]",
+            "bounds": "(-135.00, 215.00)"
+          },
+          {
+            "column": "ESTAB",
+            "count": 4,
+            "percentage": 0.82,
+            "range": "[3.00, 54.00]",
+            "bounds": "(-17.00, 32.00)"
+          }
+        ]
+      },
+      "coverage": {}
+    },
+    {
+      "file_name": "cbp_industry_naics21_2021.csv",
+      "validation_date": "2025-11-19T00:46:54.199540",
+      "record_count": 253,
+      "column_count": 6,
+      "columns": [
+        "NAME",
+        "EMP",
+        "ESTAB",
+        "NAICS2017",
+        "state",
+        "county"
+      ],
+      "issues": {
+        "fips": [
+          "No FIPS code column found"
+        ],
+        "outliers": [
+          {
+            "column": "EMP",
+            "count": 14,
+            "percentage": 5.53,
+            "range": "[2.00, 2432.00]",
+            "bounds": "(-456.00, 699.00)"
+          },
+          {
+            "column": "ESTAB",
+            "count": 9,
+            "percentage": 3.56,
+            "range": "[3.00, 72.00]",
+            "bounds": "(-18.00, 31.00)"
+          }
+        ]
+      },
+      "coverage": {}
+    },
+    {
+      "file_name": "cbp_industry_naics22_2021.csv",
+      "validation_date": "2025-11-19T00:46:54.203545",
+      "record_count": 374,
+      "column_count": 6,
+      "columns": [
+        "NAME",
+        "EMP",
+        "ESTAB",
+        "NAICS2017",
+        "state",
+        "county"
+      ],
+      "issues": {
+        "fips": [
+          "No FIPS code column found"
+        ],
+        "outliers": [
+          {
+            "column": "EMP",
+            "count": 31,
+            "percentage": 8.29,
+            "range": "[6.00, 7636.00]",
+            "bounds": "(-557.00, 876.25)"
+          },
+          {
+            "column": "ESTAB",
+            "count": 20,
+            "percentage": 5.35,
+            "range": "[3.00, 82.00]",
+            "bounds": "(-14.00, 28.00)"
+          }
+        ]
+      },
+      "coverage": {}
+    },
+    {
+      "file_name": "cbp_industry_naics23_2021.csv",
+      "validation_date": "2025-11-19T00:46:54.207930",
+      "record_count": 793,
+      "column_count": 6,
+      "columns": [
+        "NAME",
+        "EMP",
+        "ESTAB",
+        "NAICS2017",
+        "state",
+        "county"
+      ],
+      "issues": {
+        "fips": [
+          "No FIPS code column found"
+        ],
+        "outliers": [
+          {
+            "column": "EMP",
+            "count": 67,
+            "percentage": 8.45,
+            "range": "[6.00, 33295.00]",
+            "bounds": "(-3342.00, 4778.00)"
+          },
+          {
+            "column": "ESTAB",
+            "count": 54,
+            "percentage": 6.81,
+            "range": "[3.00, 3155.00]",
+            "bounds": "(-426.00, 624.00)"
+          }
+        ]
+      },
+      "coverage": {}
+    },
+    {
+      "file_name": "cbp_industry_naics31-33_2021.csv",
+      "validation_date": "2025-11-19T00:46:54.212086",
+      "record_count": 768,
+      "column_count": 6,
+      "columns": [
+        "NAME",
+        "EMP",
+        "ESTAB",
+        "NAICS2017",
+        "state",
+        "county"
+      ],
+      "issues": {
+        "fips": [
+          "No FIPS code column found"
+        ],
+        "outliers": [
+          {
+            "column": "EMP",
+            "count": 35,
+            "percentage": 4.56,
+            "range": "[6.00, 52234.00]",
+            "bounds": "(-9847.25, 14145.25)"
+          },
+          {
+            "column": "ESTAB",
+            "count": 46,
+            "percentage": 5.99,
+            "range": "[3.00, 980.00]",
+            "bounds": "(-146.75, 226.00)"
+          }
+        ]
+      },
+      "coverage": {}
+    },
+    {
+      "file_name": "cbp_industry_naics42_2021.csv",
+      "validation_date": "2025-11-19T00:46:54.215071",
+      "record_count": 739,
+      "column_count": 6,
+      "columns": [
+        "NAME",
+        "EMP",
+        "ESTAB",
+        "NAICS2017",
+        "state",
+        "county"
+      ],
+      "issues": {
+        "fips": [
+          "No FIPS code column found"
+        ],
+        "outliers": [
+          {
+            "column": "EMP",
+            "count": 73,
+            "percentage": 9.88,
+            "range": "[5.00, 36427.00]",
+            "bounds": "(-2182.50, 3106.00)"
+          },
+          {
+            "column": "ESTAB",
+            "count": 73,
+            "percentage": 9.88,
+            "range": "[3.00, 2096.00]",
+            "bounds": "(-143.00, 214.00)"
+          }
+        ]
+      },
+      "coverage": {}
+    },
+    {
+      "file_name": "cbp_industry_naics44-45_2021.csv",
+      "validation_date": "2025-11-19T00:46:54.219101",
+      "record_count": 801,
+      "column_count": 6,
+      "columns": [
+        "NAME",
+        "EMP",
+        "ESTAB",
+        "NAICS2017",
+        "state",
+        "county"
+      ],
+      "issues": {
+        "fips": [
+          "No FIPS code column found"
+        ],
+        "outliers": [
+          {
+            "column": "EMP",
+            "count": 59,
+            "percentage": 7.37,
+            "range": "[11.00, 66762.00]",
+            "bounds": "(-9170.00, 13195.00)"
+          },
+          {
+            "column": "ESTAB",
+            "count": 52,
+            "percentage": 6.49,
+            "range": "[4.00, 4464.00]",
+            "bounds": "(-579.00, 877.00)"
+          }
+        ]
+      },
+      "coverage": {}
+    },
+    {
+      "file_name": "cbp_industry_naics48-49_2021.csv",
+      "validation_date": "2025-11-19T00:46:54.222221",
+      "record_count": 766,
+      "column_count": 6,
+      "columns": [
+        "NAME",
+        "EMP",
+        "ESTAB",
+        "NAICS2017",
+        "state",
+        "county"
+      ],
+      "issues": {
+        "fips": [
+          "No FIPS code column found"
+        ],
+        "outliers": [
+          {
+            "column": "EMP",
+            "count": 67,
+            "percentage": 8.75,
+            "range": "[3.00, 81950.00]",
+            "bounds": "(-3041.25, 4202.00)"
+          },
+          {
+            "column": "ESTAB",
+            "count": 59,
+            "percentage": 7.7,
+            "range": "[3.00, 1379.00]",
+            "bounds": "(-117.25, 182.00)"
+          }
+        ]
+      },
+      "coverage": {}
+    },
+    {
+      "file_name": "cbp_industry_naics51_2021.csv",
+      "validation_date": "2025-11-19T00:46:54.225164",
+      "record_count": 685,
+      "column_count": 6,
+      "columns": [
+        "NAME",
+        "EMP",
+        "ESTAB",
+        "NAICS2017",
+        "state",
+        "county"
+      ],
+      "issues": {
+        "fips": [
+          "No FIPS code column found"
+        ],
+        "outliers": [
+          {
+            "column": "EMP",
+            "count": 73,
+            "percentage": 10.66,
+            "range": "[2.00, 52325.00]",
+            "bounds": "(-794.00, 1124.00)"
+          },
+          {
+            "column": "ESTAB",
+            "count": 62,
+            "percentage": 9.05,
+            "range": "[3.00, 1350.00]",
+            "bounds": "(-60.00, 94.00)"
+          }
+        ]
+      },
+      "coverage": {}
+    },
+    {
+      "file_name": "cbp_industry_naics52_2021.csv",
+      "validation_date": "2025-11-19T00:46:54.229276",
+      "record_count": 789,
+      "column_count": 6,
+      "columns": [
+        "NAME",
+        "EMP",
+        "ESTAB",
+        "NAICS2017",
+        "state",
+        "county"
+      ],
+      "issues": {
+        "fips": [
+          "No FIPS code column found"
+        ],
+        "outliers": [
+          {
+            "column": "EMP",
+            "count": 82,
+            "percentage": 10.39,
+            "range": "[4.00, 88049.00]",
+            "bounds": "(-1367.00, 1993.00)"
+          },
+          {
+            "column": "ESTAB",
+            "count": 57,
+            "percentage": 7.22,
+            "range": "[3.00, 2890.00]",
+            "bounds": "(-220.00, 326.00)"
+          }
+        ]
+      },
+      "coverage": {}
+    },
+    {
+      "file_name": "cbp_industry_naics53_2021.csv",
+      "validation_date": "2025-11-19T00:46:54.233365",
+      "record_count": 727,
+      "column_count": 6,
+      "columns": [
+        "NAME",
+        "EMP",
+        "ESTAB",
+        "NAICS2017",
+        "state",
+        "county"
+      ],
+      "issues": {
+        "fips": [
+          "No FIPS code column found"
+        ],
+        "outliers": [
+          {
+            "column": "EMP",
+            "count": 69,
+            "percentage": 9.49,
+            "range": "[0.00, 26218.00]",
+            "bounds": "(-755.50, 1061.00)"
+          },
+          {
+            "column": "ESTAB",
+            "count": 61,
+            "percentage": 8.39,
+            "range": "[3.00, 3196.00]",
+            "bounds": "(-201.50, 292.00)"
+          }
+        ]
+      },
+      "coverage": {}
+    },
+    {
+      "file_name": "cbp_industry_naics54_2021.csv",
+      "validation_date": "2025-11-19T00:46:54.237500",
+      "record_count": 779,
+      "column_count": 6,
+      "columns": [
+        "NAME",
+        "EMP",
+        "ESTAB",
+        "NAICS2017",
+        "state",
+        "county"
+      ],
+      "issues": {
+        "fips": [
+          "No FIPS code column found"
+        ],
+        "outliers": [
+          {
+            "column": "EMP",
+            "count": 89,
+            "percentage": 11.42,
+            "range": "[3.00, 233048.00]",
+            "bounds": "(-2139.00, 2992.00)"
+          },
+          {
+            "column": "ESTAB",
+            "count": 73,
+            "percentage": 9.37,
+            "range": "[3.00, 8767.00]",
+            "bounds": "(-336.00, 483.00)"
+          }
+        ]
+      },
+      "coverage": {}
+    },
+    {
+      "file_name": "cbp_industry_naics55_2021.csv",
+      "validation_date": "2025-11-19T00:46:54.241575",
+      "record_count": 346,
+      "column_count": 6,
+      "columns": [
+        "NAME",
+        "EMP",
+        "ESTAB",
+        "NAICS2017",
+        "state",
+        "county"
+      ],
+      "issues": {
+        "fips": [
+          "No FIPS code column found"
+        ],
+        "outliers": [
+          {
+            "column": "EMP",
+            "count": 35,
+            "percentage": 10.12,
+            "range": "[2.00, 56817.00]",
+            "bounds": "(-3241.50, 4493.50)"
+          },
+          {
+            "column": "ESTAB",
+            "count": 34,
+            "percentage": 9.83,
+            "range": "[3.00, 602.00]",
+            "bounds": "(-49.25, 75.00)"
+          }
+        ]
+      },
+      "coverage": {}
+    },
+    {
+      "file_name": "cbp_industry_naics56_2021.csv",
+      "validation_date": "2025-11-19T00:46:54.245568",
+      "record_count": 754,
+      "column_count": 6,
+      "columns": [
+        "NAME",
+        "EMP",
+        "ESTAB",
+        "NAICS2017",
+        "state",
+        "county"
+      ],
+      "issues": {
+        "fips": [
+          "No FIPS code column found"
+        ],
+        "outliers": [
+          {
+            "column": "EMP",
+            "count": 67,
+            "percentage": 8.89,
+            "range": "[4.00, 58936.00]",
+            "bounds": "(-3487.50, 4851.25)"
+          },
+          {
+            "column": "ESTAB",
+            "count": 63,
+            "percentage": 8.36,
+            "range": "[3.00, 2186.00]",
+            "bounds": "(-232.00, 335.00)"
+          }
+        ]
+      },
+      "coverage": {}
+    },
+    {
+      "file_name": "cbp_industry_naics61_2021.csv",
+      "validation_date": "2025-11-19T00:46:54.249719",
+      "record_count": 507,
+      "column_count": 6,
+      "columns": [
+        "NAME",
+        "EMP",
+        "ESTAB",
+        "NAICS2017",
+        "state",
+        "county"
+      ],
+      "issues": {
+        "fips": [
+          "No FIPS code column found"
+        ],
+        "outliers": [
+          {
+            "column": "EMP",
+            "count": 45,
+            "percentage": 8.88,
+            "range": "[2.00, 81574.00]",
+            "bounds": "(-2217.00, 3092.50)"
+          },
+          {
+            "column": "ESTAB",
+            "count": 42,
+            "percentage": 8.28,
+            "range": "[3.00, 731.00]",
+            "bounds": "(-73.00, 109.00)"
+          }
+        ]
+      },
+      "coverage": {}
+    },
+    {
+      "file_name": "cbp_industry_naics62_2021.csv",
+      "validation_date": "2025-11-19T00:46:54.253922",
+      "record_count": 796,
+      "column_count": 6,
+      "columns": [
+        "NAME",
+        "EMP",
+        "ESTAB",
+        "NAICS2017",
+        "state",
+        "county"
+      ],
+      "issues": {
+        "fips": [
+          "No FIPS code column found"
+        ],
+        "outliers": [
+          {
+            "column": "EMP",
+            "count": 69,
+            "percentage": 8.67,
+            "range": "[5.00, 172347.00]",
+            "bounds": "(-10130.50, 14436.00)"
+          },
+          {
+            "column": "ESTAB",
+            "count": 65,
+            "percentage": 8.17,
+            "range": "[3.00, 4700.00]",
+            "bounds": "(-437.00, 641.00)"
+          }
+        ]
+      },
+      "coverage": {}
+    },
+    {
+      "file_name": "cbp_industry_naics71_2021.csv",
+      "validation_date": "2025-11-19T00:46:54.259346",
+      "record_count": 621,
+      "column_count": 6,
+      "columns": [
+        "NAME",
+        "EMP",
+        "ESTAB",
+        "NAICS2017",
+        "state",
+        "county"
+      ],
+      "issues": {
+        "fips": [
+          "No FIPS code column found"
+        ],
+        "outliers": [
+          {
+            "column": "EMP",
+            "count": 62,
+            "percentage": 9.98,
+            "range": "[0.00, 21088.00]",
+            "bounds": "(-995.00, 1413.00)"
+          },
+          {
+            "column": "ESTAB",
+            "count": 55,
+            "percentage": 8.86,
+            "range": "[3.00, 974.00]",
+            "bounds": "(-75.00, 114.00)"
+          }
+        ]
+      },
+      "coverage": {}
+    },
+    {
+      "file_name": "cbp_industry_naics72_2021.csv",
+      "validation_date": "2025-11-19T00:46:54.263834",
+      "record_count": 786,
+      "column_count": 6,
+      "columns": [
+        "NAME",
+        "EMP",
+        "ESTAB",
+        "NAICS2017",
+        "state",
+        "county"
+      ],
+      "issues": {
+        "fips": [
+          "No FIPS code column found"
+        ],
+        "outliers": [
+          {
+            "column": "EMP",
+            "count": 58,
+            "percentage": 7.38,
+            "range": "[9.00, 70834.00]",
+            "bounds": "(-7212.75, 10262.75)"
+          },
+          {
+            "column": "ESTAB",
+            "count": 62,
+            "percentage": 7.89,
+            "range": "[3.00, 3913.00]",
+            "bounds": "(-392.00, 574.00)"
+          }
+        ]
+      },
+      "coverage": {}
+    },
+    {
+      "file_name": "cbp_industry_naics81_2021.csv",
+      "validation_date": "2025-11-19T00:46:54.268142",
+      "record_count": 800,
+      "column_count": 6,
+      "columns": [
+        "NAME",
+        "EMP",
+        "ESTAB",
+        "NAICS2017",
+        "state",
+        "county"
+      ],
+      "issues": {
+        "fips": [
+          "No FIPS code column found"
+        ],
+        "outliers": [
+          {
+            "column": "EMP",
+            "count": 66,
+            "percentage": 8.25,
+            "range": "[5.00, 28165.00]",
+            "bounds": "(-2552.00, 3678.00)"
+          },
+          {
+            "column": "ESTAB",
+            "count": 55,
+            "percentage": 6.88,
+            "range": "[3.00, 3775.00]",
+            "bounds": "(-460.00, 688.00)"
+          }
+        ]
+      },
+      "coverage": {}
+    },
+    {
+      "file_name": "census_commute_time_2022.csv",
+      "validation_date": "2025-11-19T00:46:54.272784",
+      "record_count": 802,
+      "column_count": 4,
+      "columns": [
+        "state",
+        "county",
+        "NAME",
+        "mean_commute_time"
+      ],
+      "issues": {
+        "fips": [
+          "No FIPS code column found"
+        ]
+      },
+      "coverage": {}
+    },
+    {
+      "file_name": "census_dependency_ratio_2022.csv",
+      "validation_date": "2025-11-19T00:46:54.274578",
+      "record_count": 802,
+      "column_count": 7,
+      "columns": [
+        "fips",
+        "NAME",
+        "total_population",
+        "under_15",
+        "age_15_64",
+        "age_65_plus",
+        "dependency_ratio"
+      ],
+      "issues": {
+        "fips": [
+          "3 records with invalid state FIPS"
+        ],
+        "outliers": [
+          {
+            "column": "total_population",
+            "count": 59,
+            "percentage": 7.36,
+            "range": "[1635.00, 1593208.00]",
+            "bounds": "(-168478.75, 261044.75)"
+          },
+          {
+            "column": "under_15",
+            "count": 66,
+            "percentage": 8.23,
+            "range": "[218.00, 289618.00]",
+            "bounds": "(-28866.50, 44421.75)"
+          },
+          {
+            "column": "age_15_64",
+            "count": 66,
+            "percentage": 8.23,
+            "range": "[959.00, 1080371.00]",
+            "bounds": "(-103854.75, 161219.50)"
+          },
+          {
+            "column": "age_65_plus",
+            "count": 48,
+            "percentage": 5.99,
+            "range": "[272.00, 242474.00]",
+            "bounds": "(-30942.50, 48761.25)"
+          },
+          {
+            "column": "dependency_ratio",
+            "count": 5,
+            "percentage": 0.62,
+            "range": "[0.24, 1.04]",
+            "bounds": "(0.27, 0.89)"
+          }
+        ]
+      },
+      "coverage": {
+        "total_records": 802,
+        "valid_state_records": 799,
+        "unique_counties": 799,
+        "coverage_pct": 99.6,
+        "counties_by_state": {
+          "13": 159,
+          "21": 120,
+          "24": 24,
+          "37": 100,
+          "42": 67,
+          "45": 46,
+          "47": 95,
+          "51": 133,
+          "54": 55
+        }
+      }
+    },
+    {
+      "file_name": "census_education_attainment_2022.csv",
+      "validation_date": "2025-11-19T00:46:54.286438",
+      "record_count": 802,
+      "column_count": 10,
+      "columns": [
+        "fips",
+        "NAME",
+        "total_25_plus",
+        "hs_diploma",
+        "ged",
+        "associates",
+        "bachelors",
+        "pct_hs_only",
+        "pct_associates_only",
+        "pct_bachelors_only"
+      ],
+      "issues": {
+        "fips": [
+          "3 records with invalid state FIPS"
+        ],
+        "outliers": [
+          {
+            "column": "total_25_plus",
+            "count": 60,
+            "percentage": 7.48,
+            "range": "[1300.00, 1090012.00]",
+            "bounds": "(-111812.25, 175081.00)"
+          },
+          {
+            "column": "hs_diploma",
+            "count": 50,
+            "percentage": 6.23,
+            "range": "[393.00, 287402.00]",
+            "bounds": "(-28514.75, 46282.00)"
+          },
+          {
+            "column": "ged",
+            "count": 37,
+            "percentage": 4.61,
+            "range": "[64.00, 43151.00]",
+            "bounds": "(-5458.75, 9096.00)"
+          },
+          {
+            "column": "associates",
+            "count": 51,
+            "percentage": 6.36,
+            "range": "[60.00, 90874.00]",
+            "bounds": "(-11483.50, 17330.25)"
+          },
+          {
+            "column": "bachelors",
+            "count": 75,
+            "percentage": 9.35,
+            "range": "[86.00, 258183.00]",
+            "bounds": "(-19628.50, 28662.75)"
+          }
+        ]
+      },
+      "coverage": {
+        "total_records": 802,
+        "valid_state_records": 799,
+        "unique_counties": 799,
+        "coverage_pct": 99.6,
+        "counties_by_state": {
+          "13": 159,
+          "21": 120,
+          "24": 24,
+          "37": 100,
+          "42": 67,
+          "45": 46,
+          "47": 95,
+          "51": 133,
+          "54": 55
+        }
+      }
+    },
+    {
+      "file_name": "census_hispanic_2022.csv",
+      "validation_date": "2025-11-19T00:46:54.315083",
+      "record_count": 802,
+      "column_count": 5,
+      "columns": [
+        "fips",
+        "NAME",
+        "total_population",
+        "hispanic_population",
+        "pct_hispanic"
+      ],
+      "issues": {
+        "fips": [
+          "3 records with invalid state FIPS"
+        ],
+        "outliers": [
+          {
+            "column": "total_population",
+            "count": 59,
+            "percentage": 7.36,
+            "range": "[1635.00, 1593208.00]",
+            "bounds": "(-168478.75, 261044.75)"
+          },
+          {
+            "column": "hispanic_population",
+            "count": 84,
+            "percentage": 10.47,
+            "range": "[0.00, 249723.00]",
+            "bounds": "(-11251.00, 15996.50)"
+          },
+          {
+            "column": "pct_hispanic",
+            "count": 14,
+            "percentage": 1.75,
+            "range": "[0.00, 41.90]",
+            "bounds": "(-11.50, 20.54)"
+          }
+        ]
+      },
+      "coverage": {
+        "total_records": 802,
+        "valid_state_records": 799,
+        "unique_counties": 799,
+        "coverage_pct": 99.6,
+        "counties_by_state": {
+          "13": 159,
+          "21": 120,
+          "24": 24,
+          "37": 100,
+          "42": 67,
+          "45": 46,
+          "47": 95,
+          "51": 133,
+          "54": 55
+        }
+      }
+    },
+    {
+      "file_name": "census_households_children_processed.csv",
+      "validation_date": "2025-11-19T00:46:54.324841",
+      "record_count": 1604,
+      "column_count": 7,
+      "columns": [
+        "NAME",
+        "households_with_children",
+        "total_households",
+        "state",
+        "county",
+        "year",
+        "fips"
+      ],
+      "issues": {
+        "fips": [
+          "6 records with invalid state FIPS",
+          "1604 duplicate FIPS codes"
+        ],
+        "outliers": [
+          {
+            "column": "households_with_children",
+            "count": 129,
+            "percentage": 8.04,
+            "range": "[33.00, 149617.00]",
+            "bounds": "(-16681.75, 25533.50)"
+          },
+          {
+            "column": "total_households",
+            "count": 116,
+            "percentage": 7.23,
+            "range": "[643.00, 659129.00]",
+            "bounds": "(-63047.50, 97973.50)"
+          }
+        ]
+      },
+      "coverage": {
+        "total_records": 1604,
+        "valid_state_records": 1598,
+        "unique_counties": 799,
+        "coverage_pct": 99.6,
+        "counties_by_state": {
+          "13": 159,
+          "21": 120,
+          "24": 24,
+          "37": 100,
+          "42": 67,
+          "45": 46,
+          "47": 95,
+          "51": 133,
+          "54": 55
+        }
+      }
+    },
+    {
+      "file_name": "census_housing_pre1960_2022.csv",
+      "validation_date": "2025-11-19T00:46:54.335001",
+      "record_count": 802,
+      "column_count": 6,
+      "columns": [
+        "state",
+        "county",
+        "NAME",
+        "pct_pre_1960",
+        "total_units",
+        "units_pre_1960"
+      ],
+      "issues": {
+        "fips": [
+          "No FIPS code column found"
+        ],
+        "outliers": [
+          {
+            "column": "pct_pre_1960",
+            "count": 17,
+            "percentage": 2.12,
+            "range": "[31.69, 575.81]",
+            "bounds": "(-65.62, 276.59)"
+          },
+          {
+            "column": "total_units",
+            "count": 51,
+            "percentage": 6.36,
+            "range": "[208.00, 182365.00]",
+            "bounds": "(-14018.25, 22301.25)"
+          },
+          {
+            "column": "units_pre_1960",
+            "count": 66,
+            "percentage": 8.23,
+            "range": "[110.40, 169539.50]",
+            "bounds": "(-17355.52, 26440.15)"
+          }
+        ],
+        "data_ranges": [
+          "pct_pre_1960: Exceeds 100% (max: 575.81)"
+        ]
+      },
+      "coverage": {}
+    },
+    {
+      "file_name": "census_knowledge_workers_2022.csv",
+      "validation_date": "2025-11-19T00:46:54.339646",
+      "record_count": 802,
+      "column_count": 5,
+      "columns": [
+        "fips",
+        "NAME",
+        "total_employed",
+        "mgmt_prof_sci_arts",
+        "pct_knowledge_workers"
+      ],
+      "issues": {
+        "fips": [
+          "3 records with invalid state FIPS"
+        ],
+        "outliers": [
+          {
+            "column": "total_employed",
+            "count": 67,
+            "percentage": 8.35,
+            "range": "[525.00, 736737.00]",
+            "bounds": "(-74375.75, 114088.75)"
+          },
+          {
+            "column": "mgmt_prof_sci_arts",
+            "count": 71,
+            "percentage": 8.85,
+            "range": "[99.00, 375294.00]",
+            "bounds": "(-27996.75, 41620.00)"
+          },
+          {
+            "column": "pct_knowledge_workers",
+            "count": 5,
+            "percentage": 0.62,
+            "range": "[13.39, 73.28]",
+            "bounds": "(3.47, 61.72)"
+          }
+        ]
+      },
+      "coverage": {
+        "total_records": 802,
+        "valid_state_records": 799,
+        "unique_counties": 799,
+        "coverage_pct": 99.6,
+        "counties_by_state": {
+          "13": 159,
+          "21": 120,
+          "24": 24,
+          "37": 100,
+          "42": 67,
+          "45": 46,
+          "47": 95,
+          "51": 133,
+          "54": 55
+        }
+      }
+    },
+    {
+      "file_name": "census_labor_force_2022.csv",
+      "validation_date": "2025-11-19T00:46:54.349093",
+      "record_count": 802,
+      "column_count": 5,
+      "columns": [
+        "fips",
+        "NAME",
+        "total_16_plus",
+        "in_labor_force",
+        "labor_force_participation_rate"
+      ],
+      "issues": {
+        "fips": [
+          "3 records with invalid state FIPS"
+        ],
+        "outliers": [
+          {
+            "column": "total_16_plus",
+            "count": 58,
+            "percentage": 7.23,
+            "range": "[1404.00, 1284522.00]",
+            "bounds": "(-136647.75, 211983.75)"
+          },
+          {
+            "column": "in_labor_force",
+            "count": 65,
+            "percentage": 8.1,
+            "range": "[686.00, 807065.00]",
+            "bounds": "(-83520.00, 127022.50)"
+          }
+        ]
+      },
+      "coverage": {
+        "total_records": 802,
+        "valid_state_records": 799,
+        "unique_counties": 799,
+        "coverage_pct": 99.6,
+        "counties_by_state": {
+          "13": 159,
+          "21": 120,
+          "24": 24,
+          "37": 100,
+          "42": 67,
+          "45": 46,
+          "47": 95,
+          "51": 133,
+          "54": 55
+        }
+      }
+    },
+    {
+      "file_name": "census_median_age_2022.csv",
+      "validation_date": "2025-11-19T00:46:54.358820",
+      "record_count": 802,
+      "column_count": 3,
+      "columns": [
+        "fips",
+        "NAME",
+        "median_age"
+      ],
+      "issues": {
+        "fips": [
+          "3 records with invalid state FIPS"
+        ]
+      },
+      "coverage": {
+        "total_records": 802,
+        "valid_state_records": 799,
+        "unique_counties": 799,
+        "coverage_pct": 99.6,
+        "counties_by_state": {
+          "13": 159,
+          "21": 120,
+          "24": 24,
+          "37": 100,
+          "42": 67,
+          "45": 46,
+          "47": 95,
+          "51": 133,
+          "54": 55
+        }
+      }
+    },
+    {
+      "file_name": "census_millennial_genz_change_2017_2022.csv",
+      "validation_date": "2025-11-19T00:46:54.365745",
+      "record_count": 802,
+      "column_count": 5,
+      "columns": [
+        "fips",
+        "pct_millennial_genz_2017",
+        "NAME",
+        "pct_millennial_genz_2022",
+        "millennial_genz_balance_change"
+      ],
+      "issues": {
+        "fips": [
+          "3 records with invalid state FIPS"
+        ],
+        "outliers": [
+          {
+            "column": "pct_millennial_genz_2017",
+            "count": 5,
+            "percentage": 0.62,
+            "range": "[21.74, 77.28]",
+            "bounds": "(20.65, 63.74)"
+          },
+          {
+            "column": "pct_millennial_genz_2022",
+            "count": 1,
+            "percentage": 0.12,
+            "range": "[28.89, 83.45]",
+            "bounds": "(23.59, 71.73)"
+          },
+          {
+            "column": "millennial_genz_balance_change",
+            "count": 13,
+            "percentage": 1.62,
+            "range": "[-1.68, 13.53]",
+            "bounds": "(-0.00, 10.55)"
+          }
+        ]
+      },
+      "coverage": {
+        "total_records": 802,
+        "valid_state_records": 799,
+        "unique_counties": 799,
+        "coverage_pct": 99.6,
+        "counties_by_state": {
+          "13": 159,
+          "21": 120,
+          "24": 24,
+          "37": 100,
+          "42": 67,
+          "45": 46,
+          "47": 95,
+          "51": 133,
+          "54": 55
+        }
+      }
+    },
+    {
+      "file_name": "census_occupation_2022.csv",
+      "validation_date": "2025-11-19T00:46:54.375232",
+      "record_count": 802,
+      "column_count": 9,
+      "columns": [
+        "NAME",
+        "S2401_C01_001E",
+        "S2401_C01_002E",
+        "S2401_C01_003E",
+        "S2401_C01_004E",
+        "S2401_C01_005E",
+        "S2401_C01_006E",
+        "state",
+        "county"
+      ],
+      "issues": {
+        "fips": [
+          "No FIPS code column found"
+        ],
+        "outliers": [
+          {
+            "column": "S2401_C01_001E",
+            "count": 67,
+            "percentage": 8.35,
+            "range": "[525.00, 736737.00]",
+            "bounds": "(-74375.75, 114088.75)"
+          },
+          {
+            "column": "S2401_C01_002E",
+            "count": 71,
+            "percentage": 8.85,
+            "range": "[99.00, 375294.00]",
+            "bounds": "(-27996.75, 41620.00)"
+          },
+          {
+            "column": "S2401_C01_003E",
+            "count": 75,
+            "percentage": 9.35,
+            "range": "[46.00, 161889.00]",
+            "bounds": "(-10909.50, 16149.00)"
+          },
+          {
+            "column": "S2401_C01_004E",
+            "count": 71,
+            "percentage": 8.85,
+            "range": "[18.00, 94895.00]",
+            "bounds": "(-7674.50, 11421.50)"
+          },
+          {
+            "column": "S2401_C01_005E",
+            "count": 76,
+            "percentage": 9.48,
+            "range": "[0.00, 66994.00]",
+            "bounds": "(-3556.75, 5111.00)"
+          },
+          {
+            "column": "S2401_C01_006E",
+            "count": 79,
+            "percentage": 9.85,
+            "range": "[0.00, 102721.00]",
+            "bounds": "(-3896.25, 5592.25)"
+          }
+        ]
+      },
+      "coverage": {}
+    },
+    {
+      "file_name": "census_population_growth_2000_2022.csv",
+      "validation_date": "2025-11-19T00:46:54.383319",
+      "record_count": 804,
+      "column_count": 5,
+      "columns": [
+        "fips",
+        "NAME",
+        "population_2000",
+        "population_2022",
+        "population_growth_pct"
+      ],
+      "issues": {
+        "fips": [
+          "3 records with invalid state FIPS"
+        ],
+        "missing_values": [
+          "population_2022: 2 missing (0.2%)",
+          "population_growth_pct: 2 missing (0.2%)"
+        ],
+        "outliers": [
+          {
+            "column": "population_2000",
+            "count": 54,
+            "percentage": 6.72,
+            "range": "[2077.00, 1517550.00]",
+            "bounds": "(-133198.50, 212652.25)"
+          },
+          {
+            "column": "population_2022",
+            "count": 59,
+            "percentage": 7.36,
+            "range": "[1635.00, 1593208.00]",
+            "bounds": "(-168478.75, 261044.75)"
+          },
+          {
+            "column": "population_growth_pct",
+            "count": 5,
+            "percentage": 0.62,
+            "range": "[-36.82, 157.32]",
+            "bounds": "(-78.72, 95.80)"
+          }
+        ],
+        "data_ranges": [
+          "population_growth_pct: Has negative values (min: -36.82)",
+          "population_growth_pct: Exceeds 100% (max: 157.32)"
+        ]
+      },
+      "coverage": {
+        "total_records": 804,
+        "valid_state_records": 801,
+        "unique_counties": 801,
+        "coverage_pct": 99.9,
+        "counties_by_state": {
+          "13": 159,
+          "21": 120,
+          "24": 24,
+          "37": 100,
+          "42": 67,
+          "45": 46,
+          "47": 95,
+          "51": 135,
+          "54": 55
+        }
+      }
+    },
+    {
+      "file_name": "census_poverty_2022.csv",
+      "validation_date": "2025-11-19T00:46:54.392957",
+      "record_count": 802,
+      "column_count": 6,
+      "columns": [
+        "full_fips",
+        "state_fips",
+        "county_fips",
+        "county_name",
+        "state_abbr",
+        "poverty_rate"
+      ],
+      "issues": {
+        "fips": [
+          "802 records with invalid state FIPS",
+          "722 duplicate FIPS codes"
+        ],
+        "outliers": [
+          {
+            "column": "county_fips",
+            "count": 36,
+            "percentage": 4.49,
+            "range": "[1.00, 840.00]",
+            "bounds": "(-315.00, 525.00)"
+          }
+        ]
+      },
+      "coverage": {
+        "total_records": 802,
+        "valid_state_records": 0,
+        "unique_counties": 0,
+        "coverage_pct": 0.0,
+        "counties_by_state": {}
+      }
+    },
+    {
+      "file_name": "census_race_2022.csv",
+      "validation_date": "2025-11-19T00:46:54.403305",
+      "record_count": 802,
+      "column_count": 6,
+      "columns": [
+        "fips",
+        "NAME",
+        "total_population",
+        "white_alone",
+        "non_white",
+        "pct_non_white"
+      ],
+      "issues": {
+        "fips": [
+          "3 records with invalid state FIPS"
+        ],
+        "outliers": [
+          {
+            "column": "total_population",
+            "count": 59,
+            "percentage": 7.36,
+            "range": "[1635.00, 1593208.00]",
+            "bounds": "(-168478.75, 261044.75)"
+          },
+          {
+            "column": "white_alone",
+            "count": 49,
+            "percentage": 6.11,
+            "range": "[599.00, 969070.00]",
+            "bounds": "(-128307.25, 198666.25)"
+          },
+          {
+            "column": "non_white",
+            "count": 85,
+            "percentage": 10.6,
+            "range": "[44.00, 1002348.00]",
+            "bounds": "(-42042.25, 59986.25)"
+          }
+        ]
+      },
+      "coverage": {
+        "total_records": 802,
+        "valid_state_records": 799,
+        "unique_counties": 799,
+        "coverage_pct": 99.6,
+        "counties_by_state": {
+          "13": 159,
+          "21": 120,
+          "24": 24,
+          "37": 100,
+          "42": 67,
+          "45": 46,
+          "47": 95,
+          "51": 133,
+          "54": 55
+        }
+      }
+    },
+    {
+      "file_name": "census_telecommuter_2022.csv",
+      "validation_date": "2025-11-19T00:46:54.416823",
+      "record_count": 802,
+      "column_count": 8,
+      "columns": [
+        "NAME",
+        "B08128_001E",
+        "B08128_002E",
+        "B08128_003E",
+        "B08128_009E",
+        "B08128_013E",
+        "state",
+        "county"
+      ],
+      "issues": {
+        "fips": [
+          "No FIPS code column found"
+        ],
+        "outliers": [
+          {
+            "column": "B08128_001E",
+            "count": 66,
+            "percentage": 8.23,
+            "range": "[525.00, 717569.00]",
+            "bounds": "(-76573.00, 116607.75)"
+          },
+          {
+            "column": "B08128_002E",
+            "count": 68,
+            "percentage": 8.48,
+            "range": "[357.00, 483321.00]",
+            "bounds": "(-54280.50, 82027.00)"
+          },
+          {
+            "column": "B08128_003E",
+            "count": 66,
+            "percentage": 8.23,
+            "range": "[330.00, 466913.00]",
+            "bounds": "(-51456.50, 77768.75)"
+          },
+          {
+            "column": "B08128_009E",
+            "count": 59,
+            "percentage": 7.36,
+            "range": "[9.00, 35347.00]",
+            "bounds": "(-4147.25, 6372.00)"
+          },
+          {
+            "column": "B08128_013E",
+            "count": 59,
+            "percentage": 7.36,
+            "range": "[264.00, 292877.00]",
+            "bounds": "(-41507.75, 62909.50)"
+          }
+        ]
+      },
+      "coverage": {}
+    },
+    {
+      "file_name": "chr_life_expectancy_2025.csv",
+      "validation_date": "2025-11-19T00:46:54.423464",
+      "record_count": 812,
+      "column_count": 4,
+      "columns": [
+        "full_fips",
+        "state_fips",
+        "life_expectancy",
+        "county_name"
+      ],
+      "issues": {
+        "fips": [
+          "No FIPS code column found"
+        ],
+        "missing_values": [
+          "life_expectancy: 1 missing (0.1%)"
+        ],
+        "outliers": [
+          {
+            "column": "life_expectancy",
+            "count": 1,
+            "percentage": 0.12,
+            "range": "[64.32, 88.91]",
+            "bounds": "(59.47, 87.98)"
+          }
+        ]
+      },
+      "coverage": {}
+    },
+    {
+      "file_name": "component8_social_capital_2022.csv",
+      "validation_date": "2025-11-19T00:46:54.427391",
+      "record_count": 807,
+      "column_count": 9,
+      "columns": [
+        "fips",
+        "NAME",
+        "total_population",
+        "org_count_501c3",
+        "orgs_per_1000",
+        "social_associations_per_10k",
+        "voter_turnout_pct",
+        "volunteering_rate",
+        "civic_organizations_per_1k"
+      ],
+      "issues": {
+        "fips": [
+          "4 records with invalid state FIPS"
+        ],
+        "missing_values": [
+          "total_population: 5 missing (0.6%)",
+          "orgs_per_1000: 5 missing (0.6%)",
+          "social_associations_per_10k: 3 missing (0.4%)",
+          "voter_turnout_pct: 3 missing (0.4%)",
+          "volunteering_rate: 25 missing (3.1%)",
+          "civic_organizations_per_1k: 25 missing (3.1%)"
+        ],
+        "outliers": [
+          {
+            "column": "total_population",
+            "count": 59,
+            "percentage": 7.36,
+            "range": "[1635.00, 1593208.00]",
+            "bounds": "(-168478.75, 261044.75)"
+          },
+          {
+            "column": "org_count_501c3",
+            "count": 58,
+            "percentage": 7.19,
+            "range": "[0.00, 9015.00]",
+            "bounds": "(-674.00, 1027.00)"
+          },
+          {
+            "column": "orgs_per_1000",
+            "count": 10,
+            "percentage": 1.25,
+            "range": "[0.00, 146.98]",
+            "bounds": "(-3.30, 11.13)"
+          },
+          {
+            "column": "social_associations_per_10k",
+            "count": 1,
+            "percentage": 0.12,
+            "range": "[0.00, 29.93]",
+            "bounds": "(-8.68, 29.70)"
+          },
+          {
+            "column": "voter_turnout_pct",
+            "count": 1,
+            "percentage": 0.12,
+            "range": "[19.42, 90.55]",
+            "bounds": "(22.13, 105.14)"
+          },
+          {
+            "column": "volunteering_rate",
+            "count": 4,
+            "percentage": 0.51,
+            "range": "[0.02, 0.21]",
+            "bounds": "(-0.05, 0.17)"
+          },
+          {
+            "column": "civic_organizations_per_1k",
+            "count": 12,
+            "percentage": 1.53,
+            "range": "[0.00, 0.08]",
+            "bounds": "(-0.01, 0.04)"
+          }
+        ]
+      },
+      "coverage": {
+        "total_records": 807,
+        "valid_state_records": 803,
+        "unique_counties": 803,
+        "coverage_pct": 100.1,
+        "counties_by_state": {
+          "13": 159,
+          "21": 120,
+          "24": 24,
+          "37": 102,
+          "42": 67,
+          "45": 46,
+          "47": 95,
+          "51": 135,
+          "54": 55
+        }
+      }
+    },
+    {
+      "file_name": "fbi_crime_counties_2023.csv",
+      "validation_date": "2025-11-19T00:46:54.445658",
+      "record_count": 804,
+      "column_count": 8,
+      "columns": [
+        "violent_crimes",
+        "property_crimes",
+        "agency_count",
+        "state_fips",
+        "county_fips",
+        "state_name",
+        "county_name",
+        "fips"
+      ],
+      "issues": {
+        "fips": [
+          "3 records with invalid state FIPS"
+        ],
+        "outliers": [
+          {
+            "column": "violent_crimes",
+            "count": 68,
+            "percentage": 8.46,
+            "range": "[0.00, 17090.00]",
+            "bounds": "(-510.75, 730.00)"
+          },
+          {
+            "column": "property_crimes",
+            "count": 69,
+            "percentage": 8.58,
+            "range": "[0.00, 79976.00]",
+            "bounds": "(-2741.75, 3903.00)"
+          },
+          {
+            "column": "agency_count",
+            "count": 29,
+            "percentage": 3.61,
+            "range": "[1.00, 133.00]",
+            "bounds": "(-12.00, 23.00)"
+          },
+          {
+            "column": "county_fips",
+            "count": 37,
+            "percentage": 4.6,
+            "range": "[1.00, 999.00]",
+            "bounds": "(-315.00, 525.00)"
+          }
+        ]
+      },
+      "coverage": {
+        "total_records": 804,
+        "valid_state_records": 801,
+        "unique_counties": 801,
+        "coverage_pct": 99.9,
+        "counties_by_state": {
+          "13": 159,
+          "21": 121,
+          "24": 24,
+          "37": 100,
+          "42": 67,
+          "45": 46,
+          "47": 95,
+          "51": 134,
+          "54": 55
+        }
+      }
+    },
+    {
+      "file_name": "fcc_broadband_availability_100_10.csv",
+      "validation_date": "2025-11-19T00:46:54.458100",
+      "record_count": 802,
+      "column_count": 6,
+      "columns": [
+        "county_fips",
+        "county_name",
+        "total_locations",
+        "percent_covered",
+        "min_download_mbps",
+        "min_upload_mbps"
+      ],
+      "issues": {
+        "fips": [
+          "3 records with invalid state FIPS"
+        ],
+        "outliers": [
+          {
+            "column": "total_locations",
+            "count": 55,
+            "percentage": 6.86,
+            "range": "[1175.00, 808405.00]",
+            "bounds": "(-86612.00, 136549.75)"
+          },
+          {
+            "column": "percent_covered",
+            "count": 90,
+            "percentage": 11.22,
+            "range": "[88.91, 100.00]",
+            "bounds": "(99.98, 100.01)"
+          }
+        ]
+      },
+      "coverage": {
+        "total_records": 802,
+        "valid_state_records": 799,
+        "unique_counties": 799,
+        "coverage_pct": 99.6,
+        "counties_by_state": {
+          "13": 159,
+          "21": 120,
+          "24": 24,
+          "37": 100,
+          "42": 67,
+          "45": 46,
+          "47": 95,
+          "51": 133,
+          "54": 55
+        }
+      }
+    },
+    {
+      "file_name": "hud_opportunity_zones_by_county.csv",
+      "validation_date": "2025-11-19T00:46:54.469858",
+      "record_count": 580,
+      "column_count": 5,
+      "columns": [
+        "area_fips",
+        "oz_tract_count",
+        "state_fips",
+        "state_name",
+        "state_abbr"
+      ],
+      "issues": {
+        "fips": [
+          "No FIPS code column found"
+        ],
+        "outliers": [
+          {
+            "column": "oz_tract_count",
+            "count": 22,
+            "percentage": 3.79,
+            "range": "[1.00, 82.00]",
+            "bounds": "(-5.00, 9.00)"
+          }
+        ]
+      },
+      "coverage": {}
+    },
+    {
+      "file_name": "ipeds_four_year_colleges_by_county_2022.csv",
+      "validation_date": "2025-11-19T00:46:54.473716",
+      "record_count": 345,
+      "column_count": 4,
+      "columns": [
+        "area_fips",
+        "college_count",
+        "state_fips",
+        "state_abbr"
+      ],
+      "issues": {
+        "fips": [
+          "No FIPS code column found"
+        ],
+        "outliers": [
+          {
+            "column": "college_count",
+            "count": 14,
+            "percentage": 4.06,
+            "range": "[1.00, 23.00]",
+            "bounds": "(-5.00, 9.00)"
+          }
+        ]
+      },
+      "coverage": {}
+    },
+    {
+      "file_name": "nonemp_firms_2021.csv",
+      "validation_date": "2025-11-19T00:46:54.477750",
+      "record_count": 802,
+      "column_count": 6,
+      "columns": [
+        "NAME",
+        "NESTAB",
+        "NRCPTOT",
+        "NAICS2017",
+        "state",
+        "county"
+      ],
+      "issues": {
+        "fips": [
+          "No FIPS code column found"
+        ],
+        "outliers": [
+          {
+            "column": "NESTAB",
+            "count": 69,
+            "percentage": 8.6,
+            "range": "[136.00, 136971.00]",
+            "bounds": "(-12053.75, 18459.25)"
+          },
+          {
+            "column": "NRCPTOT",
+            "count": 70,
+            "percentage": 8.73,
+            "range": "[3745.00, 7147466.00]",
+            "bounds": "(-593998.75, 891308.50)"
+          }
+        ]
+      },
+      "coverage": {}
+    },
+    {
+      "file_name": "nps_parks_county_mapping.csv",
+      "validation_date": "2025-11-19T00:46:54.482246",
+      "record_count": 255,
+      "column_count": 8,
+      "columns": [
+        "park_code",
+        "park_name",
+        "designation",
+        "states",
+        "has_boundary",
+        "STATEFP",
+        "COUNTYFP",
+        "county_name"
+      ],
+      "issues": {
+        "fips": [
+          "No FIPS code column found"
+        ],
+        "outliers": [
+          {
+            "column": "COUNTYFP",
+            "count": 23,
+            "percentage": 9.02,
+            "range": "[1.00, 830.00]",
+            "bounds": "(-348.00, 534.00)"
+          }
+        ]
+      },
+      "coverage": {}
+    },
+    {
+      "file_name": "nps_park_counts_by_county.csv",
+      "validation_date": "2025-11-19T00:46:54.485014",
+      "record_count": 802,
+      "column_count": 4,
+      "columns": [
+        "STATEFP",
+        "COUNTYFP",
+        "NAME",
+        "park_count"
+      ],
+      "issues": {
+        "fips": [
+          "No FIPS code column found"
+        ],
+        "outliers": [
+          {
+            "column": "COUNTYFP",
+            "count": 36,
+            "percentage": 4.49,
+            "range": "[1.00, 840.00]",
+            "bounds": "(-315.00, 525.00)"
+          },
+          {
+            "column": "park_count",
+            "count": 146,
+            "percentage": 18.2,
+            "range": "[0.00, 8.00]",
+            "bounds": "(0.00, 0.00)"
+          }
+        ]
+      },
+      "coverage": {}
+    },
+    {
+      "file_name": "qcew_private_employment_wages_2020_2022.csv",
+      "validation_date": "2025-11-19T00:46:54.489133",
+      "record_count": 2406,
+      "column_count": 7,
+      "columns": [
+        "area_fips",
+        "own_code",
+        "year",
+        "annual_avg_emplvl",
+        "total_annual_wages",
+        "annual_avg_wkly_wage",
+        "avg_annual_pay"
+      ],
+      "issues": {
+        "fips": [
+          "No FIPS code column found"
+        ],
+        "outliers": [
+          {
+            "column": "annual_avg_emplvl",
+            "count": 201,
+            "percentage": 8.35,
+            "range": "[0.00, 832039.00]",
+            "bounds": "(-54940.25, 79769.50)"
+          },
+          {
+            "column": "total_annual_wages",
+            "count": 215,
+            "percentage": 8.94,
+            "range": "[0.00, 80316598484.00]",
+            "bounds": "(-2775715303.25, 3966126844.00)"
+          },
+          {
+            "column": "annual_avg_wkly_wage",
+            "count": 40,
+            "percentage": 1.66,
+            "range": "[0.00, 2259.00]",
+            "bounds": "(162.75, 1554.00)"
+          },
+          {
+            "column": "avg_annual_pay",
+            "count": 41,
+            "percentage": 1.7,
+            "range": "[0.00, 117487.00]",
+            "bounds": "(8575.50, 80700.00)"
+          }
+        ]
+      },
+      "coverage": {}
+    },
+    {
+      "file_name": "qcew_relative_weekly_wage_2022.csv",
+      "validation_date": "2025-11-19T00:46:54.498445",
+      "record_count": 802,
+      "column_count": 6,
+      "columns": [
+        "area_fips",
+        "state_fips",
+        "county_fips",
+        "weekly_wage",
+        "state_avg_weekly_wage",
+        "relative_weekly_wage"
+      ],
+      "issues": {
+        "fips": [
+          "802 records with invalid state FIPS",
+          "722 duplicate FIPS codes"
+        ],
+        "outliers": [
+          {
+            "column": "county_fips",
+            "count": 36,
+            "percentage": 4.49,
+            "range": "[1.00, 840.00]",
+            "bounds": "(-315.00, 525.00)"
+          },
+          {
+            "column": "weekly_wage",
+            "count": 16,
+            "percentage": 2.0,
+            "range": "[0.00, 2240.50]",
+            "bounds": "(233.62, 1572.63)"
+          },
+          {
+            "column": "relative_weekly_wage",
+            "count": 12,
+            "percentage": 1.5,
+            "range": "[0.00, 2.30]",
+            "bounds": "(0.25, 1.71)"
+          }
+        ]
+      },
+      "coverage": {
+        "total_records": 802,
+        "valid_state_records": 0,
+        "unique_counties": 0,
+        "coverage_pct": 0.0,
+        "counties_by_state": {}
+      }
+    },
+    {
+      "file_name": "qcew_weekly_wage_2022.csv",
+      "validation_date": "2025-11-19T00:46:54.512714",
+      "record_count": 802,
+      "column_count": 3,
+      "columns": [
+        "area_fips",
+        "year",
+        "avg_weekly_wage"
+      ],
+      "issues": {
+        "fips": [
+          "No FIPS code column found"
+        ],
+        "outliers": [
+          {
+            "column": "avg_weekly_wage",
+            "count": 16,
+            "percentage": 2.0,
+            "range": "[0.00, 2241.00]",
+            "bounds": "(232.75, 1573.25)"
+          }
+        ]
+      },
+      "coverage": {}
+    },
+    {
+      "file_name": "state_income_tax_rates_2024.csv",
+      "validation_date": "2025-11-19T00:46:54.515871",
+      "record_count": 10,
+      "column_count": 5,
+      "columns": [
+        "state_fips",
+        "state_name",
+        "top_marginal_rate",
+        "note",
+        "tax_year"
+      ],
+      "issues": {
+        "fips": [
+          "No FIPS code column found"
+        ]
+      },
+      "coverage": {}
+    },
+    {
+      "file_name": "usda_ers_natural_amenities_scale.csv",
+      "validation_date": "2025-11-19T00:46:54.520113",
+      "record_count": 805,
+      "column_count": 25,
+      "columns": [
+        "FIPS Code",
+        "for measures",
+        "STATE",
+        "County name",
+        "Division",
+        "1993",
+        "1993.1",
+        "January, 1941-70",
+        "January, 1941-70.1",
+        "July, 1941-70",
+        "July, 1941-70.1",
+        "topography code",
+        "Water area",
+        "Water area * 100",
+        "JAN TEMP - Z",
+        "JAN SUN - Z",
+        "JUL TEMP - Z",
+        "JUL HUM - Z",
+        "TOPOG - Z",
+        "LN WATER  AREA - Z",
+        "Scale",
+        " 1=Low  7=High",
+        "fips_str",
+        "state_fips",
+        "county_fips"
+      ],
+      "issues": {
+        "fips": [
+          "805 records with invalid state FIPS",
+          "722 duplicate FIPS codes"
+        ],
+        "outliers": [
+          {
+            "column": "Water area",
+            "count": 77,
+            "percentage": 9.57,
+            "range": "[0.00, 75.00]",
+            "bounds": "(-6.46, 9.43)"
+          },
+          {
+            "column": "JUL TEMP - Z",
+            "count": 14,
+            "percentage": 1.74,
+            "range": "[-0.89, 2.23]",
+            "bounds": "(-1.40, 1.74)"
+          },
+          {
+            "column": "county_fips",
+            "count": 38,
+            "percentage": 4.72,
+            "range": "[1.00, 840.00]",
+            "bounds": "(-315.00, 525.00)"
+          }
+        ]
+      },
+      "coverage": {
+        "total_records": 805,
+        "valid_state_records": 0,
+        "unique_counties": 0,
+        "coverage_pct": 0.0,
+        "counties_by_state": {}
+      }
+    },
+    {
+      "file_name": "usgs_county_interstate_presence.csv",
+      "validation_date": "2025-11-19T00:46:54.553809",
+      "record_count": 802,
+      "column_count": 4,
+      "columns": [
+        "area_fips",
+        "county_name",
+        "has_interstate",
+        "state_fips"
+      ],
+      "issues": {
+        "fips": [
+          "No FIPS code column found"
+        ]
+      },
+      "coverage": {}
+    }
+  ]
+}
