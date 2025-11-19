@@ -477,14 +477,23 @@ def main():
                 st.session_state.selected_va_region = list(va_region_options.values())[0]
 
             # Check for map click event
-            if 'regional_map' in st.session_state and st.session_state.regional_map:
-                selection = st.session_state.regional_map.get('selection', {})
-                if selection and 'points' in selection and len(selection['points']) > 0:
-                    # Get clicked region key from customdata
-                    clicked_region_key = selection['points'][0]['customdata'][0]
-                    # Only update if it's a Virginia region
-                    if clicked_region_key in va_region_names:
-                        st.session_state.selected_va_region = clicked_region_key
+            if 'regional_map' in st.session_state:
+                map_state = st.session_state.regional_map
+                # Debug: show what's in the map state
+                # st.write("Debug - map_state:", map_state)
+
+                if map_state and isinstance(map_state, dict):
+                    selection = map_state.get('selection', {})
+                    if selection and 'points' in selection and len(selection['points']) > 0:
+                        point = selection['points'][0]
+                        # Check if customdata exists and extract region key
+                        if 'customdata' in point and point['customdata']:
+                            clicked_region_key = point['customdata'][0]
+                            # Only update if it's a Virginia region
+                            if clicked_region_key in va_region_names:
+                                st.session_state.selected_va_region = clicked_region_key
+                                # Clear the selection to allow re-clicking
+                                st.session_state.regional_map = None
 
             # Selection dropdown - sync with session state
             current_name = va_region_names.get(st.session_state.selected_va_region, list(va_region_options.keys())[0])
@@ -541,29 +550,6 @@ def main():
             # Create figure
             fig = go.Figure()
 
-            # Add state boundaries first (bold lines, behind regions)
-            for idx, row in states_gdf.iterrows():
-                # Get state boundary coordinates
-                if row.geometry.geom_type == 'Polygon':
-                    coords = list(row.geometry.exterior.coords)
-                else:  # MultiPolygon
-                    geoms = list(row.geometry.geoms)
-                    largest = max(geoms, key=lambda g: g.area)
-                    coords = list(largest.exterior.coords)
-
-                lons = [coord[0] for coord in coords]
-                lats = [coord[1] for coord in coords]
-
-                fig.add_trace(go.Scattergeo(
-                    lon=lons,
-                    lat=lats,
-                    mode='lines',
-                    line=dict(width=5, color='rgba(40,40,40,0.9)'),  # Much bolder and darker
-                    showlegend=False,
-                    hoverinfo='skip',
-                    name=''
-                ))
-
             # Add regions (colored by category)
             for category in ['Other Region', 'Peer Region', 'Selected Virginia Region']:
                 subset = regions_with_scores[regions_with_scores['category'] == category]
@@ -597,6 +583,30 @@ def main():
                         text=hover_text,
                         hoverinfo='text',
                         customdata=[[row['region_key']]]  # Store region_key for click events
+                    ))
+
+            # Add state boundaries AFTER regions (so they appear on top)
+            for idx, row in states_gdf.iterrows():
+                # Handle both Polygon and MultiPolygon geometries
+                if row.geometry.geom_type == 'Polygon':
+                    polygons = [row.geometry]
+                else:  # MultiPolygon
+                    polygons = list(row.geometry.geoms)
+
+                # Draw boundary for each polygon in the state
+                for poly in polygons:
+                    coords = list(poly.exterior.coords)
+                    lons = [coord[0] for coord in coords]
+                    lats = [coord[1] for coord in coords]
+
+                    fig.add_trace(go.Scattergeo(
+                        lon=lons,
+                        lat=lats,
+                        mode='lines',
+                        line=dict(width=4, color='rgba(30,30,30,0.8)'),  # Bold, dark state borders
+                        showlegend=False,
+                        hoverinfo='skip',
+                        name=''
                     ))
 
             # Update layout
