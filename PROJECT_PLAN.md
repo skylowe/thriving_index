@@ -614,47 +614,68 @@ Component Aggregation Status:
 - Ready for Phase 11: Peer Region Matching
 
 ### Phase 11: Peer Region Matching
-**Status**: ⚙️ In Progress (57% Complete - 4 of 7 variables gathered)
+**Status**: ✅ COMPLETE (100% - All 7 variables gathered)
 **Last Updated**: 2025-11-18
 
 **Objective**: Identify 5-8 comparable peer regions for each of the 6 rural Virginia regions using Mahalanobis distance matching.
 
 **Methodology Update**: Modified from Nebraska's 6 variables to **7 variables** tailored for Appalachian region:
 1. **Population** (regional size) ✅
-2. **Percentage in micropolitan area** (urban proximity) ⏸️
-3. **Farm income percentage** (agricultural economy) ⏸️
+2. **Percentage in micropolitan area** (urban proximity) ✅
+3. **Farm income percentage** (agricultural economy) ✅
 4. **Services employment percentage** (tourism, hospitality, service economy) ✅ *REPLACED ranch income*
 5. **Manufacturing employment percentage** (industrial base) ✅
-6. **Distance to MSAs** (geographic isolation) ⏸️
+6. **Distance to MSAs** (geographic isolation) ✅
 7. **Mining/extraction employment percentage** (coal/natural gas economy) ✅ *NEW - Appalachia-specific*
 
 **Files Created**:
-- `scripts/gather_peer_matching_variables.py` - Script to gather all 7 matching variables
-- `data/peer_matching_variables.csv` - Dataset with 94 regions × 7 variables (4 complete, 3 placeholders)
+- `scripts/gather_peer_matching_variables.py` - Complete script gathering all 7 matching variables (603 lines)
+- `data/peer_matching_variables.csv` - Complete dataset with 94 regions × 7 variables
+- `data/raw/omb/metro_micro_delineation_2020.xls` - OMB metro/micro area definitions (cached)
+- `data/raw/census/county_gazetteer_2022.txt` - County centroids for distance calculations (cached)
+- `data/raw/bea/cainc4_farm_income_2022.json` - Farm proprietors income data (cached)
+- `data/raw/bea/cainc1_total_income_2022.json` - Total personal income data (cached)
 
-**Variables Completed** (4 of 7):
-- [x] **Variable 1: Population** - Aggregated from census data (mean: 569,294)
-- [x] **Variable 4: Services employment %** - Calculated from CBP NAICS 44-81 (mean: 82.99%)
-- [x] **Variable 5: Manufacturing employment %** - From CBP NAICS 31-33 (mean: 16.30%)
-- [x] **Variable 7: Mining employment %** - From CBP NAICS 21 (mean: 0.71%, 79 of 94 regions)
+**Variables Summary** (All 7 Complete):
+- [x] **Variable 1: Population** - Regional total population, 2022 (mean: 569,294; range: 81k - 4.96M)
+- [x] **Variable 2: Micropolitan %** - % of population in micropolitan areas (mean: 19.64%; range: 0% - 91.44%)
+- [x] **Variable 3: Farm income %** - Farm proprietors income as % of total personal income (mean: 0.70%; range: -0.34% - 4.44%)
+- [x] **Variable 4: Services employment %** - Services sector employment share (mean: 82.99%)
+- [x] **Variable 5: Manufacturing employment %** - Manufacturing sector employment share (mean: 16.30%)
+- [x] **Variable 6: Distance to MSAs** - Haversine distance to nearest small MSA (mean: 34.0 mi) and large MSA (mean: 59.3 mi)
+- [x] **Variable 7: Mining employment %** - Mining/extraction employment share (mean: 0.71%; 79 of 94 regions have mining)
 
-**Variables Remaining** (3 of 7):
-- [ ] **Variable 2: Micropolitan %** - Requires Census/OMB metro/micro area definitions
-- [ ] **Variable 3: Farm income %** - Requires BEA CAINC45 farm income table
-- [ ] **Variable 6: Distance to MSAs** - Requires geospatial calculation (county centroids + MSA locations)
+**Data Sources**:
+- OMB Metropolitan/Micropolitan Delineation File 2020 (665 micropolitan counties nationwide, 148 in our 10 states)
+- BEA Regional API: CAINC4 Line 71 (farm income), CAINC1 Line 1 (total personal income)
+- Census Gazetteer 2022: County centroids (lat/lon) for distance calculations
+- Census CBP 2021: Employment by NAICS industry codes
+- Census Population 2022: Regional aggregation and weighting
 
-**Implementation Notes**:
-- Used existing CBP industry data to calculate employment percentages
-- Services sector includes 13 NAICS categories (retail, hospitality, healthcare, professional services, etc.)
-- Mining employment highly concentrated in WV, eastern KY, southwest VA
-- Employment percentages calculated as share of total employment across all three sectors
+**Technical Implementation**:
+- **Micropolitan calculation**: Matched counties to OMB delineations, calculated population-weighted % per region
+- **Farm income**: BEA CAINC4 Line 71 / CAINC1 Line 1 ratio, aggregated to regional level
+- **MSA distances**:
+  - Calculated population-weighted regional centroids
+  - Identified 365 small MSAs and 23 large MSAs using central county locations
+  - Haversine formula for great-circle distances in miles
+  - Small MSA: <1M population; Large MSA: >1M (Atlanta, Charlotte, Pittsburgh, Nashville, etc.)
+- **Employment percentages**: Sum of three sectors (services + manufacturing + mining) as denominator
+
+**Key Findings**:
+- Wide variation in micropolitan exposure (0% for metro regions to 91% for Purchase Area, KY)
+- Farm income minimal in most regions (<1%) but significant in rural KY/TN (up to 4.4%)
+- Services dominate employment (83% average), manufacturing varies widely
+- Mining concentrated in Appalachian regions (WV, eastern KY, southwest VA)
+- Geographic isolation varies: some regions 6 miles from small MSA, others 75+ miles
+- Distance to large MSAs ranges from 11 miles (Central Savannah River, GA near Augusta) to 193 miles (Southwest GA)
 
 **Next Steps**:
-1. Collect BEA CAINC45 farm income data
-2. Obtain Census/OMB metropolitan and micropolitan area definitions
-3. Calculate MSA distances using geospatial methods (county centroids)
-4. Implement Mahalanobis distance algorithm
-5. Select 5-8 peer regions for each of 6 Virginia rural regions
+1. ✅ Data validation and quality checks
+2. Implement Mahalanobis distance algorithm
+3. Calculate distance matrix between all 94 regions
+4. Select 5-8 peer regions for each of 6 Virginia rural regions
+5. Document peer region selections with justifications
 
 ### Phase 12: Index Calculation and Analysis
 **Status**: Not Started

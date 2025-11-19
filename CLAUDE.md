@@ -561,58 +561,67 @@ For detailed updates, see PROJECT_PLAN.md. Major milestones listed below:
 
 **Next Phase**: Phase 11 - Peer Region Matching using Mahalanobis distance
 
-**2025-11-18**: ⚙️ **Phase 11 Started - Peer Region Matching Variables (57% Complete)**
+**2025-11-18**: ✅ **Phase 11 Complete - All 7 Peer Matching Variables Gathered (100%)**
 - **Objective**: Gather 7 matching variables for Mahalanobis distance peer region selection
-- **Methodology Update**: Modified Nebraska's 6-variable approach to **7 variables** tailored for Appalachian region
+- **Methodology**: Modified Nebraska's 6-variable approach to **7 variables** tailored for Appalachian region
   - **Removed**: Ranch income percentage (not relevant to Appalachia)
   - **Added**: Services employment % (captures tourism, hospitality, service economy)
   - **Added**: Mining/extraction employment % (critical for coal/natural gas regions in WV, KY, VA)
 
-**7 Matching Variables** (for identifying peer regions):
-1. **Population** (regional size) ✅
-2. **Percentage in micropolitan area** (urban proximity) ⏸️
-3. **Farm income percentage** (agricultural economy) ⏸️
-4. **Services employment percentage** (tourism, hospitality, service economy) ✅
-5. **Manufacturing employment percentage** (industrial base) ✅
-6. **Distance to MSAs** (geographic isolation) ⏸️
-7. **Mining/extraction employment percentage** (coal/natural gas economy) ✅
+**All 7 Matching Variables Complete**:
+1. ✅ **Population** (regional size) - Mean: 569,294 (range: 81k - 4.96M)
+2. ✅ **Percentage in micropolitan area** (urban proximity) - Mean: 19.64% (range: 0% - 91.44%)
+3. ✅ **Farm income percentage** (agricultural economy) - Mean: 0.70% (range: -0.34% - 4.44%)
+4. ✅ **Services employment percentage** (tourism, hospitality) - Mean: 82.99%
+5. ✅ **Manufacturing employment percentage** (industrial base) - Mean: 16.30%
+6. ✅ **Distance to MSAs** (geographic isolation) - Mean: 34.0 mi to small MSA, 59.3 mi to large MSA
+7. ✅ **Mining/extraction employment percentage** (coal/gas economy) - Mean: 0.71% (79 of 94 regions)
 
-**Variables Gathered** (4 of 7 complete - 57%):
-- ✅ **Population**: Aggregated from census data
-  - 94 regions, mean: 569,294 (range: 350K to 4.96M)
-  - Largest: Atlanta Regional Commission (4.96M)
-  - Smallest: Southwest Georgia Regional Commission (350K)
-- ✅ **Services Employment %**: Calculated from CBP NAICS 44-81 (13 service sectors)
-  - Mean: 82.99% - Services dominate regional economies
-  - Includes retail, hospitality, healthcare, professional services, finance, etc.
-- ✅ **Manufacturing Employment %**: From CBP NAICS 31-33
-  - Mean: 16.30% - Significant variation across regions
-  - Some regions >40% manufacturing, others <5%
-- ✅ **Mining Employment %**: From CBP NAICS 21
-  - Mean: 0.71% (only 79 of 94 regions have mining employment)
-  - Highly concentrated in WV, eastern KY, southwest VA coal regions
+**Data Sources Used**:
+- **OMB Metropolitan/Micropolitan Delineation File 2020**: 665 micropolitan counties nationwide, 148 in our 10 states
+- **BEA Regional API**: CAINC4 Line 71 (farm proprietors income), CAINC1 Line 1 (total personal income)
+- **Census Gazetteer 2022**: County centroids (lat/lon) for Haversine distance calculations
+- **Census CBP 2021**: Employment by NAICS industry codes for services, manufacturing, mining
+- **Census Population 2022**: Regional aggregation and population weighting
 
-**Scripts Created**:
-- `scripts/gather_peer_matching_variables.py` - Automated variable gathering from existing data
-- `data/peer_matching_variables.csv` - 94 regions × 7 variables (4 complete, 3 placeholders)
+**Technical Implementation**:
+- **Micropolitan %**: Matched 773 counties to OMB delineations, calculated population-weighted % per region
+- **Farm income**: BEA CAINC4 Line 71 (farm proprietors income) / CAINC1 Line 1 (total personal income) ratio
+- **MSA distances**:
+  - Calculated population-weighted regional centroids from county lat/lon
+  - Identified 365 small MSAs and 23 large MSAs (Atlanta, Charlotte, Pittsburgh, Nashville, etc.)
+  - Used Haversine formula for great-circle distances in miles
+  - Small MSA: <1M population; Large MSA: >1M population
+- **Employment %**: Three-sector denominator (services + manufacturing + mining) for percentage calculations
+
+**Files Created**:
+- `scripts/gather_peer_matching_variables.py` - Complete script (603 lines)
+- `data/peer_matching_variables.csv` - 94 regions × 7 variables + metadata (11 columns total)
+- `data/raw/omb/metro_micro_delineation_2020.xls` - Cached OMB delineation file
+- `data/raw/census/county_gazetteer_2022.txt` - Cached county centroids
+- `data/raw/bea/cainc4_farm_income_2022.json` - Cached farm income data
+- `data/raw/bea/cainc1_total_income_2022.json` - Cached total personal income data
 
 **Key Findings**:
-- **Service Economy Dominance**: Services represent 83% of employment on average
-- **Manufacturing Variation**: Wide range shows diverse economic bases across regions
-- **Mining Concentration**: 15 regions have zero mining employment; highly concentrated in Appalachian coal country
-- **Economic Structure Clear**: The 4 variables already paint a clear picture of regional economic diversity
+- **Micropolitan Variation**: 0% for metro regions (Atlanta, Northern Virginia) to 91% for Purchase Area, KY (rural micropolitan)
+- **Farm Income**: Minimal in most regions (<1%) but significant in rural KY/TN regions (up to 4.4%)
+- **Service Economy Dominance**: 83% of employment on average; ranges from 65% (some WV regions) to 95% (Atlanta metro)
+- **Manufacturing Diversity**: Huge variation - some regions >40% manufacturing, others <5%
+- **Mining Concentration**: Only 79 of 94 regions have mining employment; highly concentrated in WV (up to 5.9%), eastern KY, southwest VA
+- **Geographic Isolation**: Some regions 6 miles from small MSA, others 75+ miles; distance to large MSAs ranges 11-193 miles
 
-**Remaining Variables** (3 of 7):
-- ⏸️ **Micropolitan %**: Requires Census/OMB metropolitan/micropolitan area definitions
-- ⏸️ **Farm Income %**: Requires BEA CAINC45 farm income table data
-- ⏸️ **Distance to MSAs**: Requires geospatial calculation (county centroids + MSA locations)
+**Regional Patterns Identified**:
+- **Appalachian Regions**: Higher mining %, moderate-high manufacturing %, lower services %
+- **Rural Agricultural**: Higher farm income %, high micropolitan %, service-dominated
+- **Metro Adjacent**: 0% micropolitan, 0% mining, 95%+ services (e.g., Northern Virginia)
+- **Industrial Belt**: 30-40% manufacturing, moderate services, minimal farm/mining
 
 **Next Steps**:
-1. Collect BEA CAINC45 farm income data
-2. Obtain Census/OMB metro/micro area definitions
-3. Calculate MSA distances using geospatial methods
-4. Implement Mahalanobis distance algorithm
-5. Select 5-8 peer regions for each of 6 Virginia rural regions
+1. Implement Mahalanobis distance algorithm for multi-dimensional matching
+2. Calculate distance matrix between all 94 regions
+3. Normalize/standardize variables for equal weighting
+4. Select 5-8 peer regions for each of 6 Virginia rural regions
+5. Document peer selections with distance scores and rationale
 
 ## Resources and References
 
