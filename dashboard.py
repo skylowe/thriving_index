@@ -456,6 +456,8 @@ def main():
         - **Blue**: Selected Virginia region
         - **Orange**: Peer comparison regions (top 8 matches)
         - **Gray**: Other regions
+
+        *Hover over regions for details. Use mouse to zoom and pan.*
         """)
 
         # Load geographic data
@@ -515,25 +517,8 @@ def main():
             # Create figure
             fig = go.Figure()
 
-            # Add county boundaries (faint)
-            for idx, row in counties_gdf.iterrows():
-                # Get county boundary coordinates
-                if row.geometry.geom_type == 'Polygon':
-                    coords = list(row.geometry.exterior.coords)
-                else:  # MultiPolygon - use first polygon
-                    coords = list(row.geometry.geoms[0].exterior.coords)
-
-                lons = [coord[0] for coord in coords]
-                lats = [coord[1] for coord in coords]
-
-                fig.add_trace(go.Scattergeo(
-                    lon=lons,
-                    lat=lats,
-                    mode='lines',
-                    line=dict(width=0.3, color='rgba(180,180,180,0.2)'),
-                    showlegend=False,
-                    hoverinfo='skip'
-                ))
+            # Note: County boundaries removed for performance (were adding 772 traces)
+            # If you need them back, they can be re-enabled with simplified geometries
 
             # Add regions (colored by category)
             for category in ['Other Region', 'Peer Region', 'Selected Virginia Region']:
