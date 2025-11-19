@@ -62,11 +62,11 @@ def load_data():
 
 @st.cache_data
 def load_geographic_data():
-    """Load region and county boundary GeoJSON files."""
-    regions_gdf = gpd.read_file('data/geojson/region_boundaries.geojson')
-    counties_gdf = gpd.read_file('data/geojson/county_boundaries.geojson')
+    """Load simplified region and state boundary GeoJSON files."""
+    regions_gdf = gpd.read_file('data/geojson/region_boundaries_simplified.geojson')
+    states_gdf = gpd.read_file('data/geojson/state_boundaries.geojson')
 
-    return regions_gdf, counties_gdf
+    return regions_gdf, states_gdf
 
 
 def create_rankings_chart(overall_df):
@@ -462,7 +462,7 @@ def main():
 
         # Load geographic data
         try:
-            regions_gdf, counties_gdf = load_geographic_data()
+            regions_gdf, states_gdf = load_geographic_data()
 
             # Get list of VA regions
             va_regions = overall_df[['virginia_region_key', 'virginia_region_name']].drop_duplicates()
@@ -517,8 +517,28 @@ def main():
             # Create figure
             fig = go.Figure()
 
-            # Note: County boundaries removed for performance (were adding 772 traces)
-            # If you need them back, they can be re-enabled with simplified geometries
+            # Add state boundaries first (bold lines, behind regions)
+            for idx, row in states_gdf.iterrows():
+                # Get state boundary coordinates
+                if row.geometry.geom_type == 'Polygon':
+                    coords = list(row.geometry.exterior.coords)
+                else:  # MultiPolygon
+                    geoms = list(row.geometry.geoms)
+                    largest = max(geoms, key=lambda g: g.area)
+                    coords = list(largest.exterior.coords)
+
+                lons = [coord[0] for coord in coords]
+                lats = [coord[1] for coord in coords]
+
+                fig.add_trace(go.Scattergeo(
+                    lon=lons,
+                    lat=lats,
+                    mode='lines',
+                    line=dict(width=2.5, color='rgba(80,80,80,0.7)'),
+                    showlegend=False,
+                    hoverinfo='skip',
+                    name=''
+                ))
 
             # Add regions (colored by category)
             for category in ['Other Region', 'Peer Region', 'Selected Virginia Region']:
@@ -666,9 +686,10 @@ def main():
             st.error("""
             **Geographic data files not found!**
 
-            Please run the following command to create region boundary files:
+            Please run the following commands to create region boundary files:
             ```
             python scripts/create_region_boundaries.py
+            python scripts/simplify_boundaries.py
             ```
             """)
         except Exception as e:
