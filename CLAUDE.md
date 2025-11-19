@@ -561,6 +561,59 @@ For detailed updates, see PROJECT_PLAN.md. Major milestones listed below:
 
 **Next Phase**: Phase 11 - Peer Region Matching using Mahalanobis distance
 
+**2025-11-18**: ⚙️ **Phase 11 Started - Peer Region Matching Variables (57% Complete)**
+- **Objective**: Gather 7 matching variables for Mahalanobis distance peer region selection
+- **Methodology Update**: Modified Nebraska's 6-variable approach to **7 variables** tailored for Appalachian region
+  - **Removed**: Ranch income percentage (not relevant to Appalachia)
+  - **Added**: Services employment % (captures tourism, hospitality, service economy)
+  - **Added**: Mining/extraction employment % (critical for coal/natural gas regions in WV, KY, VA)
+
+**7 Matching Variables** (for identifying peer regions):
+1. **Population** (regional size) ✅
+2. **Percentage in micropolitan area** (urban proximity) ⏸️
+3. **Farm income percentage** (agricultural economy) ⏸️
+4. **Services employment percentage** (tourism, hospitality, service economy) ✅
+5. **Manufacturing employment percentage** (industrial base) ✅
+6. **Distance to MSAs** (geographic isolation) ⏸️
+7. **Mining/extraction employment percentage** (coal/natural gas economy) ✅
+
+**Variables Gathered** (4 of 7 complete - 57%):
+- ✅ **Population**: Aggregated from census data
+  - 94 regions, mean: 569,294 (range: 350K to 4.96M)
+  - Largest: Atlanta Regional Commission (4.96M)
+  - Smallest: Southwest Georgia Regional Commission (350K)
+- ✅ **Services Employment %**: Calculated from CBP NAICS 44-81 (13 service sectors)
+  - Mean: 82.99% - Services dominate regional economies
+  - Includes retail, hospitality, healthcare, professional services, finance, etc.
+- ✅ **Manufacturing Employment %**: From CBP NAICS 31-33
+  - Mean: 16.30% - Significant variation across regions
+  - Some regions >40% manufacturing, others <5%
+- ✅ **Mining Employment %**: From CBP NAICS 21
+  - Mean: 0.71% (only 79 of 94 regions have mining employment)
+  - Highly concentrated in WV, eastern KY, southwest VA coal regions
+
+**Scripts Created**:
+- `scripts/gather_peer_matching_variables.py` - Automated variable gathering from existing data
+- `data/peer_matching_variables.csv` - 94 regions × 7 variables (4 complete, 3 placeholders)
+
+**Key Findings**:
+- **Service Economy Dominance**: Services represent 83% of employment on average
+- **Manufacturing Variation**: Wide range shows diverse economic bases across regions
+- **Mining Concentration**: 15 regions have zero mining employment; highly concentrated in Appalachian coal country
+- **Economic Structure Clear**: The 4 variables already paint a clear picture of regional economic diversity
+
+**Remaining Variables** (3 of 7):
+- ⏸️ **Micropolitan %**: Requires Census/OMB metropolitan/micropolitan area definitions
+- ⏸️ **Farm Income %**: Requires BEA CAINC45 farm income table data
+- ⏸️ **Distance to MSAs**: Requires geospatial calculation (county centroids + MSA locations)
+
+**Next Steps**:
+1. Collect BEA CAINC45 farm income data
+2. Obtain Census/OMB metro/micro area definitions
+3. Calculate MSA distances using geospatial methods
+4. Implement Mahalanobis distance algorithm
+5. Select 5-8 peer regions for each of 6 Virginia rural regions
+
 ## Resources and References
 
 - Nebraska Thriving Index Report (Thriving_Index.pdf)

@@ -614,10 +614,47 @@ Component Aggregation Status:
 - Ready for Phase 11: Peer Region Matching
 
 ### Phase 11: Peer Region Matching
-**Status**: Not Started
-- [ ] Gather 6 matching variables for Mahalanobis distance
-- [ ] Implement Mahalanobis distance matching algorithm
-- [ ] Select 5-8 peer regions for each Virginia rural region
+**Status**: ⚙️ In Progress (57% Complete - 4 of 7 variables gathered)
+**Last Updated**: 2025-11-18
+
+**Objective**: Identify 5-8 comparable peer regions for each of the 6 rural Virginia regions using Mahalanobis distance matching.
+
+**Methodology Update**: Modified from Nebraska's 6 variables to **7 variables** tailored for Appalachian region:
+1. **Population** (regional size) ✅
+2. **Percentage in micropolitan area** (urban proximity) ⏸️
+3. **Farm income percentage** (agricultural economy) ⏸️
+4. **Services employment percentage** (tourism, hospitality, service economy) ✅ *REPLACED ranch income*
+5. **Manufacturing employment percentage** (industrial base) ✅
+6. **Distance to MSAs** (geographic isolation) ⏸️
+7. **Mining/extraction employment percentage** (coal/natural gas economy) ✅ *NEW - Appalachia-specific*
+
+**Files Created**:
+- `scripts/gather_peer_matching_variables.py` - Script to gather all 7 matching variables
+- `data/peer_matching_variables.csv` - Dataset with 94 regions × 7 variables (4 complete, 3 placeholders)
+
+**Variables Completed** (4 of 7):
+- [x] **Variable 1: Population** - Aggregated from census data (mean: 569,294)
+- [x] **Variable 4: Services employment %** - Calculated from CBP NAICS 44-81 (mean: 82.99%)
+- [x] **Variable 5: Manufacturing employment %** - From CBP NAICS 31-33 (mean: 16.30%)
+- [x] **Variable 7: Mining employment %** - From CBP NAICS 21 (mean: 0.71%, 79 of 94 regions)
+
+**Variables Remaining** (3 of 7):
+- [ ] **Variable 2: Micropolitan %** - Requires Census/OMB metro/micro area definitions
+- [ ] **Variable 3: Farm income %** - Requires BEA CAINC45 farm income table
+- [ ] **Variable 6: Distance to MSAs** - Requires geospatial calculation (county centroids + MSA locations)
+
+**Implementation Notes**:
+- Used existing CBP industry data to calculate employment percentages
+- Services sector includes 13 NAICS categories (retail, hospitality, healthcare, professional services, etc.)
+- Mining employment highly concentrated in WV, eastern KY, southwest VA
+- Employment percentages calculated as share of total employment across all three sectors
+
+**Next Steps**:
+1. Collect BEA CAINC45 farm income data
+2. Obtain Census/OMB metropolitan and micropolitan area definitions
+3. Calculate MSA distances using geospatial methods (county centroids)
+4. Implement Mahalanobis distance algorithm
+5. Select 5-8 peer regions for each of 6 Virginia rural regions
 
 ### Phase 12: Index Calculation and Analysis
 **Status**: Not Started
@@ -628,7 +665,7 @@ Component Aggregation Status:
 - [ ] Create visualizations and reports
 
 ## Current Status
-**Phase**: **Phase 10: Regional Data Aggregation** ✅ **COMPLETE** (100% - All 47 measures aggregated!)
+**Phase**: **Phase 11: Peer Region Matching** ⚙️ (57% - 4 of 7 variables gathered)
 **Date**: 2025-11-18
 
 **Completed**:
@@ -744,11 +781,22 @@ Component Aggregation Status:
   - ✅ Component 3: 5/5 measures aggregated (other prosperity - COMPLETE)
   - ✅ Component 4: 6/6 measures aggregated (demographic growth - COMPLETE)
   - ✅ Component 5: 5/5 measures aggregated (education & skill - COMPLETE)
-  - ⏸️ Component 6: 0/6 measures aggregated (infrastructure - IN PROGRESS)
-  - ⏸️ Component 7: 0/8 measures aggregated (quality of life - IN PROGRESS)
+  - ✅ Component 6: 6/6 measures aggregated (infrastructure - COMPLETE)
+  - ✅ Component 7: 8/8 measures aggregated (quality of life - COMPLETE)
   - ✅ Component 8: 5/5 measures aggregated (social capital - COMPLETE)
-  - ✓ Created 6 regional data files so far (94 regions each)
-  - ⏸ Remaining: 14 measures across Components 6-7 (in progress)
+  - ✓ Created 8 regional data files (94 regions each, all components complete)
+- ⚙️ Phase 11: Peer Region Matching (**57% IN PROGRESS** - 4 of 7 variables gathered)
+  - ✓ Methodology updated: 7 variables tailored for Appalachian region
+  - ✓ Replaced "ranch income" with "services employment %"
+  - ✓ Added "mining/extraction employment %" as 7th variable (Appalachia-specific)
+  - ✓ Created `scripts/gather_peer_matching_variables.py` - variable gathering script
+  - ✓ Variable 1: Population (mean: 569,294) - COMPLETE
+  - ✓ Variable 4: Services employment % (mean: 82.99%) - COMPLETE
+  - ✓ Variable 5: Manufacturing employment % (mean: 16.30%) - COMPLETE
+  - ✓ Variable 7: Mining employment % (mean: 0.71%, 79/94 regions) - COMPLETE
+  - ⏸ Variable 2: Micropolitan % - needs Census/OMB definitions
+  - ⏸ Variable 3: Farm income % - needs BEA CAINC45 table
+  - ⏸ Variable 6: Distance to MSAs - needs geospatial calculation
 
 ### Phase 9: Regional Definitions
 **Status**: ✓ Complete for All 10 States
