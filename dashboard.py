@@ -484,16 +484,23 @@ def main():
 
                 if map_state and isinstance(map_state, dict):
                     selection = map_state.get('selection', {})
-                    if selection and 'points' in selection and len(selection['points']) > 0:
-                        point = selection['points'][0]
-                        # Check if customdata exists and extract region key
-                        if 'customdata' in point and point['customdata']:
-                            clicked_region_key = point['customdata'][0]
-                            # Only update if it's a Virginia region
-                            if clicked_region_key in va_region_names:
-                                st.session_state.selected_va_region = clicked_region_key
-                                # Clear the selection to allow re-clicking
-                                st.session_state.regional_map = None
+                    if selection:
+                        # Check both points and point_indices
+                        points = selection.get('points', [])
+                        if len(points) > 0:
+                            point = points[0]
+                            st.write("Debug - clicked point:", point)
+                            # Check if customdata exists and extract region key
+                            if 'customdata' in point and point['customdata']:
+                                clicked_region_key = point['customdata'][0]
+                                st.write("Debug - clicked_region_key:", clicked_region_key)
+                                # Only update if it's a Virginia region
+                                if clicked_region_key in va_region_names:
+                                    st.session_state.selected_va_region = clicked_region_key
+                                    st.success(f"Selected: {va_region_names[clicked_region_key]}")
+                                    # Clear the selection to allow re-clicking
+                                    st.session_state.regional_map = None
+                                    st.rerun()
 
             # Selection dropdown - sync with session state
             current_name = va_region_names.get(st.session_state.selected_va_region, list(va_region_options.keys())[0])
@@ -570,6 +577,7 @@ def main():
                     if pd.notna(row['overall_score']):
                         hover_text += f"<br>Score: {row['overall_score']:.1f}"
 
+                    # Add filled region boundary
                     fig.add_trace(go.Scattergeo(
                         lon=lons,
                         lat=lats,
@@ -584,6 +592,21 @@ def main():
                         hoverinfo='text',
                         customdata=[[row['region_key']]]  # Store region_key for click events
                     ))
+
+                    # Add invisible clickable point at region centroid (for Virginia regions only)
+                    if row['region_key'] in va_region_names:
+                        centroid = row.geometry.centroid
+                        fig.add_trace(go.Scattergeo(
+                            lon=[centroid.x],
+                            lat=[centroid.y],
+                            mode='markers',
+                            marker=dict(size=20, opacity=0.01),  # Nearly invisible but clickable
+                            showlegend=False,
+                            text=hover_text,
+                            hoverinfo='text',
+                            customdata=[[row['region_key']]],
+                            name=''
+                        ))
 
             # Add state boundaries AFTER regions (so they appear on top)
             for idx, row in states_gdf.iterrows():
