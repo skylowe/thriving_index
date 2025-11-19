@@ -11,6 +11,8 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import numpy as np
 from pathlib import Path
+import geopandas as gpd
+import json
 
 # Page configuration
 st.set_page_config(
@@ -56,6 +58,15 @@ def load_data():
     peers = pd.read_csv('data/peer_regions_selected.csv')
 
     return overall, components, detailed, peers
+
+
+@st.cache_data
+def load_geographic_data():
+    """Load region and county boundary GeoJSON files."""
+    regions_gdf = gpd.read_file('data/geojson/region_boundaries.geojson')
+    counties_gdf = gpd.read_file('data/geojson/county_boundaries.geojson')
+
+    return regions_gdf, counties_gdf
 
 
 def create_rankings_chart(overall_df):
@@ -262,7 +273,7 @@ def main():
     st.sidebar.title("Navigation")
     page = st.sidebar.radio(
         "Select Page",
-        ["Overview", "Component Analysis", "Regional Deep Dive", "Peer Comparison", "Data Explorer"]
+        ["Overview", "Component Analysis", "Regional Deep Dive", "Regional Map", "Peer Comparison", "Data Explorer"]
     )
 
     # Overview Page
@@ -432,6 +443,250 @@ def main():
             for _, row in bottom5.iterrows():
                 st.markdown(f"**{row['measure']}**: {row['score']:.1f}")
                 st.caption(row['component'])
+
+    # Regional Map Page
+    elif page == "Regional Map":
+        st.markdown('<p class="main-header">Regional Comparison Map</p>', unsafe_allow_html=True)
+
+        st.markdown("""
+        **Explore Virginia regions and their peer comparison regions on an interactive map.**
+
+        Select a Virginia region to see its location and compare it with peer regions identified
+        using Mahalanobis distance matching. The map shows:
+        - **Blue**: Selected Virginia region
+        - **Orange**: Peer comparison regions (top 8 matches)
+        - **Gray**: Other regions
+        """)
+
+        # Load geographic data
+        try:
+            regions_gdf, counties_gdf = load_geographic_data()
+
+            # Get list of VA regions
+            va_regions = overall_df[['virginia_region_key', 'virginia_region_name']].drop_duplicates()
+            va_region_options = {row['virginia_region_name']: row['virginia_region_key']
+                                for _, row in va_regions.iterrows()}
+
+            # Selection dropdown
+            selected_name = st.selectbox(
+                "Select Virginia Region:",
+                options=list(va_region_options.keys()),
+                index=0
+            )
+            selected_va_region = va_region_options[selected_name]
+
+            # Get peer regions for selected VA region
+            peer_rows = peers_df[peers_df['virginia_region_key'] == selected_va_region].copy()
+            peer_region_keys = peer_rows['region_key'].tolist()
+
+            # Merge regions with component scores to get overall scores
+            region_scores = components_df.groupby('virginia_region_key')['component_score'].mean().reset_index()
+            region_scores.columns = ['region_key', 'overall_score']
+
+            regions_with_scores = regions_gdf.merge(
+                region_scores,
+                on='region_key',
+                how='left'
+            )
+
+            # Create color column based on selection
+            def assign_color(row):
+                if row['region_key'] == selected_va_region:
+                    return 'Selected Virginia Region'
+                elif row['region_key'] in peer_region_keys:
+                    return 'Peer Region'
+                else:
+                    return 'Other Region'
+
+            regions_with_scores['category'] = regions_with_scores.apply(assign_color, axis=1)
+
+            # Color scheme
+            color_map = {
+                'Selected Virginia Region': '#1f77b4',  # Blue
+                'Peer Region': '#ff7f0e',               # Orange
+                'Other Region': '#e0e0e0'               # Light gray
+            }
+
+            # Create figure
+            fig = go.Figure()
+
+            # Add county boundaries (faint)
+            for idx, row in counties_gdf.iterrows():
+                # Get county boundary coordinates
+                if row.geometry.geom_type == 'Polygon':
+                    coords = list(row.geometry.exterior.coords)
+                else:  # MultiPolygon - use first polygon
+                    coords = list(row.geometry.geoms[0].exterior.coords)
+
+                lons = [coord[0] for coord in coords]
+                lats = [coord[1] for coord in coords]
+
+                fig.add_trace(go.Scattergeo(
+                    lon=lons,
+                    lat=lats,
+                    mode='lines',
+                    line=dict(width=0.3, color='rgba(180,180,180,0.2)'),
+                    showlegend=False,
+                    hoverinfo='skip'
+                ))
+
+            # Add regions (colored by category)
+            for category in ['Other Region', 'Peer Region', 'Selected Virginia Region']:
+                subset = regions_with_scores[regions_with_scores['category'] == category]
+
+                for idx, row in subset.iterrows():
+                    # Get region boundary coordinates
+                    if row.geometry.geom_type == 'Polygon':
+                        coords = list(row.geometry.exterior.coords)
+                    else:  # MultiPolygon - use largest polygon
+                        geoms = list(row.geometry.geoms)
+                        largest = max(geoms, key=lambda g: g.area)
+                        coords = list(largest.exterior.coords)
+
+                    lons = [coord[0] for coord in coords]
+                    lats = [coord[1] for coord in coords]
+
+                    hover_text = f"<b>{row['region_name']}</b><br>{row['state_name']}"
+                    if pd.notna(row['overall_score']):
+                        hover_text += f"<br>Score: {row['overall_score']:.1f}"
+
+                    fig.add_trace(go.Scattergeo(
+                        lon=lons,
+                        lat=lats,
+                        mode='lines',
+                        fill='toself',
+                        fillcolor=color_map[category],
+                        line=dict(width=1.5, color='rgba(0,0,0,0.6)'),
+                        name=category,
+                        legendgroup=category,
+                        showlegend=(idx == subset.index[0]),  # Only show legend once per category
+                        text=hover_text,
+                        hoverinfo='text'
+                    ))
+
+            # Update layout
+            fig.update_layout(
+                title=dict(
+                    text=f"<b>{selected_name}</b> and Peer Regions",
+                    x=0.5,
+                    xanchor='center',
+                    font=dict(size=18)
+                ),
+                geo=dict(
+                    scope='usa',
+                    projection_type='albers usa',
+                    showland=True,
+                    landcolor='rgb(250, 250, 250)',
+                    coastlinecolor='rgb(180, 180, 180)',
+                    showlakes=True,
+                    lakecolor='rgb(220, 230, 240)',
+                    showcountries=True,
+                    countrycolor='rgb(150, 150, 150)',
+                    showsubunits=True,
+                    subunitcolor='rgb(200, 200, 200)',
+                    center=dict(lat=37.5, lon=-81),
+                    projection_scale=5.5
+                ),
+                height=750,
+                legend=dict(
+                    yanchor="top",
+                    y=0.99,
+                    xanchor="left",
+                    x=0.01,
+                    bgcolor='rgba(255,255,255,0.9)',
+                    bordercolor='rgba(0,0,0,0.3)',
+                    borderwidth=1
+                )
+            )
+
+            st.plotly_chart(fig, use_container_width=True)
+
+            # Comparison table
+            st.subheader("Component Score Comparison")
+
+            # Build comparison table
+            # Get component scores in wide format
+            scores_pivot = components_df.pivot_table(
+                index='virginia_region_key',
+                columns='component',
+                values='component_score'
+            ).reset_index()
+
+            # Calculate overall score
+            component_cols = [col for col in scores_pivot.columns if col.startswith('Component')]
+            scores_pivot['Overall'] = scores_pivot[component_cols].mean(axis=1)
+
+            # Get VA region info
+            va_region_info = overall_df[overall_df['virginia_region_key'] == selected_va_region].iloc[0]
+
+            # Build table data
+            table_data = []
+
+            # Add VA region
+            va_scores = scores_pivot[scores_pivot['virginia_region_key'] == selected_va_region]
+            if len(va_scores) > 0:
+                va_row = {
+                    'Region': va_region_info['virginia_region_name'],
+                    'State': 'Virginia',
+                    'Type': '🎯 Selected'
+                }
+                for i, col in enumerate(component_cols, 1):
+                    va_row[f'C{i}'] = va_scores.iloc[0][col]
+                va_row['Overall'] = va_scores.iloc[0]['Overall']
+                table_data.append(va_row)
+
+            # Add peer regions (sorted by rank)
+            peer_rows_sorted = peer_rows.sort_values('peer_rank')
+            for _, peer in peer_rows_sorted.iterrows():
+                peer_scores = scores_pivot[scores_pivot['virginia_region_key'] == peer['region_key']]
+
+                if len(peer_scores) > 0:
+                    peer_row = {
+                        'Region': peer['region_name'],
+                        'State': peer['state_name'],
+                        'Type': f"Peer #{int(peer['peer_rank'])}"
+                    }
+                    for i, col in enumerate(component_cols, 1):
+                        peer_row[f'C{i}'] = peer_scores.iloc[0][col]
+                    peer_row['Overall'] = peer_scores.iloc[0]['Overall']
+                    table_data.append(peer_row)
+
+            if table_data:
+                comparison_df = pd.DataFrame(table_data)
+
+                # Format and style the table
+                st.dataframe(
+                    comparison_df.style.format({
+                        col: '{:.1f}' for col in comparison_df.columns if col not in ['Region', 'State', 'Type']
+                    }).background_gradient(
+                        subset=[col for col in comparison_df.columns if col not in ['Region', 'State', 'Type']],
+                        cmap='RdYlGn',
+                        vmin=50,
+                        vmax=150
+                    ),
+                    hide_index=True,
+                    use_container_width=True
+                )
+
+                # Legend for table
+                st.caption("""
+                **Table Legend:** C1-C8 represent the 8 component indexes, Overall is the average.
+                Color coding: Red (below peer average) → Yellow (at average) → Green (above peer average)
+                """)
+            else:
+                st.warning("No comparison data available for this region.")
+
+        except FileNotFoundError:
+            st.error("""
+            **Geographic data files not found!**
+
+            Please run the following command to create region boundary files:
+            ```
+            python scripts/create_region_boundaries.py
+            ```
+            """)
+        except Exception as e:
+            st.error(f"Error loading geographic data: {e}")
 
     # Peer Comparison Page
     elif page == "Peer Comparison":
