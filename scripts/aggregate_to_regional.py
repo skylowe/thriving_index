@@ -462,14 +462,16 @@ def main():
     # Initialize aggregator
     aggregator = RegionalAggregator(data_dir, output_dir)
 
-    # Component 1: Growth Index (skip for now - has data issue with measure 1.4)
-    # try:
-    #     comp1_data = aggregator.aggregate_component1()
-    #     aggregator.save_regional_data(comp1_data, "component1_growth_index_regional.csv")
-    # except Exception as e:
-    #     print(f"ERROR in Component 1: {e}")
-    #     aggregator.stats['measures_failed'] += 5
-    #     aggregator.stats['errors'].append(f"Component 1: {str(e)}")
+    # Component 1: Growth Index
+    try:
+        comp1_data = aggregator.aggregate_component1()
+        aggregator.save_regional_data(comp1_data, "component1_growth_index_regional.csv")
+    except Exception as e:
+        print(f"ERROR in Component 1: {e}")
+        import traceback
+        traceback.print_exc()
+        aggregator.stats['measures_failed'] += 5
+        aggregator.stats['errors'].append(f"Component 1: {str(e)}")
 
     # Component 2: Economic Opportunity & Diversity
     try:
