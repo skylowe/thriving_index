@@ -480,8 +480,13 @@ def main():
             peer_region_keys = peer_rows['region_key'].tolist()
 
             # Merge regions with component scores to get overall scores
-            region_scores = components_df.groupby('virginia_region_key')['component_score'].mean().reset_index()
-            region_scores.columns = ['region_key', 'overall_score']
+            # Components are in wide format, so calculate overall score from all component columns
+            component_cols = [col for col in components_df.columns if col.startswith('Component')]
+            region_scores = components_df[['virginia_region_key'] + component_cols].copy()
+            region_scores['overall_score'] = region_scores[component_cols].mean(axis=1)
+            region_scores = region_scores[['virginia_region_key', 'overall_score']].rename(
+                columns={'virginia_region_key': 'region_key'}
+            )
 
             regions_with_scores = regions_gdf.merge(
                 region_scores,
@@ -605,12 +610,8 @@ def main():
             st.subheader("Component Score Comparison")
 
             # Build comparison table
-            # Get component scores in wide format
-            scores_pivot = components_df.pivot_table(
-                index='virginia_region_key',
-                columns='component',
-                values='component_score'
-            ).reset_index()
+            # Component data is already in wide format
+            scores_pivot = components_df.copy()
 
             # Calculate overall score
             component_cols = [col for col in scores_pivot.columns if col.startswith('Component')]
