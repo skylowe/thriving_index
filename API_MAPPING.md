@@ -113,8 +113,9 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
 - **API Endpoint**: `https://api.census.gov/data/[year]/acs/acs5/subject`
 - **Table**: S1101 (Households and Families)
 - **Variables**:
-  - S1101_C01_002E (Households with one or more people under 18 years)
+  - **S1101_C01_005E** (Households with own children of the householder under 18 years - COUNT) ✅ CORRECT
   - S1101_C01_001E (Total households) - for verification
+  - ~~S1101_C01_002E~~ (Average household size - NOT a count) ❌ WRONG - Previously used in error
 - **Confidence**: ✅ **HIGH**
 - **Notes**:
   - Compare 2011-2015 ACS estimates to 2016-2020 ACS estimates
@@ -122,16 +123,18 @@ This document maps each of the 47 individual measures from the Nebraska Thriving
   - Formula: `((HH_with_children_2016_2020 - HH_with_children_2011_2015) / HH_with_children_2011_2015) * 100`
   - Available at county level for all counties
   - Data collected by state (all counties in each state)
+  - **Data Quality Issue Fixed (2025-11-19)**: Initially used S1101_C01_002E (average household size, returns decimals like 2.53) instead of S1101_C01_005E (count of households with children, returns integers like 2,774). Re-collected with correct variable.
 - **Data Periods for Virginia**: Use two most recent non-overlapping 5-year ACS periods
   - Earlier period: 2013-2017 or 2014-2018
   - Later period: 2018-2022 or 2019-2023
-- **✅ DATA COLLECTED** (2025-11-15):
+- **✅ DATA COLLECTED** (2025-11-15, corrected 2025-11-19):
   - **Periods**: 2017 (2013-2017 5-year estimates), 2022 (2018-2022 5-year estimates)
   - **Records**: 1,604 (802 counties × 2 periods)
   - **Raw Data**: `data/raw/census/census_households_children_[STATE]_[YEAR].json` (20 files: 10 states × 2 years)
   - **Processed Data**: `data/processed/census_households_children_processed.csv`
-  - **Script**: `scripts/data_collection/collect_component1.py`
+  - **Script**: `scripts/data_collection/collect_component1.py` (initial), `scripts/fix_households_children_data.py` (correction)
   - **API Client**: `scripts/api_clients/census_client.py` (method: `get_households_with_children()`)
+  - **Data Verification**: All values are whole numbers (integer counts), mean 25.10% of households have children (range 3.44% to 48.94%)
 
 ### 1.5 Growth in Dividends, Interest and Rent (DIR) Income
 

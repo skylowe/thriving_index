@@ -461,6 +461,30 @@ For detailed updates, see PROJECT_PLAN.md. Major milestones listed below:
   - Re-collect Component 1.4 with correct variable
   - Complete aggregation for all 47 measures
 
+**2025-11-19**: ✅ **Component 1.4 Data Issue Fixed + Component 1 Regional Aggregation Complete**
+- **Problem**: Census variable S1101_C01_002E returns average household size (decimals like 2.53), not count of households with children
+- **Investigation**: Verified correct variable is S1101_C01_005E (count of households with own children under 18 years)
+- **Solution**:
+  - Updated `census_client.py` to use S1101_C01_005E instead of S1101_C01_002E
+  - Created `scripts/fix_households_children_data.py` to re-collect corrected data
+  - Added enhanced error handling to capture API response details when JSON parsing fails
+  - Fixed bug in collection script (STATE_FIPS.keys() → STATE_FIPS.values())
+- **Data Re-collection Results**:
+  - 1,604 records collected (802 counties × 2 years: 2017, 2022)
+  - All values are whole numbers (integer counts, not decimals)
+  - Mean: 25.10% of households have children (range: 3.44% to 48.94%)
+  - No missing or negative values
+- **Component 1 Regional Aggregation**:
+  - All 5 Component 1 measures successfully aggregated to 94 regions
+  - Measures: Employment growth, private employment, wage growth, households with children growth, DIR income growth
+  - All growth rates properly recalculated from aggregated base/current values
+  - Output: `data/regional/component1_growth_index_regional.csv`
+- **Progress Update**: 14 of 47 measures aggregated (30% complete)
+  - Component 1: 5/5 measures ✅ COMPLETE
+  - Component 2: 4/7 measures
+  - Component 8: 5/5 measures ✅ COMPLETE
+  - Remaining: 33 measures across Components 3-7
+
 ## Resources and References
 
 - Nebraska Thriving Index Report (Thriving_Index.pdf)
