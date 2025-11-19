@@ -12,7 +12,7 @@ import io
 from pathlib import Path
 
 
-def download_state_boundaries(year=2022):
+def download_state_boundaries(year=2023):
     """Download state boundaries from Census TIGER."""
     print("Downloading state boundaries...")
 
@@ -92,7 +92,7 @@ def main():
     regions_simple = simplify_geometries(regions_gdf, tolerance=0.01)
 
     # 3. Download and simplify state boundaries
-    states_gdf = download_state_boundaries(year=2022)
+    states_gdf = download_state_boundaries(year=2023)
 
     # Filter to our 10 states
     STATE_FIPS = ['51', '42', '24', '10', '54', '21', '47', '37', '45', '13']
