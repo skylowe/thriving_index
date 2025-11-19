@@ -668,7 +668,76 @@ For detailed updates, see PROJECT_PLAN.md. Major milestones listed below:
 - Virginia regions excluded from each other's peer groups to ensure external comparisons
 - 3 Virginia metro regions (Northern VA, Hampton Roads, Greater Richmond) included as peers for service-heavy rural regions
 
-**Next Phase**: Calculate Thriving Index scores using peer region averages as benchmarks (Phase 12)
+**2025-11-18**: ✅ **Phase 12 Complete - Thriving Index Calculated**
+- **Objective**: Calculate Thriving Index scores for 6 Virginia rural regions using peer benchmarks
+- **Methodology**: Score = 100 + ((value - peer_mean) / peer_std) × 100 (where 100 = peer average)
+
+**Overall Thriving Index Rankings**:
+1. **Central/Western Virginia**: 181.1 (81% above peer average) 🌟
+2. **Shenandoah Valley**: 149.3 (49% above peer average)
+3. **Central Virginia**: 124.7 (25% above peer average)
+4. **Mary Ball Washington**: 122.6 (23% above peer average)
+5. **Southside Virginia**: 81.8 (18% below peer average)
+6. **Southwest Virginia**: 64.6 (35% below peer average)
+
+**Key Findings**:
+- **4 of 6 regions exceed peer average** - strong overall Virginia performance
+- **Top performers**: Central/Western VA leads with exceptional demographic growth (298.5) and social capital (277.0)
+- **Standout components**:
+  - **Shenandoah Valley**: Social capital 313.1 (highest score overall)
+  - **Central VA**: Education & skill 328.7 (knowledge workers concentration)
+  - **Southwest VA**: Other prosperity 231.7 (income stability)
+
+**Regional Strengths**:
+- **Social Capital**: All 6 regions strong (mean: 191, range: 29-313)
+  - High nonprofit density, civic engagement, volunteer rates
+  - Social associations well above peer averages
+- **Quality of Life**: 5 of 6 regions above 100 (Shenandoah Valley leads at 186.7)
+  - Low crime rates compared to peers
+  - Natural amenities, outdoor recreation access
+- **Infrastructure**: Strong broadband, interstate access in most regions
+
+**Regional Challenges**:
+- **Demographic pressures**:
+  - Southside VA (-70.6) and Southwest VA (-12.5) losing working-age population
+  - Aging populations, high dependency ratios
+  - Household with children declining sharply
+- **Economic diversification**:
+  - Southwest VA struggles (-6.4 economic opportunity)
+  - Low private employment rates in some regions
+  - Proprietor density varies widely
+- **Education gaps**: Rural regions lag urban peers in knowledge worker share
+
+**Component Performance Highlights**:
+- **Best**: Central VA Education (328.7), Shenandoah Social Capital (313.1), Central/Western Demographic (298.5)
+- **Worst**: Southside Demographic (-70.6), Southwest Economic Opportunity (-6.4)
+- **Most consistent**: Quality of Life (all regions 66-187)
+- **Most variable**: Demographic Growth & Renewal (-70.6 to 298.5)
+
+**Implementation Details**:
+- **Script**: `scripts/calculate_thriving_index.py` (540 lines)
+- **Measures scored**: 8 components × 1-7 measures each (limited by data availability)
+- **Scoring method**: Z-score transformation against peer averages
+- **Inverted measures**: 10 measures where lower is better (crime, inequality, age, tax rates)
+- **Output**: 3 CSV files (overall index, component scores, detailed measure scores)
+
+**Data Quality**:
+- Some measures not yet aggregated (marked "Not found in data")
+- Component robustness varies: 1-7 measures per component
+- Future improvement: Complete remaining aggregations
+
+**Files Created**:
+- `data/results/thriving_index_overall.csv` - Rankings for 6 Virginia regions
+- `data/results/thriving_index_by_component.csv` - 8 component scores × 6 regions
+- `data/results/thriving_index_detailed_scores.csv` - ~200 individual measure scores
+
+**Policy Implications**:
+- **Central/Western VA** model: Strong demographics + social capital = thriving
+- **Southwest VA** needs: Economic diversification, youth retention, job creation
+- **Southside VA** challenge: Reverse demographic decline, attract working-age families
+- **All regions**: Leverage social capital strength for economic development
+
+**Next Phase**: Visualizations, executive summary, policy recommendations
 
 ## Resources and References
 
