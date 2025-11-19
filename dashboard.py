@@ -480,7 +480,7 @@ def main():
             if 'regional_map' in st.session_state:
                 map_state = st.session_state.regional_map
                 # Debug: show what's in the map state
-                # st.write("Debug - map_state:", map_state)
+                st.write("Debug - map_state:", map_state)
 
                 if map_state and isinstance(map_state, dict):
                     selection = map_state.get('selection', {})
