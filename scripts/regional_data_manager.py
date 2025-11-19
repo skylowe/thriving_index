@@ -245,6 +245,38 @@ class RegionalDataManager:
 
         return aggregated
 
+    def add_region_names(self, df: pd.DataFrame) -> pd.DataFrame:
+        """
+        Add region_name and state_name columns to a DataFrame with region_key.
+
+        Args:
+            df: DataFrame with region_key column
+
+        Returns:
+            DataFrame with region_name and state_name added
+        """
+        # Get region metadata
+        region_info = self.get_all_regions()[['region_key', 'state_name', 'region_name']]
+
+        # Merge with input dataframe
+        result = pd.merge(df, region_info, on='region_key', how='left')
+
+        # Reorder columns to put identifiers first
+        id_cols = ['region_key', 'region_name', 'state_name']
+        other_cols = [col for col in result.columns if col not in id_cols]
+        result = result[id_cols + other_cols]
+
+        return result
+
+    def get_all_regions_dict(self) -> Dict[str, Dict]:
+        """
+        Get all regions as a dictionary mapping region_key to region info.
+
+        Returns:
+            Dictionary with region_key as keys and region info dicts as values
+        """
+        return self.region_to_counties
+
     def get_virginia_rural_regions(self) -> List[str]:
         """
         Get list of Virginia rural region keys (excluding metro areas).
