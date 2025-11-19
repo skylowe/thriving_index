@@ -53,7 +53,15 @@ class CensusClient:
             response = self.session.get(url, params=params, timeout=TIMEOUT)
             response.raise_for_status()
 
-            data = response.json()
+            try:
+                data = response.json()
+            except ValueError as json_err:
+                # Capture actual response text for debugging
+                print(f"JSON Parse Error. Response status: {response.status_code}")
+                print(f"Response headers: {dict(response.headers)}")
+                print(f"Response text (first 500 chars): {response.text[:500]}")
+                print(f"Full URL: {response.url}")
+                raise Exception(f"Invalid JSON response: {str(json_err)}")
 
             # Census API returns errors as JSON with single element containing error message
             if len(data) == 1 and isinstance(data[0], str) and 'error' in data[0].lower():
@@ -138,9 +146,11 @@ class CensusClient:
         Returns:
             list: API response with household data
         """
-        # S1101_C01_002E = Households with one or more people under 18 years
+        # S1101_C01_005E = Households with own children of the householder under 18 years (COUNT)
         # S1101_C01_001E = Total households
-        variables = ['NAME', 'S1101_C01_002E', 'S1101_C01_001E']
+        # NOTE: S1101_C01_002E is average household size (not a count)
+        # NOTE: S1101_C01_010E is a percentage (not a count)
+        variables = ['NAME', 'S1101_C01_005E', 'S1101_C01_001E']
 
         if state_fips:
             geography = 'county:*'
