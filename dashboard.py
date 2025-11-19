@@ -564,7 +564,7 @@ def main():
                         line=dict(width=1.5, color='rgba(0,0,0,0.6)'),
                         name=category,
                         legendgroup=category,
-                        showlegend=(idx == subset.index[0]),  # Only show legend once per category
+                        showlegend=bool(idx == subset.index[0]),  # Convert to Python bool
                         text=hover_text,
                         hoverinfo='text'
                     ))
