@@ -1,47 +1,47 @@
-region_id,region_name,county_name,state_fips
-1,Appalachian Council of Governments,Anderson County,45
-1,Appalachian Council of Governments,Cherokee County,45
-1,Appalachian Council of Governments,Greenville County,45
-1,Appalachian Council of Governments,Oconee County,45
-1,Appalachian Council of Governments,Pickens County,45
-1,Appalachian Council of Governments,Spartanburg County,45
-2,Berkeley-Charleston-Dorchester Council of Governments,Berkeley County,45
-2,Berkeley-Charleston-Dorchester Council of Governments,Charleston County,45
-2,Berkeley-Charleston-Dorchester Council of Governments,Dorchester County,45
-3,Catawba Regional Council of Governments,Chester County,45
-3,Catawba Regional Council of Governments,Lancaster County,45
-3,Catawba Regional Council of Governments,Union County,45
-3,Catawba Regional Council of Governments,York County,45
-4,Central Midlands Council of Governments,Fairfield County,45
-4,Central Midlands Council of Governments,Lexington County,45
-4,Central Midlands Council of Governments,Newberry County,45
-4,Central Midlands Council of Governments,Richland County,45
-5,Lowcountry Council of Governments,Beaufort County,45
-5,Lowcountry Council of Governments,Colleton County,45
-5,Lowcountry Council of Governments,Hampton County,45
-5,Lowcountry Council of Governments,Jasper County,45
-6,Lower Savannah Council of Governments,Aiken County,45
-6,Lower Savannah Council of Governments,Allendale County,45
-6,Lower Savannah Council of Governments,Bamberg County,45
-6,Lower Savannah Council of Governments,Barnwell County,45
-6,Lower Savannah Council of Governments,Calhoun County,45
-6,Lower Savannah Council of Governments,Orangeburg County,45
-7,Pee Dee Regional Council of Governments,Chesterfield County,45
-7,Pee Dee Regional Council of Governments,Darlington County,45
-7,Pee Dee Regional Council of Governments,Dillon County,45
-7,Pee Dee Regional Council of Governments,Florence County,45
-7,Pee Dee Regional Council of Governments,Marion County,45
-7,Pee Dee Regional Council of Governments,Marlboro County,45
-8,Santee Lynches Regional Council of Governments,Clarendon County,45
-8,Santee Lynches Regional Council of Governments,Kershaw County,45
-8,Santee Lynches Regional Council of Governments,Lee County,45
-8,Santee Lynches Regional Council of Governments,Sumter County,45
-9,Upper Savannah Council of Governments,Abbeville County,45
-9,Upper Savannah Council of Governments,Edgefield County,45
-9,Upper Savannah Council of Governments,Greenwood County,45
-9,Upper Savannah Council of Governments,Laurens County,45
-9,Upper Savannah Council of Governments,McCormick County,45
-9,Upper Savannah Council of Governments,Saluda County,45
-10,Waccamaw Regional Council of Governments,Georgetown County,45
-10,Waccamaw Regional Council of Governments,Horry County,45
-10,Waccamaw Regional Council of Governments,Williamsburg County,45
+region_id,region_name,county_name,state_fips,county_fips
+1,Appalachian Council of Governments,Anderson County,45,45007
+1,Appalachian Council of Governments,Cherokee County,45,45021
+1,Appalachian Council of Governments,Greenville County,45,45045
+1,Appalachian Council of Governments,Oconee County,45,45073
+1,Appalachian Council of Governments,Pickens County,45,45077
+1,Appalachian Council of Governments,Spartanburg County,45,45083
+2,Berkeley-Charleston-Dorchester Council of Governments,Berkeley County,45,45015
+2,Berkeley-Charleston-Dorchester Council of Governments,Charleston County,45,45019
+2,Berkeley-Charleston-Dorchester Council of Governments,Dorchester County,45,45035
+3,Catawba Regional Council of Governments,Chester County,45,45023
+3,Catawba Regional Council of Governments,Lancaster County,45,45057
+3,Catawba Regional Council of Governments,Union County,45,45087
+3,Catawba Regional Council of Governments,York County,45,45091
+4,Central Midlands Council of Governments,Fairfield County,45,45039
+4,Central Midlands Council of Governments,Lexington County,45,45063
+4,Central Midlands Council of Governments,Newberry County,45,45071
+4,Central Midlands Council of Governments,Richland County,45,45079
+5,Lowcountry Council of Governments,Beaufort County,45,45013
+5,Lowcountry Council of Governments,Colleton County,45,45029
+5,Lowcountry Council of Governments,Hampton County,45,45049
+5,Lowcountry Council of Governments,Jasper County,45,45053
+6,Lower Savannah Council of Governments,Aiken County,45,45003
+6,Lower Savannah Council of Governments,Allendale County,45,45005
+6,Lower Savannah Council of Governments,Bamberg County,45,45009
+6,Lower Savannah Council of Governments,Barnwell County,45,45011
+6,Lower Savannah Council of Governments,Calhoun County,45,45017
+6,Lower Savannah Council of Governments,Orangeburg County,45,45075
+7,Pee Dee Regional Council of Governments,Chesterfield County,45,45025
+7,Pee Dee Regional Council of Governments,Darlington County,45,45031
+7,Pee Dee Regional Council of Governments,Dillon County,45,45033
+7,Pee Dee Regional Council of Governments,Florence County,45,45041
+7,Pee Dee Regional Council of Governments,Marion County,45,45067
+7,Pee Dee Regional Council of Governments,Marlboro County,45,45069
+8,Santee Lynches Regional Council of Governments,Clarendon County,45,45027
+8,Santee Lynches Regional Council of Governments,Kershaw County,45,45055
+8,Santee Lynches Regional Council of Governments,Lee County,45,45061
+8,Santee Lynches Regional Council of Governments,Sumter County,45,45085
+9,Upper Savannah Council of Governments,Abbeville County,45,45001
+9,Upper Savannah Council of Governments,Edgefield County,45,45037
+9,Upper Savannah Council of Governments,Greenwood County,45,45047
+9,Upper Savannah Council of Governments,Laurens County,45,45059
+9,Upper Savannah Council of Governments,McCormick County,45,45065
+9,Upper Savannah Council of Governments,Saluda County,45,45081
+10,Waccamaw Regional Council of Governments,Georgetown County,45,45043
+10,Waccamaw Regional Council of Governments,Horry County,45,45051
+10,Waccamaw Regional Council of Governments,Williamsburg County,45,45089

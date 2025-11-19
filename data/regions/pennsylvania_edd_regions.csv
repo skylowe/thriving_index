@@ -1,53 +1,53 @@
-region_id,region_name,county_name,state_fips
-1,North Central Pennsylvania,Cameron County,42
-1,North Central Pennsylvania,Clearfield County,42
-1,North Central Pennsylvania,Elk County,42
-1,North Central Pennsylvania,Jefferson County,42
-1,North Central Pennsylvania,McKean County,42
-1,North Central Pennsylvania,Potter County,42
-2,Northwest Pennsylvania,Clarion County,42
-2,Northwest Pennsylvania,Crawford County,42
-2,Northwest Pennsylvania,Erie County,42
-2,Northwest Pennsylvania,Forest County,42
-2,Northwest Pennsylvania,Lawrence County,42
-2,Northwest Pennsylvania,Mercer County,42
-2,Northwest Pennsylvania,Venango County,42
-2,Northwest Pennsylvania,Warren County,42
-3,Southwestern Pennsylvania,Allegheny County,42
-3,Southwestern Pennsylvania,Armstrong County,42
-3,Southwestern Pennsylvania,Beaver County,42
-3,Southwestern Pennsylvania,Butler County,42
-3,Southwestern Pennsylvania,Fayette County,42
-3,Southwestern Pennsylvania,Greene County,42
-3,Southwestern Pennsylvania,Indiana County,42
-3,Southwestern Pennsylvania,Washington County,42
-3,Southwestern Pennsylvania,Westmoreland County,42
-4,Northern Tier,Bradford County,42
-4,Northern Tier,Sullivan County,42
-4,Northern Tier,Susquehanna County,42
-4,Northern Tier,Tioga County,42
-4,Northern Tier,Wyoming County,42
-5,Southern Alleghenies,Bedford County,42
-5,Southern Alleghenies,Blair County,42
-5,Southern Alleghenies,Cambria County,42
-5,Southern Alleghenies,Fulton County,42
-5,Southern Alleghenies,Huntingdon County,42
-5,Southern Alleghenies,Somerset County,42
-6,SEDA-COG,Centre County,42
-6,SEDA-COG,Clinton County,42
-6,SEDA-COG,Columbia County,42
-6,SEDA-COG,Juniata County,42
-6,SEDA-COG,Lycoming County,42
-6,SEDA-COG,Mifflin County,42
-6,SEDA-COG,Montour County,42
-6,SEDA-COG,Northumberland County,42
-6,SEDA-COG,Perry County,42
-6,SEDA-COG,Snyder County,42
-6,SEDA-COG,Union County,42
-7,Northeastern Pennsylvania,Carbon County,42
-7,Northeastern Pennsylvania,Lackawanna County,42
-7,Northeastern Pennsylvania,Luzerne County,42
-7,Northeastern Pennsylvania,Monroe County,42
-7,Northeastern Pennsylvania,Pike County,42
-7,Northeastern Pennsylvania,Schuylkill County,42
-7,Northeastern Pennsylvania,Wayne County,42
+region_id,region_name,county_name,state_fips,county_fips
+1,North Central Pennsylvania,Cameron County,42,42023
+1,North Central Pennsylvania,Clearfield County,42,42033
+1,North Central Pennsylvania,Elk County,42,42047
+1,North Central Pennsylvania,Jefferson County,42,42065
+1,North Central Pennsylvania,McKean County,42,42083
+1,North Central Pennsylvania,Potter County,42,42105
+2,Northwest Pennsylvania,Clarion County,42,42031
+2,Northwest Pennsylvania,Crawford County,42,42039
+2,Northwest Pennsylvania,Erie County,42,42049
+2,Northwest Pennsylvania,Forest County,42,42053
+2,Northwest Pennsylvania,Lawrence County,42,42073
+2,Northwest Pennsylvania,Mercer County,42,42085
+2,Northwest Pennsylvania,Venango County,42,42121
+2,Northwest Pennsylvania,Warren County,42,42123
+3,Southwestern Pennsylvania,Allegheny County,42,42003
+3,Southwestern Pennsylvania,Armstrong County,42,42005
+3,Southwestern Pennsylvania,Beaver County,42,42007
+3,Southwestern Pennsylvania,Butler County,42,42019
+3,Southwestern Pennsylvania,Fayette County,42,42051
+3,Southwestern Pennsylvania,Greene County,42,42059
+3,Southwestern Pennsylvania,Indiana County,42,42063
+3,Southwestern Pennsylvania,Washington County,42,42125
+3,Southwestern Pennsylvania,Westmoreland County,42,42129
+4,Northern Tier,Bradford County,42,42015
+4,Northern Tier,Sullivan County,42,42113
+4,Northern Tier,Susquehanna County,42,42115
+4,Northern Tier,Tioga County,42,42117
+4,Northern Tier,Wyoming County,42,42131
+5,Southern Alleghenies,Bedford County,42,42009
+5,Southern Alleghenies,Blair County,42,42013
+5,Southern Alleghenies,Cambria County,42,42021
+5,Southern Alleghenies,Fulton County,42,42057
+5,Southern Alleghenies,Huntingdon County,42,42061
+5,Southern Alleghenies,Somerset County,42,42111
+6,SEDA-COG,Centre County,42,42027
+6,SEDA-COG,Clinton County,42,42035
+6,SEDA-COG,Columbia County,42,42037
+6,SEDA-COG,Juniata County,42,42067
+6,SEDA-COG,Lycoming County,42,42081
+6,SEDA-COG,Mifflin County,42,42087
+6,SEDA-COG,Montour County,42,42093
+6,SEDA-COG,Northumberland County,42,42097
+6,SEDA-COG,Perry County,42,42099
+6,SEDA-COG,Snyder County,42,42109
+6,SEDA-COG,Union County,42,42119
+7,Northeastern Pennsylvania,Carbon County,42,42025
+7,Northeastern Pennsylvania,Lackawanna County,42,42069
+7,Northeastern Pennsylvania,Luzerne County,42,42079
+7,Northeastern Pennsylvania,Monroe County,42,42089
+7,Northeastern Pennsylvania,Pike County,42,42103
+7,Northeastern Pennsylvania,Schuylkill County,42,42107
+7,Northeastern Pennsylvania,Wayne County,42,42127

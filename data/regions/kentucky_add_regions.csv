@@ -1,120 +1,120 @@
-region_id,region_name,county_name,state_fips
-1,Barren River Area Development District,Allen County,21
-1,Barren River Area Development District,Barren County,21
-1,Barren River Area Development District,Butler County,21
-1,Barren River Area Development District,Edmonson County,21
-1,Barren River Area Development District,Hart County,21
-1,Barren River Area Development District,Logan County,21
-1,Barren River Area Development District,Metcalfe County,21
-1,Barren River Area Development District,Monroe County,21
-1,Barren River Area Development District,Simpson County,21
-1,Barren River Area Development District,Warren County,21
-2,Big Sandy Area Development District,Floyd County,21
-2,Big Sandy Area Development District,Johnson County,21
-2,Big Sandy Area Development District,Magoffin County,21
-2,Big Sandy Area Development District,Martin County,21
-2,Big Sandy Area Development District,Pike County,21
-3,Bluegrass Area Development District,Anderson County,21
-3,Bluegrass Area Development District,Bourbon County,21
-3,Bluegrass Area Development District,Boyle County,21
-3,Bluegrass Area Development District,Clark County,21
-3,Bluegrass Area Development District,Estill County,21
-3,Bluegrass Area Development District,Fayette County,21
-3,Bluegrass Area Development District,Franklin County,21
-3,Bluegrass Area Development District,Garrard County,21
-3,Bluegrass Area Development District,Harrison County,21
-3,Bluegrass Area Development District,Jessamine County,21
-3,Bluegrass Area Development District,Lincoln County,21
-3,Bluegrass Area Development District,Madison County,21
-3,Bluegrass Area Development District,Mercer County,21
-3,Bluegrass Area Development District,Nicholas County,21
-3,Bluegrass Area Development District,Powell County,21
-3,Bluegrass Area Development District,Scott County,21
-3,Bluegrass Area Development District,Woodford County,21
-4,Buffalo Trace Area Development District,Bracken County,21
-4,Buffalo Trace Area Development District,Fleming County,21
-4,Buffalo Trace Area Development District,Lewis County,21
-4,Buffalo Trace Area Development District,Mason County,21
-4,Buffalo Trace Area Development District,Robertson County,21
-5,Cumberland Valley Area Development District,Bell County,21
-5,Cumberland Valley Area Development District,Clay County,21
-5,Cumberland Valley Area Development District,Harlan County,21
-5,Cumberland Valley Area Development District,Jackson County,21
-5,Cumberland Valley Area Development District,Knox County,21
-5,Cumberland Valley Area Development District,Laurel County,21
-5,Cumberland Valley Area Development District,Rockcastle County,21
-5,Cumberland Valley Area Development District,Whitley County,21
-6,FIVCO Area Development District,Boyd County,21
-6,FIVCO Area Development District,Carter County,21
-6,FIVCO Area Development District,Elliott County,21
-6,FIVCO Area Development District,Greenup County,21
-6,FIVCO Area Development District,Lawrence County,21
-7,Gateway Area Development District,Bath County,21
-7,Gateway Area Development District,Menifee County,21
-7,Gateway Area Development District,Montgomery County,21
-7,Gateway Area Development District,Morgan County,21
-7,Gateway Area Development District,Rowan County,21
-8,Green River Area Development District,Daviess County,21
-8,Green River Area Development District,Hancock County,21
-8,Green River Area Development District,Henderson County,21
-8,Green River Area Development District,McLean County,21
-8,Green River Area Development District,Ohio County,21
-8,Green River Area Development District,Union County,21
-8,Green River Area Development District,Webster County,21
-9,Kentuckiana Regional Planning and Development Agency,Bullitt County,21
-9,Kentuckiana Regional Planning and Development Agency,Henry County,21
-9,Kentuckiana Regional Planning and Development Agency,Jefferson County,21
-9,Kentuckiana Regional Planning and Development Agency,Oldham County,21
-9,Kentuckiana Regional Planning and Development Agency,Shelby County,21
-9,Kentuckiana Regional Planning and Development Agency,Spencer County,21
-9,Kentuckiana Regional Planning and Development Agency,Trimble County,21
-10,Kentucky River Area Development District,Breathitt County,21
-10,Kentucky River Area Development District,Knott County,21
-10,Kentucky River Area Development District,Lee County,21
-10,Kentucky River Area Development District,Leslie County,21
-10,Kentucky River Area Development District,Letcher County,21
-10,Kentucky River Area Development District,Owsley County,21
-10,Kentucky River Area Development District,Perry County,21
-10,Kentucky River Area Development District,Wolfe County,21
-11,Lake Cumberland Area Development District,Adair County,21
-11,Lake Cumberland Area Development District,Casey County,21
-11,Lake Cumberland Area Development District,Clinton County,21
-11,Lake Cumberland Area Development District,Cumberland County,21
-11,Lake Cumberland Area Development District,Green County,21
-11,Lake Cumberland Area Development District,McCreary County,21
-11,Lake Cumberland Area Development District,Pulaski County,21
-11,Lake Cumberland Area Development District,Russell County,21
-11,Lake Cumberland Area Development District,Taylor County,21
-11,Lake Cumberland Area Development District,Wayne County,21
-12,Lincoln Trail Area Development District,Breckinridge County,21
-12,Lincoln Trail Area Development District,Grayson County,21
-12,Lincoln Trail Area Development District,Hardin County,21
-12,Lincoln Trail Area Development District,Larue County,21
-12,Lincoln Trail Area Development District,Marion County,21
-12,Lincoln Trail Area Development District,Meade County,21
-12,Lincoln Trail Area Development District,Nelson County,21
-12,Lincoln Trail Area Development District,Washington County,21
-13,Northern Kentucky Area Development District,Boone County,21
-13,Northern Kentucky Area Development District,Campbell County,21
-13,Northern Kentucky Area Development District,Carroll County,21
-13,Northern Kentucky Area Development District,Gallatin County,21
-13,Northern Kentucky Area Development District,Grant County,21
-13,Northern Kentucky Area Development District,Kenton County,21
-13,Northern Kentucky Area Development District,Owen County,21
-13,Northern Kentucky Area Development District,Pendleton County,21
-14,Pennyrile Area Development District,Caldwell County,21
-14,Pennyrile Area Development District,Christian County,21
-14,Pennyrile Area Development District,Crittenden County,21
-14,Pennyrile Area Development District,Hopkins County,21
-14,Pennyrile Area Development District,Livingston County,21
-14,Pennyrile Area Development District,Lyon County,21
-14,Pennyrile Area Development District,Muhlenberg County,21
-14,Pennyrile Area Development District,Todd County,21
-14,Pennyrile Area Development District,Trigg County,21
-15,Purchase Area Development District,Ballard County,21
-15,Purchase Area Development District,Calloway County,21
-15,Purchase Area Development District,Carlisle County,21
-15,Purchase Area Development District,Fulton County,21
-15,Purchase Area Development District,Graves County,21
-15,Purchase Area Development District,Hickman County,21
-15,Purchase Area Development District,McCracken County,21
+region_id,region_name,county_name,state_fips,county_fips
+1,Barren River Area Development District,Allen County,21,21003
+1,Barren River Area Development District,Barren County,21,21009
+1,Barren River Area Development District,Butler County,21,21031
+1,Barren River Area Development District,Edmonson County,21,21061
+1,Barren River Area Development District,Hart County,21,21099
+1,Barren River Area Development District,Logan County,21,21141
+1,Barren River Area Development District,Metcalfe County,21,21169
+1,Barren River Area Development District,Monroe County,21,21171
+1,Barren River Area Development District,Simpson County,21,21213
+1,Barren River Area Development District,Warren County,21,21227
+2,Big Sandy Area Development District,Floyd County,21,21071
+2,Big Sandy Area Development District,Johnson County,21,21115
+2,Big Sandy Area Development District,Magoffin County,21,21153
+2,Big Sandy Area Development District,Martin County,21,21159
+2,Big Sandy Area Development District,Pike County,21,21195
+3,Bluegrass Area Development District,Anderson County,21,21005
+3,Bluegrass Area Development District,Bourbon County,21,21017
+3,Bluegrass Area Development District,Boyle County,21,21021
+3,Bluegrass Area Development District,Clark County,21,21049
+3,Bluegrass Area Development District,Estill County,21,21065
+3,Bluegrass Area Development District,Fayette County,21,21067
+3,Bluegrass Area Development District,Franklin County,21,21073
+3,Bluegrass Area Development District,Garrard County,21,21079
+3,Bluegrass Area Development District,Harrison County,21,21097
+3,Bluegrass Area Development District,Jessamine County,21,21113
+3,Bluegrass Area Development District,Lincoln County,21,21137
+3,Bluegrass Area Development District,Madison County,21,21151
+3,Bluegrass Area Development District,Mercer County,21,21167
+3,Bluegrass Area Development District,Nicholas County,21,21181
+3,Bluegrass Area Development District,Powell County,21,21197
+3,Bluegrass Area Development District,Scott County,21,21209
+3,Bluegrass Area Development District,Woodford County,21,21239
+4,Buffalo Trace Area Development District,Bracken County,21,21023
+4,Buffalo Trace Area Development District,Fleming County,21,21069
+4,Buffalo Trace Area Development District,Lewis County,21,21135
+4,Buffalo Trace Area Development District,Mason County,21,21161
+4,Buffalo Trace Area Development District,Robertson County,21,21201
+5,Cumberland Valley Area Development District,Bell County,21,21013
+5,Cumberland Valley Area Development District,Clay County,21,21051
+5,Cumberland Valley Area Development District,Harlan County,21,21095
+5,Cumberland Valley Area Development District,Jackson County,21,21109
+5,Cumberland Valley Area Development District,Knox County,21,21121
+5,Cumberland Valley Area Development District,Laurel County,21,21125
+5,Cumberland Valley Area Development District,Rockcastle County,21,21203
+5,Cumberland Valley Area Development District,Whitley County,21,21235
+6,FIVCO Area Development District,Boyd County,21,21019
+6,FIVCO Area Development District,Carter County,21,21043
+6,FIVCO Area Development District,Elliott County,21,21063
+6,FIVCO Area Development District,Greenup County,21,21089
+6,FIVCO Area Development District,Lawrence County,21,21127
+7,Gateway Area Development District,Bath County,21,21011
+7,Gateway Area Development District,Menifee County,21,21165
+7,Gateway Area Development District,Montgomery County,21,21173
+7,Gateway Area Development District,Morgan County,21,21175
+7,Gateway Area Development District,Rowan County,21,21205
+8,Green River Area Development District,Daviess County,21,21059
+8,Green River Area Development District,Hancock County,21,21091
+8,Green River Area Development District,Henderson County,21,21101
+8,Green River Area Development District,McLean County,21,21149
+8,Green River Area Development District,Ohio County,21,21183
+8,Green River Area Development District,Union County,21,21225
+8,Green River Area Development District,Webster County,21,21233
+9,Kentuckiana Regional Planning and Development Agency,Bullitt County,21,21029
+9,Kentuckiana Regional Planning and Development Agency,Henry County,21,21103
+9,Kentuckiana Regional Planning and Development Agency,Jefferson County,21,21111
+9,Kentuckiana Regional Planning and Development Agency,Oldham County,21,21185
+9,Kentuckiana Regional Planning and Development Agency,Shelby County,21,21211
+9,Kentuckiana Regional Planning and Development Agency,Spencer County,21,21215
+9,Kentuckiana Regional Planning and Development Agency,Trimble County,21,21223
+10,Kentucky River Area Development District,Breathitt County,21,21025
+10,Kentucky River Area Development District,Knott County,21,21119
+10,Kentucky River Area Development District,Lee County,21,21129
+10,Kentucky River Area Development District,Leslie County,21,21131
+10,Kentucky River Area Development District,Letcher County,21,21133
+10,Kentucky River Area Development District,Owsley County,21,21189
+10,Kentucky River Area Development District,Perry County,21,21193
+10,Kentucky River Area Development District,Wolfe County,21,21237
+11,Lake Cumberland Area Development District,Adair County,21,21001
+11,Lake Cumberland Area Development District,Casey County,21,21045
+11,Lake Cumberland Area Development District,Clinton County,21,21053
+11,Lake Cumberland Area Development District,Cumberland County,21,21057
+11,Lake Cumberland Area Development District,Green County,21,21087
+11,Lake Cumberland Area Development District,McCreary County,21,21147
+11,Lake Cumberland Area Development District,Pulaski County,21,21199
+11,Lake Cumberland Area Development District,Russell County,21,21207
+11,Lake Cumberland Area Development District,Taylor County,21,21217
+11,Lake Cumberland Area Development District,Wayne County,21,21231
+12,Lincoln Trail Area Development District,Breckinridge County,21,21027
+12,Lincoln Trail Area Development District,Grayson County,21,21085
+12,Lincoln Trail Area Development District,Hardin County,21,21093
+12,Lincoln Trail Area Development District,Larue County,21,21123
+12,Lincoln Trail Area Development District,Marion County,21,21155
+12,Lincoln Trail Area Development District,Meade County,21,21163
+12,Lincoln Trail Area Development District,Nelson County,21,21179
+12,Lincoln Trail Area Development District,Washington County,21,21229
+13,Northern Kentucky Area Development District,Boone County,21,21015
+13,Northern Kentucky Area Development District,Campbell County,21,21037
+13,Northern Kentucky Area Development District,Carroll County,21,21041
+13,Northern Kentucky Area Development District,Gallatin County,21,21077
+13,Northern Kentucky Area Development District,Grant County,21,21081
+13,Northern Kentucky Area Development District,Kenton County,21,21117
+13,Northern Kentucky Area Development District,Owen County,21,21187
+13,Northern Kentucky Area Development District,Pendleton County,21,21191
+14,Pennyrile Area Development District,Caldwell County,21,21033
+14,Pennyrile Area Development District,Christian County,21,21047
+14,Pennyrile Area Development District,Crittenden County,21,21055
+14,Pennyrile Area Development District,Hopkins County,21,21107
+14,Pennyrile Area Development District,Livingston County,21,21139
+14,Pennyrile Area Development District,Lyon County,21,21143
+14,Pennyrile Area Development District,Muhlenberg County,21,21177
+14,Pennyrile Area Development District,Todd County,21,21219
+14,Pennyrile Area Development District,Trigg County,21,21221
+15,Purchase Area Development District,Ballard County,21,21007
+15,Purchase Area Development District,Calloway County,21,21035
+15,Purchase Area Development District,Carlisle County,21,21039
+15,Purchase Area Development District,Fulton County,21,21075
+15,Purchase Area Development District,Graves County,21,21083
+15,Purchase Area Development District,Hickman County,21,21105
+15,Purchase Area Development District,McCracken County,21,21145

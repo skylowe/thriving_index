@@ -1,16 +1,16 @@
-region_id,region_name,county_name,state_fips,edd_status
-1,Tri-County Council for Western Maryland,Allegany County,24,EDD
-1,Tri-County Council for Western Maryland,Garrett County,24,EDD
-1,Tri-County Council for Western Maryland,Washington County,24,EDD
-2,Mid-Shore Regional Council,Caroline County,24,EDD
-2,Mid-Shore Regional Council,Dorchester County,24,EDD
-2,Mid-Shore Regional Council,Talbot County,24,EDD
-3,Tri-County Council for the Lower Eastern Shore,Somerset County,24,EDD
-3,Tri-County Council for the Lower Eastern Shore,Wicomico County,24,EDD
-3,Tri-County Council for the Lower Eastern Shore,Worcester County,24,EDD
-4,Upper Shore Regional Council,Cecil County,24,Regional
-4,Upper Shore Regional Council,Kent County,24,Regional
-4,Upper Shore Regional Council,Queen Anne's County,24,Regional
-5,Tri-County Council for Southern Maryland,Calvert County,24,Regional
-5,Tri-County Council for Southern Maryland,Charles County,24,Regional
-5,Tri-County Council for Southern Maryland,St. Mary's County,24,Regional
+region_id,region_name,county_name,state_fips,county_fips,edd_status
+1,Tri-County Council for Western Maryland,Allegany County,24,24001,EDD
+1,Tri-County Council for Western Maryland,Garrett County,24,24023,EDD
+1,Tri-County Council for Western Maryland,Washington County,24,24043,EDD
+2,Mid-Shore Regional Council,Caroline County,24,24011,EDD
+2,Mid-Shore Regional Council,Dorchester County,24,24019,EDD
+2,Mid-Shore Regional Council,Talbot County,24,24041,EDD
+3,Tri-County Council for the Lower Eastern Shore,Somerset County,24,24039,EDD
+3,Tri-County Council for the Lower Eastern Shore,Wicomico County,24,24045,EDD
+3,Tri-County Council for the Lower Eastern Shore,Worcester County,24,24047,EDD
+4,Upper Shore Regional Council,Cecil County,24,24015,Regional
+4,Upper Shore Regional Council,Kent County,24,24029,Regional
+4,Upper Shore Regional Council,Queen Anne's County,24,24035,Regional
+5,Tri-County Council for Southern Maryland,Calvert County,24,24009,Regional
+5,Tri-County Council for Southern Maryland,Charles County,24,24017,Regional
+5,Tri-County Council for Southern Maryland,St. Mary's County,24,24037,Regional

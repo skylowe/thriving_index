@@ -1,160 +1,160 @@
-region_id,region_name,county_name,state_fips
-1,Northwest Georgia Regional Commission,Bartow County,13
-1,Northwest Georgia Regional Commission,Catoosa County,13
-1,Northwest Georgia Regional Commission,Chattooga County,13
-1,Northwest Georgia Regional Commission,Dade County,13
-1,Northwest Georgia Regional Commission,Fannin County,13
-1,Northwest Georgia Regional Commission,Floyd County,13
-1,Northwest Georgia Regional Commission,Gilmer County,13
-1,Northwest Georgia Regional Commission,Gordon County,13
-1,Northwest Georgia Regional Commission,Haralson County,13
-1,Northwest Georgia Regional Commission,Murray County,13
-1,Northwest Georgia Regional Commission,Paulding County,13
-1,Northwest Georgia Regional Commission,Pickens County,13
-1,Northwest Georgia Regional Commission,Polk County,13
-1,Northwest Georgia Regional Commission,Walker County,13
-1,Northwest Georgia Regional Commission,Whitfield County,13
-2,Georgia Mountains Regional Commission,Banks County,13
-2,Georgia Mountains Regional Commission,Dawson County,13
-2,Georgia Mountains Regional Commission,Franklin County,13
-2,Georgia Mountains Regional Commission,Habersham County,13
-2,Georgia Mountains Regional Commission,Hall County,13
-2,Georgia Mountains Regional Commission,Hart County,13
-2,Georgia Mountains Regional Commission,Lumpkin County,13
-2,Georgia Mountains Regional Commission,Rabun County,13
-2,Georgia Mountains Regional Commission,Stephens County,13
-2,Georgia Mountains Regional Commission,Towns County,13
-2,Georgia Mountains Regional Commission,Union County,13
-2,Georgia Mountains Regional Commission,White County,13
-3,Atlanta Regional Commission,Cherokee County,13
-3,Atlanta Regional Commission,Clayton County,13
-3,Atlanta Regional Commission,Cobb County,13
-3,Atlanta Regional Commission,DeKalb County,13
-3,Atlanta Regional Commission,Douglas County,13
-3,Atlanta Regional Commission,Fayette County,13
-3,Atlanta Regional Commission,Forsyth County,13
-3,Atlanta Regional Commission,Fulton County,13
-3,Atlanta Regional Commission,Gwinnett County,13
-3,Atlanta Regional Commission,Henry County,13
-3,Atlanta Regional Commission,Rockdale County,13
-4,Three Rivers Regional Commission,Butts County,13
-4,Three Rivers Regional Commission,Carroll County,13
-4,Three Rivers Regional Commission,Coweta County,13
-4,Three Rivers Regional Commission,Heard County,13
-4,Three Rivers Regional Commission,Lamar County,13
-4,Three Rivers Regional Commission,Meriwether County,13
-4,Three Rivers Regional Commission,Pike County,13
-4,Three Rivers Regional Commission,Spalding County,13
-4,Three Rivers Regional Commission,Troup County,13
-4,Three Rivers Regional Commission,Upson County,13
-5,Northeast Georgia Regional Commission,Barrow County,13
-5,Northeast Georgia Regional Commission,Clarke County,13
-5,Northeast Georgia Regional Commission,Elbert County,13
-5,Northeast Georgia Regional Commission,Greene County,13
-5,Northeast Georgia Regional Commission,Jackson County,13
-5,Northeast Georgia Regional Commission,Jasper County,13
-5,Northeast Georgia Regional Commission,Madison County,13
-5,Northeast Georgia Regional Commission,Morgan County,13
-5,Northeast Georgia Regional Commission,Newton County,13
-5,Northeast Georgia Regional Commission,Oconee County,13
-5,Northeast Georgia Regional Commission,Oglethorpe County,13
-5,Northeast Georgia Regional Commission,Walton County,13
-6,Middle Georgia Regional Commission,Baldwin County,13
-6,Middle Georgia Regional Commission,Bibb County,13
-6,Middle Georgia Regional Commission,Crawford County,13
-6,Middle Georgia Regional Commission,Houston County,13
-6,Middle Georgia Regional Commission,Jones County,13
-6,Middle Georgia Regional Commission,Monroe County,13
-6,Middle Georgia Regional Commission,Peach County,13
-6,Middle Georgia Regional Commission,Pulaski County,13
-6,Middle Georgia Regional Commission,Putnam County,13
-6,Middle Georgia Regional Commission,Twiggs County,13
-6,Middle Georgia Regional Commission,Wilkinson County,13
-7,Central Savannah River Area Regional Commission,Burke County,13
-7,Central Savannah River Area Regional Commission,Columbia County,13
-7,Central Savannah River Area Regional Commission,Glascock County,13
-7,Central Savannah River Area Regional Commission,Hancock County,13
-7,Central Savannah River Area Regional Commission,Jefferson County,13
-7,Central Savannah River Area Regional Commission,Jenkins County,13
-7,Central Savannah River Area Regional Commission,Lincoln County,13
-7,Central Savannah River Area Regional Commission,McDuffie County,13
-7,Central Savannah River Area Regional Commission,Richmond County,13
-7,Central Savannah River Area Regional Commission,Taliaferro County,13
-7,Central Savannah River Area Regional Commission,Warren County,13
-7,Central Savannah River Area Regional Commission,Washington County,13
-7,Central Savannah River Area Regional Commission,Wilkes County,13
-8,River Valley Regional Commission,Chattahoochee County,13
-8,River Valley Regional Commission,Clay County,13
-8,River Valley Regional Commission,Crisp County,13
-8,River Valley Regional Commission,Dooly County,13
-8,River Valley Regional Commission,Harris County,13
-8,River Valley Regional Commission,Macon County,13
-8,River Valley Regional Commission,Marion County,13
-8,River Valley Regional Commission,Muscogee County,13
-8,River Valley Regional Commission,Quitman County,13
-8,River Valley Regional Commission,Randolph County,13
-8,River Valley Regional Commission,Schley County,13
-8,River Valley Regional Commission,Stewart County,13
-8,River Valley Regional Commission,Sumter County,13
-8,River Valley Regional Commission,Talbot County,13
-8,River Valley Regional Commission,Taylor County,13
-8,River Valley Regional Commission,Webster County,13
-9,Heart of Georgia-Altamaha Regional Commission,Appling County,13
-9,Heart of Georgia-Altamaha Regional Commission,Bleckley County,13
-9,Heart of Georgia-Altamaha Regional Commission,Candler County,13
-9,Heart of Georgia-Altamaha Regional Commission,Dodge County,13
-9,Heart of Georgia-Altamaha Regional Commission,Emanuel County,13
-9,Heart of Georgia-Altamaha Regional Commission,Evans County,13
-9,Heart of Georgia-Altamaha Regional Commission,Jeff Davis County,13
-9,Heart of Georgia-Altamaha Regional Commission,Johnson County,13
-9,Heart of Georgia-Altamaha Regional Commission,Laurens County,13
-9,Heart of Georgia-Altamaha Regional Commission,Montgomery County,13
-9,Heart of Georgia-Altamaha Regional Commission,Tattnall County,13
-9,Heart of Georgia-Altamaha Regional Commission,Telfair County,13
-9,Heart of Georgia-Altamaha Regional Commission,Toombs County,13
-9,Heart of Georgia-Altamaha Regional Commission,Treutlen County,13
-9,Heart of Georgia-Altamaha Regional Commission,Wayne County,13
-9,Heart of Georgia-Altamaha Regional Commission,Wheeler County,13
-9,Heart of Georgia-Altamaha Regional Commission,Wilcox County,13
-10,Southwest Georgia Regional Commission,Baker County,13
-10,Southwest Georgia Regional Commission,Calhoun County,13
-10,Southwest Georgia Regional Commission,Colquitt County,13
-10,Southwest Georgia Regional Commission,Decatur County,13
-10,Southwest Georgia Regional Commission,Dougherty County,13
-10,Southwest Georgia Regional Commission,Early County,13
-10,Southwest Georgia Regional Commission,Grady County,13
-10,Southwest Georgia Regional Commission,Lee County,13
-10,Southwest Georgia Regional Commission,Miller County,13
-10,Southwest Georgia Regional Commission,Mitchell County,13
-10,Southwest Georgia Regional Commission,Seminole County,13
-10,Southwest Georgia Regional Commission,Terrell County,13
-10,Southwest Georgia Regional Commission,Thomas County,13
-10,Southwest Georgia Regional Commission,Worth County,13
-11,Southern Georgia Regional Commission,Atkinson County,13
-11,Southern Georgia Regional Commission,Bacon County,13
-11,Southern Georgia Regional Commission,Ben Hill County,13
-11,Southern Georgia Regional Commission,Berrien County,13
-11,Southern Georgia Regional Commission,Brantley County,13
-11,Southern Georgia Regional Commission,Brooks County,13
-11,Southern Georgia Regional Commission,Charlton County,13
-11,Southern Georgia Regional Commission,Clinch County,13
-11,Southern Georgia Regional Commission,Coffee County,13
-11,Southern Georgia Regional Commission,Cook County,13
-11,Southern Georgia Regional Commission,Echols County,13
-11,Southern Georgia Regional Commission,Irwin County,13
-11,Southern Georgia Regional Commission,Lanier County,13
-11,Southern Georgia Regional Commission,Lowndes County,13
-11,Southern Georgia Regional Commission,Pierce County,13
-11,Southern Georgia Regional Commission,Tift County,13
-11,Southern Georgia Regional Commission,Turner County,13
-11,Southern Georgia Regional Commission,Ware County,13
-12,Coastal Regional Commission of Georgia,Bryan County,13
-12,Coastal Regional Commission of Georgia,Bulloch County,13
-12,Coastal Regional Commission of Georgia,Camden County,13
-12,Coastal Regional Commission of Georgia,Chatham County,13
-12,Coastal Regional Commission of Georgia,Effingham County,13
-12,Coastal Regional Commission of Georgia,Glynn County,13
-12,Coastal Regional Commission of Georgia,Liberty County,13
-12,Coastal Regional Commission of Georgia,Long County,13
-12,Coastal Regional Commission of Georgia,McIntosh County,13
-12,Coastal Regional Commission of Georgia,Screven County,13
+region_id,region_name,county_name,state_fips,county_fips
+1,Northwest Georgia Regional Commission,Bartow County,13,13015
+1,Northwest Georgia Regional Commission,Catoosa County,13,13047
+1,Northwest Georgia Regional Commission,Chattooga County,13,13055
+1,Northwest Georgia Regional Commission,Dade County,13,13083
+1,Northwest Georgia Regional Commission,Fannin County,13,13111
+1,Northwest Georgia Regional Commission,Floyd County,13,13115
+1,Northwest Georgia Regional Commission,Gilmer County,13,13123
+1,Northwest Georgia Regional Commission,Gordon County,13,13129
+1,Northwest Georgia Regional Commission,Haralson County,13,13143
+1,Northwest Georgia Regional Commission,Murray County,13,13213
+1,Northwest Georgia Regional Commission,Paulding County,13,13223
+1,Northwest Georgia Regional Commission,Pickens County,13,13227
+1,Northwest Georgia Regional Commission,Polk County,13,13233
+1,Northwest Georgia Regional Commission,Walker County,13,13295
+1,Northwest Georgia Regional Commission,Whitfield County,13,13313
+2,Georgia Mountains Regional Commission,Banks County,13,13011
+2,Georgia Mountains Regional Commission,Dawson County,13,13085
+2,Georgia Mountains Regional Commission,Franklin County,13,13119
+2,Georgia Mountains Regional Commission,Habersham County,13,13137
+2,Georgia Mountains Regional Commission,Hall County,13,13139
+2,Georgia Mountains Regional Commission,Hart County,13,13147
+2,Georgia Mountains Regional Commission,Lumpkin County,13,13187
+2,Georgia Mountains Regional Commission,Rabun County,13,13241
+2,Georgia Mountains Regional Commission,Stephens County,13,13257
+2,Georgia Mountains Regional Commission,Towns County,13,13281
+2,Georgia Mountains Regional Commission,Union County,13,13291
+2,Georgia Mountains Regional Commission,White County,13,13311
+3,Atlanta Regional Commission,Cherokee County,13,13057
+3,Atlanta Regional Commission,Clayton County,13,13063
+3,Atlanta Regional Commission,Cobb County,13,13067
+3,Atlanta Regional Commission,DeKalb County,13,13089
+3,Atlanta Regional Commission,Douglas County,13,13097
+3,Atlanta Regional Commission,Fayette County,13,13113
+3,Atlanta Regional Commission,Forsyth County,13,13117
+3,Atlanta Regional Commission,Fulton County,13,13121
+3,Atlanta Regional Commission,Gwinnett County,13,13135
+3,Atlanta Regional Commission,Henry County,13,13151
+3,Atlanta Regional Commission,Rockdale County,13,13247
+4,Three Rivers Regional Commission,Butts County,13,13035
+4,Three Rivers Regional Commission,Carroll County,13,13045
+4,Three Rivers Regional Commission,Coweta County,13,13077
+4,Three Rivers Regional Commission,Heard County,13,13149
+4,Three Rivers Regional Commission,Lamar County,13,13171
+4,Three Rivers Regional Commission,Meriwether County,13,13199
+4,Three Rivers Regional Commission,Pike County,13,13231
+4,Three Rivers Regional Commission,Spalding County,13,13255
+4,Three Rivers Regional Commission,Troup County,13,13285
+4,Three Rivers Regional Commission,Upson County,13,13293
+5,Northeast Georgia Regional Commission,Barrow County,13,13013
+5,Northeast Georgia Regional Commission,Clarke County,13,13059
+5,Northeast Georgia Regional Commission,Elbert County,13,13105
+5,Northeast Georgia Regional Commission,Greene County,13,13133
+5,Northeast Georgia Regional Commission,Jackson County,13,13157
+5,Northeast Georgia Regional Commission,Jasper County,13,13159
+5,Northeast Georgia Regional Commission,Madison County,13,13195
+5,Northeast Georgia Regional Commission,Morgan County,13,13211
+5,Northeast Georgia Regional Commission,Newton County,13,13217
+5,Northeast Georgia Regional Commission,Oconee County,13,13219
+5,Northeast Georgia Regional Commission,Oglethorpe County,13,13221
+5,Northeast Georgia Regional Commission,Walton County,13,13297
+6,Middle Georgia Regional Commission,Baldwin County,13,13009
+6,Middle Georgia Regional Commission,Bibb County,13,13021
+6,Middle Georgia Regional Commission,Crawford County,13,13079
+6,Middle Georgia Regional Commission,Houston County,13,13153
+6,Middle Georgia Regional Commission,Jones County,13,13169
+6,Middle Georgia Regional Commission,Monroe County,13,13207
+6,Middle Georgia Regional Commission,Peach County,13,13225
+6,Middle Georgia Regional Commission,Pulaski County,13,13235
+6,Middle Georgia Regional Commission,Putnam County,13,13237
+6,Middle Georgia Regional Commission,Twiggs County,13,13289
+6,Middle Georgia Regional Commission,Wilkinson County,13,13319
+7,Central Savannah River Area Regional Commission,Burke County,13,13033
+7,Central Savannah River Area Regional Commission,Columbia County,13,13073
+7,Central Savannah River Area Regional Commission,Glascock County,13,13125
+7,Central Savannah River Area Regional Commission,Hancock County,13,13141
+7,Central Savannah River Area Regional Commission,Jefferson County,13,13163
+7,Central Savannah River Area Regional Commission,Jenkins County,13,13165
+7,Central Savannah River Area Regional Commission,Lincoln County,13,13181
+7,Central Savannah River Area Regional Commission,McDuffie County,13,13189
+7,Central Savannah River Area Regional Commission,Richmond County,13,13245
+7,Central Savannah River Area Regional Commission,Taliaferro County,13,13265
+7,Central Savannah River Area Regional Commission,Warren County,13,13301
+7,Central Savannah River Area Regional Commission,Washington County,13,13303
+7,Central Savannah River Area Regional Commission,Wilkes County,13,13317
+8,River Valley Regional Commission,Chattahoochee County,13,13053
+8,River Valley Regional Commission,Clay County,13,13061
+8,River Valley Regional Commission,Crisp County,13,13081
+8,River Valley Regional Commission,Dooly County,13,13093
+8,River Valley Regional Commission,Harris County,13,13145
+8,River Valley Regional Commission,Macon County,13,13193
+8,River Valley Regional Commission,Marion County,13,13197
+8,River Valley Regional Commission,Muscogee County,13,13215
+8,River Valley Regional Commission,Quitman County,13,13239
+8,River Valley Regional Commission,Randolph County,13,13243
+8,River Valley Regional Commission,Schley County,13,13249
+8,River Valley Regional Commission,Stewart County,13,13259
+8,River Valley Regional Commission,Sumter County,13,13261
+8,River Valley Regional Commission,Talbot County,13,13263
+8,River Valley Regional Commission,Taylor County,13,13269
+8,River Valley Regional Commission,Webster County,13,13307
+9,Heart of Georgia-Altamaha Regional Commission,Appling County,13,13001
+9,Heart of Georgia-Altamaha Regional Commission,Bleckley County,13,13023
+9,Heart of Georgia-Altamaha Regional Commission,Candler County,13,13043
+9,Heart of Georgia-Altamaha Regional Commission,Dodge County,13,13091
+9,Heart of Georgia-Altamaha Regional Commission,Emanuel County,13,13107
+9,Heart of Georgia-Altamaha Regional Commission,Evans County,13,13109
+9,Heart of Georgia-Altamaha Regional Commission,Jeff Davis County,13,13161
+9,Heart of Georgia-Altamaha Regional Commission,Johnson County,13,13167
+9,Heart of Georgia-Altamaha Regional Commission,Laurens County,13,13175
+9,Heart of Georgia-Altamaha Regional Commission,Montgomery County,13,13209
+9,Heart of Georgia-Altamaha Regional Commission,Tattnall County,13,13267
+9,Heart of Georgia-Altamaha Regional Commission,Telfair County,13,13271
+9,Heart of Georgia-Altamaha Regional Commission,Toombs County,13,13279
+9,Heart of Georgia-Altamaha Regional Commission,Treutlen County,13,13283
+9,Heart of Georgia-Altamaha Regional Commission,Wayne County,13,13305
+9,Heart of Georgia-Altamaha Regional Commission,Wheeler County,13,13309
+9,Heart of Georgia-Altamaha Regional Commission,Wilcox County,13,13315
+10,Southwest Georgia Regional Commission,Baker County,13,13007
+10,Southwest Georgia Regional Commission,Calhoun County,13,13037
+10,Southwest Georgia Regional Commission,Colquitt County,13,13071
+10,Southwest Georgia Regional Commission,Decatur County,13,13087
+10,Southwest Georgia Regional Commission,Dougherty County,13,13095
+10,Southwest Georgia Regional Commission,Early County,13,13099
+10,Southwest Georgia Regional Commission,Grady County,13,13131
+10,Southwest Georgia Regional Commission,Lee County,13,13177
+10,Southwest Georgia Regional Commission,Miller County,13,13201
+10,Southwest Georgia Regional Commission,Mitchell County,13,13205
+10,Southwest Georgia Regional Commission,Seminole County,13,13253
+10,Southwest Georgia Regional Commission,Terrell County,13,13273
+10,Southwest Georgia Regional Commission,Thomas County,13,13275
+10,Southwest Georgia Regional Commission,Worth County,13,13321
+11,Southern Georgia Regional Commission,Atkinson County,13,13003
+11,Southern Georgia Regional Commission,Bacon County,13,13005
+11,Southern Georgia Regional Commission,Ben Hill County,13,13017
+11,Southern Georgia Regional Commission,Berrien County,13,13019
+11,Southern Georgia Regional Commission,Brantley County,13,13025
+11,Southern Georgia Regional Commission,Brooks County,13,13027
+11,Southern Georgia Regional Commission,Charlton County,13,13049
+11,Southern Georgia Regional Commission,Clinch County,13,13065
+11,Southern Georgia Regional Commission,Coffee County,13,13069
+11,Southern Georgia Regional Commission,Cook County,13,13075
+11,Southern Georgia Regional Commission,Echols County,13,13101
+11,Southern Georgia Regional Commission,Irwin County,13,13155
+11,Southern Georgia Regional Commission,Lanier County,13,13173
+11,Southern Georgia Regional Commission,Lowndes County,13,13185
+11,Southern Georgia Regional Commission,Pierce County,13,13229
+11,Southern Georgia Regional Commission,Tift County,13,13277
+11,Southern Georgia Regional Commission,Turner County,13,13287
+11,Southern Georgia Regional Commission,Ware County,13,13299
+12,Coastal Regional Commission of Georgia,Bryan County,13,13029
+12,Coastal Regional Commission of Georgia,Bulloch County,13,13031
+12,Coastal Regional Commission of Georgia,Camden County,13,13039
+12,Coastal Regional Commission of Georgia,Chatham County,13,13051
+12,Coastal Regional Commission of Georgia,Effingham County,13,13103
+12,Coastal Regional Commission of Georgia,Glynn County,13,13127
+12,Coastal Regional Commission of Georgia,Liberty County,13,13179
+12,Coastal Regional Commission of Georgia,Long County,13,13183
+12,Coastal Regional Commission of Georgia,McIntosh County,13,13191
+12,Coastal Regional Commission of Georgia,Screven County,13,13251

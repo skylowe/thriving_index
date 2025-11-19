@@ -488,15 +488,81 @@ Data collection tasks (5 measures - see API_MAPPING.md for details):
 - Social Capital Atlas data provides comprehensive county-level social capital metrics
 - All data integrated into single CSV file with consistent county FIPS codes
 
-### Phase 9: Regional Aggregation and Peer Selection
+### Phase 10: Regional Data Aggregation
+**Status**: ⚙️ In Progress (19% Complete - 9 of 47 measures aggregated)
+**Last Updated**: 2025-11-18
+
+**Objective**: Aggregate county-level data to regional level for all 47 measures across 94 regions.
+
+Infrastructure Development:
+- [x] Add county FIPS codes to all regional CSV files
+- [x] Create multi-state RegionalDataManager class
+- [x] Design aggregation configuration for all 47 measures
+- [x] Build main regional aggregation script
+- [x] Test aggregation system with sample components
+
+**Files Created**:
+- `scripts/add_fips_to_regions.py` - Adds FIPS codes to regional definitions
+- `scripts/regional_data_manager.py` - Multi-state regional data management class
+- `scripts/aggregation_config.py` - Aggregation methods for all 47 measures
+- `scripts/aggregate_to_regional.py` - Main aggregation script
+- `data/regions/*.csv` - Updated with county_fips column (9 files)
+
+Component Aggregation Status:
+- [ ] Component 1: Growth Index (0 of 5 measures) - **DATA ISSUE: Measure 1.4 needs re-collection**
+- [x] Component 2: Economic Opportunity & Diversity (4 of 7 measures) ✅
+  - ✓ 2.1: Entrepreneurial Activity
+  - ✓ 2.2: Proprietors per 1,000
+  - ✓ 2.3: Establishments per 1,000
+  - ⏸ 2.4: Nonemployer Share (requires custom calculation)
+  - ⏸ 2.5: Industry Diversity (Herfindahl index - requires multi-file processing)
+  - ⏸ 2.6: Occupation Diversity (Herfindahl index - requires custom calculation)
+  - ✓ 2.7: Telecommuter Share
+- [ ] Component 3: Other Prosperity Index (0 of 5 measures)
+  - ⏸ 3.2: Income Stability (requires time-series coefficient of variation)
+- [ ] Component 4: Demographic Growth & Renewal (0 of 6 measures)
+- [ ] Component 5: Education & Skill (0 of 5 measures)
+- [ ] Component 6: Infrastructure & Cost of Doing Business (0 of 6 measures)
+- [ ] Component 7: Quality of Life (0 of 8 measures)
+- [x] Component 8: Social Capital (5 of 5 measures) ✅
+  - ✓ 8.1: Nonprofits per 1,000
+  - ✓ 8.2: Volunteer Rate
+  - ✓ 8.3: Social Associations per 10k
+  - ✓ 8.4: Voter Turnout
+  - ✓ 8.5: Civic Organizations Density
+
+**Regional Data Files Created**:
+- `data/regional/component2_economic_opportunity_regional.csv` (94 regions)
+- `data/regional/component8_social_capital_regional.csv` (94 regions)
+
+**Aggregation Methods Summary** (47 measures):
+- Recalculate from components: 24 measures (growth rates, ratios, per-capita)
+- Weighted mean: 16 measures (rates, percentages)
+- Sum: 4 measures (absolute counts)
+- Max: 1 measure (binary indicators)
+- State-level: 1 measure (income tax rate)
+- Simple mean: 1 measure (amenity scale)
+
+**Known Issues**:
+- Component 1, Measure 1.4: Wrong Census variable used (S1101_C01_002E instead of S1101_C01_010E)
+  - Current variable: Average household size
+  - Correct variable: Households with one or more people under 18 years
+  - **Action Required**: Re-collect using correct variable
+
+**Next Steps**:
+1. Add aggregation functions for Components 3-7
+2. Implement special case calculations (Herfindahl indexes, income stability CV)
+3. Re-collect Component 1.4 with correct Census variable
+4. Complete aggregation for all 47 measures
+5. Validate regional data quality and coverage
+
+### Phase 11: Peer Region Matching
 **Status**: Not Started
-- [ ] Define Virginia rural regions (aggregate counties)
-- [ ] Define comparison regions in other 9 states
 - [ ] Gather 6 matching variables for Mahalanobis distance
 - [ ] Implement Mahalanobis distance matching algorithm
-- [ ] Select 5-8 peer regions for each Virginia region
+- [ ] Select 5-8 peer regions for each Virginia rural region
 
-### Phase 10: Index Calculation and Analysis
+### Phase 12: Index Calculation and Analysis
 **Status**: Not Started
 - [ ] Implement index scoring methodology (100 = peer average, ±100 = ±1 SD)
 - [ ] Calculate all 8 component indexes
@@ -505,7 +571,7 @@ Data collection tasks (5 measures - see API_MAPPING.md for details):
 - [ ] Create visualizations and reports
 
 ## Current Status
-**Phase**: **ALL DATA COLLECTION COMPLETE** ✅
+**Phase**: **Phase 10: Regional Data Aggregation** ⚙️ (19% Complete)
 **Date**: 2025-11-18
 
 **Completed**:
@@ -593,6 +659,28 @@ Data collection tasks (5 measures - see API_MAPPING.md for details):
   - ✓ Measure 8.4: Voter Turnout - 2020 Presidential Election (804 counties, mean: 63.67%)
   - ✓ Measure 8.5: Civic Organizations Density from Social Capital Atlas (782 counties, mean: 0.0176 per 1k users) ✅ NEW
   - ✓ **REPLACEMENT**: Continuous density measure instead of binary Tree City USA
+- ✅ Phase 9: Regional Definitions (**100% COMPLETE** - All 10 states defined)
+  - ✓ Virginia: 9 GO Virginia regions (133 localities, 100% coverage)
+  - ✓ Pennsylvania: 7 EDDs (52 counties, 78% coverage)
+  - ✓ Maryland: 5 regional councils (15 counties, 63% coverage)
+  - ✓ Delaware: No formal regions (3 counties, county-level only)
+  - ✓ West Virginia: 11 regional planning councils (55 counties, 100% coverage)
+  - ✓ Kentucky: 15 ADDs (119 counties, 99% coverage)
+  - ✓ Tennessee: 9 development districts (94 counties, 99% coverage)
+  - ✓ North Carolina: 16 COGs (100 counties, 100% coverage)
+  - ✓ South Carolina: 10 COGs (46 counties, 100% coverage)
+  - ✓ Georgia: 12 regional commissions (159 counties, 100% coverage)
+  - ✓ Total: 94 regions covering 773 counties
+- ⚙️ Phase 10: Regional Data Aggregation (**19% COMPLETE** - 9 of 47 measures aggregated)
+  - ✓ Regional aggregation infrastructure complete
+  - ✓ Added county FIPS codes to all regional CSV files
+  - ✓ Created `scripts/regional_data_manager.py` - Multi-state regional data management
+  - ✓ Created `scripts/aggregation_config.py` - Aggregation methods for all 47 measures
+  - ✓ Created `scripts/aggregate_to_regional.py` - Main aggregation script
+  - ✓ Component 2: 4 measures aggregated (entrepreneurial activity, proprietors, establishments, telecommuters)
+  - ✓ Component 8: 5 measures aggregated (all social capital measures)
+  - ✓ Created 2 regional data files (94 regions each)
+  - ⏸ Remaining: 38 measures across Components 1, 3-7 (pending)
 
 ### Phase 9: Regional Definitions
 **Status**: ✓ Complete for All 10 States
@@ -643,10 +731,11 @@ Comparison State Regions (EDA/EDD Framework):
 **Next Steps**:
 1. ✅ **DATA COLLECTION COMPLETE**: All 47 measures collected!
 2. ✅ **REGIONAL DEFINITIONS COMPLETE**: All 10 states defined (94 regions, 773 counties)
-3. Next: Regional data aggregation (county-level to region-level for all measures)
-4. Later: Validate and clean all component data
-5. Later: Calculate growth rates and index scores
-6. Later: Peer region matching using Mahalanobis distance
+3. ✅ **REGIONAL AGGREGATION INFRASTRUCTURE COMPLETE**: Multi-state aggregation system built and tested
+4. In Progress: Regional data aggregation for remaining components (9 of 47 measures aggregated)
+5. Later: Validate and clean all component data
+6. Later: Calculate growth rates and index scores
+7. Later: Peer region matching using Mahalanobis distance
 
 **Overall Progress**: ✅ **47 of 47 measures fully collected (100% COMPLETE!)**
 
