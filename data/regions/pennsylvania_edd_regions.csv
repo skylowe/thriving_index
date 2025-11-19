@@ -1,0 +1,53 @@
+region_id,region_name,county_name,state_fips
+1,North Central Pennsylvania,Cameron County,42
+1,North Central Pennsylvania,Clearfield County,42
+1,North Central Pennsylvania,Elk County,42
+1,North Central Pennsylvania,Jefferson County,42
+1,North Central Pennsylvania,McKean County,42
+1,North Central Pennsylvania,Potter County,42
+2,Northwest Pennsylvania,Clarion County,42
+2,Northwest Pennsylvania,Crawford County,42
+2,Northwest Pennsylvania,Erie County,42
+2,Northwest Pennsylvania,Forest County,42
+2,Northwest Pennsylvania,Lawrence County,42
+2,Northwest Pennsylvania,Mercer County,42
+2,Northwest Pennsylvania,Venango County,42
+2,Northwest Pennsylvania,Warren County,42
+3,Southwestern Pennsylvania,Allegheny County,42
+3,Southwestern Pennsylvania,Armstrong County,42
+3,Southwestern Pennsylvania,Beaver County,42
+3,Southwestern Pennsylvania,Butler County,42
+3,Southwestern Pennsylvania,Fayette County,42
+3,Southwestern Pennsylvania,Greene County,42
+3,Southwestern Pennsylvania,Indiana County,42
+3,Southwestern Pennsylvania,Washington County,42
+3,Southwestern Pennsylvania,Westmoreland County,42
+4,Northern Tier,Bradford County,42
+4,Northern Tier,Sullivan County,42
+4,Northern Tier,Susquehanna County,42
+4,Northern Tier,Tioga County,42
+4,Northern Tier,Wyoming County,42
+5,Southern Alleghenies,Bedford County,42
+5,Southern Alleghenies,Blair County,42
+5,Southern Alleghenies,Cambria County,42
+5,Southern Alleghenies,Fulton County,42
+5,Southern Alleghenies,Huntingdon County,42
+5,Southern Alleghenies,Somerset County,42
+6,SEDA-COG,Centre County,42
+6,SEDA-COG,Clinton County,42
+6,SEDA-COG,Columbia County,42
+6,SEDA-COG,Juniata County,42
+6,SEDA-COG,Lycoming County,42
+6,SEDA-COG,Mifflin County,42
+6,SEDA-COG,Montour County,42
+6,SEDA-COG,Northumberland County,42
+6,SEDA-COG,Perry County,42
+6,SEDA-COG,Snyder County,42
+6,SEDA-COG,Union County,42
+7,Northeastern Pennsylvania,Carbon County,42
+7,Northeastern Pennsylvania,Lackawanna County,42
+7,Northeastern Pennsylvania,Luzerne County,42
+7,Northeastern Pennsylvania,Monroe County,42
+7,Northeastern Pennsylvania,Pike County,42
+7,Northeastern Pennsylvania,Schuylkill County,42
+7,Northeastern Pennsylvania,Wayne County,42

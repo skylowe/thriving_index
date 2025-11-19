@@ -1,0 +1,56 @@
+region_id,region_name,county_name,state_fips
+1,Region I Planning and Development Council,McDowell County,54
+1,Region I Planning and Development Council,Mercer County,54
+1,Region I Planning and Development Council,Monroe County,54
+1,Region I Planning and Development Council,Raleigh County,54
+1,Region I Planning and Development Council,Summers County,54
+1,Region I Planning and Development Council,Wyoming County,54
+2,Region II Planning and Development Council,Cabell County,54
+2,Region II Planning and Development Council,Lincoln County,54
+2,Region II Planning and Development Council,Logan County,54
+2,Region II Planning and Development Council,Mason County,54
+2,Region II Planning and Development Council,Mingo County,54
+2,Region II Planning and Development Council,Wayne County,54
+3,Region III - BCKP Regional Intergovernmental Council,Fayette County,54
+3,Region III - BCKP Regional Intergovernmental Council,Greenbrier County,54
+3,Region III - BCKP Regional Intergovernmental Council,Nicholas County,54
+3,Region III - BCKP Regional Intergovernmental Council,Pocahontas County,54
+3,Region III - BCKP Regional Intergovernmental Council,Webster County,54
+4,Region IV Planning and Development Council,Boone County,54
+4,Region IV Planning and Development Council,Clay County,54
+4,Region IV Planning and Development Council,Kanawha County,54
+4,Region IV Planning and Development Council,Putnam County,54
+5,Region V - Mid-Ohio Valley Regional Council,Calhoun County,54
+5,Region V - Mid-Ohio Valley Regional Council,Jackson County,54
+5,Region V - Mid-Ohio Valley Regional Council,Pleasants County,54
+5,Region V - Mid-Ohio Valley Regional Council,Ritchie County,54
+5,Region V - Mid-Ohio Valley Regional Council,Roane County,54
+5,Region V - Mid-Ohio Valley Regional Council,Tyler County,54
+5,Region V - Mid-Ohio Valley Regional Council,Wirt County,54
+5,Region V - Mid-Ohio Valley Regional Council,Wood County,54
+6,Region VI Planning and Development Council,Doddridge County,54
+6,Region VI Planning and Development Council,Harrison County,54
+6,Region VI Planning and Development Council,Marion County,54
+6,Region VI Planning and Development Council,Monongalia County,54
+6,Region VI Planning and Development Council,Preston County,54
+6,Region VI Planning and Development Council,Taylor County,54
+7,Region VII Planning and Development Council,Barbour County,54
+7,Region VII Planning and Development Council,Braxton County,54
+7,Region VII Planning and Development Council,Gilmer County,54
+7,Region VII Planning and Development Council,Lewis County,54
+7,Region VII Planning and Development Council,Randolph County,54
+7,Region VII Planning and Development Council,Tucker County,54
+7,Region VII Planning and Development Council,Upshur County,54
+8,Region VIII Planning and Development Council,Grant County,54
+8,Region VIII Planning and Development Council,Hampshire County,54
+8,Region VIII Planning and Development Council,Hardy County,54
+8,Region VIII Planning and Development Council,Mineral County,54
+8,Region VIII Planning and Development Council,Pendleton County,54
+9,Region IX - Eastern Panhandle Regional Planning and Development Council,Berkeley County,54
+9,Region IX - Eastern Panhandle Regional Planning and Development Council,Jefferson County,54
+9,Region IX - Eastern Panhandle Regional Planning and Development Council,Morgan County,54
+10,Region X - Bel-O-Mar Regional Council,Marshall County,54
+10,Region X - Bel-O-Mar Regional Council,Ohio County,54
+10,Region X - Bel-O-Mar Regional Council,Wetzel County,54
+11,Region XI - Brooke-Hancock Regional Planning and Development Council,Brooke County,54
+11,Region XI - Brooke-Hancock Regional Planning and Development Council,Hancock County,54

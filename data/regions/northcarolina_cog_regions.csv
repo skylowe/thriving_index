@@ -1,0 +1,101 @@
+region_id,region_name,county_name,state_fips
+1,Southwestern Commission,Cherokee County,37
+1,Southwestern Commission,Clay County,37
+1,Southwestern Commission,Graham County,37
+1,Southwestern Commission,Haywood County,37
+1,Southwestern Commission,Jackson County,37
+1,Southwestern Commission,Macon County,37
+1,Southwestern Commission,Swain County,37
+2,Land of Sky Regional Council,Buncombe County,37
+2,Land of Sky Regional Council,Henderson County,37
+2,Land of Sky Regional Council,Madison County,37
+2,Land of Sky Regional Council,Transylvania County,37
+3,Isothermal Planning & Development Commission,Cleveland County,37
+3,Isothermal Planning & Development Commission,McDowell County,37
+3,Isothermal Planning & Development Commission,Polk County,37
+3,Isothermal Planning & Development Commission,Rutherford County,37
+4,High Country Council of Governments,Alleghany County,37
+4,High Country Council of Governments,Ashe County,37
+4,High Country Council of Governments,Avery County,37
+4,High Country Council of Governments,Mitchell County,37
+4,High Country Council of Governments,Watauga County,37
+4,High Country Council of Governments,Wilkes County,37
+4,High Country Council of Governments,Yancey County,37
+5,Western Piedmont Council of Governments,Alexander County,37
+5,Western Piedmont Council of Governments,Burke County,37
+5,Western Piedmont Council of Governments,Caldwell County,37
+5,Western Piedmont Council of Governments,Catawba County,37
+6,Centralina Regional Council,Anson County,37
+6,Centralina Regional Council,Cabarrus County,37
+6,Centralina Regional Council,Gaston County,37
+6,Centralina Regional Council,Iredell County,37
+6,Centralina Regional Council,Lincoln County,37
+6,Centralina Regional Council,Mecklenburg County,37
+6,Centralina Regional Council,Rowan County,37
+6,Centralina Regional Council,Stanly County,37
+6,Centralina Regional Council,Union County,37
+7,Piedmont Triad Council of Governments,Alamance County,37
+7,Piedmont Triad Council of Governments,Caswell County,37
+7,Piedmont Triad Council of Governments,Davidson County,37
+7,Piedmont Triad Council of Governments,Davie County,37
+7,Piedmont Triad Council of Governments,Forsyth County,37
+7,Piedmont Triad Council of Governments,Guilford County,37
+7,Piedmont Triad Council of Governments,Montgomery County,37
+7,Piedmont Triad Council of Governments,Randolph County,37
+7,Piedmont Triad Council of Governments,Rockingham County,37
+7,Piedmont Triad Council of Governments,Stokes County,37
+7,Piedmont Triad Council of Governments,Surry County,37
+7,Piedmont Triad Council of Governments,Yadkin County,37
+8,Triangle J Council of Governments,Chatham County,37
+8,Triangle J Council of Governments,Durham County,37
+8,Triangle J Council of Governments,Johnston County,37
+8,Triangle J Council of Governments,Lee County,37
+8,Triangle J Council of Governments,Moore County,37
+8,Triangle J Council of Governments,Orange County,37
+8,Triangle J Council of Governments,Wake County,37
+9,Kerr-Tar Council of Governments,Franklin County,37
+9,Kerr-Tar Council of Governments,Granville County,37
+9,Kerr-Tar Council of Governments,Person County,37
+9,Kerr-Tar Council of Governments,Vance County,37
+9,Kerr-Tar Council of Governments,Warren County,37
+10,Upper Coastal Plain Council of Governments,Edgecombe County,37
+10,Upper Coastal Plain Council of Governments,Halifax County,37
+10,Upper Coastal Plain Council of Governments,Nash County,37
+10,Upper Coastal Plain Council of Governments,Northampton County,37
+10,Upper Coastal Plain Council of Governments,Wilson County,37
+11,Mid-Carolina Council of Governments,Cumberland County,37
+11,Mid-Carolina Council of Governments,Harnett County,37
+11,Mid-Carolina Council of Governments,Sampson County,37
+12,Lumber River Council of Governments,Bladen County,37
+12,Lumber River Council of Governments,Hoke County,37
+12,Lumber River Council of Governments,Richmond County,37
+12,Lumber River Council of Governments,Robeson County,37
+12,Lumber River Council of Governments,Scotland County,37
+13,Cape Fear Council of Governments,Brunswick County,37
+13,Cape Fear Council of Governments,Columbus County,37
+13,Cape Fear Council of Governments,New Hanover County,37
+13,Cape Fear Council of Governments,Pender County,37
+14,Eastern Carolina Council of Governments,Carteret County,37
+14,Eastern Carolina Council of Governments,Craven County,37
+14,Eastern Carolina Council of Governments,Duplin County,37
+14,Eastern Carolina Council of Governments,Greene County,37
+14,Eastern Carolina Council of Governments,Jones County,37
+14,Eastern Carolina Council of Governments,Lenoir County,37
+14,Eastern Carolina Council of Governments,Onslow County,37
+14,Eastern Carolina Council of Governments,Pamlico County,37
+14,Eastern Carolina Council of Governments,Wayne County,37
+15,Albemarle Commission,Camden County,37
+15,Albemarle Commission,Chowan County,37
+15,Albemarle Commission,Currituck County,37
+15,Albemarle Commission,Dare County,37
+15,Albemarle Commission,Gates County,37
+15,Albemarle Commission,Hyde County,37
+15,Albemarle Commission,Pasquotank County,37
+15,Albemarle Commission,Perquimans County,37
+15,Albemarle Commission,Tyrrell County,37
+15,Albemarle Commission,Washington County,37
+16,Mid-East Commission,Beaufort County,37
+16,Mid-East Commission,Bertie County,37
+16,Mid-East Commission,Hertford County,37
+16,Mid-East Commission,Martin County,37
+16,Mid-East Commission,Pitt County,37

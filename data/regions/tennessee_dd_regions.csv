@@ -1,0 +1,95 @@
+region_id,region_name,county_name,state_fips
+1,First Tennessee Development District,Carter County,47
+1,First Tennessee Development District,Greene County,47
+1,First Tennessee Development District,Hancock County,47
+1,First Tennessee Development District,Hawkins County,47
+1,First Tennessee Development District,Johnson County,47
+1,First Tennessee Development District,Sullivan County,47
+1,First Tennessee Development District,Unicoi County,47
+1,First Tennessee Development District,Washington County,47
+2,East Tennessee Development District,Anderson County,47
+2,East Tennessee Development District,Blount County,47
+2,East Tennessee Development District,Campbell County,47
+2,East Tennessee Development District,Claiborne County,47
+2,East Tennessee Development District,Cocke County,47
+2,East Tennessee Development District,Grainger County,47
+2,East Tennessee Development District,Hamblen County,47
+2,East Tennessee Development District,Jefferson County,47
+2,East Tennessee Development District,Knox County,47
+2,East Tennessee Development District,Loudon County,47
+2,East Tennessee Development District,Monroe County,47
+2,East Tennessee Development District,Morgan County,47
+2,East Tennessee Development District,Roane County,47
+2,East Tennessee Development District,Scott County,47
+2,East Tennessee Development District,Sevier County,47
+2,East Tennessee Development District,Union County,47
+3,Southeast Tennessee Development District,Bledsoe County,47
+3,Southeast Tennessee Development District,Bradley County,47
+3,Southeast Tennessee Development District,Grundy County,47
+3,Southeast Tennessee Development District,Hamilton County,47
+3,Southeast Tennessee Development District,Marion County,47
+3,Southeast Tennessee Development District,McMinn County,47
+3,Southeast Tennessee Development District,Meigs County,47
+3,Southeast Tennessee Development District,Polk County,47
+3,Southeast Tennessee Development District,Rhea County,47
+3,Southeast Tennessee Development District,Sequatchie County,47
+4,Upper Cumberland Development District,Cannon County,47
+4,Upper Cumberland Development District,Clay County,47
+4,Upper Cumberland Development District,Cumberland County,47
+4,Upper Cumberland Development District,DeKalb County,47
+4,Upper Cumberland Development District,Fentress County,47
+4,Upper Cumberland Development District,Jackson County,47
+4,Upper Cumberland Development District,Macon County,47
+4,Upper Cumberland Development District,Overton County,47
+4,Upper Cumberland Development District,Pickett County,47
+4,Upper Cumberland Development District,Putnam County,47
+4,Upper Cumberland Development District,Smith County,47
+4,Upper Cumberland Development District,Van Buren County,47
+4,Upper Cumberland Development District,Warren County,47
+4,Upper Cumberland Development District,White County,47
+5,South Central Tennessee Development District,Bedford County,47
+5,South Central Tennessee Development District,Coffee County,47
+5,South Central Tennessee Development District,Franklin County,47
+5,South Central Tennessee Development District,Giles County,47
+5,South Central Tennessee Development District,Hickman County,47
+5,South Central Tennessee Development District,Lawrence County,47
+5,South Central Tennessee Development District,Lewis County,47
+5,South Central Tennessee Development District,Lincoln County,47
+5,South Central Tennessee Development District,Marshall County,47
+5,South Central Tennessee Development District,Maury County,47
+5,South Central Tennessee Development District,Moore County,47
+5,South Central Tennessee Development District,Perry County,47
+5,South Central Tennessee Development District,Wayne County,47
+6,Southwest Tennessee Development District,Chester County,47
+6,Southwest Tennessee Development District,Decatur County,47
+6,Southwest Tennessee Development District,Hardeman County,47
+6,Southwest Tennessee Development District,Hardin County,47
+6,Southwest Tennessee Development District,Haywood County,47
+6,Southwest Tennessee Development District,Henderson County,47
+6,Southwest Tennessee Development District,Madison County,47
+6,Southwest Tennessee Development District,McNairy County,47
+7,Northwest Tennessee Development District,Benton County,47
+7,Northwest Tennessee Development District,Carroll County,47
+7,Northwest Tennessee Development District,Crockett County,47
+7,Northwest Tennessee Development District,Gibson County,47
+7,Northwest Tennessee Development District,Henry County,47
+7,Northwest Tennessee Development District,Lake County,47
+7,Northwest Tennessee Development District,Obion County,47
+7,Northwest Tennessee Development District,Weakley County,47
+8,Greater Nashville Regional Council,Cheatham County,47
+8,Greater Nashville Regional Council,Davidson County,47
+8,Greater Nashville Regional Council,Dickson County,47
+8,Greater Nashville Regional Council,Houston County,47
+8,Greater Nashville Regional Council,Humphreys County,47
+8,Greater Nashville Regional Council,Montgomery County,47
+8,Greater Nashville Regional Council,Robertson County,47
+8,Greater Nashville Regional Council,Rutherford County,47
+8,Greater Nashville Regional Council,Stewart County,47
+8,Greater Nashville Regional Council,Sumner County,47
+8,Greater Nashville Regional Council,Trousdale County,47
+8,Greater Nashville Regional Council,Williamson County,47
+8,Greater Nashville Regional Council,Wilson County,47
+9,MidSouth Development District,Fayette County,47
+9,MidSouth Development District,Lauderdale County,47
+9,MidSouth Development District,Shelby County,47
+9,MidSouth Development District,Tipton County,47
