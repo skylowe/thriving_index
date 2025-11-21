@@ -451,13 +451,12 @@ def main():
         st.markdown("""
         **Explore Virginia regions and their peer comparison regions on an interactive map.**
 
-        Select a Virginia region using the dropdown below or by clicking on a blue/gray Virginia region on the map.
-        The map shows peer regions identified using Mahalanobis distance matching:
+        Select a Virginia region from the dropdown to see its peer regions identified using Mahalanobis distance matching:
         - **Blue**: Selected Virginia region
         - **Orange**: Peer comparison regions (top 8 matches)
         - **Gray**: Other regions
 
-        *Hover over regions for details. Click Virginia regions to select. Use mouse to zoom and pan.*
+        *Hover over regions for details. Use mouse to zoom and pan.*
         """)
 
         # Load geographic data
@@ -469,53 +468,13 @@ def main():
             va_region_options = {row['virginia_region_name']: row['virginia_region_key']
                                 for _, row in va_regions.iterrows()}
 
-            # Reverse mapping for looking up names from keys
-            va_region_names = {v: k for k, v in va_region_options.items()}
-
-            # Initialize session state for selected region if not exists
-            if 'selected_va_region' not in st.session_state:
-                st.session_state.selected_va_region = list(va_region_options.values())[0]
-
-            # Check for map click event
-            if 'regional_map' in st.session_state:
-                map_state = st.session_state.regional_map
-                # Debug: show what's in the map state
-                st.write("Debug - map_state:", map_state)
-
-                if map_state and isinstance(map_state, dict):
-                    selection = map_state.get('selection', {})
-                    if selection:
-                        # Check both points and point_indices
-                        points = selection.get('points', [])
-                        if len(points) > 0:
-                            point = points[0]
-                            st.write("Debug - clicked point:", point)
-                            # Check if customdata exists and extract region key
-                            if 'customdata' in point and point['customdata']:
-                                clicked_region_key = point['customdata'][0]
-                                st.write("Debug - clicked_region_key:", clicked_region_key)
-                                # Only update if it's a Virginia region and different from current
-                                if clicked_region_key in va_region_names:
-                                    if clicked_region_key != st.session_state.selected_va_region:
-                                        st.session_state.selected_va_region = clicked_region_key
-                                        st.rerun()
-                                    else:
-                                        st.info(f"Already showing: {va_region_names[clicked_region_key]}")
-
-            # Selection dropdown - sync with session state
-            current_name = va_region_names.get(st.session_state.selected_va_region, list(va_region_options.keys())[0])
+            # Selection dropdown
             selected_name = st.selectbox(
                 "Select Virginia Region:",
                 options=list(va_region_options.keys()),
-                index=list(va_region_options.keys()).index(current_name),
-                key='region_dropdown'
+                index=0
             )
-
-            # Update session state from dropdown if changed
-            if va_region_options[selected_name] != st.session_state.selected_va_region:
-                st.session_state.selected_va_region = va_region_options[selected_name]
-
-            selected_va_region = st.session_state.selected_va_region
+            selected_va_region = va_region_options[selected_name]
 
             # Get peer regions for selected VA region
             peer_rows = peers_df[peers_df['virginia_region_key'] == selected_va_region].copy()
@@ -577,46 +536,19 @@ def main():
                     if pd.notna(row['overall_score']):
                         hover_text += f"<br>Score: {row['overall_score']:.1f}"
 
-                    # Add filled region boundary
                     fig.add_trace(go.Scattergeo(
                         lon=lons,
                         lat=lats,
                         mode='lines',
                         fill='toself',
                         fillcolor=color_map[category],
-                        line=dict(width=1, color='rgba(0,0,0,0.4)'),  # Thinner, lighter region borders
+                        line=dict(width=1, color='rgba(0,0,0,0.4)'),
                         name=category,
                         legendgroup=category,
-                        showlegend=bool(idx == subset.index[0]),  # Convert to Python bool
+                        showlegend=bool(idx == subset.index[0]),
                         text=hover_text,
-                        hoverinfo='text',
-                        customdata=[[row['region_key']]]  # Store region_key for click events
+                        hoverinfo='text'
                     ))
-
-                    # Add clickable point at region centroid (for Virginia regions only)
-                    if row['region_key'] in va_region_names:
-                        centroid = row.geometry.centroid
-                        fig.add_trace(go.Scattergeo(
-                            lon=[centroid.x],
-                            lat=[centroid.y],
-                            mode='markers+text',
-                            marker=dict(
-                                size=15,
-                                color='white',
-                                opacity=0.8,
-                                line=dict(width=2, color='#1f77b4')
-                            ),
-                            text='⊕',  # Click target indicator
-                            textposition='middle center',
-                            textfont=dict(size=12, color='#1f77b4'),
-                            showlegend=False,
-                            hovertext=f"Click to select: {row['region_name']}",
-                            hoverinfo='text',
-                            customdata=[[row['region_key']]],
-                            name='',
-                            selected=dict(marker=dict(color='green')),
-                            unselected=dict(marker=dict(opacity=0.8))
-                        ))
 
             # Add state boundaries AFTER regions (so they appear on top)
             for idx, row in states_gdf.iterrows():
@@ -636,7 +568,7 @@ def main():
                         lon=lons,
                         lat=lats,
                         mode='lines',
-                        line=dict(width=4, color='rgba(30,30,30,0.8)'),  # Bold, dark state borders
+                        line=dict(width=2.5, color='rgba(30,30,30,0.85)'),
                         showlegend=False,
                         hoverinfo='skip',
                         name=''
@@ -677,7 +609,7 @@ def main():
                 )
             )
 
-            st.plotly_chart(fig, use_container_width=True, key='regional_map', on_select='rerun', selection_mode='points')
+            st.plotly_chart(fig, use_container_width=True)
 
             # Comparison table
             st.subheader("Component Score Comparison")
