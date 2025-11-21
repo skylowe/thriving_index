@@ -32,10 +32,49 @@ st.markdown("""
         margin-bottom: 1rem;
     }
     .metric-card {
-        background-color: #f0f2f6;
-        padding: 1rem;
-        border-radius: 0.5rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 1.5rem;
+        border-radius: 1rem;
+        color: white;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .metric-card-green {
+        background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        padding: 1.5rem;
+        border-radius: 1rem;
+        color: white;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .metric-card-red {
+        background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+        padding: 1.5rem;
+        border-radius: 1rem;
+        color: white;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .metric-card-blue {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        padding: 1.5rem;
+        border-radius: 1rem;
+        color: white;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .metric-value {
+        font-size: 2.5rem;
+        font-weight: bold;
         margin: 0.5rem 0;
+    }
+    .metric-label {
+        font-size: 0.9rem;
+        opacity: 0.9;
+    }
+    .metric-delta {
+        font-size: 1rem;
+        margin-top: 0.5rem;
     }
     .highlight-green {
         color: #28a745;
@@ -44,6 +83,25 @@ st.markdown("""
     .highlight-red {
         color: #dc3545;
         font-weight: bold;
+    }
+    .score-badge {
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        border-radius: 1rem;
+        font-weight: bold;
+        font-size: 0.85rem;
+    }
+    .score-badge-green {
+        background-color: #d4edda;
+        color: #155724;
+    }
+    .score-badge-yellow {
+        background-color: #fff3cd;
+        color: #856404;
+    }
+    .score-badge-red {
+        background-color: #f8d7da;
+        color: #721c24;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -185,6 +243,35 @@ def create_component_heatmap(components_df):
     return fig
 
 
+def score_to_color(score, selected=False, is_peer=False):
+    """Convert a score to a color using RdYlGn colorscale."""
+    if pd.isna(score):
+        return 'rgba(200, 200, 200, 0.6)'
+
+    # Normalize score: 50-150 range mapped to 0-1
+    normalized = max(0, min(1, (score - 50) / 100))
+
+    # RdYlGn colorscale interpolation
+    if normalized < 0.5:
+        # Red to Yellow
+        r = 215 + int((255 - 215) * (normalized * 2))
+        g = 48 + int((255 - 48) * (normalized * 2))
+        b = 39 + int((0 - 39) * (normalized * 2))
+    else:
+        # Yellow to Green
+        r = 255 - int((255 - 39) * ((normalized - 0.5) * 2))
+        g = 255 - int((255 - 174) * ((normalized - 0.5) * 2))
+        b = 0 + int((96 - 0) * ((normalized - 0.5) * 2))
+
+    # Adjust opacity and brightness based on selection
+    if selected:
+        return f'rgba({r}, {g}, {b}, 1.0)'
+    elif is_peer:
+        return f'rgba({r}, {g}, {b}, 0.85)'
+    else:
+        return f'rgba({r}, {g}, {b}, 0.5)'
+
+
 def create_peer_comparison_chart(peers_df, va_region_key):
     """Create chart showing peer regions and their distances."""
     # Filter to selected VA region
@@ -291,24 +378,57 @@ def main():
         - **<100** = Below peer average
         """)
 
-        # Key metrics
+        # Key metrics with styled cards
         col1, col2, col3, col4 = st.columns(4)
 
+        above_avg = (overall_df['overall_thriving_index'] >= 100).sum()
+        top_region = overall_df.loc[overall_df['overall_thriving_index'].idxmax()]
+        top_score = top_region['overall_thriving_index']
+        top_name = top_region['virginia_region_name']
+        avg_score = overall_df['overall_thriving_index'].mean()
+        lowest_region = overall_df.loc[overall_df['overall_thriving_index'].idxmin()]
+        lowest_score = lowest_region['overall_thriving_index']
+
         with col1:
-            above_avg = (overall_df['overall_thriving_index'] >= 100).sum()
-            st.metric("Regions Above Peer Average", f"{above_avg} of 6")
+            card_class = "metric-card-green" if above_avg >= 3 else "metric-card-red"
+            st.markdown(f"""
+            <div class="{card_class}">
+                <div class="metric-label">Regions Above Peer Average</div>
+                <div class="metric-value">{above_avg} of 6</div>
+                <div class="metric-delta">{"✓ Majority thriving" if above_avg >= 3 else "⚠ Below majority"}</div>
+            </div>
+            """, unsafe_allow_html=True)
 
         with col2:
-            top_score = overall_df['overall_thriving_index'].max()
-            st.metric("Highest Score", f"{top_score:.1f}")
+            st.markdown(f"""
+            <div class="metric-card-green">
+                <div class="metric-label">Highest Score</div>
+                <div class="metric-value">{top_score:.1f}</div>
+                <div class="metric-delta">🏆 {top_name.split()[0]}</div>
+            </div>
+            """, unsafe_allow_html=True)
 
         with col3:
-            avg_score = overall_df['overall_thriving_index'].mean()
-            st.metric("Average Score", f"{avg_score:.1f}")
+            card_class = "metric-card-green" if avg_score >= 100 else "metric-card-red"
+            delta_text = f"↑ {avg_score - 100:.1f} above avg" if avg_score >= 100 else f"↓ {100 - avg_score:.1f} below avg"
+            st.markdown(f"""
+            <div class="{card_class}">
+                <div class="metric-label">Average Score</div>
+                <div class="metric-value">{avg_score:.1f}</div>
+                <div class="metric-delta">{delta_text}</div>
+            </div>
+            """, unsafe_allow_html=True)
 
         with col4:
-            range_score = overall_df['overall_thriving_index'].max() - overall_df['overall_thriving_index'].min()
-            st.metric("Score Range", f"{range_score:.1f}")
+            st.markdown(f"""
+            <div class="metric-card-blue">
+                <div class="metric-label">Lowest Score</div>
+                <div class="metric-value">{lowest_score:.1f}</div>
+                <div class="metric-delta">📍 {lowest_region['virginia_region_name'].split()[0]}</div>
+            </div>
+            """, unsafe_allow_html=True)
+
+        st.markdown("<br>", unsafe_allow_html=True)
 
         # Rankings chart
         st.plotly_chart(create_rankings_chart(overall_df), use_container_width=True)
@@ -451,10 +571,11 @@ def main():
         st.markdown("""
         **Explore Virginia regions and their peer comparison regions on an interactive map.**
 
-        Select a Virginia region from the dropdown to see its peer regions identified using Mahalanobis distance matching:
-        - **Blue**: Selected Virginia region
-        - **Orange**: Peer comparison regions (top 8 matches)
-        - **Gray**: Other regions
+        Select a Virginia region from the dropdown. Regions are colored by their Thriving Index score:
+        - 🟢 **Green** = High scores (above peer average)
+        - 🟡 **Yellow** = Average scores (near peer average)
+        - 🔴 **Red** = Low scores (below peer average)
+        - **Bold outline** = Selected region and its peer matches
 
         *Hover over regions for details. Use mouse to zoom and pan.*
         """)
@@ -495,60 +616,59 @@ def main():
                 how='left'
             )
 
-            # Create color column based on selection
-            def assign_color(row):
-                if row['region_key'] == selected_va_region:
-                    return 'Selected Virginia Region'
-                elif row['region_key'] in peer_region_keys:
-                    return 'Peer Region'
-                else:
-                    return 'Other Region'
-
-            regions_with_scores['category'] = regions_with_scores.apply(assign_color, axis=1)
-
-            # Color scheme
-            color_map = {
-                'Selected Virginia Region': '#1f77b4',  # Blue
-                'Peer Region': '#ff7f0e',               # Orange
-                'Other Region': '#e0e0e0'               # Light gray
-            }
-
             # Create figure
             fig = go.Figure()
 
-            # Add regions (colored by category)
-            for category in ['Other Region', 'Peer Region', 'Selected Virginia Region']:
-                subset = regions_with_scores[regions_with_scores['category'] == category]
+            # Add regions colored by score
+            # First add non-selected/non-peer regions (lower opacity)
+            for idx, row in regions_with_scores.iterrows():
+                is_selected = row['region_key'] == selected_va_region
+                is_peer = row['region_key'] in peer_region_keys
 
-                for idx, row in subset.iterrows():
-                    # Get region boundary coordinates
-                    if row.geometry.geom_type == 'Polygon':
-                        coords = list(row.geometry.exterior.coords)
-                    else:  # MultiPolygon - use largest polygon
-                        geoms = list(row.geometry.geoms)
-                        largest = max(geoms, key=lambda g: g.area)
-                        coords = list(largest.exterior.coords)
+                # Get region boundary coordinates
+                if row.geometry.geom_type == 'Polygon':
+                    coords = list(row.geometry.exterior.coords)
+                else:  # MultiPolygon - use largest polygon
+                    geoms = list(row.geometry.geoms)
+                    largest = max(geoms, key=lambda g: g.area)
+                    coords = list(largest.exterior.coords)
 
-                    lons = [coord[0] for coord in coords]
-                    lats = [coord[1] for coord in coords]
+                lons = [coord[0] for coord in coords]
+                lats = [coord[1] for coord in coords]
 
-                    hover_text = f"<b>{row['region_name']}</b><br>{row['state_name']}"
-                    if pd.notna(row['overall_score']):
-                        hover_text += f"<br>Score: {row['overall_score']:.1f}"
+                # Get score-based color
+                fill_color = score_to_color(row['overall_score'], selected=is_selected, is_peer=is_peer)
 
-                    fig.add_trace(go.Scattergeo(
-                        lon=lons,
-                        lat=lats,
-                        mode='lines',
-                        fill='toself',
-                        fillcolor=color_map[category],
-                        line=dict(width=1, color='rgba(0,0,0,0.4)'),
-                        name=category,
-                        legendgroup=category,
-                        showlegend=bool(idx == subset.index[0]),
-                        text=hover_text,
-                        hoverinfo='text'
-                    ))
+                # Bold outline for selected and peer regions
+                if is_selected:
+                    line_width = 3
+                    line_color = 'rgba(0, 0, 150, 0.9)'
+                elif is_peer:
+                    line_width = 2
+                    line_color = 'rgba(0, 0, 100, 0.7)'
+                else:
+                    line_width = 0.5
+                    line_color = 'rgba(0, 0, 0, 0.3)'
+
+                hover_text = f"<b>{row['region_name']}</b><br>{row['state_name']}"
+                if pd.notna(row['overall_score']):
+                    hover_text += f"<br>Score: {row['overall_score']:.1f}"
+                if is_selected:
+                    hover_text += "<br><b>(Selected)</b>"
+                elif is_peer:
+                    hover_text += "<br><i>(Peer Region)</i>"
+
+                fig.add_trace(go.Scattergeo(
+                    lon=lons,
+                    lat=lats,
+                    mode='lines',
+                    fill='toself',
+                    fillcolor=fill_color,
+                    line=dict(width=line_width, color=line_color),
+                    showlegend=False,
+                    text=hover_text,
+                    hoverinfo='text'
+                ))
 
             # Add state boundaries AFTER regions (so they appear on top)
             for idx, row in states_gdf.iterrows():
@@ -612,8 +732,110 @@ def main():
 
             st.plotly_chart(fig, use_container_width=True, key='regional_map')
 
-            # Comparison table
-            st.subheader("Component Score Comparison")
+            # Radar chart and comparison table
+            st.subheader("Component Score Analysis")
+
+            # Create columns for radar chart and key metrics
+            radar_col, metrics_col = st.columns([1, 1])
+
+            with radar_col:
+                # Create radar chart for selected region vs peer average
+                component_cols = [col for col in components_df.columns if col.startswith('Component')]
+                component_names = [col.split(':')[1].strip() for col in component_cols]
+
+                # Get selected region scores
+                va_scores_row = components_df[components_df['virginia_region_key'] == selected_va_region]
+                if len(va_scores_row) > 0:
+                    va_values = [va_scores_row.iloc[0][col] for col in component_cols]
+
+                    # Get peer average scores
+                    peer_data = components_df[components_df['virginia_region_key'].isin(peer_region_keys)]
+                    peer_avg = [peer_data[col].mean() for col in component_cols]
+
+                    radar_fig = go.Figure()
+
+                    # Add peer average
+                    radar_fig.add_trace(go.Scatterpolar(
+                        r=peer_avg + [peer_avg[0]],
+                        theta=component_names + [component_names[0]],
+                        fill='toself',
+                        fillcolor='rgba(255, 127, 14, 0.2)',
+                        line=dict(color='#ff7f0e', width=2),
+                        name='Peer Average'
+                    ))
+
+                    # Add selected region
+                    radar_fig.add_trace(go.Scatterpolar(
+                        r=va_values + [va_values[0]],
+                        theta=component_names + [component_names[0]],
+                        fill='toself',
+                        fillcolor='rgba(31, 119, 180, 0.3)',
+                        line=dict(color='#1f77b4', width=3),
+                        name=selected_name
+                    ))
+
+                    # Add reference line at 100
+                    radar_fig.add_trace(go.Scatterpolar(
+                        r=[100] * (len(component_names) + 1),
+                        theta=component_names + [component_names[0]],
+                        mode='lines',
+                        line=dict(color='gray', width=1, dash='dash'),
+                        name='Peer Benchmark (100)'
+                    ))
+
+                    radar_fig.update_layout(
+                        polar=dict(
+                            radialaxis=dict(visible=True, range=[0, max(max(va_values), max(peer_avg)) * 1.1])
+                        ),
+                        showlegend=True,
+                        legend=dict(orientation='h', yanchor='bottom', y=-0.2),
+                        height=400,
+                        margin=dict(t=30, b=80)
+                    )
+
+                    st.plotly_chart(radar_fig, use_container_width=True)
+
+            with metrics_col:
+                # Show key metrics for the selected region
+                if len(va_scores_row) > 0:
+                    st.markdown(f"### {selected_name}")
+
+                    # Calculate metrics
+                    overall_score = sum(va_values) / len(va_values)
+                    above_peer = sum(1 for v in va_values if v >= 100)
+                    strongest = component_names[va_values.index(max(va_values))]
+                    weakest = component_names[va_values.index(min(va_values))]
+
+                    # Display styled metrics
+                    score_color = "metric-card-green" if overall_score >= 100 else "metric-card-red"
+                    st.markdown(f"""
+                    <div class="{score_color}" style="margin-bottom: 1rem;">
+                        <div class="metric-label">Overall Thriving Score</div>
+                        <div class="metric-value">{overall_score:.1f}</div>
+                        <div class="metric-delta">{above_peer} of 8 components above peer average</div>
+                    </div>
+                    """, unsafe_allow_html=True)
+
+                    col_a, col_b = st.columns(2)
+                    with col_a:
+                        st.markdown(f"""
+                        <div class="metric-card-green" style="padding: 1rem;">
+                            <div class="metric-label">💪 Strongest</div>
+                            <div style="font-size: 1.1rem; font-weight: bold;">{strongest}</div>
+                            <div style="font-size: 1.5rem;">{max(va_values):.1f}</div>
+                        </div>
+                        """, unsafe_allow_html=True)
+                    with col_b:
+                        st.markdown(f"""
+                        <div class="metric-card-red" style="padding: 1rem;">
+                            <div class="metric-label">🎯 Area for Growth</div>
+                            <div style="font-size: 1.1rem; font-weight: bold;">{weakest}</div>
+                            <div style="font-size: 1.5rem;">{min(va_values):.1f}</div>
+                        </div>
+                        """, unsafe_allow_html=True)
+
+            st.markdown("---")
+            st.subheader("Detailed Peer Comparison")
 
             # Build comparison table
             # Component data is already in wide format
