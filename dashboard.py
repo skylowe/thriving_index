@@ -594,8 +594,8 @@ def main():
                     countrycolor='rgb(150, 150, 150)',
                     showsubunits=True,
                     subunitcolor='rgb(200, 200, 200)',
-                    center=dict(lat=37.5, lon=-81),
-                    projection_scale=5.5
+                    center=dict(lat=36.5, lon=-80),
+                    projection_scale=3.8  # Zoomed out more to see all states
                 ),
                 height=750,
                 legend=dict(
@@ -606,7 +606,8 @@ def main():
                     bgcolor='rgba(255,255,255,0.9)',
                     bordercolor='rgba(0,0,0,0.3)',
                     borderwidth=1
-                )
+                ),
+                uirevision='constant'  # Preserve zoom/pan when switching regions
             )
 
             st.plotly_chart(fig, use_container_width=True)
