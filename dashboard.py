@@ -594,8 +594,8 @@ def main():
                     countrycolor='rgb(150, 150, 150)',
                     showsubunits=True,
                     subunitcolor='rgb(200, 200, 200)',
-                    center=dict(lat=36.5, lon=-80),
-                    projection_scale=3.8  # Zoomed out more to see all states
+                    center=dict(lat=36, lon=-82),
+                    projection_scale=2.8  # Zoomed out to see all states
                 ),
                 height=750,
                 legend=dict(
@@ -610,7 +610,7 @@ def main():
                 uirevision='constant'  # Preserve zoom/pan when switching regions
             )
 
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, use_container_width=True, key='regional_map')
 
             # Comparison table
             st.subheader("Component Score Comparison")
