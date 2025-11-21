@@ -494,13 +494,13 @@ def main():
                             if 'customdata' in point and point['customdata']:
                                 clicked_region_key = point['customdata'][0]
                                 st.write("Debug - clicked_region_key:", clicked_region_key)
-                                # Only update if it's a Virginia region
+                                # Only update if it's a Virginia region and different from current
                                 if clicked_region_key in va_region_names:
-                                    st.session_state.selected_va_region = clicked_region_key
-                                    st.success(f"Selected: {va_region_names[clicked_region_key]}")
-                                    # Clear the selection to allow re-clicking
-                                    st.session_state.regional_map = None
-                                    st.rerun()
+                                    if clicked_region_key != st.session_state.selected_va_region:
+                                        st.session_state.selected_va_region = clicked_region_key
+                                        st.rerun()
+                                    else:
+                                        st.info(f"Already showing: {va_region_names[clicked_region_key]}")
 
             # Selection dropdown - sync with session state
             current_name = va_region_names.get(st.session_state.selected_va_region, list(va_region_options.keys())[0])
@@ -593,19 +593,29 @@ def main():
                         customdata=[[row['region_key']]]  # Store region_key for click events
                     ))
 
-                    # Add invisible clickable point at region centroid (for Virginia regions only)
+                    # Add clickable point at region centroid (for Virginia regions only)
                     if row['region_key'] in va_region_names:
                         centroid = row.geometry.centroid
                         fig.add_trace(go.Scattergeo(
                             lon=[centroid.x],
                             lat=[centroid.y],
-                            mode='markers',
-                            marker=dict(size=20, opacity=0.01),  # Nearly invisible but clickable
+                            mode='markers+text',
+                            marker=dict(
+                                size=15,
+                                color='white',
+                                opacity=0.8,
+                                line=dict(width=2, color='#1f77b4')
+                            ),
+                            text='⊕',  # Click target indicator
+                            textposition='middle center',
+                            textfont=dict(size=12, color='#1f77b4'),
                             showlegend=False,
-                            text=hover_text,
+                            hovertext=f"Click to select: {row['region_name']}",
                             hoverinfo='text',
                             customdata=[[row['region_key']]],
-                            name=''
+                            name='',
+                            selected=dict(marker=dict(color='green')),
+                            unselected=dict(marker=dict(opacity=0.8))
                         ))
 
             # Add state boundaries AFTER regions (so they appear on top)
@@ -667,7 +677,7 @@ def main():
                 )
             )
 
-            st.plotly_chart(fig, use_container_width=True, key='regional_map', on_select='rerun')
+            st.plotly_chart(fig, use_container_width=True, key='regional_map', on_select='rerun', selection_mode='points')
 
             # Comparison table
             st.subheader("Component Score Comparison")
