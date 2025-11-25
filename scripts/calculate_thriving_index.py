@@ -31,42 +31,44 @@ COMPONENT_MEASURES = {
     'Component 2: Economic Opportunity & Diversity': {
         'file': 'data/regional/component2_economic_opportunity_regional.csv',
         'measures': [
-            'entrepreneurial_activity_per_1000',
+            'entrepreneurial_activity',
             'proprietors_per_1000',
             'establishments_per_1000',
-            'telecommuter_share'
-            # Note: 3 measures (diversity indexes) not yet aggregated
+            'industry_diversity',
+            'occupation_diversity',
+            'nonemployer_share',
+            'telecommuter_pct'
         ]
     },
     'Component 3: Other Prosperity': {
         'file': 'data/regional/component3_other_prosperity_regional.csv',
         'measures': [
-            'gini_index',
+            'proprietor_income_pct',
             'income_stability_cv',
-            'business_stability_score',
-            'life_expectancy_years',
-            'employer_firm_share'
+            'life_expectancy',
+            'poverty_pct',
+            'dir_income_share'
         ]
     },
     'Component 4: Demographic Growth & Renewal': {
         'file': 'data/regional/component4_demographic_growth_regional.csv',
         'measures': [
-            'population_growth_pct',
-            'domestic_migration_net_per_1000',
-            'working_age_share',
-            'median_age',
+            'population_growth',
             'dependency_ratio',
-            'aging_rate'
+            'median_age',
+            'millennial_genz_change',
+            'hispanic_pct',
+            'nonwhite_pct'
         ]
     },
     'Component 5: Education & Skill': {
         'file': 'data/regional/component5_education_skill_regional.csv',
         'measures': [
-            'bachelors_or_higher_pct',
-            'high_school_grad_pct',
-            'knowledge_workers_pct',
-            'avg_test_scores',
-            'student_teacher_ratio'
+            'hs_attainment',
+            'associates_attainment',
+            'bachelors_attainment',
+            'labor_force_participation',
+            'knowledge_workers_pct'
         ]
     },
     'Component 6: Infrastructure & Cost': {
@@ -83,24 +85,24 @@ COMPONENT_MEASURES = {
     'Component 7: Quality of Life': {
         'file': 'data/regional/component7_quality_of_life_regional.csv',
         'measures': [
-            'housing_affordability_ratio',
+            'mean_commute_time',
+            'housing_pre1960_pct',
+            'relative_weekly_wage',
             'violent_crime_rate',
             'property_crime_rate',
-            'national_parks_binary',
-            'rec_trails_binary',
-            'four_year_college_binary',
-            'natural_amenities_scale'
-            # Note: health insurance from ACS not yet aggregated
+            'natural_amenities_scale',
+            'healthcare_workers_per_1k',
+            'park_count'
         ]
     },
     'Component 8: Social Capital': {
         'file': 'data/regional/component8_social_capital_regional.csv',
         'measures': [
-            'nonprofits_per_1000',
-            'volunteer_rate',
+            'orgs_per_1000',
+            'volunteering_rate',
             'social_associations_per_10k',
-            'voter_turnout',
-            'civic_orgs_density'
+            'voter_turnout_pct',
+            'civic_organizations_per_1k'
         ]
     }
 }
@@ -216,29 +218,26 @@ def invert_score_for_negative_measures(score_dict, measure_name):
     Invert scores for measures where lower is better.
 
     Negative measures (lower is better):
-    - Gini index (inequality)
-    - Income stability CV (volatility)
-    - Median age (older)
-    - Dependency ratio (higher)
-    - Aging rate (faster)
-    - Student-teacher ratio (higher)
-    - Weekly wage (cost of doing business - lower wage is better for business, but we'll keep as-is)
-    - Income tax rate (lower is better)
-    - Violent crime rate (lower is better)
-    - Property crime rate (lower is better)
-    - Housing affordability ratio (lower is better for affordability)
+    - Income stability CV (volatility) - lower CV = more stable income
+    - Poverty rate (%) - lower poverty = better
+    - Median age - younger population = more dynamic
+    - Dependency ratio - fewer dependents per worker = better
+    - Income tax rate - lower taxes = better for business
+    - Mean commute time - shorter commute = better quality of life
+    - Housing pre-1960 (%) - less old housing = better housing stock
+    - Violent crime rate - lower crime = better safety
+    - Property crime rate - lower crime = better safety
     """
     negative_measures = [
-        'gini_index',
         'income_stability_cv',
+        'poverty_pct',
         'median_age',
         'dependency_ratio',
-        'aging_rate',
-        'student_teacher_ratio',
         'income_tax_rate',
+        'mean_commute_time',
+        'housing_pre1960_pct',
         'violent_crime_rate',
-        'property_crime_rate',
-        'housing_affordability_ratio'
+        'property_crime_rate'
     ]
 
     if measure_name in negative_measures:
