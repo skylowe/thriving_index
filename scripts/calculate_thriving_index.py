@@ -22,7 +22,7 @@ COMPONENT_MEASURES = {
         'file': 'data/regional/component1_growth_index_regional.csv',
         'measures': [
             'employment_growth_pct',
-            'private_employment_2022',  # Will need to convert to per capita
+            'private_employment_2022',  # Will be converted to private_employment_per_1000
             'wage_growth_pct',
             'hh_children_growth_pct',
             'dir_income_growth_pct'
@@ -31,42 +31,44 @@ COMPONENT_MEASURES = {
     'Component 2: Economic Opportunity & Diversity': {
         'file': 'data/regional/component2_economic_opportunity_regional.csv',
         'measures': [
-            'entrepreneurial_activity_per_1000',
+            'entrepreneurial_activity',
             'proprietors_per_1000',
             'establishments_per_1000',
-            'telecommuter_share'
-            # Note: 3 measures (diversity indexes) not yet aggregated
+            'industry_diversity',
+            'occupation_diversity',
+            'nonemployer_share',
+            'telecommuter_pct'
         ]
     },
     'Component 3: Other Prosperity': {
         'file': 'data/regional/component3_other_prosperity_regional.csv',
         'measures': [
-            'gini_index',
+            'proprietor_income_pct',
             'income_stability_cv',
-            'business_stability_score',
-            'life_expectancy_years',
-            'employer_firm_share'
+            'life_expectancy',
+            'poverty_pct',
+            'dir_income_share'
         ]
     },
     'Component 4: Demographic Growth & Renewal': {
         'file': 'data/regional/component4_demographic_growth_regional.csv',
         'measures': [
-            'population_growth_pct',
-            'domestic_migration_net_per_1000',
-            'working_age_share',
-            'median_age',
+            'population_growth',
             'dependency_ratio',
-            'aging_rate'
+            'median_age',
+            'millennial_genz_change',
+            'hispanic_pct',
+            'nonwhite_pct'
         ]
     },
     'Component 5: Education & Skill': {
         'file': 'data/regional/component5_education_skill_regional.csv',
         'measures': [
-            'bachelors_or_higher_pct',
-            'high_school_grad_pct',
+            'bachelors_attainment',
+            'hs_attainment',
             'knowledge_workers_pct',
-            'avg_test_scores',
-            'student_teacher_ratio'
+            'associates_attainment',
+            'labor_force_participation'
         ]
     },
     'Component 6: Infrastructure & Cost': {
@@ -74,33 +76,33 @@ COMPONENT_MEASURES = {
         'measures': [
             'broadband_access',
             'has_interstate',
-            'college_count',  # Will need to convert to per capita
+            'college_count',  # Will be converted to college_per_100k
             'weekly_wage',
             'income_tax_rate',
-            'oz_tract_count'  # Will need to convert to per capita
+            'oz_tract_count'  # Will be converted to oz_tracts_per_100k
         ]
     },
     'Component 7: Quality of Life': {
         'file': 'data/regional/component7_quality_of_life_regional.csv',
         'measures': [
-            'housing_affordability_ratio',
+            'mean_commute_time',
+            'housing_pre1960_pct',
+            'relative_weekly_wage',
             'violent_crime_rate',
             'property_crime_rate',
-            'national_parks_binary',
-            'rec_trails_binary',
-            'four_year_college_binary',
-            'natural_amenities_scale'
-            # Note: health insurance from ACS not yet aggregated
+            'natural_amenities_scale',
+            'healthcare_workers_per_1k',
+            'park_count'
         ]
     },
     'Component 8: Social Capital': {
         'file': 'data/regional/component8_social_capital_regional.csv',
         'measures': [
-            'nonprofits_per_1000',
-            'volunteer_rate',
+            'orgs_per_1000',
+            'volunteering_rate',
             'social_associations_per_10k',
-            'voter_turnout',
-            'civic_orgs_density'
+            'voter_turnout_pct',
+            'civic_organizations_per_1k'
         ]
     }
 }
@@ -139,30 +141,33 @@ def load_peer_selections():
 def calculate_per_capita_measures(df):
     """Convert absolute measures to per capita where needed."""
     df_calc = df.copy()
+    
+    # Check if we need to add population data
+    # We need population if we have columns that require per-capita normalization
+    # and we don't already have a population column
+    cols_needing_pop = ['private_employment_2022', 'college_count', 'oz_tract_count']
+    has_cols_needing_pop = any(col in df_calc.columns for col in cols_needing_pop)
+    
+    if has_cols_needing_pop and 'population' not in df_calc.columns:
+        # Need to load population data
+        try:
+            # Load from peer matching variables which has regional population
+            pop_data = pd.read_csv('data/peer_matching_variables.csv')
+            
+            # Keep only relevant columns
+            if 'population' in pop_data.columns and 'region_key' in pop_data.columns:
+                regional_pop = pop_data[['region_key', 'population']]
+                
+                # Merge with df_calc
+                df_calc = df_calc.merge(regional_pop, on='region_key', how='left')
+                # print("    Merged population data for per-capita calculations")
+            else:
+                print("    ⚠️ Population or region_key column missing in peer_matching_variables.csv")
+                
+        except Exception as e:
+            print(f"    ⚠️ Could not load/merge population data: {e}")
 
     # Component 1: Private employment per capita (per 1000)
-    if 'private_employment_2022' in df_calc.columns and 'population' not in df_calc.columns:
-        # Need to load population data
-        pop_data = pd.read_csv('data/processed/census_population_growth_2000_2022.csv')
-        pop_data['fips'] = pop_data['fips'].astype(str).str.zfill(5)
-
-        # Aggregate population to regional level
-        import sys
-        sys.path.append(str(Path(__file__).parent))
-        from regional_data_manager import RegionalDataManager
-        rdm = RegionalDataManager()
-
-        pop_data['region_key'] = pop_data['fips'].apply(
-            lambda fips: rdm.county_to_region.get(str(fips), {}).get('region_key')
-            if str(fips) in rdm.county_to_region else None
-        )
-        pop_data = pop_data[pop_data['region_key'].notna()]
-        regional_pop = pop_data.groupby('region_key')['population_2022'].sum().reset_index()
-        regional_pop.columns = ['region_key', 'population']
-
-        # Merge with df_calc
-        df_calc = df_calc.merge(regional_pop, on='region_key', how='left')
-
     if 'private_employment_2022' in df_calc.columns and 'population' in df_calc.columns:
         df_calc['private_employment_per_1000'] = (df_calc['private_employment_2022'] /
                                                     df_calc['population'] * 1000)
@@ -216,29 +221,28 @@ def invert_score_for_negative_measures(score_dict, measure_name):
     Invert scores for measures where lower is better.
 
     Negative measures (lower is better):
-    - Gini index (inequality)
     - Income stability CV (volatility)
+    - Poverty Rate
     - Median age (older)
     - Dependency ratio (higher)
-    - Aging rate (faster)
-    - Student-teacher ratio (higher)
-    - Weekly wage (cost of doing business - lower wage is better for business, but we'll keep as-is)
+    - Weekly wage (cost of doing business - lower is better for business cost)
     - Income tax rate (lower is better)
+    - Commute time (shorter is better)
+    - Housing built pre-1960 (newer is better)
     - Violent crime rate (lower is better)
     - Property crime rate (lower is better)
-    - Housing affordability ratio (lower is better for affordability)
     """
     negative_measures = [
-        'gini_index',
         'income_stability_cv',
+        'poverty_pct',
         'median_age',
         'dependency_ratio',
-        'aging_rate',
-        'student_teacher_ratio',
+        'weekly_wage',
         'income_tax_rate',
+        'mean_commute_time',
+        'housing_pre1960_pct',
         'violent_crime_rate',
-        'property_crime_rate',
-        'housing_affordability_ratio'
+        'property_crime_rate'
     ]
 
     if measure_name in negative_measures:

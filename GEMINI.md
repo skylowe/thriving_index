@@ -324,7 +324,7 @@ See **API_MAPPING.md** for confidence level of each measure.
 **IMPORTANT**: After every significant commit (new measures, components, or major changes), the following documentation files MUST be updated:
 1. **PROJECT_PLAN.md** - Update component status, progress percentages, completion checkboxes
 2. **API_MAPPING.md** - Add collection status, data file locations, and statistics for completed measures
-3. **CLAUDE.md** - Add major milestone entry to Updates Log if significant (new component complete, major discovery, etc.)
+3. **GEMINI.md** - Add major milestone entry to Updates Log if significant (new component complete, major discovery, etc.)
 
 This ensures documentation stays synchronized with code changes and provides accurate project status at all times.
 
@@ -333,7 +333,7 @@ This ensures documentation stays synchronized with code changes and provides acc
 For detailed updates, see PROJECT_PLAN.md. Major milestones listed below:
 
 **2025-11-15**: Initial project setup
-- Created PROJECT_PLAN.md, API_MAPPING.md, and CLAUDE.md
+- Created PROJECT_PLAN.md, API_MAPPING.md, and GEMINI.md
 - Established county-level data collection strategy (all 10 states)
 - Documented API key management (.Renviron and environment variables)
 
