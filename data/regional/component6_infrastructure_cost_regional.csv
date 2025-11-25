@@ -1,95 +1,95 @@
 region_key,region_name,state_name,broadband_access,has_interstate,college_count,weekly_wage,income_tax_rate,oz_tract_count
-13_1,Northwest Georgia Regional Commission,Georgia,99.99657481445522,1,7.0,884.2,5.39,5
-13_10,Southwest Georgia Regional Commission,Georgia,99.99945798868924,0,4.0,853.4285714285714,5.39,30
-13_11,Southern Georgia Regional Commission,Georgia,99.99858045672131,1,5.0,834.7777777777778,5.39,29
-13_12,Coastal Regional Commission of Georgia,Georgia,100.0,1,9.0,842.5,5.39,19
-13_2,Georgia Mountains Regional Commission,Georgia,99.99921443038893,1,10.0,842.9166666666666,5.39,3
-13_3,Atlanta Regional Commission,Georgia,99.99819081935743,1,46.0,1208.4545454545455,5.39,52
-13_4,Three Rivers Regional Commission,Georgia,100.0,1,5.0,947.2,5.39,15
-13_5,Northeast Georgia Regional Commission,Georgia,99.9964574562983,1,3.0,919.75,5.39,6
-13_6,Middle Georgia Regional Commission,Georgia,100.0,1,9.0,852.0909090909091,5.39,24
-13_7,Central Savannah River Area Regional Commission,Georgia,100.0,1,5.0,952.6153846153846,5.39,27
-13_8,River Valley Regional Commission,Georgia,99.99948239091911,1,6.0,878.875,5.39,32
-13_9,Heart of Georgia-Altamaha Regional Commission,Georgia,100.0,1,3.0,795.7647058823529,5.39,18
-21_1,Barren River Area Development District,Kentucky,100.0,1,2.0,882.0,4.0,8
-21_10,Kentucky River Area Development District,Kentucky,100.0,0,4.0,782.375,4.0,12
-21_11,Lake Cumberland Area Development District,Kentucky,99.99916274283346,0,3.0,762.3,4.0,11
-21_12,Lincoln Trail Area Development District,Kentucky,99.99272669207608,1,1.0,914.125,4.0,1
-21_13,Northern Kentucky Area Development District,Kentucky,100.0,1,5.0,1141.0,4.0,11
-21_14,Pennyrile Area Development District,Kentucky,99.99562133862511,1,3.0,859.7777777777778,4.0,5
-21_15,Purchase Area Development District,Kentucky,99.99893900711922,1,2.0,826.0,4.0,8
-21_2,Big Sandy Area Development District,Kentucky,100.0,0,4.0,810.8,4.0,14
-21_3,Bluegrass Area Development District,Kentucky,99.99033502413694,1,14.0,933.8823529411765,4.0,20
-21_4,Buffalo Trace Area Development District,Kentucky,100.0,0,1.0,855.2,4.0,5
-21_5,Cumberland Valley Area Development District,Kentucky,100.0,1,4.0,786.875,4.0,8
-21_6,FIVCO Area Development District,Kentucky,99.99715254802244,1,2.0,831.6,4.0,5
-21_7,Gateway Area Development District,Kentucky,99.9954859158737,1,1.0,833.8,4.0,8
-21_8,Green River Area Development District,Kentucky,99.99912469048449,1,4.0,1042.0,4.0,7
-21_9,Kentuckiana Regional Planning and Development Agency,Kentucky,99.99762519091445,1,11.0,1036.142857142857,4.0,21
-24_1,Tri-County Council for Western Maryland,Maryland,99.99387957254991,1,4.0,867.6666666666666,5.75,12
-24_2,Mid-Shore Regional Council,Maryland,100.0,0,,945.3333333333334,5.75,6
-24_3,Tri-County Council for the Lower Eastern Shore,Maryland,100.0,0,3.0,902.0,5.75,13
-24_4,Upper Shore Regional Council,Maryland,98.58760188511941,1,3.0,963.6666666666666,5.75,5
-24_5,Tri-County Council for Southern Maryland,Maryland,100.0,0,2.0,1124.0,5.75,7
-37_1,Southwestern Commission,North Carolina,99.96078122690865,1,4.0,792.1428571428571,4.5,7
-37_10,Upper Coastal Plain Council of Governments,North Carolina,99.99342562182336,1,6.0,879.6,4.5,13
-37_11,Mid-Carolina Council of Governments,North Carolina,99.99725096454624,1,9.0,833.0,4.5,14
-37_12,Lumber River Council of Governments,North Carolina,100.0,1,5.0,818.6,4.5,12
-37_13,Cape Fear Council of Governments,North Carolina,100.0,1,5.0,887.5,4.5,12
-37_14,Eastern Carolina Council of Governments,North Carolina,99.99945487558533,1,9.0,797.7777777777778,4.5,17
-37_15,Albemarle Commission,North Carolina,99.99921047296974,0,3.0,809.2,4.5,11
-37_16,Mid-East Commission,North Carolina,99.99389357448615,0,6.0,815.2,4.5,9
-37_2,Land of Sky Regional Council,North Carolina,99.97870166219742,1,9.0,900.0,4.5,8
-37_3,Isothermal Planning & Development Commission,North Carolina,99.9908655422361,1,4.0,837.5,4.5,8
-37_4,High Country Council of Governments,North Carolina,100.0,0,5.0,805.4285714285714,4.5,9
-37_5,Western Piedmont Council of Governments,North Carolina,99.99896461962354,1,4.0,900.0,4.5,10
-37_6,Centralina Regional Council,North Carolina,99.99964809698368,1,23.0,1032.888888888889,4.5,42
-37_7,Piedmont Triad Council of Governments,North Carolina,99.99955567557288,1,23.0,914.8333333333334,4.5,43
-37_8,Triangle J Council of Governments,North Carolina,99.99922946088684,1,21.0,1158.2857142857142,4.5,30
-37_9,Kerr-Tar Council of Governments,North Carolina,100.0,1,3.0,862.0,4.5,7
-42_1,North Central Pennsylvania,Pennsylvania,99.97583834550593,1,3.0,914.1666666666666,3.07,11
-42_2,Northwest Pennsylvania,Pennsylvania,99.98327837718334,1,18.0,876.5,3.07,21
-42_3,Southwestern Pennsylvania,Pennsylvania,99.54661656074688,1,44.0,1109.5555555555557,3.07,85
-42_4,Northern Tier,Pennsylvania,99.9889981960522,1,2.0,986.8,3.07,1
-42_5,Southern Alleghenies,Pennsylvania,99.98501766056255,1,8.0,895.8333333333334,3.07,11
-42_6,SEDA-COG,Pennsylvania,99.99149552814153,1,14.0,959.7272727272727,3.07,15
-42_7,Northeastern Pennsylvania,Pennsylvania,99.99577359507623,1,18.0,889.1428571428571,3.07,18
-45_1,Appalachian Council of Governments,South Carolina,99.99811253676002,1,16.0,950.0,6.4,26
-45_10,Waccamaw Regional Council of Governments,South Carolina,100.0,0,5.0,867.3333333333334,6.4,12
-45_2,Berkeley-Charleston-Dorchester Council of Governments,South Carolina,99.99908088153536,1,9.0,1101.0,6.4,15
-45_3,Catawba Regional Council of Governments,South Carolina,99.99866184645253,1,5.0,1038.25,6.4,9
-45_4,Central Midlands Council of Governments,South Carolina,99.99794744038772,1,10.0,1020.0,6.4,20
-45_5,Lowcountry Council of Governments,South Carolina,100.0,1,2.0,901.0,6.4,7
-45_6,Lower Savannah Council of Governments,South Carolina,100.0,1,8.0,969.6666666666666,6.4,12
-45_7,Pee Dee Regional Council of Governments,South Carolina,100.0,1,4.0,881.0,6.4,16
-45_8,Santee Lynches Regional Council of Governments,South Carolina,100.0,1,3.0,819.75,6.4,9
-45_9,Upper Savannah Council of Governments,South Carolina,99.99764572371691,1,4.0,859.0,6.4,9
-47_1,First Tennessee Development District,Tennessee,99.99042601072428,1,5.0,919.0,0.0,17
-47_2,East Tennessee Development District,Tennessee,99.99732528570263,1,12.0,983.5625,0.0,28
-47_3,Southeast Tennessee Development District,Tennessee,99.99589108958945,1,13.0,879.2,0.0,17
-47_4,Upper Cumberland Development District,Tennessee,100.0,1,2.0,834.2142857142857,0.0,18
-47_5,South Central Tennessee Development District,Tennessee,99.99456862555546,1,4.0,941.0769230769231,0.0,8
-47_6,Southwest Tennessee Development District,Tennessee,100.0,1,4.0,903.875,0.0,9
-47_7,Northwest Tennessee Development District,Tennessee,100.0,1,2.0,832.25,0.0,10
-47_8,Greater Nashville Regional Council,Tennessee,100.0,1,30.0,1075.7692307692307,0.0,31
-47_9,MidSouth Development District,Tennessee,100.0,1,15.0,1029.25,0.0,37
-51_1,Southwest Virginia,Virginia,99.98975317271102,1,9.0,841.75,5.75,22
-51_2,Central/Western Virginia,Virginia,99.98391540098184,1,15.0,949.2666666666667,5.75,22
-51_3,Southside Virginia,Virginia,99.99206855756769,1,7.0,836.4666666666667,5.75,23
-51_4,Greater Richmond,Virginia,99.9886286950054,1,13.0,1144.625,5.75,21
-51_5,Hampton Roads,Virginia,99.99928450702909,1,26.0,958.5625,5.75,53
-51_6,Mary Ball Washington Regional Council,Virginia,99.99226082639697,1,7.0,965.4666666666667,5.75,21
-51_7,Northern Virginia,Virginia,99.98869358057424,1,7.0,1418.625,5.75,15
-51_8,Shenandoah Valley,Virginia,99.97401922065039,1,10.0,903.375,5.75,15
-51_9,Central Virginia,Virginia,99.94257202768254,1,3.0,982.7272727272727,5.75,7
-54_1,Region I Planning and Development Council,West Virginia,99.9906491790083,1,6.0,922.1666666666666,5.12,8
-54_10,Region X - Bel-O-Mar Regional Council,West Virginia,99.99804651383081,1,3.0,1030.3333333333333,5.12,3
-54_11,Region XI - Brooke-Hancock Regional Planning and Development Council,West Virginia,99.99648519686829,0,1.0,978.0,5.12,1
-54_2,Region II Planning and Development Council,West Virginia,99.99925322476962,1,4.0,945.6666666666666,5.12,6
-54_3,Region III - BCKP Regional Intergovernmental Council,West Virginia,98.78738777860374,1,1.0,796.2,5.12,4
-54_4,Region IV Planning and Development Council,West Virginia,99.98859765528935,1,6.0,977.0,5.12,7
-54_5,Region V - Mid-Ohio Valley Regional Council,West Virginia,99.9968747090175,1,2.0,980.0,5.12,5
-54_6,Region VI Planning and Development Council,West Virginia,99.98386159693695,1,6.0,1062.6666666666667,5.12,7
-54_7,Region VII Planning and Development Council,West Virginia,99.9441762083615,1,4.0,845.5714285714286,5.12,3
-54_8,Region VIII Planning and Development Council,West Virginia,99.19229750562177,0,3.0,822.2,5.12,1
-54_9,Region IX - Eastern Panhandle Regional Planning and Development Council,West Virginia,99.98982981616443,1,6.0,867.6666666666666,5.12,10
+13_1,Northwest Georgia Regional Commission,Georgia,99.99657481445522,1,2.1920714864652346,884.2,5.39,1.4086396509969148
+13_10,Southwest Georgia Regional Commission,Georgia,99.99945798868924,0,2.0,853.4285714285714,5.39,4.686588511466746
+13_11,Southern Georgia Regional Commission,Georgia,99.99858045672131,1,1.4958842991147994,834.7777777777778,5.39,3.8085046710056467
+13_12,Coastal Regional Commission of Georgia,Georgia,100.0,1,3.4524551831644583,842.5,5.39,7.190194802048508
+13_2,Georgia Mountains Regional Commission,Georgia,99.99921443038893,1,2.214652549073899,842.9166666666666,5.39,3.0
+13_3,Atlanta Regional Commission,Georgia,99.99819081935743,1,9.974380700331873,1208.4545454545455,5.39,11.456497634146524
+13_4,Three Rivers Regional Commission,Georgia,100.0,1,1.2522036578907276,947.2,5.39,2.7898812513162796
+13_5,Northeast Georgia Regional Commission,Georgia,99.9964574562983,1,1.532139642057796,919.75,5.39,1.056939459164948
+13_6,Middle Georgia Regional Commission,Georgia,100.0,1,2.7069780358366686,852.0909090909091,5.39,11.800810907848993
+13_7,Central Savannah River Area Regional Commission,Georgia,100.0,1,3.7349952239439608,952.6153846153846,5.39,9.071406447010679
+13_8,River Valley Regional Commission,Georgia,99.99948239091911,1,2.824779976281131,878.875,5.39,11.763747997864389
+13_9,Heart of Georgia-Altamaha Regional Commission,Georgia,100.0,1,1.0,795.7647058823529,5.39,2.1434394269133117
+21_1,Barren River Area Development District,Kentucky,100.0,1,2.0,882.0,4.0,1.0
+21_10,Kentucky River Area Development District,Kentucky,100.0,0,1.5024465159469982,782.375,4.0,1.9840641895661524
+21_11,Lake Cumberland Area Development District,Kentucky,99.99916274283346,0,1.0,762.3,4.0,1.314594641580869
+21_12,Lincoln Trail Area Development District,Kentucky,99.99272669207608,1,1.0,914.125,4.0,1.0
+21_13,Northern Kentucky Area Development District,Kentucky,100.0,1,1.5755714995807582,1141.0,4.0,2.4888664814382646
+21_14,Pennyrile Area Development District,Kentucky,99.99562133862511,1,1.6167185076574935,859.7777777777778,4.0,1.1908946927114066
+21_15,Purchase Area Development District,Kentucky,99.99893900711922,1,1.0,826.0,4.0,1.4688929978894678
+21_2,Big Sandy Area Development District,Kentucky,100.0,0,2.2385289861241167,810.8,4.0,3.75
+21_3,Bluegrass Area Development District,Kentucky,99.99033502413694,1,2.836231920640129,933.8823529411765,4.0,4.332560080649532
+21_4,Buffalo Trace Area Development District,Kentucky,100.0,0,1.0,855.2,4.0,1.0
+21_5,Cumberland Valley Area Development District,Kentucky,100.0,1,1.0,786.875,4.0,1.377244795253483
+21_6,FIVCO Area Development District,Kentucky,99.99715254802244,1,1.0,831.6,4.0,1.7592131159381037
+21_7,Gateway Area Development District,Kentucky,99.9954859158737,1,1.0,833.8,4.0,1.989145183175034
+21_8,Green River Area Development District,Kentucky,99.99912469048449,1,2.3937136898555043,1042.0,4.0,1.6401669411966815
+21_9,Kentuckiana Regional Planning and Development Agency,Kentucky,99.99762519091445,1,11.0,1036.142857142857,4.0,17.372784937926042
+24_1,Tri-County Council for Western Maryland,Maryland,99.99387957254991,1,1.2708434328583575,867.6666666666666,5.75,4.499833109488123
+24_2,Mid-Shore Regional Council,Maryland,100.0,0,,945.3333333333334,5.75,2.0
+24_3,Tri-County Council for the Lower Eastern Shore,Maryland,100.0,0,1.807980573910201,902.0,5.75,5.290280949071776
+24_4,Upper Shore Regional Council,Maryland,98.58760188511941,1,1.0,963.6666666666666,5.75,2.197549011130902
+24_5,Tri-County Council for Southern Maryland,Maryland,100.0,0,1.0,1124.0,5.75,2.3915202904090695
+37_1,Southwestern Commission,North Carolina,99.96078122690865,1,1.317732070040777,792.1428571428571,4.5,1.0
+37_10,Upper Coastal Plain Council of Governments,North Carolina,99.99342562182336,1,1.6396632304683616,879.6,4.5,2.7207774460385608
+37_11,Mid-Carolina Council of Governments,North Carolina,99.99725096454624,1,4.421408353834352,833.0,4.5,6.688152111888323
+37_12,Lumber River Council of Governments,North Carolina,100.0,1,1.5231255923221698,818.6,4.5,3.698943262078936
+37_13,Cape Fear Council of Governments,North Carolina,100.0,1,2.089772189872027,887.5,4.5,3.3467645552330545
+37_14,Eastern Carolina Council of Governments,North Carolina,99.99945487558533,1,1.5288276139149735,797.7777777777778,4.5,2.2306891663409143
+37_15,Albemarle Commission,North Carolina,99.99921047296974,0,3.0,809.2,4.5,1.2335007215007214
+37_16,Mid-East Commission,North Carolina,99.99389357448615,0,1.7429873772791025,815.2,4.5,3.469024698034974
+37_2,Land of Sky Regional Council,North Carolina,99.97870166219742,1,4.058701865991014,900.0,4.5,3.4469614927928114
+37_3,Isothermal Planning & Development Commission,North Carolina,99.9908655422361,1,1.476579708479381,837.5,4.5,2.1976669848581714
+37_4,High Country Council of Governments,North Carolina,100.0,0,1.5220248077256693,805.4285714285714,4.5,1.630906549501715
+37_5,Western Piedmont Council of Governments,North Carolina,99.99896461962354,1,1.4886139485199954,900.0,4.5,2.5811693545082246
+37_6,Centralina Regional Council,North Carolina,99.99964809698368,1,5.912950097928507,1032.888888888889,4.5,10.20153736540613
+37_7,Piedmont Triad Council of Governments,North Carolina,99.99955567557288,1,5.250935082284111,914.8333333333334,4.5,7.343912409194101
+37_8,Triangle J Council of Governments,North Carolina,99.99922946088684,1,7.833357328828221,1158.2857142857142,4.5,8.92272922464592
+37_9,Kerr-Tar Council of Governments,North Carolina,100.0,1,1.0,862.0,4.5,1.4704994659852033
+42_1,North Central Pennsylvania,Pennsylvania,99.97583834550593,1,1.0,914.1666666666666,3.07,3.8594079087488464
+42_2,Northwest Pennsylvania,Pennsylvania,99.98327837718334,1,4.523007566294813,876.5,3.07,5.109333769196809
+42_3,Southwestern Pennsylvania,Pennsylvania,99.54661656074688,1,12.607183219808046,1109.5555555555557,3.07,36.345951739834604
+42_4,Northern Tier,Pennsylvania,99.9889981960522,1,1.0,986.8,3.07,1.0
+42_5,Southern Alleghenies,Pennsylvania,99.98501766056255,1,3.185450594281829,895.8333333333334,3.07,4.104629896422559
+42_6,SEDA-COG,Pennsylvania,99.99149552814153,1,2.558669811252084,959.7272727272727,3.07,2.930039837022863
+42_7,Northeastern Pennsylvania,Pennsylvania,99.99577359507623,1,5.31459988714179,889.1428571428571,3.07,5.015835344328992
+45_1,Appalachian Council of Governments,South Carolina,99.99811253676002,1,4.278734639293336,950.0,6.4,6.182350006734169
+45_10,Waccamaw Regional Council of Governments,South Carolina,100.0,0,3.760910242943088,867.3333333333334,6.4,5.371647552050655
+45_2,Berkeley-Charleston-Dorchester Council of Governments,South Carolina,99.99908088153536,1,9.0,1101.0,6.4,5.83871630250511
+45_3,Catawba Regional Council of Governments,South Carolina,99.99866184645253,1,2.388021267620832,1038.25,6.4,3.2247850211512366
+45_4,Central Midlands Council of Governments,South Carolina,99.99794744038772,1,4.8841020088985125,1020.0,6.4,7.319154814483336
+45_5,Lowcountry Council of Governments,South Carolina,100.0,1,2.0,901.0,6.4,2.509979490227057
+45_6,Lower Savannah Council of Governments,South Carolina,100.0,1,2.276266484633707,969.6666666666666,6.4,2.9519867442925025
+45_7,Pee Dee Regional Council of Governments,South Carolina,100.0,1,1.5625143692317798,881.0,6.4,3.3408499884014797
+45_8,Santee Lynches Regional Council of Governments,South Carolina,100.0,1,3.0,819.75,6.4,2.4810240605766856
+45_9,Upper Savannah Council of Governments,South Carolina,99.99764572371691,1,1.4301353540243154,859.0,6.4,1.9460019084853482
+47_1,First Tennessee Development District,Tennessee,99.99042601072428,1,1.379066579416218,919.0,0.0,2.9703054527777026
+47_2,East Tennessee Development District,Tennessee,99.99732528570263,1,4.510606800895507,983.5625,0.0,4.699306101959221
+47_3,Southeast Tennessee Development District,Tennessee,99.99589108958945,1,5.361609626476365,879.2,0.0,4.386608079452906
+47_4,Upper Cumberland Development District,Tennessee,100.0,1,2.0,834.2142857142857,0.0,1.6679644893619958
+47_5,South Central Tennessee Development District,Tennessee,99.99456862555546,1,1.0,941.0769230769231,0.0,1.3867910342787018
+47_6,Southwest Tennessee Development District,Tennessee,100.0,1,2.700230962804647,903.875,0.0,3.9044719516647626
+47_7,Northwest Tennessee Development District,Tennessee,100.0,1,1.0,832.25,0.0,1.3834917723583384
+47_8,Greater Nashville Regional Council,Tennessee,100.0,1,9.11528255328612,1075.7692307692307,0.0,9.562429144604426
+47_9,MidSouth Development District,Tennessee,100.0,1,15.0,1029.25,0.0,28.305360892170757
+51_1,Southwest Virginia,Virginia,99.98975317271102,1,1.842041753490165,841.75,5.75,1.5550404830520104
+51_2,Central/Western Virginia,Virginia,99.98391540098184,1,2.301668546166945,949.2666666666667,5.75,2.4295887949195865
+51_3,Southside Virginia,Virginia,99.99206855756769,1,1.8153468441679248,836.4666666666667,5.75,2.9375227761848772
+51_4,Greater Richmond,Virginia,99.9886286950054,1,4.229072975123471,1144.625,5.75,4.730838493026218
+51_5,Hampton Roads,Virginia,99.99928450702909,1,5.544234349124228,958.5625,5.75,6.90984128920316
+51_6,Mary Ball Washington Regional Council,Virginia,99.99226082639697,1,2.565253639748186,965.4666666666667,5.75,6.219325249479009
+51_7,Northern Virginia,Virginia,99.98869358057424,1,2.3857668518764155,1418.625,5.75,3.6420871993339046
+51_8,Shenandoah Valley,Virginia,99.97401922065039,1,1.1586113659408044,903.375,5.75,1.3199617482327406
+51_9,Central Virginia,Virginia,99.94257202768254,1,1.7545839872305609,982.7272727272727,5.75,1.4939301477106253
+54_1,Region I Planning and Development Council,West Virginia,99.9906491790083,1,3.1103838365724448,922.1666666666666,5.12,2.0772732084259555
+54_10,Region X - Bel-O-Mar Regional Council,West Virginia,99.99804651383081,1,3.0,1030.3333333333333,5.12,1.0
+54_11,Region XI - Brooke-Hancock Regional Planning and Development Council,West Virginia,99.99648519686829,0,1.0,978.0,5.12,1.0
+54_2,Region II Planning and Development Council,West Virginia,99.99925322476962,1,2.487788465344575,945.6666666666666,5.12,1.6457503904273805
+54_3,Region III - BCKP Regional Intergovernmental Council,West Virginia,98.78738777860374,1,1.0,796.2,5.12,2.0
+54_4,Region IV Planning and Development Council,West Virginia,99.98859765528935,1,4.033105436642753,977.0,5.12,5.4616815476190474
+54_5,Region V - Mid-Ohio Valley Regional Council,West Virginia,99.9968747090175,1,2.0,980.0,5.12,1.9308077957435505
+54_6,Region VI Planning and Development Council,West Virginia,99.98386159693695,1,2.0,1062.6666666666667,5.12,2.0961552610710985
+54_7,Region VII Planning and Development Council,West Virginia,99.9441762083615,1,1.0,845.5714285714286,5.12,1.4601966075558983
+54_8,Region VIII Planning and Development Council,West Virginia,99.19229750562177,0,1.0,822.2,5.12,1.0
+54_9,Region IX - Eastern Panhandle Regional Planning and Development Council,West Virginia,99.98982981616443,1,3.0,867.6666666666666,5.12,3.7033284146593273

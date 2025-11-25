@@ -76,10 +76,10 @@ COMPONENT_MEASURES = {
         'measures': [
             'broadband_access',
             'has_interstate',
-            'college_count',  # Will be converted to college_per_100k
+            'college_count',  # Pop-weighted average count
             'weekly_wage',
             'income_tax_rate',
-            'oz_tract_count'  # Will be converted to oz_tracts_per_100k
+            'oz_tract_count'  # Pop-weighted average count
         ]
     },
     'Component 7: Quality of Life': {
@@ -145,7 +145,7 @@ def calculate_per_capita_measures(df):
     # Check if we need to add population data
     # We need population if we have columns that require per-capita normalization
     # and we don't already have a population column
-    cols_needing_pop = ['private_employment_2022', 'college_count', 'oz_tract_count']
+    cols_needing_pop = ['private_employment_2022']
     has_cols_needing_pop = any(col in df_calc.columns for col in cols_needing_pop)
     
     if has_cols_needing_pop and 'population' not in df_calc.columns:
@@ -172,15 +172,8 @@ def calculate_per_capita_measures(df):
         df_calc['private_employment_per_1000'] = (df_calc['private_employment_2022'] /
                                                     df_calc['population'] * 1000)
 
-    # Component 6: College count per 100k
-    if 'college_count' in df_calc.columns and 'population' in df_calc.columns:
-        df_calc['college_per_100k'] = (df_calc['college_count'] /
-                                        df_calc['population'] * 100000)
-
-    # Component 6: OZ tracts per 100k
-    if 'oz_tract_count' in df_calc.columns and 'population' in df_calc.columns:
-        df_calc['oz_tracts_per_100k'] = (df_calc['oz_tract_count'] /
-                                          df_calc['population'] * 100000)
+    # Component 6 measures (college_count, oz_tract_count) are now population-weighted averages
+    # calculated during aggregation, so no per-capita conversion is needed here.
 
     return df_calc
 
