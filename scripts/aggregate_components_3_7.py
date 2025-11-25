@@ -390,12 +390,19 @@ def aggregate_component6(rdm: RegionalDataManager) -> pd.DataFrame:
     Component 6: Infrastructure & Cost of Doing Business (6 measures)
 
     Mix of weighted means, sums, and max
+    Note: college_count and oz_tract_count use population-weighted averaging
+    per Nebraska methodology ("average number where residents live")
     """
     print("\n" + "="*80)
     print("COMPONENT 6: INFRASTRUCTURE & COST OF DOING BUSINESS")
     print("="*80)
 
     data_dir = Path('data/processed')
+
+    # Load population data for weighting (used by college_count and oz_tract_count)
+    pop_data = pd.read_csv(data_dir / 'census_population_growth_2000_2022.csv')
+    pop_2022 = pop_data[['fips', 'population_2022']].copy()
+    pop_2022['fips'] = pop_2022['fips'].astype(str).str.zfill(5)
 
     # 6.1: Broadband Access
     print("\n[6.1] Broadband Access...")
@@ -421,14 +428,22 @@ def aggregate_component6(rdm: RegionalDataManager) -> pd.DataFrame:
     regional_interstate = interstate.groupby('region_key')['has_interstate'].max().reset_index()
     print(f"  Regions: {len(regional_interstate)}, With interstate: {regional_interstate['has_interstate'].sum()}")
 
-    # 6.3: Four-Year Colleges
-    print("\n[6.3] Four-Year Colleges Count...")
+    # 6.3: Four-Year Colleges (population-weighted average per Nebraska methodology)
+    print("\n[6.3] Four-Year Colleges (population-weighted average)...")
     colleges = pd.read_csv(data_dir / 'ipeds_four_year_colleges_by_county_2022.csv')
     colleges = extract_region_key(rdm, colleges)
     colleges = colleges.dropna(subset=['region_key'])
 
-    regional_colleges = colleges.groupby('region_key')['college_count'].sum().reset_index()
-    print(f"  Regions: {len(regional_colleges)}, Mean: {regional_colleges['college_count'].mean():.2f}")
+    # Merge with population data
+    colleges_merged = pd.merge(colleges, pop_2022, on='fips', how='left')
+    colleges_merged = colleges_merged.dropna(subset=['population_2022'])
+
+    # Population-weighted average: "average number of colleges where residents live"
+    regional_colleges = colleges_merged.groupby('region_key').apply(
+        lambda x: np.average(x['college_count'], weights=x['population_2022'])
+    ).reset_index()
+    regional_colleges.columns = ['region_key', 'college_count']
+    print(f"  Regions: {len(regional_colleges)}, Mean: {regional_colleges['college_count'].mean():.4f}")
 
     # 6.4: Weekly Wage
     print("\n[6.4] Weekly Wage...")
@@ -473,14 +488,22 @@ def aggregate_component6(rdm: RegionalDataManager) -> pd.DataFrame:
     regional_tax = pd.DataFrame(tax_data)
     print(f"  Regions: {len(regional_tax)}, Mean: {regional_tax['income_tax_rate'].mean():.2f}%")
 
-    # 6.6: Opportunity Zones
-    print("\n[6.6] Opportunity Zones Count...")
+    # 6.6: Opportunity Zones (population-weighted average per Nebraska methodology)
+    print("\n[6.6] Opportunity Zones (population-weighted average)...")
     oz = pd.read_csv(data_dir / 'hud_opportunity_zones_by_county.csv')
     oz = extract_region_key(rdm, oz)
     oz = oz.dropna(subset=['region_key'])
 
-    regional_oz = oz.groupby('region_key')['oz_tract_count'].sum().reset_index()
-    print(f"  Regions: {len(regional_oz)}, Mean: {regional_oz['oz_tract_count'].mean():.2f}")
+    # Merge with population data
+    oz_merged = pd.merge(oz, pop_2022, on='fips', how='left')
+    oz_merged = oz_merged.dropna(subset=['population_2022'])
+
+    # Population-weighted average: "average number of OZs where residents live"
+    regional_oz = oz_merged.groupby('region_key').apply(
+        lambda x: np.average(x['oz_tract_count'], weights=x['population_2022'])
+    ).reset_index()
+    regional_oz.columns = ['region_key', 'oz_tract_count']
+    print(f"  Regions: {len(regional_oz)}, Mean: {regional_oz['oz_tract_count'].mean():.4f}")
 
     # Merge all Component 6 measures
     result = regional_broadband.copy()

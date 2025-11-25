@@ -169,15 +169,9 @@ def calculate_per_capita_measures(df):
         df_calc['private_employment_per_1000'] = (df_calc['private_employment_2022'] /
                                                     df_calc['population'] * 1000)
 
-    # Component 6: College count per 100k
-    if 'college_count' in df_calc.columns and 'population' in df_calc.columns:
-        df_calc['college_per_100k'] = (df_calc['college_count'] /
-                                        df_calc['population'] * 100000)
-
-    # Component 6: OZ tracts per 100k
-    if 'oz_tract_count' in df_calc.columns and 'population' in df_calc.columns:
-        df_calc['oz_tracts_per_100k'] = (df_calc['oz_tract_count'] /
-                                          df_calc['population'] * 100000)
+    # Component 6: College count and OZ tracts now use population-weighted averages
+    # per Nebraska methodology ("average number where residents live")
+    # No per-capita conversion needed - use weighted average directly
 
     return df_calc
 
@@ -222,6 +216,7 @@ def invert_score_for_negative_measures(score_dict, measure_name):
     - Poverty rate (%) - lower poverty = better
     - Median age - younger population = more dynamic
     - Dependency ratio - fewer dependents per worker = better
+    - Weekly wage - lower wages = lower labor costs for business
     - Income tax rate - lower taxes = better for business
     - Mean commute time - shorter commute = better quality of life
     - Housing pre-1960 (%) - less old housing = better housing stock
@@ -233,6 +228,7 @@ def invert_score_for_negative_measures(score_dict, measure_name):
         'poverty_pct',
         'median_age',
         'dependency_ratio',
+        'weekly_wage',
         'income_tax_rate',
         'mean_commute_time',
         'housing_pre1960_pct',
@@ -277,10 +273,8 @@ def calculate_component_scores(va_regions, peer_map, component_data):
             measures = info['measures'].copy()
             if 'private_employment_2022' in measures and 'private_employment_per_1000' in df.columns:
                 measures[measures.index('private_employment_2022')] = 'private_employment_per_1000'
-            if 'college_count' in measures and 'college_per_100k' in df.columns:
-                measures[measures.index('college_count')] = 'college_per_100k'
-            if 'oz_tract_count' in measures and 'oz_tracts_per_100k' in df.columns:
-                measures[measures.index('oz_tract_count')] = 'oz_tracts_per_100k'
+            # Note: college_count and oz_tract_count now use population-weighted averages
+            # per Nebraska methodology, so no per-capita conversion needed
 
             print(f"\n{component_name}")
             print("-" * 80)

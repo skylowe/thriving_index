@@ -252,8 +252,10 @@ COMPONENT6_CONFIG = {
     },
     '6.3_four_year_colleges': {
         'description': 'Count of 4-Year Colleges',
-        'method': 'sum',
-        'value_column': 'college_count'
+        'method': 'weighted_mean',
+        'value_column': 'college_count',
+        'weight_column': 'population',
+        'note': 'Population-weighted average per Nebraska methodology ("average number of colleges where residents live")'
     },
     '6.4_weekly_wage': {
         'description': 'Weekly Wage Rate',
@@ -268,8 +270,10 @@ COMPONENT6_CONFIG = {
     },
     '6.6_opportunity_zones': {
         'description': 'Qualified Opportunity Zones',
-        'method': 'sum',
-        'value_column': 'oz_tract_count'
+        'method': 'weighted_mean',
+        'value_column': 'oz_tract_count',
+        'weight_column': 'population',
+        'note': 'Population-weighted average per Nebraska methodology ("average number of OZs where residents live")'
     }
 }
 
