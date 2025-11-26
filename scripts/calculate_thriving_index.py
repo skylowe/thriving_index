@@ -22,7 +22,7 @@ COMPONENT_MEASURES = {
         'file': 'data/regional/component1_growth_index_regional.csv',
         'measures': [
             'employment_growth_pct',
-            'private_employment_2022',  # Will be converted to private_employment_per_1000
+            'private_employment_2022',  # Absolute level (scale of economy)
             'wage_growth_pct',
             'hh_children_growth_pct',
             'dir_income_growth_pct'
@@ -145,7 +145,7 @@ def calculate_per_capita_measures(df):
     # Check if we need to add population data
     # We need population if we have columns that require per-capita normalization
     # and we don't already have a population column
-    cols_needing_pop = ['private_employment_2022']
+    cols_needing_pop = []  # No columns currently need per-capita conversion in this script
     has_cols_needing_pop = any(col in df_calc.columns for col in cols_needing_pop)
     
     if has_cols_needing_pop and 'population' not in df_calc.columns:
@@ -167,11 +167,8 @@ def calculate_per_capita_measures(df):
         except Exception as e:
             print(f"    ⚠️ Could not load/merge population data: {e}")
 
-    # Component 1: Private employment per capita (per 1000)
-    if 'private_employment_2022' in df_calc.columns and 'population' in df_calc.columns:
-        df_calc['private_employment_per_1000'] = (df_calc['private_employment_2022'] /
-                                                    df_calc['population'] * 1000)
-
+    # Component 1.2: Private Employment is now used as absolute level (scale), no conversion needed.
+    
     # Component 6 measures (college_count, oz_tract_count) are now population-weighted averages
     # calculated during aggregation, so no per-capita conversion is needed here.
 
