@@ -22,7 +22,7 @@ COMPONENT_MEASURES = {
         'file': 'data/regional/component1_growth_index_regional.csv',
         'measures': [
             'employment_growth_pct',
-            'private_employment_2022',  # Will need to convert to per capita
+            'private_employment_2022',  # Absolute count per Nebraska methodology
             'wage_growth_pct',
             'hh_children_growth_pct',
             'dir_income_growth_pct'
@@ -142,32 +142,9 @@ def calculate_per_capita_measures(df):
     """Convert absolute measures to per capita where needed."""
     df_calc = df.copy()
 
-    # Component 1: Private employment per capita (per 1000)
-    if 'private_employment_2022' in df_calc.columns and 'population' not in df_calc.columns:
-        # Need to load population data
-        pop_data = pd.read_csv('data/processed/census_population_growth_2000_2022.csv')
-        pop_data['fips'] = pop_data['fips'].astype(str).str.zfill(5)
-
-        # Aggregate population to regional level
-        import sys
-        sys.path.append(str(Path(__file__).parent))
-        from regional_data_manager import RegionalDataManager
-        rdm = RegionalDataManager()
-
-        pop_data['region_key'] = pop_data['fips'].apply(
-            lambda fips: rdm.county_to_region.get(str(fips), {}).get('region_key')
-            if str(fips) in rdm.county_to_region else None
-        )
-        pop_data = pop_data[pop_data['region_key'].notna()]
-        regional_pop = pop_data.groupby('region_key')['population_2022'].sum().reset_index()
-        regional_pop.columns = ['region_key', 'population']
-
-        # Merge with df_calc
-        df_calc = df_calc.merge(regional_pop, on='region_key', how='left')
-
-    if 'private_employment_2022' in df_calc.columns and 'population' in df_calc.columns:
-        df_calc['private_employment_per_1000'] = (df_calc['private_employment_2022'] /
-                                                    df_calc['population'] * 1000)
+    # Component 1: Private employment (measure 1.2)
+    # Nebraska methodology uses absolute employment counts, NOT per capita
+    # Peer matching by population ensures fair comparison of similar-sized regions
 
     # Component 6: College count and OZ tracts now use population-weighted averages
     # per Nebraska methodology ("average number where residents live")
@@ -269,12 +246,10 @@ def calculate_component_scores(va_regions, peer_map, component_data):
             if component_name in ['Component 1: Growth Index', 'Component 6: Infrastructure & Cost']:
                 df = calculate_per_capita_measures(df)
 
-            # Update measure list if we created per capita versions
+            # Use measures as defined - no per-capita conversions needed
+            # Nebraska methodology uses absolute private employment (measure 1.2)
+            # and population-weighted averages for college_count/oz_tract_count (Component 6)
             measures = info['measures'].copy()
-            if 'private_employment_2022' in measures and 'private_employment_per_1000' in df.columns:
-                measures[measures.index('private_employment_2022')] = 'private_employment_per_1000'
-            # Note: college_count and oz_tract_count now use population-weighted averages
-            # per Nebraska methodology, so no per-capita conversion needed
 
             print(f"\n{component_name}")
             print("-" * 80)
