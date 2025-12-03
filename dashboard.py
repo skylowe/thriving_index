@@ -2,6 +2,7 @@
 Virginia Rural Thriving Index - Interactive Dashboard
 
 A Streamlit dashboard for exploring thriving index scores across 6 Virginia rural regions.
+Now includes advanced Research Lab capabilities for deep dive analysis.
 """
 
 import streamlit as st
@@ -30,6 +31,12 @@ st.markdown("""
         font-weight: bold;
         color: #1f77b4;
         margin-bottom: 1rem;
+    }
+    .sub-header {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #333;
+        margin-top: 1rem;
     }
     .metric-card {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -117,6 +124,42 @@ def load_data():
 
     return overall, components, detailed, peers
 
+@st.cache_data
+def load_regional_raw_data():
+    """Load the raw values for all 47 measures across 94 regions."""
+    files = [
+        'data/regional/component1_growth_index_regional.csv',
+        'data/regional/component2_economic_opportunity_regional.csv',
+        'data/regional/component3_other_prosperity_regional.csv',
+        'data/regional/component4_demographic_growth_regional.csv',
+        'data/regional/component5_education_skill_regional.csv',
+        'data/regional/component6_infrastructure_cost_regional.csv',
+        'data/regional/component7_quality_of_life_regional.csv',
+        'data/regional/component8_social_capital_regional.csv'
+    ]
+    
+    dfs = []
+    for f in files:
+        try:
+            df = pd.read_csv(f)
+            # Filter columns to avoid duplication when merging
+            cols_to_keep = ['region_key'] + [c for c in df.columns if c not in ['region_name', 'state_name', 'region_key']]
+            dfs.append(df)
+        except Exception as e:
+            st.error(f"Failed to load {f}: {e}")
+            
+    if not dfs:
+        return None
+        
+    full_raw = dfs[0]
+    for df in dfs[1:]:
+        # Only merge new columns, keeping region_key as the join key
+        cols = ['region_key'] + [c for c in df.columns if c not in full_raw.columns and c != 'region_key']
+        if len(cols) > 1: # If there are new columns besides region_key
+             full_raw = full_raw.merge(df[cols], on='region_key', how='left')
+        
+    return full_raw
+
 
 @st.cache_data
 def load_geographic_data():
@@ -126,6 +169,7 @@ def load_geographic_data():
 
     return regions_gdf, states_gdf
 
+# --- VISUALIZATION FUNCTIONS ---
 
 def create_rankings_chart(overall_df):
     """Create horizontal bar chart of overall rankings."""
@@ -350,17 +394,96 @@ def create_measure_comparison(detailed_df, va_region_key, component_filter=None)
 
     return fig
 
+def create_correlation_matrix(df, cols):
+    """Create a correlation matrix heatmap."""
+    corr = df[cols].corr()
+    
+    fig = px.imshow(
+        corr,
+        text_auto='.2f',
+        aspect="auto",
+        color_continuous_scale='RdBu_r',
+        zmin=-1, zmax=1,
+        title="Correlation Matrix"
+    )
+    return fig
+
+def create_distribution_plot(df, measure_col, highlight_region_key=None):
+    """Create a violin/box plot with swarm strip to show distribution."""
+    fig = go.Figure()
+    
+    # Violin for distribution
+    fig.add_trace(go.Violin(
+        y=df[measure_col],
+        box_visible=True,
+        line_color='black',
+        meanline_visible=True,
+        fillcolor='lightseagreen',
+        opacity=0.6,
+        x0=measure_col,
+        name="Distribution"
+    ))
+    
+    # Strip plot for individual regions
+    fig.add_trace(go.Box(
+        y=df[measure_col],
+        boxpoints='all',
+        jitter=0.3,
+        pointpos=-1.8,
+        fillcolor='rgba(0,0,0,0)',
+        line=dict(color='rgba(0,0,0,0)'),
+        marker=dict(color='darkblue', opacity=0.5, size=6),
+        name="Regions",
+        # Using region_key as we might not have name for all
+        hovertext=df['region_key'], 
+    ))
+
+    # Highlight specific region
+    if highlight_region_key:
+        row = df[df['region_key'] == highlight_region_key]
+        if not row.empty:
+            val = row[measure_col].values[0]
+            fig.add_trace(go.Scatter(
+                x=[measure_col],
+                y=[val],
+                mode='markers',
+                marker=dict(color='red', size=15, symbol='star'),
+                name="Selected Region"
+            ))
+
+    fig.update_layout(
+        title=f"Distribution of {measure_col}",
+        showlegend=False,
+        height=500
+    )
+    return fig
+
+def create_scatter_explorer(df, x_col, y_col, color_col=None, hover_name=None):
+    """Interactive scatter plot."""
+    fig = px.scatter(
+        df, x=x_col, y=y_col,
+        color=color_col,
+        hover_name=hover_name,
+        trendline="ols",
+        title=f"{y_col} vs {x_col}",
+        height=600
+    )
+    return fig
+
 
 # Main app
 def main():
     # Load data
     overall_df, components_df, detailed_df, peers_df = load_data()
-
+    
     # Sidebar
     st.sidebar.title("Navigation")
+    
+    # Standard Views
+    st.sidebar.header("Standard Views")
     page = st.sidebar.radio(
         "Select Page",
-        ["Overview", "Component Analysis", "Regional Deep Dive", "Regional Map", "Peer Comparison", "Data Explorer"]
+        ["Overview", "Component Analysis", "Regional Deep Dive", "Regional Map", "Peer Comparison", "Data Explorer", "Research Lab"]
     )
 
     # Overview Page
@@ -987,6 +1110,183 @@ def main():
             file_name=f"{dataset.lower().replace(' ', '_')}.csv",
             mime="text/csv"
         )
+        
+    # Research Lab (Combined Researcher Features)
+    elif page == "Research Lab":
+        st.markdown('<p class="main-header">Research & Analytics Lab</p>', unsafe_allow_html=True)
+        st.info("🔬 Advanced analytics for researchers: Explore distributions, correlations, and methodology.")
+        
+        # Load extra raw data needed for research
+        raw_data = load_regional_raw_data()
+        
+        if raw_data is None:
+            st.error("Could not load regional raw data files. Please ensure `data/regional/*.csv` files exist.")
+            st.stop()
+            
+        # Merge scores for correlation analysis
+        master_df = overall_df.merge(components_df, on=['virginia_region_key', 'virginia_region_name'])
+        
+        # Tabs for different research modules
+        tab1, tab2, tab3, tab4 = st.tabs(["📊 Measure Explorer", "🔗 Correlations", "🧪 Peer Lab", "🗺️ Spatial Analysis"])
+        
+        with tab1:
+            st.subheader("Deep Dive: Measure Explorer")
+            st.markdown("Explore the raw values (not scores) across all 94 regions to understand distributions and identify outliers.")
+            
+            # Drop non-numeric cols for selection
+            numeric_cols = raw_data.select_dtypes(include=np.number).columns.tolist()
+            # Filter out IDs
+            exclude = ['fips', 'code', 'id']
+            numeric_cols = [c for c in numeric_cols if not any(ex in c.lower() for ex in exclude)]
+            
+            col1, col2 = st.columns([1, 3])
+            with col1:
+                selected_measure = st.selectbox("Select Measure:", numeric_cols, index=0)
+                
+                # Optional: Highlight a region. Need name mapping from raw data if possible
+                # Raw data has region_name? Let's check columns or fallback to key
+                region_opts = raw_data['region_key'].unique()
+                if 'region_name' in raw_data.columns:
+                     region_opts = raw_data['region_name'].unique()
+                
+                highlight_region = st.selectbox("Highlight Region:", region_opts)
+                
+                # Get key for highlighting
+                if 'region_name' in raw_data.columns:
+                    highlight_key = raw_data[raw_data['region_name'] == highlight_region]['region_key'].values[0]
+                else:
+                    highlight_key = highlight_region
+                
+            with col2:
+                # Statistics
+                desc = raw_data[selected_measure].describe()
+                st.write(desc.to_frame().T)
+                
+                # Distribution Plot
+                st.plotly_chart(create_distribution_plot(raw_data, selected_measure, highlight_key), use_container_width=True)
+                
+            # Top/Bottom lists
+            c1, c2 = st.columns(2)
+            cols_to_show = ['region_key', selected_measure]
+            if 'region_name' in raw_data.columns: cols_to_show.insert(1, 'region_name')
+            if 'state_name' in raw_data.columns: cols_to_show.insert(2, 'state_name')
+                
+            with c1:
+                st.markdown("**Top 10 Regions**")
+                st.dataframe(raw_data[cols_to_show].nlargest(10, selected_measure), hide_index=True)
+            with c2:
+                st.markdown("**Bottom 10 Regions**")
+                st.dataframe(raw_data[cols_to_show].nsmallest(10, selected_measure), hide_index=True)
+
+        with tab2:
+            st.subheader("Correlation Analysis")
+            st.markdown("Identify relationships between different components or raw measures.")
+            
+            mode = st.radio("Level of Analysis:", ["Component Scores", "Raw Measures"])
+            
+            if mode == "Component Scores":
+                cols = [c for c in master_df.columns if "Component" in c]
+                df_corr = master_df
+            else:
+                cols = numeric_cols # From tab 1
+                df_corr = raw_data
+                
+            selected_corr_vars = st.multiselect("Select Variables to Correlate:", cols, default=cols[:5])
+            
+            if len(selected_corr_vars) > 1:
+                st.plotly_chart(create_correlation_matrix(df_corr, selected_corr_vars), use_container_width=True)
+                
+                # Scatter driller
+                st.markdown("#### Bivariate Analysis")
+                sc1, sc2 = st.columns(2)
+                x_axis = sc1.selectbox("X Axis", selected_corr_vars, index=0)
+                y_axis = sc2.selectbox("Y Axis", selected_corr_vars, index=1)
+                
+                hover = 'region_name' if 'region_name' in df_corr.columns else 'region_key'
+                st.plotly_chart(create_scatter_explorer(df_corr, x_axis, y_axis, hover_name=hover), use_container_width=True)
+            else:
+                st.warning("Please select at least 2 variables.")
+
+        with tab3:
+            st.subheader("Peer Matching Methodology Lab")
+            st.markdown("Visualizing the 7-dimensional space used to select peer regions.")
+            
+            try:
+                # Load matching variables
+                match_vars = pd.read_csv('data/peer_matching_variables.csv')
+                
+                # Get VA regions available in the matching file
+                va_regions = [r for r in match_vars['region_name'].unique() 
+                             if "Virginia" in str(match_vars[match_vars['region_name']==r]['state_name'].values)]
+                
+                target_region_name = st.selectbox("Select Target Virginia Region:", va_regions)
+                target_row = match_vars[match_vars['region_name'] == target_region_name].iloc[0]
+                target_key = target_row['region_key']
+                
+                # Get peers for this target from the loaded peers_df
+                my_peers = peers_df[peers_df['virginia_region_key'] == target_key]['region_key'].tolist()
+                
+                # Create a column in match_vars for color coding
+                def get_status(row):
+                    if row['region_key'] == target_key:
+                        return "Target"
+                    elif row['region_key'] in my_peers:
+                        return "Selected Peer"
+                    else:
+                        return "Other Region"
+                
+                match_vars['Status'] = match_vars.apply(get_status, axis=1)
+                
+                # Select dimensions
+                dims = [c for c in match_vars.columns if c not in ['region_key', 'region_name', 'state_name', 'Status']]
+                
+                c1, c2 = st.columns(2)
+                x_dim = c1.selectbox("X Dimension (Matching Variable)", dims, index=0)
+                y_dim = c2.selectbox("Y Dimension (Matching Variable)", dims, index=1)
+                
+                fig = px.scatter(
+                    match_vars, 
+                    x=x_dim, 
+                    y=y_dim, 
+                    color='Status',
+                    color_discrete_map={"Target": "red", "Selected Peer": "blue", "Other Region": "lightgray"},
+                    hover_name='region_name',
+                    size='Status',
+                    size_max=15, 
+                    category_orders={"Status": ["Target", "Selected Peer", "Other Region"]}
+                )
+                fig.update_traces(marker=dict(opacity=0.7))
+                st.plotly_chart(fig, use_container_width=True)
+                
+                st.markdown("#### Peer Data Table")
+                st.dataframe(match_vars[match_vars['Status'] != "Other Region"].sort_values('Status', ascending=False), hide_index=True)
+                
+            except Exception as e:
+                st.error(f"Could not load peer matching data: {e}")
+
+        with tab4:
+            st.subheader("Spatial Analysis (Raw Data)")
+            st.markdown("Map any raw variable across all 94 regions.")
+            try:
+                gdf, _ = load_geographic_data()
+                # Merge with raw data
+                gdf_data = gdf.merge(raw_data, on='region_key')
+                
+                map_var = st.selectbox("Select Variable to Map:", numeric_cols, key='map_var')
+                
+                fig = px.choropleth(
+                    gdf_data,
+                    geojson=gdf_data.geometry,
+                    locations=gdf_data.index,
+                    color=map_var,
+                    hover_name='region_name' if 'region_name' in gdf_data.columns else 'region_key',
+                    projection="mercator", 
+                )
+                fig.update_geos(fitbounds="locations", visible=False)
+                st.plotly_chart(fig, use_container_width=True)
+                
+            except Exception as e:
+                st.warning(f"Could not load spatial tools: {e}")
 
 
 if __name__ == "__main__":
