@@ -1,0 +1,32 @@
+{
+  "component": "Component 5: Education & Skill Index",
+  "collection_date": "2025-11-17T12:16:56.612392",
+  "measures": {
+    "5.1_hs_attainment": {
+      "description": "High school attainment rate (exclusive - HS/GED as highest level)",
+      "data_source": "2022 ACS 5-year (Table B15003)",
+      "records": 802
+    },
+    "5.2_associates_attainment": {
+      "description": "Associate's degree attainment rate (exclusive - Associate's as highest level)",
+      "data_source": "2022 ACS 5-year (Table B15003)",
+      "records": 802
+    },
+    "5.3_bachelors_attainment": {
+      "description": "Bachelor's degree attainment rate (exclusive - Bachelor's as highest level)",
+      "data_source": "2022 ACS 5-year (Table B15003)",
+      "records": 802
+    },
+    "5.4_labor_force_participation": {
+      "description": "Labor force participation rate (% of 16+ population)",
+      "data_source": "2022 ACS 5-year (Table B23025)",
+      "records": 802
+    },
+    "5.5_knowledge_workers": {
+      "description": "Percent of knowledge workers (info, finance, professional, education/health)",
+      "data_source": "2022 ACS 5-year (Table C24030)",
+      "records": 802
+    }
+  },
+  "total_records": 2406
+}

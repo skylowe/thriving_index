@@ -1,0 +1,35 @@
+{
+  "collection_date": "2025-11-17T11:42:39.231080",
+  "component": "Component 2: Economic Opportunity & Diversity",
+  "measures_collected": 7,
+  "data_years": {
+    "bds_business_dynamics": 2021,
+    "bea_proprietors": 2022,
+    "cbp_establishments": 2021,
+    "cbp_industry": 2021,
+    "nonemp_firms": 2021,
+    "acs_occupation": 2022,
+    "acs_telecommuter": 2022
+  },
+  "states": [
+    "VA",
+    "PA",
+    "MD",
+    "DE",
+    "WV",
+    "KY",
+    "TN",
+    "NC",
+    "SC",
+    "GA"
+  ],
+  "record_counts": {
+    "bds_business_dynamics": 802,
+    "bea_proprietors": 774,
+    "cbp_establishments": 802,
+    "nonemp_firms": 802,
+    "cbp_industry_sectors": 19,
+    "census_occupation": 802,
+    "census_telecommuter": 802
+  }
+}

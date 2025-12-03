@@ -1,0 +1,797 @@
+NAME,EMP,ESTAB,NAICS2017,state,county
+"Accomack County, Virginia",944,52,62,51,001
+"Albemarle County, Virginia",9057,394,62,51,003
+"Amherst County, Virginia",570,42,62,51,009
+"Bland County, Virginia",136,6,62,51,021
+"Botetourt County, Virginia",1051,67,62,51,023
+"Brunswick County, Virginia",150,14,62,51,025
+"Buckingham County, Virginia",252,12,62,51,029
+"Craig County, Virginia",61,3,62,51,045
+"Cumberland County, Virginia",60,13,62,51,049
+"Grayson County, Virginia",146,9,62,51,077
+"Highland County, Virginia",62,6,62,51,091
+"Isle of Wight County, Virginia",635,62,62,51,093
+"King and Queen County, Virginia",24,7,62,51,097
+"King George County, Virginia",310,30,62,51,099
+"Mathews County, Virginia",124,21,62,51,115
+"Northumberland County, Virginia",46,6,62,51,133
+"Petersburg city, Virginia",3240,133,62,51,730
+"Alleghany County, Virginia",758,32,62,51,005
+"Amelia County, Virginia",199,17,62,51,007
+"Appomattox County, Virginia",504,25,62,51,011
+"Arlington County, Virginia",10032,525,62,51,013
+"Bath County, Virginia",259,6,62,51,017
+"Bedford County, Virginia",2124,154,62,51,019
+"Buchanan County, Virginia",568,37,62,51,027
+"Campbell County, Virginia",1126,83,62,51,031
+"Caroline County, Virginia",373,19,62,51,033
+"Carroll County, Virginia",657,45,62,51,035
+"Charlotte County, Virginia",224,20,62,51,037
+"Clarke County, Virginia",540,27,62,51,043
+"Dickenson County, Virginia",334,24,62,51,051
+"Dinwiddie County, Virginia",1214,21,62,51,053
+"Essex County, Virginia",516,27,62,51,057
+"Floyd County, Virginia",712,21,62,51,063
+"Fluvanna County, Virginia",212,28,62,51,065
+"Frederick County, Virginia",1740,118,62,51,069
+"Giles County, Virginia",523,33,62,51,071
+"Goochland County, Virginia",846,37,62,51,075
+"Greene County, Virginia",252,25,62,51,079
+"Halifax County, Virginia",1477,74,62,51,083
+"Henry County, Virginia",695,43,62,51,089
+"James City County, Virginia",3798,176,62,51,095
+"King William County, Virginia",335,18,62,51,101
+"Lancaster County, Virginia",976,32,62,51,103
+"Lee County, Virginia",392,27,62,51,105
+"Louisa County, Virginia",325,37,62,51,109
+"Lunenburg County, Virginia",184,13,62,51,111
+"Madison County, Virginia",263,22,62,51,113
+"Mecklenburg County, Virginia",1709,75,62,51,117
+"Middlesex County, Virginia",324,18,62,51,119
+"Montgomery County, Virginia",4804,257,62,51,121
+"Nelson County, Virginia",197,24,62,51,125
+"New Kent County, Virginia",547,26,62,51,127
+"Northampton County, Virginia",732,30,62,51,131
+"Nottoway County, Virginia",918,28,62,51,135
+"Page County, Virginia",514,20,62,51,139
+"Patrick County, Virginia",385,22,62,51,141
+"Pittsylvania County, Virginia",1030,66,62,51,143
+"Powhatan County, Virginia",257,33,62,51,145
+"Prince Edward County, Virginia",1910,75,62,51,147
+"Prince George County, Virginia",480,38,62,51,149
+"Pulaski County, Virginia",1382,67,62,51,155
+"Rappahannock County, Virginia",107,11,62,51,157
+"Richmond County, Virginia",622,17,62,51,159
+"Rockbridge County, Virginia",406,27,62,51,163
+"Russell County, Virginia",1127,66,62,51,167
+"Scott County, Virginia",688,38,62,51,169
+"Shenandoah County, Virginia",1394,69,62,51,171
+"Smyth County, Virginia",1642,57,62,51,173
+"Southampton County, Virginia",148,5,62,51,175
+"Surry County, Virginia",12,3,62,51,181
+"Sussex County, Virginia",331,15,62,51,183
+"Tazewell County, Virginia",2328,115,62,51,185
+"Westmoreland County, Virginia",144,16,62,51,193
+"Wise County, Virginia",1531,79,62,51,195
+"Bristol city, Virginia",976,52,62,51,520
+"Buena Vista city, Virginia",155,9,62,51,530
+"Covington city, Virginia",124,15,62,51,580
+"Danville city, Virginia",5135,177,62,51,590
+"Emporia city, Virginia",831,42,62,51,595
+"Falls Church city, Virginia",2132,141,62,51,610
+"Franklin city, Virginia",1310,48,62,51,620
+"Fredericksburg city, Virginia",6068,227,62,51,630
+"Galax city, Virginia",1366,50,62,51,640
+"Hopewell city, Virginia",1133,52,62,51,670
+"Lexington city, Virginia",603,39,62,51,678
+"Manassas city, Virginia",3340,172,62,51,683
+"Manassas Park city, Virginia",105,12,62,51,685
+"Martinsville city, Virginia",2398,100,62,51,690
+"Norton city, Virginia",737,46,62,51,720
+"Poquoson city, Virginia",207,18,62,51,735
+"Portsmouth city, Virginia",6723,222,62,51,740
+"Radford city, Virginia",636,43,62,51,750
+"Salem city, Virginia",5103,145,62,51,775
+"Staunton city, Virginia",2519,91,62,51,790
+"Suffolk city, Virginia",4525,250,62,51,800
+"Williamsburg city, Virginia",476,35,62,51,830
+"Winchester city, Virginia",7712,264,62,51,840
+"Hanover County, Virginia",6199,287,62,51,085
+"Rockingham County, Virginia",3504,139,62,51,165
+"Stafford County, Virginia",3796,232,62,51,179
+"Virginia Beach city, Virginia",23191,1256,62,51,810
+"Waynesboro city, Virginia",587,40,62,51,820
+"Augusta County, Virginia",3743,104,62,51,015
+"Chesterfield County, Virginia",14727,963,62,51,041
+"Culpeper County, Virginia",2205,90,62,51,047
+"Fairfax County, Virginia",66019,3606,62,51,059
+"Fauquier County, Virginia",2150,123,62,51,061
+"Franklin County, Virginia",1351,92,62,51,067
+"Gloucester County, Virginia",1299,71,62,51,073
+"Henrico County, Virginia",26147,1166,62,51,087
+"Loudoun County, Virginia",15456,1126,62,51,107
+"Orange County, Virginia",417,41,62,51,137
+"Prince William County, Virginia",12883,912,62,51,153
+"Roanoke County, Virginia",4628,248,62,51,161
+"Spotsylvania County, Virginia",4265,277,62,51,177
+"Warren County, Virginia",1502,60,62,51,187
+"Washington County, Virginia",2428,148,62,51,191
+"Wythe County, Virginia",1259,78,62,51,197
+"York County, Virginia",2271,150,62,51,199
+"Alexandria city, Virginia",7619,483,62,51,510
+"Charlottesville city, Virginia",9782,163,62,51,540
+"Chesapeake city, Virginia",11940,628,62,51,550
+"Colonial Heights city, Virginia",1496,83,62,51,570
+"Fairfax city, Virginia",4678,291,62,51,600
+"Hampton city, Virginia",7665,301,62,51,650
+"Harrisonburg city, Virginia",2892,190,62,51,660
+"Lynchburg city, Virginia",9883,286,62,51,680
+"Newport News city, Virginia",15546,452,62,51,700
+"Norfolk city, Virginia",19757,653,62,51,710
+"Richmond city, Virginia",25759,600,62,51,760
+"Roanoke city, Virginia",15449,366,62,51,770
+"Adams County, Pennsylvania",4277,177,62,42,001
+"Allegheny County, Pennsylvania",135617,4700,62,42,003
+"Armstrong County, Pennsylvania",3333,173,62,42,005
+"Sullivan County, Pennsylvania",262,16,62,42,113
+"York County, Pennsylvania",25090,975,62,42,133
+"Beaver County, Pennsylvania",8948,475,62,42,007
+"Bedford County, Pennsylvania",1636,115,62,42,009
+"Berks County, Pennsylvania",28903,931,62,42,011
+"Blair County, Pennsylvania",12453,458,62,42,013
+"Bradford County, Pennsylvania",4755,145,62,42,015
+"Bucks County, Pennsylvania",50652,2140,62,42,017
+"Butler County, Pennsylvania",13355,611,62,42,019
+"Cambria County, Pennsylvania",11027,468,62,42,021
+"Cameron County, Pennsylvania",182,11,62,42,023
+"Carbon County, Pennsylvania",2648,187,62,42,025
+"Centre County, Pennsylvania",8455,398,62,42,027
+"Chester County, Pennsylvania",38266,1568,62,42,029
+"Clarion County, Pennsylvania",2465,164,62,42,031
+"Clearfield County, Pennsylvania",6003,266,62,42,033
+"Clinton County, Pennsylvania",1468,95,62,42,035
+"Columbia County, Pennsylvania",3218,177,62,42,037
+"Crawford County, Pennsylvania",5796,219,62,42,039
+"Cumberland County, Pennsylvania",18428,806,62,42,041
+"Dauphin County, Pennsylvania",35386,922,62,42,043
+"Delaware County, Pennsylvania",45120,1837,62,42,045
+"Elk County, Pennsylvania",1468,116,62,42,047
+"Erie County, Pennsylvania",24845,869,62,42,049
+"Fayette County, Pennsylvania",7219,409,62,42,051
+"Forest County, Pennsylvania",333,7,62,42,053
+"Franklin County, Pennsylvania",10121,359,62,42,055
+"Fulton County, Pennsylvania",597,24,62,42,057
+"Greene County, Pennsylvania",1240,114,62,42,059
+"Huntingdon County, Pennsylvania",2192,116,62,42,061
+"Indiana County, Pennsylvania",4634,263,62,42,063
+"Jefferson County, Pennsylvania",2430,129,62,42,065
+"Juniata County, Pennsylvania",426,31,62,42,067
+"Lackawanna County, Pennsylvania",20095,768,62,42,069
+"Lancaster County, Pennsylvania",39098,1270,62,42,071
+"Lawrence County, Pennsylvania",5786,289,62,42,073
+"Lebanon County, Pennsylvania",8642,268,62,42,075
+"Lehigh County, Pennsylvania",46603,1165,62,42,077
+"Luzerne County, Pennsylvania",25613,975,62,42,079
+"Lycoming County, Pennsylvania",9498,357,62,42,081
+"McKean County, Pennsylvania",2379,138,62,42,083
+"Mercer County, Pennsylvania",8267,410,62,42,085
+"Mifflin County, Pennsylvania",3403,122,62,42,087
+"Monroe County, Pennsylvania",7585,357,62,42,089
+"Montgomery County, Pennsylvania",88308,3359,62,42,091
+"Montour County, Pennsylvania",9821,108,62,42,093
+"Northampton County, Pennsylvania",16195,775,62,42,095
+"Northumberland County, Pennsylvania",3493,200,62,42,097
+"Perry County, Pennsylvania",716,71,62,42,099
+"Philadelphia County, Pennsylvania",172347,4367,62,42,101
+"Pike County, Pennsylvania",1033,94,62,42,103
+"Potter County, Pennsylvania",813,41,62,42,105
+"Schuylkill County, Pennsylvania",6483,348,62,42,107
+"Snyder County, Pennsylvania",1601,93,62,42,109
+"Somerset County, Pennsylvania",2943,165,62,42,111
+"Susquehanna County, Pennsylvania",1022,56,62,42,115
+"Tioga County, Pennsylvania",2118,124,62,42,117
+"Union County, Pennsylvania",3716,141,62,42,119
+"Venango County, Pennsylvania",3247,174,62,42,121
+"Warren County, Pennsylvania",2908,125,62,42,123
+"Washington County, Pennsylvania",15112,740,62,42,125
+"Wayne County, Pennsylvania",2331,128,62,42,127
+"Westmoreland County, Pennsylvania",19414,1082,62,42,129
+"Wyoming County, Pennsylvania",483,56,62,42,131
+"Allegany County, Maryland",5917,249,62,24,001
+"Anne Arundel County, Maryland",27355,1472,62,24,003
+"Baltimore County, Maryland",61927,2962,62,24,005
+"Caroline County, Maryland",750,44,62,24,011
+"Dorchester County, Maryland",1602,63,62,24,019
+"Harford County, Maryland",11994,660,62,24,025
+"Kent County, Maryland",984,71,62,24,029
+"Talbot County, Maryland",3783,185,62,24,041
+"Calvert County, Maryland",3415,190,62,24,009
+"Carroll County, Maryland",10062,482,62,24,013
+"Cecil County, Maryland",3989,212,62,24,015
+"Charles County, Maryland",4710,356,62,24,017
+"Howard County, Maryland",17461,1149,62,24,027
+"Queen Anne's County, Maryland",1079,107,62,24,035
+"Somerset County, Maryland",1089,36,62,24,039
+"Washington County, Maryland",10667,445,62,24,043
+"Wicomico County, Maryland",8698,344,62,24,045
+"Worcester County, Maryland",2422,159,62,24,047
+"Baltimore city, Maryland",75132,1595,62,24,510
+"Frederick County, Maryland",13667,741,62,24,021
+"Prince George's County, Maryland",32603,2139,62,24,033
+"St. Mary's County, Maryland",4423,178,62,24,037
+"Garrett County, Maryland",1669,79,62,24,023
+"Montgomery County, Maryland",72707,3887,62,24,031
+"Kent County, Delaware",12214,566,62,10,001
+"New Castle County, Delaware",46879,1988,62,10,003
+"Sussex County, Delaware",12494,717,62,10,005
+"Barbour County, West Virginia",932,30,62,54,001
+"Berkeley County, West Virginia",6241,229,62,54,003
+"Boone County, West Virginia",1154,37,62,54,005
+"Braxton County, West Virginia",811,23,62,54,007
+"Calhoun County, West Virginia",244,7,62,54,013
+"Doddridge County, West Virginia",110,11,62,54,017
+"Hancock County, West Virginia",1105,68,62,54,029
+"Marshall County, West Virginia",1662,87,62,54,051
+"Monroe County, West Virginia",152,19,62,54,063
+"Nicholas County, West Virginia",1250,61,62,54,067
+"Pendleton County, West Virginia",325,18,62,54,071
+"Summers County, West Virginia",519,24,62,54,089
+"Tyler County, West Virginia",306,26,62,54,095
+"Wayne County, West Virginia",1882,54,62,54,099
+"Wirt County, West Virginia",148,10,62,54,105
+"Brooke County, West Virginia",2076,64,62,54,009
+"Clay County, West Virginia",341,15,62,54,015
+"Fayette County, West Virginia",1722,98,62,54,019
+"Gilmer County, West Virginia",153,11,62,54,021
+"Grant County, West Virginia",916,25,62,54,023
+"Greenbrier County, West Virginia",2335,145,62,54,025
+"Hampshire County, West Virginia",766,34,62,54,027
+"Hardy County, West Virginia",508,31,62,54,031
+"Jackson County, West Virginia",1000,66,62,54,035
+"Jefferson County, West Virginia",1202,74,62,54,037
+"Lewis County, West Virginia",658,30,62,54,041
+"Lincoln County, West Virginia",787,26,62,54,043
+"Logan County, West Virginia",1773,86,62,54,045
+"McDowell County, West Virginia",481,30,62,54,047
+"Mason County, West Virginia",832,36,62,54,053
+"Mineral County, West Virginia",1668,81,62,54,057
+"Mingo County, West Virginia",546,33,62,54,059
+"Morgan County, West Virginia",574,22,62,54,065
+"Pleasants County, West Virginia",259,26,62,54,073
+"Pocahontas County, West Virginia",396,25,62,54,075
+"Preston County, West Virginia",1018,57,62,54,077
+"Putnam County, West Virginia",2573,133,62,54,079
+"Raleigh County, West Virginia",6600,296,62,54,081
+"Ritchie County, West Virginia",169,17,62,54,085
+"Roane County, West Virginia",724,26,62,54,087
+"Taylor County, West Virginia",668,31,62,54,091
+"Tucker County, West Virginia",303,10,62,54,093
+"Upshur County, West Virginia",1317,75,62,54,097
+"Webster County, West Virginia",408,14,62,54,101
+"Wetzel County, West Virginia",1009,55,62,54,103
+"Wood County, West Virginia",6850,295,62,54,107
+"Wyoming County, West Virginia",716,28,62,54,109
+"Ohio County, West Virginia",5940,225,62,54,069
+"Randolph County, West Virginia",2649,96,62,54,083
+"Cabell County, West Virginia",14903,371,62,54,011
+"Harrison County, West Virginia",7005,232,62,54,033
+"Kanawha County, West Virginia",19444,642,62,54,039
+"Marion County, West Virginia",2352,146,62,54,049
+"Mercer County, West Virginia",4355,202,62,54,055
+"Monongalia County, West Virginia",19603,293,62,54,061
+"Adair County, Kentucky",542,42,62,21,001
+"Allen County, Kentucky",317,19,62,21,003
+"Anderson County, Kentucky",313,38,62,21,005
+"Ballard County, Kentucky",129,11,62,21,007
+"Barren County, Kentucky",2259,96,62,21,009
+"Bath County, Kentucky",232,11,62,21,011
+"Bourbon County, Kentucky",681,44,62,21,017
+"Bracken County, Kentucky",124,7,62,21,023
+"Breathitt County, Kentucky",745,35,62,21,025
+"Breckinridge County, Kentucky",579,37,62,21,027
+"Butler County, Kentucky",253,25,62,21,031
+"Carlisle County, Kentucky",97,10,62,21,039
+"Carter County, Kentucky",577,33,62,21,043
+"Casey County, Kentucky",477,30,62,21,045
+"Clay County, Kentucky",941,42,62,21,051
+"Clinton County, Kentucky",401,24,62,21,053
+"Cumberland County, Kentucky",347,13,62,21,057
+"Elliott County, Kentucky",131,9,62,21,063
+"Estill County, Kentucky",347,26,62,21,065
+"Floyd County, Kentucky",2307,137,62,21,071
+"Franklin County, Kentucky",2390,169,62,21,073
+"Grayson County, Kentucky",1159,61,62,21,085
+"Green County, Kentucky",520,28,62,21,087
+"Hancock County, Kentucky",103,16,62,21,091
+"Harrison County, Kentucky",1077,47,62,21,097
+"Henry County, Kentucky",237,18,62,21,103
+"Johnson County, Kentucky",630,43,62,21,115
+"Knott County, Kentucky",274,27,62,21,119
+"Knox County, Kentucky",1316,72,62,21,121
+"Larue County, Kentucky",256,20,62,21,123
+"Lawrence County, Kentucky",669,31,62,21,127
+"Lee County, Kentucky",309,17,62,21,129
+"Leslie County, Kentucky",284,17,62,21,131
+"Letcher County, Kentucky",931,55,62,21,133
+"Lewis County, Kentucky",279,12,62,21,135
+"Lincoln County, Kentucky",595,35,62,21,137
+"Livingston County, Kentucky",349,17,62,21,139
+"Lyon County, Kentucky",244,17,62,21,143
+"McLean County, Kentucky",129,11,62,21,149
+"Martin County, Kentucky",195,16,62,21,159
+"Mason County, Kentucky",1171,56,62,21,161
+"Meade County, Kentucky",344,39,62,21,163
+"Menifee County, Kentucky",162,8,62,21,165
+"Metcalfe County, Kentucky",143,16,62,21,169
+"Nicholas County, Kentucky",128,13,62,21,181
+"Owen County, Kentucky",120,13,62,21,187
+"Owsley County, Kentucky",237,13,62,21,189
+"Perry County, Kentucky",2824,122,62,21,193
+"Robertson County, Kentucky",79,3,62,21,201
+"Rockcastle County, Kentucky",1077,25,62,21,203
+"Rowan County, Kentucky",1871,102,62,21,205
+"Simpson County, Kentucky",468,33,62,21,213
+"Taylor County, Kentucky",1581,75,62,21,217
+"Todd County, Kentucky",213,13,62,21,219
+"Trigg County, Kentucky",338,21,62,21,221
+"Union County, Kentucky",831,32,62,21,225
+"Wayne County, Kentucky",705,40,62,21,231
+"Webster County, Kentucky",251,19,62,21,233
+"Wolfe County, Kentucky",297,16,62,21,237
+"Bell County, Kentucky",1234,77,62,21,013
+"Boone County, Kentucky",4782,301,62,21,015
+"Boyd County, Kentucky",5956,203,62,21,019
+"Boyle County, Kentucky",3198,140,62,21,021
+"Bullitt County, Kentucky",1644,121,62,21,029
+"Caldwell County, Kentucky",518,27,62,21,033
+"Carroll County, Kentucky",335,21,62,21,041
+"Christian County, Kentucky",3113,134,62,21,047
+"Clark County, Kentucky",1647,128,62,21,049
+"Crittenden County, Kentucky",288,13,62,21,055
+"Edmonson County, Kentucky",190,19,62,21,061
+"Fleming County, Kentucky",398,19,62,21,069
+"Fulton County, Kentucky",150,15,62,21,075
+"Gallatin County, Kentucky",236,6,62,21,077
+"Garrard County, Kentucky",241,22,62,21,079
+"Grant County, Kentucky",483,39,62,21,081
+"Graves County, Kentucky",1385,80,62,21,083
+"Greenup County, Kentucky",1009,63,62,21,089
+"Harlan County, Kentucky",1080,50,62,21,095
+"Hart County, Kentucky",367,27,62,21,099
+"Henderson County, Kentucky",2077,146,62,21,101
+"Hickman County, Kentucky",144,7,62,21,105
+"Hopkins County, Kentucky",2649,119,62,21,107
+"Jackson County, Kentucky",258,19,62,21,109
+"Jessamine County, Kentucky",1364,130,62,21,113
+"Logan County, Kentucky",616,45,62,21,141
+"McCreary County, Kentucky",250,26,62,21,147
+"Magoffin County, Kentucky",318,23,62,21,153
+"Marion County, Kentucky",1346,47,62,21,155
+"Marshall County, Kentucky",835,69,62,21,157
+"Mercer County, Kentucky",450,32,62,21,167
+"Monroe County, Kentucky",485,25,62,21,171
+"Montgomery County, Kentucky",1011,66,62,21,173
+"Morgan County, Kentucky",337,16,62,21,175
+"Nelson County, Kentucky",1410,114,62,21,179
+"Ohio County, Kentucky",1197,47,62,21,183
+"Oldham County, Kentucky",2558,158,62,21,185
+"Pendleton County, Kentucky",157,14,62,21,191
+"Pike County, Kentucky",4992,164,62,21,195
+"Powell County, Kentucky",238,23,62,21,197
+"Russell County, Kentucky",755,36,62,21,207
+"Shelby County, Kentucky",1504,109,62,21,211
+"Spencer County, Kentucky",195,19,62,21,215
+"Trimble County, Kentucky",59,4,62,21,223
+"Washington County, Kentucky",529,34,62,21,229
+"Whitley County, Kentucky",2613,98,62,21,235
+"Woodford County, Kentucky",652,68,62,21,239
+"Calloway County, Kentucky",1609,107,62,21,035
+"Madison County, Kentucky",3885,260,62,21,151
+"Scott County, Kentucky",1817,138,62,21,209
+"Warren County, Kentucky",8383,388,62,21,227
+"Campbell County, Kentucky",3183,164,62,21,037
+"Daviess County, Kentucky",8130,371,62,21,059
+"Fayette County, Kentucky",33062,1255,62,21,067
+"Hardin County, Kentucky",8100,390,62,21,093
+"Jefferson County, Kentucky",67339,2690,62,21,111
+"Kenton County, Kentucky",12472,393,62,21,117
+"Laurel County, Kentucky",2904,157,62,21,125
+"McCracken County, Kentucky",6094,274,62,21,145
+"Muhlenberg County, Kentucky",1322,55,62,21,177
+"Pulaski County, Kentucky",4482,250,62,21,199
+"Anderson County, Tennessee",4687,197,62,47,001
+"Bedford County, Tennessee",1064,98,62,47,003
+"Benton County, Tennessee",613,33,62,47,005
+"Campbell County, Tennessee",1237,62,62,47,013
+"Carroll County, Tennessee",1324,55,62,47,017
+"Claiborne County, Tennessee",1027,52,62,47,025
+"Clay County, Tennessee",286,9,62,47,027
+"Dyer County, Tennessee",1900,104,62,47,045
+"Grainger County, Tennessee",173,10,62,47,057
+"Grundy County, Tennessee",245,16,62,47,061
+"Hancock County, Tennessee",146,9,62,47,067
+"Hardeman County, Tennessee",1103,39,62,47,069
+"Hardin County, Tennessee",1368,58,62,47,071
+"Hawkins County, Tennessee",1023,58,62,47,073
+"Henry County, Tennessee",1521,79,62,47,079
+"Houston County, Tennessee",272,12,62,47,083
+"Jefferson County, Tennessee",1368,76,62,47,089
+"Johnson County, Tennessee",521,26,62,47,091
+"Lauderdale County, Tennessee",715,34,62,47,097
+"Macon County, Tennessee",637,40,62,47,111
+"Meigs County, Tennessee",146,8,62,47,121
+"Moore County, Tennessee",117,5,62,47,127
+"Morgan County, Tennessee",279,18,62,47,129
+"Perry County, Tennessee",244,15,62,47,135
+"Pickett County, Tennessee",123,7,62,47,137
+"Polk County, Tennessee",191,23,62,47,139
+"Scott County, Tennessee",478,42,62,47,151
+"Stewart County, Tennessee",167,21,62,47,161
+"Tipton County, Tennessee",1498,73,62,47,167
+"Trousdale County, Tennessee",184,16,62,47,169
+"Van Buren County, Tennessee",79,4,62,47,175
+"Bledsoe County, Tennessee",274,14,62,47,007
+"Blount County, Tennessee",6135,256,62,47,009
+"Bradley County, Tennessee",4944,253,62,47,011
+"Cannon County, Tennessee",262,21,62,47,015
+"Cheatham County, Tennessee",634,55,62,47,021
+"Chester County, Tennessee",354,31,62,47,023
+"Cocke County, Tennessee",911,40,62,47,029
+"Coffee County, Tennessee",3091,204,62,47,031
+"Crockett County, Tennessee",437,21,62,47,033
+"Decatur County, Tennessee",1436,28,62,47,039
+"DeKalb County, Tennessee",451,40,62,47,041
+"Dickson County, Tennessee",2333,118,62,47,043
+"Fayette County, Tennessee",564,45,62,47,047
+"Fentress County, Tennessee",590,29,62,47,049
+"Franklin County, Tennessee",1408,92,62,47,051
+"Gibson County, Tennessee",1898,94,62,47,053
+"Giles County, Tennessee",1035,57,62,47,055
+"Haywood County, Tennessee",366,28,62,47,075
+"Henderson County, Tennessee",1020,56,62,47,077
+"Hickman County, Tennessee",721,35,62,47,081
+"Humphreys County, Tennessee",654,30,62,47,085
+"Jackson County, Tennessee",148,9,62,47,087
+"Lake County, Tennessee",142,11,62,47,095
+"Lawrence County, Tennessee",1381,85,62,47,099
+"Lewis County, Tennessee",550,28,62,47,101
+"Lincoln County, Tennessee",868,66,62,47,103
+"Loudon County, Tennessee",1474,118,62,47,105
+"McNairy County, Tennessee",694,45,62,47,109
+"Marion County, Tennessee",601,44,62,47,115
+"Marshall County, Tennessee",790,51,62,47,117
+"Monroe County, Tennessee",1321,74,62,47,123
+"Obion County, Tennessee",1325,67,62,47,131
+"Overton County, Tennessee",658,33,62,47,133
+"Rhea County, Tennessee",1118,62,62,47,143
+"Roane County, Tennessee",1902,95,62,47,145
+"Robertson County, Tennessee",1873,129,62,47,147
+"Sequatchie County, Tennessee",345,24,62,47,153
+"Smith County, Tennessee",483,29,62,47,159
+"Unicoi County, Tennessee",609,26,62,47,171
+"Union County, Tennessee",114,14,62,47,173
+"Warren County, Tennessee",1217,103,62,47,177
+"Wayne County, Tennessee",841,41,62,47,181
+"Weakley County, Tennessee",1413,70,62,47,183
+"White County, Tennessee",709,48,62,47,185
+"McMinn County, Tennessee",1890,106,62,47,107
+"Maury County, Tennessee",5658,235,62,47,119
+"Montgomery County, Tennessee",9065,412,62,47,125
+"Sevier County, Tennessee",2585,167,62,47,155
+"Sumner County, Tennessee",7759,403,62,47,165
+"Williamson County, Tennessee",19669,878,62,47,187
+"Wilson County, Tennessee",3530,306,62,47,189
+"Carter County, Tennessee",1635,83,62,47,019
+"Cumberland County, Tennessee",2723,144,62,47,035
+"Davidson County, Tennessee",89233,2276,62,47,037
+"Greene County, Tennessee",3395,162,62,47,059
+"Hamblen County, Tennessee",3703,175,62,47,063
+"Hamilton County, Tennessee",31744,1173,62,47,065
+"Knox County, Tennessee",36272,1477,62,47,093
+"Madison County, Tennessee",12852,374,62,47,113
+"Putnam County, Tennessee",6205,244,62,47,141
+"Rutherford County, Tennessee",13882,674,62,47,149
+"Shelby County, Tennessee",73665,2270,62,47,157
+"Sullivan County, Tennessee",10762,462,62,47,163
+"Washington County, Tennessee",12551,415,62,47,179
+"Alamance County, North Carolina",10932,378,62,37,001
+"Alexander County, North Carolina",485,49,62,37,003
+"Alleghany County, North Carolina",335,27,62,37,005
+"Ashe County, North Carolina",1043,50,62,37,009
+"Avery County, North Carolina",734,40,62,37,011
+"Bertie County, North Carolina",745,48,62,37,015
+"Bladen County, North Carolina",880,47,62,37,017
+"Burke County, North Carolina",5629,173,62,37,023
+"Camden County, North Carolina",58,9,62,37,029
+"Carteret County, North Carolina",3306,196,62,37,031
+"Caswell County, North Carolina",438,31,62,37,033
+"Catawba County, North Carolina",12530,415,62,37,035
+"Chowan County, North Carolina",1083,62,62,37,041
+"Clay County, North Carolina",323,25,62,37,043
+"Cleveland County, North Carolina",4768,231,62,37,045
+"Columbus County, North Carolina",2520,153,62,37,047
+"Davidson County, North Carolina",3673,201,62,37,057
+"Davie County, North Carolina",1355,64,62,37,059
+"Duplin County, North Carolina",1698,101,62,37,061
+"Edgecombe County, North Carolina",2244,93,62,37,065
+"Gates County, North Carolina",217,9,62,37,073
+"Graham County, North Carolina",191,8,62,37,075
+"Granville County, North Carolina",4181,99,62,37,077
+"Greene County, North Carolina",533,45,62,37,079
+"Halifax County, North Carolina",2612,135,62,37,083
+"Haywood County, North Carolina",2922,138,62,37,087
+"Hertford County, North Carolina",1869,76,62,37,091
+"Hoke County, North Carolina",1512,71,62,37,093
+"Jackson County, North Carolina",1771,101,62,37,099
+"Jones County, North Carolina",131,10,62,37,103
+"Lee County, North Carolina",2525,151,62,37,105
+"McDowell County, North Carolina",1530,96,62,37,111
+"Mitchell County, North Carolina",972,57,62,37,121
+"Montgomery County, North Carolina",1056,39,62,37,123
+"Northampton County, North Carolina",530,32,62,37,131
+"Pamlico County, North Carolina",300,21,62,37,137
+"Pasquotank County, North Carolina",2409,149,62,37,139
+"Pender County, North Carolina",1490,113,62,37,141
+"Person County, North Carolina",1171,83,62,37,145
+"Richmond County, North Carolina",2053,96,62,37,153
+"Rockingham County, North Carolina",2535,149,62,37,157
+"Rutherford County, North Carolina",2177,126,62,37,161
+"Sampson County, North Carolina",2095,119,62,37,163
+"Stokes County, North Carolina",1120,52,62,37,169
+"Surry County, North Carolina",4113,163,62,37,171
+"Swain County, North Carolina",1142,29,62,37,173
+"Transylvania County, North Carolina",1240,92,62,37,175
+"Tyrrell County, North Carolina",72,8,62,37,177
+"Vance County, North Carolina",2318,104,62,37,181
+"Warren County, North Carolina",393,20,62,37,185
+"Washington County, North Carolina",629,35,62,37,187
+"Wilkes County, North Carolina",1728,129,62,37,193
+"Yadkin County, North Carolina",792,44,62,37,197
+"Yancey County, North Carolina",479,30,62,37,199
+"Anson County, North Carolina",653,44,62,37,007
+"Beaufort County, North Carolina",2293,139,62,37,013
+"Brunswick County, North Carolina",4099,230,62,37,019
+"Buncombe County, North Carolina",27073,1212,62,37,021
+"Cabarrus County, North Carolina",9916,441,62,37,025
+"Caldwell County, North Carolina",4770,136,62,37,027
+"Chatham County, North Carolina",2655,142,62,37,037
+"Cherokee County, North Carolina",1046,72,62,37,039
+"Craven County, North Carolina",7012,266,62,37,049
+"Currituck County, North Carolina",308,31,62,37,053
+"Dare County, North Carolina",1009,105,62,37,055
+"Forsyth County, North Carolina",43141,880,62,37,067
+"Harnett County, North Carolina",3636,173,62,37,085
+"Henderson County, North Carolina",7215,288,62,37,089
+"Hyde County, North Carolina",79,8,62,37,095
+"Iredell County, North Carolina",9420,520,62,37,097
+"Johnston County, North Carolina",6287,336,62,37,101
+"Lenoir County, North Carolina",4116,166,62,37,107
+"Lincoln County, North Carolina",2963,175,62,37,109
+"Macon County, North Carolina",1556,105,62,37,113
+"Madison County, North Carolina",636,40,62,37,115
+"Martin County, North Carolina",1075,64,62,37,117
+"Mecklenburg County, North Carolina",78125,3492,62,37,119
+"Moore County, North Carolina",9338,288,62,37,125
+"Nash County, North Carolina",5607,232,62,37,127
+"New Hanover County, North Carolina",20631,871,62,37,129
+"Onslow County, North Carolina",5659,285,62,37,133
+"Orange County, North Carolina",18800,421,62,37,135
+"Perquimans County, North Carolina",159,17,62,37,143
+"Pitt County, North Carolina",16545,504,62,37,147
+"Polk County, North Carolina",1379,45,62,37,149
+"Randolph County, North Carolina",4172,213,62,37,151
+"Robeson County, North Carolina",6327,279,62,37,155
+"Rowan County, North Carolina",9153,257,62,37,159
+"Scotland County, North Carolina",2542,103,62,37,165
+"Stanly County, North Carolina",2704,158,62,37,167
+"Watauga County, North Carolina",4651,149,62,37,189
+"Wayne County, North Carolina",6692,245,62,37,191
+"Wilson County, North Carolina",4393,202,62,37,195
+"Franklin County, North Carolina",769,73,62,37,069
+"Union County, North Carolina",5543,395,62,37,179
+"Wake County, North Carolina",72728,3386,62,37,183
+"Cumberland County, North Carolina",18951,748,62,37,051
+"Durham County, North Carolina",31639,952,62,37,063
+"Gaston County, North Carolina",12009,527,62,37,071
+"Guilford County, North Carolina",35311,1412,62,37,081
+"Abbeville County, South Carolina",368,24,62,45,001
+"Aiken County, South Carolina",5895,359,62,45,003
+"Allendale County, South Carolina",332,13,62,45,005
+"Marion County, South Carolina",810,57,62,45,067
+"Anderson County, South Carolina",9221,399,62,45,007
+"Bamberg County, South Carolina",344,37,62,45,009
+"Barnwell County, South Carolina",461,23,62,45,011
+"Calhoun County, South Carolina",257,19,62,45,017
+"Cherokee County, South Carolina",1401,79,62,45,021
+"Chester County, South Carolina",603,45,62,45,023
+"Chesterfield County, South Carolina",1515,95,62,45,025
+"Clarendon County, South Carolina",1257,40,62,45,027
+"Colleton County, South Carolina",1172,76,62,45,029
+"Darlington County, South Carolina",2771,112,62,45,031
+"Dillon County, South Carolina",1153,49,62,45,033
+"Edgefield County, South Carolina",554,26,62,45,037
+"Fairfield County, South Carolina",522,28,62,45,039
+"Georgetown County, South Carolina",3993,279,62,45,043
+"Hampton County, South Carolina",589,26,62,45,049
+"Kershaw County, South Carolina",2098,103,62,45,055
+"Lee County, South Carolina",297,14,62,45,061
+"McCormick County, South Carolina",156,7,62,45,065
+"Marlboro County, South Carolina",1065,44,62,45,069
+"Newberry County, South Carolina",1335,65,62,45,071
+"Orangeburg County, South Carolina",4045,214,62,45,075
+"Saluda County, South Carolina",373,21,62,45,081
+"Union County, South Carolina",495,24,62,45,087
+"Williamsburg County, South Carolina",899,50,62,45,089
+"Sumter County, South Carolina",4974,205,62,45,085
+"York County, South Carolina",10587,608,62,45,091
+"Beaufort County, South Carolina",8381,524,62,45,013
+"Berkeley County, South Carolina",4303,346,62,45,015
+"Charleston County, South Carolina",31812,1504,62,45,019
+"Dorchester County, South Carolina",4411,295,62,45,035
+"Florence County, South Carolina",17728,426,62,45,041
+"Greenville County, South Carolina",33938,1458,62,45,045
+"Greenwood County, South Carolina",4470,135,62,45,047
+"Horry County, South Carolina",14040,867,62,45,051
+"Jasper County, South Carolina",1132,50,62,45,053
+"Lancaster County, South Carolina",2881,182,62,45,057
+"Laurens County, South Carolina",1804,70,62,45,059
+"Lexington County, South Carolina",16454,723,62,45,063
+"Oconee County, South Carolina",2281,132,62,45,073
+"Pickens County, South Carolina",2988,196,62,45,077
+"Richland County, South Carolina",29262,1094,62,45,079
+"Spartanburg County, South Carolina",15802,633,62,45,083
+"Appling County, Georgia",952,41,62,13,001
+"Atkinson County, Georgia",36,5,62,13,003
+"Bacon County, Georgia",662,24,62,13,005
+"Baker County, Georgia",22,3,62,13,007
+"Baldwin County, Georgia",3988,103,62,13,009
+"Bartow County, Georgia",3398,225,62,13,015
+"Ben Hill County, Georgia",438,22,62,13,017
+"Berrien County, Georgia",275,32,62,13,019
+"Bleckley County, Georgia",269,16,62,13,023
+"Brantley County, Georgia",166,18,62,13,025
+"Brooks County, Georgia",445,23,62,13,027
+"Burke County, Georgia",695,32,62,13,033
+"Butts County, Georgia",535,35,62,13,035
+"Calhoun County, Georgia",67,8,62,13,037
+"Candler County, Georgia",449,20,62,13,043
+"Charlton County, Georgia",74,11,62,13,049
+"Chattooga County, Georgia",370,31,62,13,055
+"Clay County, Georgia",18,4,62,13,061
+"Clinch County, Georgia",244,14,62,13,065
+"Columbia County, Georgia",4811,329,62,13,073
+"Cook County, Georgia",397,38,62,13,075
+"Crawford County, Georgia",64,6,62,13,079
+"Crisp County, Georgia",1298,58,62,13,081
+"Dawson County, Georgia",675,60,62,13,085
+"Dodge County, Georgia",994,48,62,13,091
+"Douglas County, Georgia",5082,321,62,13,097
+"Echols County, Georgia",5,3,62,13,101
+"Elbert County, Georgia",400,29,62,13,105
+"Emanuel County, Georgia",784,36,62,13,107
+"Evans County, Georgia",381,13,62,13,109
+"Glascock County, Georgia",69,3,62,13,125
+"Grady County, Georgia",410,37,62,13,131
+"Greene County, Georgia",805,52,62,13,133
+"Haralson County, Georgia",673,44,62,13,143
+"Harris County, Georgia",264,29,62,13,145
+"Hart County, Georgia",349,29,62,13,147
+"Heard County, Georgia",72,3,62,13,149
+"Irwin County, Georgia",398,13,62,13,155
+"Jasper County, Georgia",234,15,62,13,159
+"Jeff Davis County, Georgia",353,21,62,13,161
+"Jefferson County, Georgia",390,23,62,13,163
+"Jenkins County, Georgia",267,8,62,13,165
+"Lamar County, Georgia",335,32,62,13,171
+"Lee County, Georgia",521,45,62,13,177
+"McDuffie County, Georgia",907,49,62,13,189
+"McIntosh County, Georgia",42,11,62,13,191
+"Macon County, Georgia",363,17,62,13,193
+"Marion County, Georgia",126,10,62,13,197
+"Miller County, Georgia",601,14,62,13,201
+"Mitchell County, Georgia",470,34,62,13,205
+"Monroe County, Georgia",970,60,62,13,207
+"Montgomery County, Georgia",86,7,62,13,209
+"Murray County, Georgia",490,35,62,13,213
+"Oglethorpe County, Georgia",127,9,62,13,221
+"Pierce County, Georgia",246,21,62,13,229
+"Pulaski County, Georgia",849,25,62,13,235
+"Rabun County, Georgia",534,40,62,13,241
+"Randolph County, Georgia",257,8,62,13,243
+"Schley County, Georgia",23,5,62,13,249
+"Seminole County, Georgia",411,23,62,13,253
+"Stewart County, Georgia",125,9,62,13,259
+"Talbot County, Georgia",22,4,62,13,263
+"Tattnall County, Georgia",790,22,62,13,267
+"Taylor County, Georgia",209,19,62,13,269
+"Telfair County, Georgia",171,12,62,13,271
+"Terrell County, Georgia",122,11,62,13,273
+"Toombs County, Georgia",1938,107,62,13,279
+"Treutlen County, Georgia",94,10,62,13,283
+"Turner County, Georgia",162,16,62,13,287
+"Warren County, Georgia",108,6,62,13,301
+"Washington County, Georgia",839,44,62,13,303
+"Wilcox County, Georgia",184,8,62,13,315
+"Wilkes County, Georgia",250,18,62,13,317
+"Wilkinson County, Georgia",147,13,62,13,319
+"Whitfield County, Georgia",5327,189,62,13,313
+"Banks County, Georgia",186,14,62,13,011
+"Barrow County, Georgia",1637,108,62,13,013
+"Bibb County, Georgia",15893,642,62,13,021
+"Bryan County, Georgia",847,72,62,13,029
+"Bulloch County, Georgia",3593,202,62,13,031
+"Camden County, Georgia",1117,105,62,13,039
+"Carroll County, Georgia",5915,230,62,13,045
+"Catoosa County, Georgia",1437,114,62,13,047
+"Chattahoochee County, Georgia",34,6,62,13,053
+"Coffee County, Georgia",2180,105,62,13,069
+"Dade County, Georgia",230,15,62,13,083
+"Decatur County, Georgia",868,59,62,13,087
+"Dooly County, Georgia",28,7,62,13,093
+"Dougherty County, Georgia",7598,321,62,13,095
+"Early County, Georgia",325,13,62,13,099
+"Effingham County, Georgia",1019,77,62,13,103
+"Fannin County, Georgia",925,77,62,13,111
+"Floyd County, Georgia",8366,348,62,13,115
+"Franklin County, Georgia",650,40,62,13,119
+"Gilmer County, Georgia",467,47,62,13,123
+"Hancock County, Georgia",118,9,62,13,141
+"Houston County, Georgia",6780,363,62,13,153
+"Johnson County, Georgia",225,12,62,13,167
+"Jones County, Georgia",367,41,62,13,169
+"Lanier County, Georgia",185,15,62,13,173
+"Laurens County, Georgia",2992,166,62,13,175
+"Liberty County, Georgia",2094,98,62,13,179
+"Lincoln County, Georgia",40,8,62,13,181
+"Long County, Georgia",62,7,62,13,183
+"Lumpkin County, Georgia",879,63,62,13,187
+"Madison County, Georgia",175,18,62,13,195
+"Meriwether County, Georgia",800,24,62,13,199
+"Morgan County, Georgia",531,41,62,13,211
+"Newton County, Georgia",2524,159,62,13,217
+"Peach County, Georgia",511,43,62,13,225
+"Pickens County, Georgia",1418,77,62,13,227
+"Pike County, Georgia",240,13,62,13,231
+"Polk County, Georgia",1182,59,62,13,233
+"Putnam County, Georgia",517,38,62,13,237
+"Screven County, Georgia",249,14,62,13,251
+"Spalding County, Georgia",3975,155,62,13,255
+"Stephens County, Georgia",1109,57,62,13,257
+"Sumter County, Georgia",2499,81,62,13,261
+"Thomas County, Georgia",3406,146,62,13,275
+"Tift County, Georgia",3453,119,62,13,277
+"Towns County, Georgia",553,29,62,13,281
+"Twiggs County, Georgia",158,8,62,13,289
+"Union County, Georgia",1483,72,62,13,291
+"Upson County, Georgia",1471,56,62,13,293
+"Walker County, Georgia",906,48,62,13,295
+"Walton County, Georgia",2298,162,62,13,297
+"Ware County, Georgia",2389,128,62,13,299
+"Wayne County, Georgia",1283,76,62,13,305
+"White County, Georgia",664,40,62,13,311
+"Worth County, Georgia",388,18,62,13,321
+"Cherokee County, Georgia",8840,592,62,13,057
+"Fayette County, Georgia",7662,532,62,13,113
+"Lowndes County, Georgia",7687,446,62,13,185
+"Muscogee County, Georgia",15495,643,62,13,215
+"Oconee County, Georgia",2505,197,62,13,219
+"Rockdale County, Georgia",4179,310,62,13,247
+"Troup County, Georgia",3381,165,62,13,285
+"Chatham County, Georgia",21310,902,62,13,051
+"Clarke County, Georgia",11030,483,62,13,059
+"Clayton County, Georgia",7814,465,62,13,063
+"Cobb County, Georgia",40125,2330,62,13,067
+"Colquitt County, Georgia",2484,107,62,13,071
+"Coweta County, Georgia",5701,307,62,13,077
+"DeKalb County, Georgia",47512,2345,62,13,089
+"Forsyth County, Georgia",10636,702,62,13,117
+"Fulton County, Georgia",93694,4417,62,13,121
+"Glynn County, Georgia",5160,273,62,13,127
+"Gordon County, Georgia",2114,96,62,13,129
+"Gwinnett County, Georgia",35180,2485,62,13,135
+"Habersham County, Georgia",1174,94,62,13,137
+"Hall County, Georgia",15629,542,62,13,139
+"Henry County, Georgia",9141,582,62,13,151
+"Jackson County, Georgia",1146,114,62,13,157
+"Paulding County, Georgia",3630,210,62,13,223
+"Richmond County, Georgia",24620,600,62,13,245

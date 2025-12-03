@@ -1,0 +1,331 @@
+score,va_value,peer_mean,peer_std,percentile,inverted,measure,component,virginia_region_key,virginia_region_name
+118.17590768408,11.732913646551072,10.827367140912433,4.98212535724856,55.55555555555556,False,employment_growth_pct,Component 1: Growth Index,51_1,Southwest Virginia
+42.75046774961686,93737.0,149740.0,97822.6333012969,33.33333333333333,False,private_employment_2022,Component 1: Growth Index,51_1,Southwest Virginia
+222.25226290250342,13.4915789886933,11.06027697761915,1.9887582882724402,100.0,False,wage_growth_pct,Component 1: Growth Index,51_1,Southwest Virginia
+-46.739272555348464,-11.297560975609755,-1.9426167454943435,6.375215078558352,11.11111111111111,False,hh_children_growth_pct,Component 1: Growth Index,51_1,Southwest Virginia
+-49.8733040306783,2.9809495263521097,15.224086028274067,8.16899085604722,11.11111111111111,False,dir_income_growth_pct,Component 1: Growth Index,51_1,Southwest Virginia
+57.3132123500347,,,,,False,COMPONENT_AVERAGE,Component 1: Growth Index,51_1,Southwest Virginia
+-34.424695402948544,0.0027577572040335,0.0032466588509410376,0.0003636992782033216,22.22222222222222,False,entrepreneurial_activity,Component 2: Economic Opportunity & Diversity,51_1,Southwest Virginia
+-56.81951050383606,1538.5473962425888,3354.247924251923,1157.8282078395591,11.11111111111111,False,proprietors_per_1000,Component 2: Economic Opportunity & Diversity,51_1,Southwest Virginia
+44.00204418067916,18.832081728914087,19.909526520070585,1.9240787907203392,33.33333333333333,False,establishments_per_1000,Component 2: Economic Opportunity & Diversity,51_1,Southwest Virginia
+64.15624684134195,0.8741919071463344,0.8801605136958426,0.01665173432896057,44.44444444444444,False,industry_diversity,Component 2: Economic Opportunity & Diversity,51_1,Southwest Virginia
+-70.77640873161911,0.6266810231926305,0.6537683292143799,0.015861269260157573,11.11111111111111,False,occupation_diversity,Component 2: Economic Opportunity & Diversity,51_1,Southwest Virginia
+38.74054339803278,73.97449284009546,76.79214344160647,4.599535741589523,33.33333333333333,False,nonemployer_share,Component 2: Economic Opportunity & Diversity,51_1,Southwest Virginia
+-13.151163358041032,68.87102456983024,72.20687385002248,2.9481352035565926,22.22222222222222,False,telecommuter_pct,Component 2: Economic Opportunity & Diversity,51_1,Southwest Virginia
+-4.038991939484409,,,,,False,COMPONENT_AVERAGE,Component 2: Economic Opportunity & Diversity,51_1,Southwest Virginia
+-27.98303742252388,3.6081465522521614,6.686194584272545,2.4050437417409465,11.11111111111111,False,proprietor_income_pct,Component 3: Other Prosperity,51_1,Southwest Virginia
+231.6655605231664,0.1076018978807997,0.18155569397889496,0.056167911946179115,11.11111111111111,True,income_stability_cv,Component 3: Other Prosperity,51_1,Southwest Virginia
+-53.47238250626435,72.19307608404095,74.35620357364996,1.4094571637478275,11.11111111111111,False,life_expectancy,Component 3: Other Prosperity,51_1,Southwest Virginia
+-192.11566577993835,20.052226756976385,14.33594754564497,1.9568547260446147,100.0,True,poverty_pct,Component 3: Other Prosperity,51_1,Southwest Virginia
+-22.26570008431763,12.374766867203014,15.191604372015718,2.303865681765318,22.22222222222222,False,dir_income_share,Component 3: Other Prosperity,51_1,Southwest Virginia
+-12.834245053975561,,,,,False,COMPONENT_AVERAGE,Component 3: Other Prosperity,51_1,Southwest Virginia
+0.5473804991441256,-7.194015796933773,13.018545825948234,20.323810196581157,11.11111111111111,False,population_growth,Component 4: Demographic Growth & Renewal,51_1,Southwest Virginia
+13.335242329764384,0.6080979635760871,0.5793785675378558,0.033138494597204464,88.88888888888889,True,dependency_ratio,Component 4: Demographic Growth & Renewal,51_1,Southwest Virginia
+-38.305544374137384,45.873014455288974,42.43849623810006,2.4832831053381534,100.0,True,median_age,Component 4: Demographic Growth & Renewal,51_1,Southwest Virginia
+-0.5979105950163301,4.624639374445583,5.241706965972506,0.6134000078899182,33.33333333333333,False,millennial_genz_change,Component 4: Demographic Growth & Renewal,51_1,Southwest Virginia
+25.1122223694627,2.1373967527543845,4.658143450922957,3.366032185658928,33.33333333333333,False,hispanic_pct,Component 4: Demographic Growth & Renewal,51_1,Southwest Virginia
+11.161544860987192,6.21439808306192,15.444465608415936,10.389720882596365,22.22222222222222,False,nonwhite_pct,Component 4: Demographic Growth & Renewal,51_1,Southwest Virginia
+1.8754891817007813,,,,,False,COMPONENT_AVERAGE,Component 4: Demographic Growth & Renewal,51_1,Southwest Virginia
+-28.762917249982934,10.854862930363582,14.669129556246933,2.9622399890787317,22.22222222222222,False,bachelors_attainment,Component 5: Education & Skill,51_1,Southwest Virginia
+73.41077225948177,37.1262692140464,38.9912118062041,7.013902811911256,44.44444444444444,False,hs_attainment,Component 5: Education & Skill,51_1,Southwest Virginia
+40.99123432844408,32.02339312985158,33.718599897836555,2.872804995482426,44.44444444444444,False,knowledge_workers_pct,Component 5: Education & Skill,51_1,Southwest Virginia
+176.69939537295159,9.978333388139266,8.782775441331607,1.558757981069142,77.77777777777779,False,associates_attainment,Component 5: Education & Skill,51_1,Southwest Virginia
+-118.75101057957323,48.29582594079746,57.502272409049056,4.208641799578177,11.11111111111111,False,labor_force_participation,Component 5: Education & Skill,51_1,Southwest Virginia
+28.71749482626425,,,,,False,COMPONENT_AVERAGE,Component 5: Education & Skill,51_1,Southwest Virginia
+115.26040405411953,99.98975317271102,99.98698535742568,0.018137234607435885,44.44444444444444,False,broadband_access,Component 6: Infrastructure & Cost,51_1,Southwest Virginia
+100.0,1.0,1.0,0.0,100.0,False,has_interstate,Component 6: Infrastructure & Cost,51_1,Southwest Virginia
+77.48807713950174,1.842041753490165,2.2321123697955474,1.7327290019718424,66.66666666666666,False,college_count,Component 6: Infrastructure & Cost,51_1,Southwest Virginia
+242.43464235925097,841.75,930.442651098901,62.269016602856325,11.11111111111111,True,weekly_wage,Component 6: Infrastructure & Cost,51_1,Southwest Virginia
+-4.984441070558205,5.75,3.2649999999999997,2.36701741197048,88.88888888888889,True,income_tax_rate,Component 6: Infrastructure & Cost,51_1,Southwest Virginia
+16.72861991778383,1.5550404830520104,2.8696410600757023,1.5786943554024804,44.44444444444444,False,oz_tract_count,Component 6: Infrastructure & Cost,51_1,Southwest Virginia
+91.15455040001632,,,,,False,COMPONENT_AVERAGE,Component 6: Infrastructure & Cost,51_1,Southwest Virginia
+141.29472740573257,25.192663921097623,26.30140116366329,2.6849365820289943,33.33333333333333,True,mean_commute_time,Component 7: Quality of Life,51_1,Southwest Virginia
+116.41457771998401,26.956103298936,29.139418385308012,13.301073738338843,55.55555555555556,True,housing_pre1960_pct,Component 7: Quality of Life,51_1,Southwest Virginia
+-84.15113391535283,0.6982889419783311,0.8787461419632094,0.09799407483845715,11.11111111111111,False,relative_weekly_wage,Component 7: Quality of Life,51_1,Southwest Virginia
+177.90563876285836,192.12555080938284,273.3934000728495,104.31574729891211,33.33333333333333,True,violent_crime_rate,Component 7: Quality of Life,51_1,Southwest Virginia
+38.408198950845815,1469.544592286375,1199.4464938802378,438.52930715661626,66.66666666666666,True,property_crime_rate,Component 7: Quality of Life,51_1,Southwest Virginia
+89.39318820260087,3.4375,3.4819711538461537,0.4192697550932164,55.55555555555556,False,natural_amenities_scale,Component 7: Quality of Life,51_1,Southwest Virginia
+22.24733694520387,17.404632060681454,26.29351306690466,11.432252809088702,33.33333333333333,False,healthcare_workers_per_1k,Component 7: Quality of Life,51_1,Southwest Virginia
+293.13889193776424,3.0,0.75,1.164964745021435,100.0,False,park_count,Component 7: Quality of Life,51_1,Southwest Virginia
+99.33142825120461,,,,,False,COMPONENT_AVERAGE,Component 7: Quality of Life,51_1,Southwest Virginia
+27.73531806972443,3.526799085784598,4.388773279949795,1.1928014780399523,22.22222222222222,False,orgs_per_1000,Component 8: Social Capital,51_1,Southwest Virginia
+78.38029081153508,0.0724928749396201,0.07686972552791907,0.020244724617453278,44.44444444444444,False,volunteering_rate,Component 8: Social Capital,51_1,Southwest Virginia
+28.976749858495026,9.501993925973858,11.026757969456815,2.1468519681161515,44.44444444444444,False,social_associations_per_10k,Component 8: Social Capital,51_1,Southwest Virginia
+68.04218560205506,60.73326578668251,62.556276744908835,5.7044293940938475,44.44444444444444,False,voter_turnout_pct,Component 8: Social Capital,51_1,Southwest Virginia
+184.1620459358872,0.0182051687348377,0.01648858264032131,0.002039620205792103,77.77777777777779,False,civic_organizations_per_1k,Component 8: Social Capital,51_1,Southwest Virginia
+77.45931805553936,,,,,False,COMPONENT_AVERAGE,Component 8: Social Capital,51_1,Southwest Virginia
+169.11167088917858,12.324823222195858,10.522082873161446,2.608445615394147,77.77777777777779,False,employment_growth_pct,Component 1: Growth Index,51_2,Central/Western Virginia
+142.72635377808393,207596.0,165614.75,98256.1025872839,77.77777777777779,False,private_employment_2022,Component 1: Growth Index,51_2,Central/Western Virginia
+124.31951169861847,11.00423640722299,10.32971507598061,2.773580899162123,55.55555555555556,False,wage_growth_pct,Component 1: Growth Index,51_2,Central/Western Virginia
+38.857792709284155,-4.883524013941674,-1.869206707979655,4.930010608923059,33.33333333333333,False,hh_children_growth_pct,Component 1: Growth Index,51_2,Central/Western Virginia
+116.4103468539457,13.98432607766499,12.722128453643478,7.691474380494462,66.66666666666666,False,dir_income_growth_pct,Component 1: Growth Index,51_2,Central/Western Virginia
+118.28513518582217,,,,,False,COMPONENT_AVERAGE,Component 1: Growth Index,51_2,Central/Western Virginia
+278.1234221713566,0.0037917406077363,0.0031657206734165624,0.0003514529008529266,100.0,False,entrepreneurial_activity,Component 2: Economic Opportunity & Diversity,51_2,Central/Western Virginia
+17.837163794643715,2258.6523480970395,3335.4968211483197,1310.6223236498736,44.44444444444444,False,proprietors_per_1000,Component 2: Economic Opportunity & Diversity,51_2,Central/Western Virginia
+410.0848849956276,24.01800484044232,19.52405678203049,1.4492638228642443,100.0,False,establishments_per_1000,Component 2: Economic Opportunity & Diversity,51_2,Central/Western Virginia
+162.51998758284356,0.8926582745397126,0.8818755269819212,0.01724688051721616,77.77777777777779,False,industry_diversity,Component 2: Economic Opportunity & Diversity,51_2,Central/Western Virginia
+111.98707633793377,0.646007003258531,0.6428986863022653,0.025930567793493016,66.66666666666666,False,occupation_diversity,Component 2: Economic Opportunity & Diversity,51_2,Central/Western Virginia
+-124.06455227068776,72.50386269678874,77.71170398030321,2.324259339881207,11.11111111111111,False,nonemployer_share,Component 2: Economic Opportunity & Diversity,51_2,Central/Western Virginia
+9.078918951754758,68.43718079673135,70.97356082317395,2.789650097865342,33.33333333333333,False,telecommuter_pct,Component 2: Economic Opportunity & Diversity,51_2,Central/Western Virginia
+123.65241450906747,,,,,False,COMPONENT_AVERAGE,Component 2: Economic Opportunity & Diversity,51_2,Central/Western Virginia
+10.306542234369658,4.426347208751891,6.596707760638857,2.4197534646931933,33.33333333333333,False,proprietor_income_pct,Component 3: Other Prosperity,51_2,Central/Western Virginia
+165.80918489234247,0.1471668871508231,0.16358790382461158,0.02495246932575094,22.22222222222222,True,income_stability_cv,Component 3: Other Prosperity,51_2,Central/Western Virginia
+169.42775298284917,74.6362405907615,73.17055536053795,2.1110941478771847,77.77777777777779,False,life_expectancy,Component 3: Other Prosperity,51_2,Central/Western Virginia
+119.37121458242883,16.492952412184028,17.466979543322427,5.028219201195139,55.55555555555556,True,poverty_pct,Component 3: Other Prosperity,51_2,Central/Western Virginia
+151.93122405416236,16.07728409470083,14.597265810355946,2.849958404218006,77.77777777777779,False,dir_income_share,Component 3: Other Prosperity,51_2,Central/Western Virginia
+123.3691837492305,,,,,False,COMPONENT_AVERAGE,Component 3: Other Prosperity,51_2,Central/Western Virginia
+91.45020715785407,7.961170783574375,8.671009032285264,8.302402898135307,55.55555555555556,False,population_growth,Component 4: Demographic Growth & Renewal,51_2,Central/Western Virginia
+355.71999524095077,0.5066208696846878,0.567431346853311,0.0237801025732559,11.11111111111111,True,dependency_ratio,Component 4: Demographic Growth & Renewal,51_2,Central/Western Virginia
+241.2683638796663,37.88588593408317,41.03296934828617,2.227734028889665,11.11111111111111,True,median_age,Component 4: Demographic Growth & Renewal,51_2,Central/Western Virginia
+-2.3368801534528103,5.211404514381842,5.491600216772733,0.2737973856255354,11.11111111111111,False,millennial_genz_change,Component 4: Demographic Growth & Renewal,51_2,Central/Western Virginia
+76.1802939186089,3.821286638445952,4.571063225343379,3.1477155273682507,66.66666666666666,False,hispanic_pct,Component 4: Demographic Growth & Renewal,51_2,Central/Western Virginia
+96.67175166085055,22.84710658639387,23.423386035066194,17.314797153015117,66.66666666666666,False,nonwhite_pct,Component 4: Demographic Growth & Renewal,51_2,Central/Western Virginia
+143.1589552840796,,,,,False,COMPONENT_AVERAGE,Component 4: Demographic Growth & Renewal,51_2,Central/Western Virginia
+176.2854797288179,17.362301898395796,14.462190017855047,3.8016564762392,77.77777777777779,False,bachelors_attainment,Component 5: Education & Skill,51_2,Central/Western Virginia
+24.506998299682152,32.00651543398829,35.201878598867935,4.232661429418551,44.44444444444444,False,hs_attainment,Component 5: Education & Skill,51_2,Central/Western Virginia
+199.8503372024943,38.14715384975573,34.87321098539022,3.2788500831259335,88.88888888888889,False,knowledge_workers_pct,Component 5: Education & Skill,51_2,Central/Western Virginia
+67.37294461559142,8.714946992844657,9.136395420630123,1.2917145688447942,44.44444444444444,False,associates_attainment,Component 5: Education & Skill,51_2,Central/Western Virginia
+130.79232983639253,59.03127157936273,57.32205578956864,5.5507842338517115,66.66666666666666,False,labor_force_participation,Component 5: Education & Skill,51_2,Central/Western Virginia
+119.76161793659567,,,,,False,COMPONENT_AVERAGE,Component 5: Education & Skill,51_2,Central/Western Virginia
+-297.404950274988,99.98391540098184,99.99740540542655,0.003394523504392816,11.11111111111111,False,broadband_access,Component 6: Infrastructure & Cost,51_2,Central/Western Virginia
+100.0,1.0,1.0,0.0,100.0,False,has_interstate,Component 6: Infrastructure & Cost,51_2,Central/Western Virginia
+77.0600703802439,2.301668546166945,2.7000713700610284,1.7367220845829237,55.55555555555556,False,college_count,Component 6: Infrastructure & Cost,51_2,Central/Western Virginia
+61.49430156483058,949.2666666666668,912.1135957792208,96.48720162808944,88.88888888888889,True,weekly_wage,Component 6: Infrastructure & Cost,51_2,Central/Western Virginia
+-12.694676216320346,5.75,2.8575,2.5666696042036374,88.88888888888889,True,income_tax_rate,Component 6: Infrastructure & Cost,51_2,Central/Western Virginia
+35.45667731165577,2.4295887949195865,4.4583701652314005,3.143286223592868,22.22222222222222,False,oz_tract_count,Component 6: Infrastructure & Cost,51_2,Central/Western Virginia
+-6.014762872429681,,,,,False,COMPONENT_AVERAGE,Component 6: Infrastructure & Cost,51_2,Central/Western Virginia
+304.9091654155442,21.561910054475906,24.82694338645775,1.5934052170680317,11.11111111111111,True,mean_commute_time,Component 7: Quality of Life,51_2,Central/Western Virginia
+8.74009741967211,31.37375545363016,23.368670169801725,8.771744279238387,88.88888888888889,True,housing_pre1960_pct,Component 7: Quality of Life,51_2,Central/Western Virginia
+81.23024202400532,0.862810214630453,0.8821666435273496,0.10312561793099426,55.55555555555556,False,relative_weekly_wage,Component 7: Quality of Life,51_2,Central/Western Virginia
+153.97262341412704,274.85103876183894,427.7172194382788,283.22910951263486,44.44444444444444,True,violent_crime_rate,Component 7: Quality of Life,51_2,Central/Western Virginia
+90.83515293781619,1859.7584885563845,1787.6640508863609,786.6409246205666,55.55555555555556,True,property_crime_rate,Component 7: Quality of Life,51_2,Central/Western Virginia
+59.77161554176533,3.5625,3.6814393939393937,0.29566037896171843,55.55555555555556,False,natural_amenities_scale,Component 7: Quality of Life,51_2,Central/Western Virginia
+67.08828100658869,34.34308859604085,38.02458240676157,11.18596634669166,33.33333333333333,False,healthcare_workers_per_1k,Component 7: Quality of Life,51_2,Central/Western Virginia
+1528.0456981935251,11.0,0.375,0.7440238091428449,100.0,False,park_count,Component 7: Quality of Life,51_2,Central/Western Virginia
+286.8241094941305,,,,,False,COMPONENT_AVERAGE,Component 7: Quality of Life,51_2,Central/Western Virginia
+416.5680295451312,4.9845248104585655,3.6403055321429196,0.4246225622489806,100.0,False,orgs_per_1000,Component 8: Social Capital,51_2,Central/Western Virginia
+255.00744325455537,0.0797375560434452,0.0571328110922855,0.014583006129607522,100.0,False,volunteering_rate,Component 8: Social Capital,51_2,Central/Western Virginia
+276.9503485785581,14.73004500425156,10.743221113398187,2.2530749008857702,100.0,False,social_associations_per_10k,Component 8: Social Capital,51_2,Central/Western Virginia
+145.35151345009422,62.86831174428472,61.06541244174842,3.9753894972441133,66.66666666666666,False,voter_turnout_pct,Component 8: Social Capital,51_2,Central/Western Virginia
+586.2030107654745,0.023886306933933,0.014714373208921737,0.0018864411618042096,100.0,False,civic_organizations_per_1k,Component 8: Social Capital,51_2,Central/Western Virginia
+336.0160691187627,,,,,False,COMPONENT_AVERAGE,Component 8: Social Capital,51_2,Central/Western Virginia
+215.10375424144902,14.926609870184832,10.738575844996017,3.6384860361754368,88.88888888888889,False,employment_growth_pct,Component 1: Growth Index,51_3,Southside Virginia
+116.00542695177074,94414.0,83472.875,68358.84499032085,77.77777777777779,False,private_employment_2022,Component 1: Growth Index,51_3,Southside Virginia
+225.78092211529696,14.314018194396622,11.223091521075014,2.4573891026878565,100.0,False,wage_growth_pct,Component 1: Growth Index,51_3,Southside Virginia
+-18.583950381038036,-10.7436294355799,-4.144944363091322,5.56456843551379,22.22222222222222,False,hh_children_growth_pct,Component 1: Growth Index,51_3,Southside Virginia
+145.49842421251103,11.28332214588717,8.244569005862033,6.678809634883026,55.55555555555556,False,dir_income_growth_pct,Component 1: Growth Index,51_3,Southside Virginia
+136.76091542799796,,,,,False,COMPONENT_AVERAGE,Component 1: Growth Index,51_3,Southside Virginia
+189.66338455431412,0.0029044215997248,0.0026841363848786504,0.0002456802360753075,88.88888888888889,False,entrepreneurial_activity,Component 2: Economic Opportunity & Diversity,51_3,Southside Virginia
+-65.55722962515304,1392.9524450854562,3788.877432180806,1447.188378616924,11.11111111111111,False,proprietors_per_1000,Component 2: Economic Opportunity & Diversity,51_3,Southside Virginia
+177.69198796123857,19.55571084626765,17.914229216642166,2.112806832082143,88.88888888888889,False,establishments_per_1000,Component 2: Economic Opportunity & Diversity,51_3,Southside Virginia
+234.89666502687183,0.87796064775485,0.8634447442897861,0.010760757845401378,88.88888888888889,False,industry_diversity,Component 2: Economic Opportunity & Diversity,51_3,Southside Virginia
+114.49191725785012,0.6415265073381586,0.6394312327691689,0.014458228898972879,55.55555555555556,False,occupation_diversity,Component 2: Economic Opportunity & Diversity,51_3,Southside Virginia
+-41.39256779843802,74.43437299264863,79.54152438746573,3.61203666807833,22.22222222222222,False,nonemployer_share,Component 2: Economic Opportunity & Diversity,51_3,Southside Virginia
+49.26744299778678,69.81209626042101,70.47999555165947,1.3165102070635206,33.33333333333333,False,telecommuter_pct,Component 2: Economic Opportunity & Diversity,51_3,Southside Virginia
+94.1516571963529,,,,,False,COMPONENT_AVERAGE,Component 2: Economic Opportunity & Diversity,51_3,Southside Virginia
+-70.87651340800755,3.1581620689678744,8.211685702194298,2.9574126557462916,11.11111111111111,False,proprietor_income_pct,Component 3: Other Prosperity,51_3,Southside Virginia
+176.3633022084146,0.1506798399872473,0.1744783215509153,0.03116481461044729,22.22222222222222,True,income_stability_cv,Component 3: Other Prosperity,51_3,Southside Virginia
+93.90334203040936,72.31157692776745,72.38737196652616,1.2432227482133493,66.66666666666666,False,life_expectancy,Component 3: Other Prosperity,51_3,Southside Virginia
+129.61701442903663,18.01338890186376,19.120722754200045,3.7388436129829867,44.44444444444444,True,poverty_pct,Component 3: Other Prosperity,51_3,Southside Virginia
+210.2738109570231,14.714652819222357,12.57204054179596,1.9429928637012777,77.77777777777779,False,dir_income_share,Component 3: Other Prosperity,51_3,Southside Virginia
+107.85619124337522,,,,,False,COMPONENT_AVERAGE,Component 3: Other Prosperity,51_3,Southside Virginia
+-26.90033491689981,-5.623367322228119,6.862470337461416,9.839089603558444,22.22222222222222,False,population_growth,Component 4: Demographic Growth & Renewal,51_3,Southside Virginia
+-6.074466370127425,0.6192593640325674,0.5876713413802246,0.029779101166648548,100.0,True,dependency_ratio,Component 4: Demographic Growth & Renewal,51_3,Southside Virginia
+-135.0707236781426,45.01816464576429,41.350667073157595,1.5601677296183456,100.0,True,median_age,Component 4: Demographic Growth & Renewal,51_3,Southside Virginia
+64.10313322763115,5.206980953163012,5.407768004851468,0.5593442262292613,33.33333333333333,False,millennial_genz_change,Component 4: Demographic Growth & Renewal,51_3,Southside Virginia
+128.82330548080103,3.876747702941,3.464779313065153,1.4292891915198829,66.66666666666666,False,hispanic_pct,Component 4: Demographic Growth & Renewal,51_3,Southside Virginia
+270.1261685104597,36.847119326960346,14.124520715996669,13.356321846257677,88.88888888888889,False,nonwhite_pct,Component 4: Demographic Growth & Renewal,51_3,Southside Virginia
+49.16784704228701,,,,,False,COMPONENT_AVERAGE,Component 4: Demographic Growth & Renewal,51_3,Southside Virginia
+59.560651274263094,10.961539189736715,11.94395518701583,2.4293566247615477,44.44444444444444,False,bachelors_attainment,Component 5: Education & Skill,51_3,Southside Virginia
+32.36411484231432,37.20554211301579,39.47856904954935,3.360681879499688,22.22222222222222,False,hs_attainment,Component 5: Education & Skill,51_3,Southside Virginia
+-17.072181996526382,29.33286409604313,31.364903024527884,1.7357145769650422,11.11111111111111,False,knowledge_workers_pct,Component 5: Education & Skill,51_3,Southside Virginia
+159.44577445253202,9.409399175271783,8.341903103755998,1.795747605859169,66.66666666666666,False,associates_attainment,Component 5: Education & Skill,51_3,Southside Virginia
+-2.3958533764412095,52.040060690036505,54.738362852469606,2.63516741494721,22.22222222222222,False,labor_force_participation,Component 5: Education & Skill,51_3,Southside Virginia
+46.38050103922837,,,,,False,COMPONENT_AVERAGE,Component 5: Education & Skill,51_3,Southside Virginia
+22.552144293614575,99.99206855756768,99.99656195768074,0.005801839278930856,22.22222222222222,False,broadband_access,Component 6: Infrastructure & Cost,51_3,Southside Virginia
+154.00617248673217,1.0,0.75,0.4629100498862757,100.0,False,has_interstate,Component 6: Infrastructure & Cost,51_3,Southside Virginia
+107.26864824818412,1.8153468441679248,1.724909256366065,1.2442146698246572,66.66666666666666,False,college_count,Component 6: Infrastructure & Cost,51_3,Southside Virginia
+140.39816808757004,836.4666666666667,863.1259844322344,65.9914026491969,55.55555555555556,True,weekly_wage,Component 6: Infrastructure & Cost,51_3,Southside Virginia
+-27.061503461570567,5.75,2.68375,2.413201415429009,88.88888888888889,True,income_tax_rate,Component 6: Infrastructure & Cost,51_3,Southside Virginia
+161.83307099900023,2.937522776184877,2.100413454280531,1.3538213586672427,77.77777777777779,False,oz_tract_count,Component 6: Infrastructure & Cost,51_3,Southside Virginia
+93.16611677558842,,,,,False,COMPONENT_AVERAGE,Component 6: Infrastructure & Cost,51_3,Southside Virginia
+75.20824340457177,27.3864615799815,26.455786681330906,3.753969167405494,77.77777777777779,True,mean_commute_time,Component 7: Quality of Life,51_3,Southside Virginia
+49.70262420968942,28.06857341638674,22.422170069431328,11.226039645677005,77.77777777777779,True,housing_pre1960_pct,Component 7: Quality of Life,51_3,Southside Virginia
+-15.228911389628081,0.7021653586760394,0.8110658021709736,0.09450791661712818,11.11111111111111,False,relative_weekly_wage,Component 7: Quality of Life,51_3,Southside Virginia
+113.15889534962507,234.2099372710448,258.0431525857432,181.11866293835587,55.55555555555556,True,violent_crime_rate,Component 7: Quality of Life,51_3,Southside Virginia
+96.05337134262759,1189.0658353760734,1163.6250386939114,644.6209889708758,77.77777777777779,True,property_crime_rate,Component 7: Quality of Life,51_3,Southside Virginia
+-8.725163199843905,3.1333333333333333,3.4267628205128204,0.2698818548932823,22.22222222222222,False,natural_amenities_scale,Component 7: Quality of Life,51_3,Southside Virginia
+129.90566327685474,21.281905333374457,18.803201867720063,8.288408261363553,88.88888888888889,False,healthcare_workers_per_1k,Component 7: Quality of Life,51_3,Southside Virginia
+100.0,3.0,0.0,0.0,100.0,False,park_count,Component 7: Quality of Life,51_3,Southside Virginia
+67.50934037423707,,,,,False,COMPONENT_AVERAGE,Component 7: Quality of Life,51_3,Southside Virginia
+216.73709059075017,4.602307158962488,3.573781085677647,0.8810619384807059,88.88888888888889,False,orgs_per_1000,Component 8: Social Capital,51_3,Southside Virginia
+80.4821519283972,0.0599010513663774,0.06326877211984877,0.017254569976754702,55.55555555555556,False,volunteering_rate,Component 8: Social Capital,51_3,Southside Virginia
+202.42141332940798,13.901072820817664,10.344453875823016,3.472534530992891,77.77777777777779,False,social_associations_per_10k,Component 8: Social Capital,51_3,Southside Virginia
+235.2205429417123,64.73218827941551,60.325663999044764,3.258768367961817,88.88888888888889,False,voter_turnout_pct,Component 8: Social Capital,51_3,Southside Virginia
+117.41007523850749,0.0159696677541029,0.01568022985149071,0.0016624735886954292,55.55555555555556,False,civic_organizations_per_1k,Component 8: Social Capital,51_3,Southside Virginia
+170.45425480575503,,,,,False,COMPONENT_AVERAGE,Component 8: Social Capital,51_3,Southside Virginia
+119.89206311678475,14.139617018980752,13.329221443194214,4.073964430078313,55.55555555555556,False,employment_growth_pct,Component 1: Growth Index,51_6,Mary Ball Washington Regional Council
+90.54576466985483,237059.0,254970.625,189456.09427436328,55.55555555555556,False,private_employment_2022,Component 1: Growth Index,51_6,Mary Ball Washington Regional Council
+30.562152937621676,8.169643853583224,10.264243644722399,3.0165102746597627,33.33333333333333,False,wage_growth_pct,Component 1: Growth Index,51_6,Mary Ball Washington Regional Council
+111.45942657541015,2.7051680396795987,1.761494947481152,8.234906746759897,44.44444444444444,False,hh_children_growth_pct,Component 1: Growth Index,51_6,Mary Ball Washington Regional Council
+-30.469777341788074,9.205785967952233,19.729503740550932,8.066019569444046,11.11111111111111,False,dir_income_growth_pct,Component 1: Growth Index,51_6,Mary Ball Washington Regional Council
+64.39792599157667,,,,,False,COMPONENT_AVERAGE,Component 1: Growth Index,51_6,Mary Ball Washington Regional Council
+120.2388731675463,0.0041744262172174,0.0039652317724169,0.0010336269369776467,55.55555555555556,False,entrepreneurial_activity,Component 2: Economic Opportunity & Diversity,51_6,Mary Ball Washington Regional Council
+115.7595794621078,4313.023093144775,4078.3417042854912,1489.1348428652545,44.44444444444444,False,proprietors_per_1000,Component 2: Economic Opportunity & Diversity,51_6,Mary Ball Washington Regional Council
+117.00487737531564,22.79065346237728,22.020656059705566,4.528097355112038,55.55555555555556,False,establishments_per_1000,Component 2: Economic Opportunity & Diversity,51_6,Mary Ball Washington Regional Council
+153.16907564513076,0.9029990748484844,0.8916328476243944,0.021377515193140087,55.55555555555556,False,industry_diversity,Component 2: Economic Opportunity & Diversity,51_6,Mary Ball Washington Regional Council
+126.67836560061212,0.6815114450279953,0.6757573855412753,0.02156826086298182,66.66666666666666,False,occupation_diversity,Component 2: Economic Opportunity & Diversity,51_6,Mary Ball Washington Regional Council
+20.377458601034604,77.82221816902693,79.80851780498242,2.494644859428337,33.33333333333333,False,nonemployer_share,Component 2: Economic Opportunity & Diversity,51_6,Mary Ball Washington Regional Council
+28.650829239320487,63.674754714129975,68.69658009708994,7.038379464569034,33.33333333333333,False,telecommuter_pct,Component 2: Economic Opportunity & Diversity,51_6,Mary Ball Washington Regional Council
+97.41129415586681,,,,,False,COMPONENT_AVERAGE,Component 2: Economic Opportunity & Diversity,51_6,Mary Ball Washington Regional Council
+107.73254298585191,6.480500654309207,6.326222459210305,1.9951805684259623,44.44444444444444,False,proprietor_income_pct,Component 3: Other Prosperity,51_6,Mary Ball Washington Regional Council
+131.9446603945177,0.1995833198606492,0.21800341161969788,0.05766250613266782,44.44444444444444,True,income_stability_cv,Component 3: Other Prosperity,51_6,Mary Ball Washington Regional Council
+118.56159493504008,76.40725124768667,75.77503958588267,3.406020140060997,55.55555555555556,False,life_expectancy,Component 3: Other Prosperity,51_6,Mary Ball Washington Regional Council
+114.33736359491701,12.84662400415967,13.714086682054369,6.050363946982821,55.55555555555556,True,poverty_pct,Component 3: Other Prosperity,51_6,Mary Ball Washington Regional Council
+160.6047264709776,20.36643188642848,17.863507010112208,4.129916958729074,77.77777777777779,False,dir_income_share,Component 3: Other Prosperity,51_6,Mary Ball Washington Regional Council
+126.63617767626087,,,,,False,COMPONENT_AVERAGE,Component 3: Other Prosperity,51_6,Mary Ball Washington Regional Council
+86.48259884044376,32.654840852339525,35.81019175407556,23.342881257210696,44.44444444444444,False,population_growth,Component 4: Demographic Growth & Renewal,51_6,Mary Ball Washington Regional Council
+175.6976200444037,0.4939267206291489,0.5436154886063456,0.06564112312652577,33.33333333333333,True,dependency_ratio,Component 4: Demographic Growth & Renewal,51_6,Mary Ball Washington Regional Council
+143.2386173816334,38.32763689721513,39.91201027222158,3.6642554062782082,44.44444444444444,True,median_age,Component 4: Demographic Growth & Renewal,51_6,Mary Ball Washington Regional Council
+118.73103328222805,5.547859995035276,5.297219096553643,1.3381050297926718,66.66666666666666,False,millennial_genz_change,Component 4: Demographic Growth & Renewal,51_6,Mary Ball Washington Regional Council
+139.66127824335112,9.248937984734829,7.168488509099612,5.2455431790930405,88.88888888888889,False,hispanic_pct,Component 4: Demographic Growth & Renewal,51_6,Mary Ball Washington Regional Council
+130.90628782956577,39.894019378013176,35.13050425340198,15.412770213232438,66.66666666666666,False,nonwhite_pct,Component 4: Demographic Growth & Renewal,51_6,Mary Ball Washington Regional Council
+132.45290593693764,,,,,False,COMPONENT_AVERAGE,Component 4: Demographic Growth & Renewal,51_6,Mary Ball Washington Regional Council
+125.58389838262622,22.143099091663,20.53605028079781,6.281485279649649,66.66666666666666,False,bachelors_attainment,Component 5: Education & Skill,51_6,Mary Ball Washington Regional Council
+74.31845959752457,25.592871910077363,27.490175398303435,7.387810304568772,44.44444444444444,False,hs_attainment,Component 5: Education & Skill,51_6,Mary Ball Washington Regional Council
+133.72445756812,44.48334177106111,41.450436720278475,8.993191498058875,66.66666666666666,False,knowledge_workers_pct,Component 5: Education & Skill,51_6,Mary Ball Washington Regional Council
+-4.934461593296376,6.982670347254938,8.773575100617183,1.7066888476575124,33.33333333333333,False,associates_attainment,Component 5: Education & Skill,51_6,Mary Ball Washington Regional Council
+134.40706775891346,66.0241755918362,63.535185861973545,7.233948987756616,66.66666666666666,False,labor_force_participation,Component 5: Education & Skill,51_6,Mary Ball Washington Regional Council
+92.61988434277757,,,,,False,COMPONENT_AVERAGE,Component 5: Education & Skill,51_6,Mary Ball Washington Regional Council
+9.363667361585385,99.99226082639696,99.99688312544595,0.005099830183365556,33.33333333333333,False,broadband_access,Component 6: Infrastructure & Cost,51_6,Mary Ball Washington Regional Council
+172.4568837309472,1.0,0.625,0.5175491695067657,100.0,False,has_interstate,Component 6: Infrastructure & Cost,51_6,Mary Ball Washington Regional Council
+52.8328154967587,2.565253639748186,4.845471417195476,4.834330904976095,55.55555555555556,False,college_count,Component 6: Infrastructure & Cost,51_6,Mary Ball Washington Regional Council
+160.1412502151947,965.4666666666668,1072.2854166666666,177.61311847988816,33.33333333333333,True,weekly_wage,Component 6: Infrastructure & Cost,51_6,Mary Ball Washington Regional Council
+68.30751269875992,5.75,5.05625,2.1890045846065678,66.66666666666666,True,income_tax_rate,Component 6: Infrastructure & Cost,51_6,Mary Ball Washington Regional Council
+93.27385751090972,6.219325249479009,6.81311946883087,8.828154032047154,88.88888888888889,False,oz_tract_count,Component 6: Infrastructure & Cost,51_6,Mary Ball Washington Regional Council
+92.72933116902594,,,,,False,COMPONENT_AVERAGE,Component 6: Infrastructure & Cost,51_6,Mary Ball Washington Regional Council
+57.11157961036409,31.780575120085096,29.4447336155489,5.446322068556901,66.66666666666666,True,mean_commute_time,Component 7: Quality of Life,51_6,Mary Ball Washington Regional Council
+-40.07131650865995,26.184859927179925,15.496286968728784,7.630807809099387,88.88888888888889,True,housing_pre1960_pct,Component 7: Quality of Life,51_6,Mary Ball Washington Regional Council
+94.16216807607144,1.0463180983124525,1.0562195502799416,0.169608376817159,44.44444444444444,False,relative_weekly_wage,Component 7: Quality of Life,51_6,Mary Ball Washington Regional Council
+133.10094616158443,288.64858641182764,457.2782500429971,509.4406148029511,55.55555555555556,True,violent_crime_rate,Component 7: Quality of Life,51_6,Mary Ball Washington Regional Council
+115.30299551206025,1892.1477141736368,2135.7710851363413,1591.9979246592966,66.66666666666666,True,property_crime_rate,Component 7: Quality of Life,51_6,Mary Ball Washington Regional Council
+107.38426225952826,3.466666666666667,3.4369791666666667,0.4020374542046217,44.44444444444444,False,natural_amenities_scale,Component 7: Quality of Life,51_6,Mary Ball Washington Regional Council
+197.09870974920747,40.50939685078514,27.552737927295524,13.343801330578819,88.88888888888889,False,healthcare_workers_per_1k,Component 7: Quality of Life,51_6,Mary Ball Washington Regional Council
+395.0692740967564,29.0,5.25,8.04895734152656,100.0,False,park_count,Component 7: Quality of Life,51_6,Mary Ball Washington Regional Council
+132.39482736961403,,,,,False,COMPONENT_AVERAGE,Component 7: Quality of Life,51_6,Mary Ball Washington Regional Council
+259.8837561336643,4.754133257645639,3.8152975156447346,0.5871989529793318,100.0,False,orgs_per_1000,Component 8: Social Capital,51_6,Mary Ball Washington Regional Council
+268.1151800215305,0.0742016418215653,0.057631665776206285,0.009856323529640157,100.0,False,volunteering_rate,Component 8: Social Capital,51_6,Mary Ball Washington Regional Council
+164.85242379215288,10.25829590186054,9.303836275585457,1.471740870216438,77.77777777777779,False,social_associations_per_10k,Component 8: Social Capital,51_6,Mary Ball Washington Regional Council
+121.95501761274967,70.9424124410377,69.27509107137828,7.594261134599026,66.66666666666666,False,voter_turnout_pct,Component 8: Social Capital,51_6,Mary Ball Washington Regional Council
+392.34435628194694,0.0186702030428807,0.014074185925357273,0.0015721244548640675,100.0,False,civic_organizations_per_1k,Component 8: Social Capital,51_6,Mary Ball Washington Regional Council
+241.43014676840886,,,,,False,COMPONENT_AVERAGE,Component 8: Social Capital,51_6,Mary Ball Washington Regional Council
+89.68571001512336,14.398308983052916,14.755133540303259,3.459516435678449,77.77777777777779,False,employment_growth_pct,Component 1: Growth Index,51_8,Shenandoah Valley
+246.41025223787696,190429.0,114137.375,52108.116633831625,100.0,False,private_employment_2022,Component 1: Growth Index,51_8,Shenandoah Valley
+42.30435118475633,9.507925765144348,10.739721721721205,2.134989348193977,22.22222222222222,False,wage_growth_pct,Component 1: Growth Index,51_8,Shenandoah Valley
+110.18199199278979,-0.4848908025912564,-1.0969041427540498,6.010742697462153,77.77777777777779,False,hh_children_growth_pct,Component 1: Growth Index,51_8,Shenandoah Valley
+-99.87839142557112,6.34257539088782,13.500909958911366,3.5813448952480194,11.11111111111111,False,dir_income_growth_pct,Component 1: Growth Index,51_8,Shenandoah Valley
+77.74078280099506,,,,,False,COMPONENT_AVERAGE,Component 1: Growth Index,51_8,Shenandoah Valley
+215.484369076323,0.0036915519481467,0.0032175319111401625,0.00041046250743532244,88.88888888888889,False,entrepreneurial_activity,Component 2: Economic Opportunity & Diversity,51_8,Shenandoah Valley
+42.41959374825313,2616.094196442287,2987.2980199221633,644.6703794636999,33.33333333333333,False,proprietors_per_1000,Component 2: Economic Opportunity & Diversity,51_8,Shenandoah Valley
+245.72813871041046,22.831783477613463,19.47426580309101,2.3039597597513257,100.0,False,establishments_per_1000,Component 2: Economic Opportunity & Diversity,51_8,Shenandoah Valley
+220.52329800325543,0.8936481949405394,0.8803728473561637,0.011014756320406261,88.88888888888889,False,industry_diversity,Component 2: Economic Opportunity & Diversity,51_8,Shenandoah Valley
+165.6439322549606,0.6602307597550652,0.6512039483669537,0.013751174065946238,77.77777777777779,False,occupation_diversity,Component 2: Economic Opportunity & Diversity,51_8,Shenandoah Valley
+-73.12705217216049,75.935222049122,79.99379017198976,2.3442714884510627,11.11111111111111,False,nonemployer_share,Component 2: Economic Opportunity & Diversity,51_8,Shenandoah Valley
+143.42437862682996,68.91751962214617,66.25680902810707,6.127227788114323,66.66666666666666,False,telecommuter_pct,Component 2: Economic Opportunity & Diversity,51_8,Shenandoah Valley
+137.1566654639817,,,,,False,COMPONENT_AVERAGE,Component 2: Economic Opportunity & Diversity,51_8,Shenandoah Valley
+-4.384843603779757,4.486035148609916,5.713097799505341,1.1755180240084144,33.33333333333333,False,proprietor_income_pct,Component 3: Other Prosperity,51_8,Shenandoah Valley
+110.67950991002016,0.1853481829259161,0.19006833597246472,0.04419821776765148,66.66666666666666,True,income_stability_cv,Component 3: Other Prosperity,51_8,Shenandoah Valley
+297.71946315834293,76.85621519770173,74.27494017480893,1.305523989221836,100.0,False,life_expectancy,Component 3: Other Prosperity,51_8,Shenandoah Valley
+130.7976068074716,14.580810805640054,15.664452325730732,3.5185900218317716,33.33333333333333,True,poverty_pct,Component 3: Other Prosperity,51_8,Shenandoah Valley
+144.6777771048387,16.736959145015874,15.966240710990022,1.725059938003007,66.66666666666666,False,dir_income_share,Component 3: Other Prosperity,51_8,Shenandoah Valley
+135.89790267537873,,,,,False,COMPONENT_AVERAGE,Component 3: Other Prosperity,51_8,Shenandoah Valley
+109.4922642176483,23.4054914642028,21.96572559921689,15.167781173948539,77.77777777777779,False,population_growth,Component 4: Demographic Growth & Renewal,51_8,Shenandoah Valley
+80.97167610961745,0.5533855089389228,0.5475885555854338,0.030464865885633234,66.66666666666666,True,dependency_ratio,Component 4: Demographic Growth & Renewal,51_8,Shenandoah Valley
+29.81375909223948,40.375141968730375,38.33771634481998,2.902884664514232,77.77777777777779,True,median_age,Component 4: Demographic Growth & Renewal,51_8,Shenandoah Valley
+232.1416800264419,5.688787684942359,4.987262102970406,0.53088895330495,88.88888888888889,False,millennial_genz_change,Component 4: Demographic Growth & Renewal,51_8,Shenandoah Valley
+95.84865229100701,8.441665085181238,8.635446546648964,4.667916904381207,66.66666666666666,False,hispanic_pct,Component 4: Demographic Growth & Renewal,51_8,Shenandoah Valley
+-21.253226640222223,14.64066218011416,32.21130757015983,14.490868306688936,22.22222222222222,False,nonwhite_pct,Component 4: Demographic Growth & Renewal,51_8,Shenandoah Valley
+87.83580084945532,,,,,False,COMPONENT_AVERAGE,Component 4: Demographic Growth & Renewal,51_8,Shenandoah Valley
+139.61846778394175,16.312728724466034,15.532079557432274,1.9704173601336858,77.77777777777779,False,bachelors_attainment,Component 5: Education & Skill,51_8,Shenandoah Valley
+212.00672694451356,34.72007452258966,31.289206466644853,3.063091074560558,88.88888888888889,False,hs_attainment,Component 5: Education & Skill,51_8,Shenandoah Valley
+144.34453551936758,36.1245858184228,34.73045412568372,3.1438635593109105,66.66666666666666,False,knowledge_workers_pct,Component 5: Education & Skill,51_8,Shenandoah Valley
+-18.75099746987854,7.270477077649877,9.5665475767652,1.9335168108358223,11.11111111111111,False,associates_attainment,Component 5: Education & Skill,51_8,Shenandoah Valley
+138.09801487864243,61.49945358104326,60.554096609678055,2.481381180559016,66.66666666666666,False,labor_force_participation,Component 5: Education & Skill,51_8,Shenandoah Valley
+123.06334953131736,,,,,False,COMPONENT_AVERAGE,Component 5: Education & Skill,51_8,Shenandoah Valley
+130.5382931241203,99.9740192206504,99.82173414830304,0.4986692338318266,22.22222222222222,False,broadband_access,Component 6: Infrastructure & Cost,51_8,Shenandoah Valley
+135.35533905932738,1.0,0.875,0.3535533905932738,100.0,False,has_interstate,Component 6: Infrastructure & Cost,51_8,Shenandoah Valley
+5.381828664436725,1.1586113659408044,2.1800019420200156,1.0794867007700353,22.22222222222222,False,college_count,Component 6: Infrastructure & Cost,51_8,Shenandoah Valley
+23.5580569687977,903.375,859.2576388888889,57.71355274564796,77.77777777777779,True,weekly_wage,Component 6: Infrastructure & Cost,51_8,Shenandoah Valley
+13.674841370360014,5.75,5.05375,0.8065435512109683,88.88888888888889,True,income_tax_rate,Component 6: Infrastructure & Cost,51_8,Shenandoah Valley
+19.666209776461912,1.3199617482327406,2.765422313392093,1.7993182708511462,33.33333333333333,False,oz_tract_count,Component 6: Infrastructure & Cost,51_8,Shenandoah Valley
+54.69576149391734,,,,,False,COMPONENT_AVERAGE,Component 6: Infrastructure & Cost,51_8,Shenandoah Valley
+89.37284446253122,26.327593268829244,26.0178739655439,2.9144139482418336,66.66666666666666,True,mean_commute_time,Component 7: Quality of Life,51_8,Shenandoah Valley
+-178.78223903841376,24.178297300619217,13.805542070700845,3.7207374708290137,100.0,True,housing_pre1960_pct,Component 7: Quality of Life,51_8,Shenandoah Valley
+114.64806072229132,0.8212636727519237,0.8065263282991791,0.10060952594439584,66.66666666666666,False,relative_weekly_wage,Component 7: Quality of Life,51_8,Shenandoah Valley
+206.47788230287728,143.42856308667027,321.49632856567143,167.23451070569365,22.22222222222222,True,violent_crime_rate,Component 7: Quality of Life,51_8,Shenandoah Valley
+204.27788464701507,1121.5164742120553,1669.965480517461,525.949493664863,33.33333333333333,True,property_crime_rate,Component 7: Quality of Life,51_8,Shenandoah Valley
+149.29737772553773,3.5625,3.3375,0.45641372904799016,77.77777777777779,False,natural_amenities_scale,Component 7: Quality of Life,51_8,Shenandoah Valley
+49.38772065845956,18.25524359563985,25.436323399535873,14.188414150322789,33.33333333333333,False,healthcare_workers_per_1k,Component 7: Quality of Life,51_8,Shenandoah Valley
+418.1980515339464,10.0,1.0,2.8284271247461903,100.0,False,park_count,Component 7: Quality of Life,51_8,Shenandoah Valley
+131.6096978767806,,,,,False,COMPONENT_AVERAGE,Component 7: Quality of Life,51_8,Shenandoah Valley
+125.37244950243031,4.087531568882207,3.893384318547217,0.7651892274586816,66.66666666666666,False,orgs_per_1000,Component 8: Social Capital,51_8,Shenandoah Valley
+178.3633828051909,0.0704007800494588,0.0560484124400585,0.01831514553816527,77.77777777777779,False,volunteering_rate,Component 8: Social Capital,51_8,Shenandoah Valley
+313.1032878130562,13.018441888989535,9.578467514638973,1.6142286727027235,100.0,False,social_associations_per_10k,Component 8: Social Capital,51_8,Shenandoah Valley
+196.930198196514,67.50956259192502,64.23076463940293,3.382638242289287,77.77777777777779,False,voter_turnout_pct,Component 8: Social Capital,51_8,Shenandoah Valley
+155.77066556398614,0.0174733525093501,0.016063398777678498,0.0025281278561288686,66.66666666666666,False,civic_organizations_per_1k,Component 8: Social Capital,51_8,Shenandoah Valley
+193.9079967762355,,,,,False,COMPONENT_AVERAGE,Component 8: Social Capital,51_8,Shenandoah Valley
+165.12691757749104,14.465496170017342,12.488383606876287,3.0357840301417536,77.77777777777779,False,employment_growth_pct,Component 1: Growth Index,51_9,Central Virginia
+25.117389908715523,127290.0,265951.125,185171.32994024557,44.44444444444444,False,private_employment_2022,Component 1: Growth Index,51_9,Central Virginia
+195.00175370175063,11.214692338166726,9.311999576106933,2.0027975146997012,88.88888888888889,False,wage_growth_pct,Component 1: Growth Index,51_9,Central Virginia
+79.39763479344982,2.4112210911479104,3.2368720185173103,4.007554079795159,44.44444444444444,False,hh_children_growth_pct,Component 1: Growth Index,51_9,Central Virginia
+81.73998262619327,16.804095754628765,18.22322994159135,7.771811811078974,55.55555555555556,False,dir_income_growth_pct,Component 1: Growth Index,51_9,Central Virginia
+109.27673572152005,,,,,False,COMPONENT_AVERAGE,Component 1: Growth Index,51_9,Central Virginia
+151.58936462606187,0.0042099664419698,0.003827441646661438,0.0007414799505305761,77.77777777777779,False,entrepreneurial_activity,Component 2: Economic Opportunity & Diversity,51_9,Central Virginia
+85.49486979362247,3794.66983963188,3942.6289965083697,1020.0470783187843,55.55555555555556,False,proprietors_per_1000,Component 2: Economic Opportunity & Diversity,51_9,Central Virginia
+165.0962818251624,24.40788895424704,22.09872992287368,3.547297889571279,88.88888888888889,False,establishments_per_1000,Component 2: Economic Opportunity & Diversity,51_9,Central Virginia
+41.51390061003566,0.8949186828454417,0.901540560124376,0.011322138675691054,33.33333333333333,False,industry_diversity,Component 2: Economic Opportunity & Diversity,51_9,Central Virginia
+123.81996816415389,0.6720511324073926,0.6705179285658647,0.006436632622520327,55.55555555555556,False,occupation_diversity,Component 2: Economic Opportunity & Diversity,51_9,Central Virginia
+106.53981689917057,78.49867974349301,78.30511505542825,2.9597875758466174,66.66666666666666,False,nonemployer_share,Component 2: Economic Opportunity & Diversity,51_9,Central Virginia
+-99.37246243538127,63.01507398188161,69.18162346613323,3.092979546385581,11.11111111111111,False,telecommuter_pct,Component 2: Economic Opportunity & Diversity,51_9,Central Virginia
+82.09739135468935,,,,,False,COMPONENT_AVERAGE,Component 2: Economic Opportunity & Diversity,51_9,Central Virginia
+57.37127554984207,5.836342211656748,6.3940232122268315,1.3082282141050954,33.33333333333333,False,proprietor_income_pct,Component 3: Other Prosperity,51_9,Central Virginia
+101.78750416888336,0.1952590872521625,0.19600683845914946,0.04183213779322615,44.44444444444444,True,income_stability_cv,Component 3: Other Prosperity,51_9,Central Virginia
+319.2319457672577,78.65919323278636,74.95038553925733,1.6917277637385955,100.0,False,life_expectancy,Component 3: Other Prosperity,51_9,Central Virginia
+174.5853207243,9.526005518041094,11.97824381731284,3.2878296633412534,33.33333333333333,True,poverty_pct,Component 3: Other Prosperity,51_9,Central Virginia
+169.10761455665653,20.229406413321307,17.61358080688388,3.7851481681412866,88.88888888888889,False,dir_income_share,Component 3: Other Prosperity,51_9,Central Virginia
+164.41673215338793,,,,,False,COMPONENT_AVERAGE,Component 3: Other Prosperity,51_9,Central Virginia
+145.30513296580904,32.67500515798381,25.18214942615036,16.53864637697493,77.77777777777779,False,population_growth,Component 4: Demographic Growth & Renewal,51_9,Central Virginia
+-4.3861820421864195,0.5525103131199681,0.5313033882151805,0.02031583538156139,77.77777777777779,True,dependency_ratio,Component 4: Demographic Growth & Renewal,51_9,Central Virginia
+36.927231832069936,40.86398946156152,39.422862249654486,2.2848643777137907,77.77777777777779,True,median_age,Component 4: Demographic Growth & Renewal,51_9,Central Virginia
+49.50259796742754,5.294878787924821,5.523318969674648,0.45238006819138027,44.44444444444444,False,millennial_genz_change,Component 4: Demographic Growth & Renewal,51_9,Central Virginia
+248.33400517048153,6.910159586575887,5.7110842368677925,0.8083617430338961,88.88888888888889,False,hispanic_pct,Component 4: Demographic Growth & Renewal,51_9,Central Virginia
+40.22557546847717,22.14514467815618,31.601538455752454,15.820133529866645,44.44444444444444,False,nonwhite_pct,Component 4: Demographic Growth & Renewal,51_9,Central Virginia
+85.98472689367979,,,,,False,COMPONENT_AVERAGE,Component 4: Demographic Growth & Renewal,51_9,Central Virginia
+178.8327001926432,22.620932220744983,19.700323320357757,3.704819057637433,77.77777777777779,False,bachelors_attainment,Component 5: Education & Skill,51_9,Central Virginia
+22.815254526592085,25.253306721364236,29.49071530260094,5.4899560207743345,44.44444444444444,False,hs_attainment,Component 5: Education & Skill,51_9,Central Virginia
+328.7097020751346,46.8429288885654,39.67788165695768,3.13281297933478,100.0,False,knowledge_workers_pct,Component 5: Education & Skill,51_9,Central Virginia
+-55.719140288067024,6.948259440693557,8.489532769450971,0.9897777022825777,22.22222222222222,False,associates_attainment,Component 5: Education & Skill,51_9,Central Virginia
+75.72731111013516,63.06417649568532,63.77249495251642,2.9181705415705412,22.22222222222222,False,labor_force_participation,Component 5: Education & Skill,51_9,Central Virginia
+110.0731655232876,,,,,False,COMPONENT_AVERAGE,Component 5: Education & Skill,51_9,Central Virginia
+124.76303563736323,99.94257202768254,99.81932418520958,0.4977089411727993,22.22222222222222,False,broadband_access,Component 6: Infrastructure & Cost,51_9,Central Virginia
+100.0,1.0,1.0,0.0,100.0,False,has_interstate,Component 6: Infrastructure & Cost,51_9,Central Virginia
+11.75933755286043,1.7545839872305609,6.173002302110042,5.007236111272769,33.33333333333333,False,college_count,Component 6: Infrastructure & Cost,51_9,Central Virginia
+121.03834426887086,982.7272727272727,1003.7522321428571,99.93637877051809,44.44444444444444,True,weekly_wage,Component 6: Infrastructure & Cost,51_9,Central Virginia
+59.77668163083882,5.75,4.89625,2.1225250292988305,77.77777777777779,True,income_tax_rate,Component 6: Infrastructure & Cost,51_9,Central Virginia
+13.937866388560238,1.4939301477106253,9.245945746923727,9.007463879773798,11.11111111111111,False,oz_tract_count,Component 6: Infrastructure & Cost,51_9,Central Virginia
+71.87921091308226,,,,,False,COMPONENT_AVERAGE,Component 6: Infrastructure & Cost,51_9,Central Virginia
+13.410101972558948,29.86085082371076,26.95764020203203,3.3528283181008893,77.77777777777779,True,mean_commute_time,Component 7: Quality of Life,51_9,Central Virginia
+139.73365500481543,17.443321612232182,21.326754974847447,9.773662559219938,55.55555555555556,True,housing_pre1960_pct,Component 7: Quality of Life,51_9,Central Virginia
+3.028182745765278,0.9392560820328936,1.0268987568370223,0.09037953220403463,33.33333333333333,False,relative_weekly_wage,Component 7: Quality of Life,51_9,Central Virginia
+170.91985896142884,160.91627620805528,514.7330820285244,498.8966574410411,22.22222222222222,True,violent_crime_rate,Component 7: Quality of Life,51_9,Central Virginia
+159.8580735453429,1269.3003747951925,2256.4274293221406,1649.1126360409721,44.44444444444444,True,property_crime_rate,Component 7: Quality of Life,51_9,Central Virginia
+-18.481276960361285,3.090909090909091,3.509300595238095,0.35312879390131807,22.22222222222222,False,natural_amenities_scale,Component 7: Quality of Life,51_9,Central Virginia
+-37.00395210618535,18.453535988677267,36.42908134769217,13.120457536205159,22.22222222222222,False,healthcare_workers_per_1k,Component 7: Quality of Life,51_9,Central Virginia
+243.41980482353767,14.0,3.875,7.059694449073962,88.88888888888889,False,park_count,Component 7: Quality of Life,51_9,Central Virginia
+84.3605559983628,,,,,False,COMPONENT_AVERAGE,Component 7: Quality of Life,51_9,Central Virginia
+227.61136764434215,5.501353364479873,4.488759856895055,0.7934978883753955,88.88888888888889,False,orgs_per_1000,Component 8: Social Capital,51_9,Central Virginia
+171.62225783097892,0.0855811691060062,0.07496815883565552,0.014818033655677647,55.55555555555556,False,volunteering_rate,Component 8: Social Capital,51_9,Central Virginia
+161.42286881453543,10.859691279446247,9.703154675490179,1.8829088029870389,77.77777777777779,False,social_associations_per_10k,Component 8: Social Capital,51_9,Central Virginia
+280.22495935159156,76.98278517222596,64.9717980126508,6.66444159720605,88.88888888888889,False,voter_turnout_pct,Component 8: Social Capital,51_9,Central Virginia
+184.90186273323943,0.0188740448675205,0.01604131464489985,0.0033364759398990477,77.77777777777779,False,civic_organizations_per_1k,Component 8: Social Capital,51_9,Central Virginia
+205.1566632749375,,,,,False,COMPONENT_AVERAGE,Component 8: Social Capital,51_9,Central Virginia

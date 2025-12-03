@@ -1,0 +1,39 @@
+{
+  "component": "Component 4: Demographic Growth & Renewal Index",
+  "collection_date": "2025-11-17T12:11:35.597774",
+  "measures": {
+    "4.1_population_growth": {
+      "description": "Long-run population growth (2000 to 2022)",
+      "data_sources": "2000 Decennial Census + 2022 ACS 5-year",
+      "records_2000": 804,
+      "records_2022": 802
+    },
+    "4.2_dependency_ratio": {
+      "description": "Dependency ratio (under 15 + 65+) / (15-64)",
+      "data_source": "2022 ACS 5-year (Table B01001)",
+      "records": 802
+    },
+    "4.3_median_age": {
+      "description": "Median age of population",
+      "data_source": "2022 ACS 5-year (Table B01002)",
+      "records": 802
+    },
+    "4.4_millennial_genz_change": {
+      "description": "Change in share of Millennials and Gen Z (born 1985+)",
+      "data_sources": "2017 and 2022 ACS 5-year (Table B01001)",
+      "records_2017": 802,
+      "records_2022": 802
+    },
+    "4.5_percent_hispanic": {
+      "description": "Percent of population that is Hispanic or Latino",
+      "data_source": "2022 ACS 5-year (Table B03003)",
+      "records": 802
+    },
+    "4.6_percent_non_white": {
+      "description": "Percent of population that is non-white",
+      "data_source": "2022 ACS 5-year (Table B02001)",
+      "records": 802
+    }
+  },
+  "total_records": 5616
+}

@@ -1,0 +1,85 @@
+{
+  "component": "Component 6: Infrastructure & Cost of Doing Business",
+  "collection_date": "2025-11-17T23:19:49.222817",
+  "measures_collected": 6,
+  "total_measures": 6,
+  "completion_percentage": 100.0,
+  "notes": "6 of 6 measures collected.",
+  "measures": {
+    "6.1_broadband": {
+      "name": "Broadband Internet Access",
+      "source": "FCC Broadband Data Collection (BDC) Public Data API",
+      "year": 2024,
+      "records": 802,
+      "counties": 802,
+      "avg_coverage": 99.96138341608479,
+      "files": [
+        "data/raw/fcc/fcc_broadband_100_10.csv",
+        "data/processed/fcc_broadband_availability_100_10.csv"
+      ]
+    },
+    "6.2_interstate_highways": {
+      "name": "Interstate Highway Presence",
+      "source": "USGS National Map Transportation API + Census TIGER",
+      "year": 2024,
+      "records": 802,
+      "counties": 802,
+      "counties_with_interstate": 391,
+      "pct_with_interstate": 48.753117206982544,
+      "files": [
+        "data/raw/usgs/county_interstate_presence.csv",
+        "data/processed/usgs_county_interstate_presence.csv"
+      ]
+    },
+    "6.3_four_year_colleges": {
+      "name": "Count of 4-Year Colleges",
+      "source": "Urban Institute Education Data Portal (IPEDS)",
+      "year": 2022,
+      "records": 345,
+      "counties": 345,
+      "total_colleges": 902,
+      "avg_colleges_per_county": 2.6144927536231886,
+      "files": [
+        "data/raw/urban_institute/ipeds_four_year_colleges_2022.csv",
+        "data/processed/ipeds_four_year_colleges_by_county_2022.csv"
+      ]
+    },
+    "6.4_weekly_wage": {
+      "name": "Weekly Wage Rate",
+      "source": "BLS QCEW",
+      "year": 2022,
+      "records": 802,
+      "counties": 802,
+      "avg_value": 931.6097256857855,
+      "files": [
+        "data/raw/qcew/qcew_weekly_wage_2022.csv",
+        "data/processed/qcew_weekly_wage_2022.csv"
+      ]
+    },
+    "6.5_tax_rate": {
+      "name": "Top Marginal Income Tax Rate",
+      "source": "Tax Foundation",
+      "tax_year": 2024,
+      "records": 10,
+      "states": 10,
+      "avg_value": 4.658,
+      "files": [
+        "data/raw/tax_foundation/state_income_tax_rates_2024.json",
+        "data/processed/state_income_tax_rates_2024.csv"
+      ]
+    },
+    "6.6_opportunity_zones": {
+      "name": "Qualified Opportunity Zones",
+      "source": "HUD ArcGIS REST API",
+      "designation_year": 2018,
+      "records": 580,
+      "counties_with_oz": 580,
+      "total_oz_tracts": 1709,
+      "avg_oz_per_county": 2.946551724137931,
+      "files": [
+        "data/raw/hud/opportunity_zones_tracts.csv",
+        "data/processed/hud_opportunity_zones_by_county.csv"
+      ]
+    }
+  }
+}

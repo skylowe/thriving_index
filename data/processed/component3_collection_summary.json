@@ -1,0 +1,32 @@
+{
+  "collection_date": "2025-11-17T11:49:55.959311",
+  "measures": {
+    "3.1_proprietor_income": {
+      "status": "complete",
+      "records": 774,
+      "year": 2022
+    },
+    "3.2_income_stability": {
+      "status": "complete",
+      "records": 774,
+      "years": "2008-2022"
+    },
+    "3.3_life_expectancy": {
+      "status": "complete",
+      "records": 812,
+      "year": 2025,
+      "source": "County Health Rankings (Zenodo)"
+    },
+    "3.4_poverty_rate": {
+      "status": "complete",
+      "records": 802,
+      "year": 2022
+    },
+    "3.5_dir_share": {
+      "status": "complete",
+      "records": 774,
+      "year": 2022
+    }
+  },
+  "total_records": 3936
+}

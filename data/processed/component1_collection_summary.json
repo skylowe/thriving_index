@@ -1,0 +1,46 @@
+{
+  "collection_date": "2025-11-17T11:37:09.604358",
+  "states": [
+    "VA",
+    "PA",
+    "MD",
+    "DE",
+    "WV",
+    "KY",
+    "TN",
+    "NC",
+    "SC",
+    "GA"
+  ],
+  "bea_years": [
+    2020,
+    2021,
+    2022
+  ],
+  "acs_years": [
+    2017,
+    2022
+  ],
+  "results": {
+    "bea_employment": {
+      "success": true,
+      "records": 2322,
+      "file": "bea_employment_processed.csv"
+    },
+    "bea_dir_income": {
+      "success": true,
+      "records": 2322,
+      "file": "bea_dir_income_processed.csv"
+    },
+    "census_households": {
+      "success": true,
+      "records": 1604,
+      "file": "census_households_children_processed.csv"
+    },
+    "qcew": {
+      "success": true,
+      "records": 2406,
+      "file": "qcew_private_employment_wages_2020_2022.csv"
+    }
+  }
+}

@@ -1,0 +1,11 @@
+state_fips,state_name,top_marginal_rate,note,tax_year
+51,Virginia,5.75,Top marginal rate,2024
+42,Pennsylvania,3.07,Flat rate,2024
+24,Maryland,5.75,"Top marginal rate (state-only, excludes local taxes)",2024
+10,Delaware,6.6,Top marginal rate,2024
+54,West Virginia,5.12,2024 rate (reduces to 4.82% in 2025),2024
+21,Kentucky,4.0,Flat rate (reduced from 4.5% in 2023),2024
+47,Tennessee,0.0,No state income tax,2024
+37,North Carolina,4.5,"Flat rate (reduced from 4.75%, will reduce to 3.99% by 2026)",2024
+45,South Carolina,6.4,Top marginal rate (reduced from 6.5%),2024
+13,Georgia,5.39,"Flat rate for 2024 (will reduce to 5.19% in 2025, target 4.99% by 2028)",2024

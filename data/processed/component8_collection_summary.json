@@ -1,0 +1,61 @@
+{
+  "collection_date": "2025-11-18T14:48:06.054261",
+  "data_year": 2022,
+  "component": "Component 8: Social Capital",
+  "measures": {
+    "8.1": {
+      "name": "Number of 501(c)(3) Organizations Per 1,000 Persons",
+      "source": "IRS Exempt Organizations Business Master File",
+      "records": 807,
+      "counties_with_orgs": 787,
+      "total_organizations": 298734,
+      "mean_per_1000": 4.274311134585874,
+      "median_per_1000": 3.813115935993963,
+      "min_per_1000": 0.0,
+      "max_per_1000": 146.9768152476987
+    },
+    "8.3": {
+      "name": "Social Associations (membership associations per 10,000 pop)",
+      "source": "County Health Rankings & Roadmaps (Zenodo)",
+      "data_source": "County Business Patterns (NAICS 813)",
+      "records": 804,
+      "mean_per_10k": 10.631174011225248,
+      "median_per_10k": 10.4027592355,
+      "min_per_10k": 0.0,
+      "max_per_10k": 29.934847684
+    },
+    "8.4": {
+      "name": "Voter Turnout (2020 Presidential Election)",
+      "source": "County Health Rankings & Roadmaps (Zenodo)",
+      "election_year": 2020,
+      "records": 804,
+      "mean_turnout_pct": 63.66535446374378,
+      "median_turnout_pct": 63.07410551,
+      "min_turnout_pct": 19.422958870000002,
+      "max_turnout_pct": 90.54865983
+    },
+    "8.2": {
+      "name": "Volunteer Rate (volunteering/activism participation)",
+      "source": "Social Capital Atlas (Meta/Facebook)",
+      "source_url": "https://socialcapital.org",
+      "records": 782,
+      "mean_rate": 0.06358661847826087,
+      "median_rate": 0.060210001,
+      "min_rate": 0.015235725,
+      "max_rate": 0.21001001
+    },
+    "8.5": {
+      "name": "Civic Organizations Density (per 1,000 Facebook users)",
+      "source": "Social Capital Atlas (Meta/Facebook)",
+      "source_url": "https://socialcapital.org",
+      "records": 782,
+      "mean_per_1k": 0.017571281330306904,
+      "median_per_1k": 0.01628,
+      "min_per_1k": 0.00459,
+      "max_per_1k": 0.075350001
+    }
+  },
+  "data_files": {
+    "processed": "component8_social_capital_2022.csv"
+  }
+}

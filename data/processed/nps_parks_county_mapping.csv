@@ -1,0 +1,256 @@
+park_code,park_name,designation,states,has_boundary,STATEFP,COUNTYFP,county_name
+appa,Appalachian National Scenic Trail,National Scenic Trail,"CT,GA,MA,MD,ME,NC,NH,NJ,NY,PA,TN,VA,VT,WV",True,47,019,Carter
+appa,Appalachian National Scenic Trail,National Scenic Trail,"CT,GA,MA,MD,ME,NC,NH,NJ,NY,PA,TN,VA,VT,WV",True,37,173,Swain
+appa,Appalachian National Scenic Trail,National Scenic Trail,"CT,GA,MA,MD,ME,NC,NH,NJ,NY,PA,TN,VA,VT,WV",True,47,155,Sevier
+apco,Appomattox Court House National Historical Park,National Historical Park,VA,True,51,011,Appomattox
+arho,"Arlington House, The Robert E. Lee Memorial",,VA,True,51,013,Arlington
+asis,Assateague Island National Seashore,National Seashore,"MD,VA",True,24,047,Worcester
+asis,Assateague Island National Seashore,National Seashore,"MD,VA",True,51,001,Accomack
+blri,Blue Ridge Parkway,Parkway,"NC,VA",True,37,027,Caldwell
+blri,Blue Ridge Parkway,Parkway,"NC,VA",True,51,063,Floyd
+blri,Blue Ridge Parkway,Parkway,"NC,VA",True,51,009,Amherst
+blri,Blue Ridge Parkway,Parkway,"NC,VA",True,37,005,Alleghany
+blri,Blue Ridge Parkway,Parkway,"NC,VA",True,37,193,Wilkes
+blri,Blue Ridge Parkway,Parkway,"NC,VA",True,51,141,Patrick
+blri,Blue Ridge Parkway,Parkway,"NC,VA",True,37,189,Watauga
+blri,Blue Ridge Parkway,Parkway,"NC,VA",True,51,770,Roanoke
+blri,Blue Ridge Parkway,Parkway,"NC,VA",True,37,173,Swain
+blri,Blue Ridge Parkway,Parkway,"NC,VA",True,37,011,Avery
+blri,Blue Ridge Parkway,Parkway,"NC,VA",True,51,067,Franklin
+blri,Blue Ridge Parkway,Parkway,"NC,VA",True,51,019,Bedford
+blri,Blue Ridge Parkway,Parkway,"NC,VA",True,51,077,Grayson
+blri,Blue Ridge Parkway,Parkway,"NC,VA",True,51,035,Carroll
+blri,Blue Ridge Parkway,Parkway,"NC,VA",True,37,087,Haywood
+blri,Blue Ridge Parkway,Parkway,"NC,VA",True,51,161,Roanoke
+blri,Blue Ridge Parkway,Parkway,"NC,VA",True,51,015,Augusta
+blri,Blue Ridge Parkway,Parkway,"NC,VA",True,37,099,Jackson
+blri,Blue Ridge Parkway,Parkway,"NC,VA",True,37,121,Mitchell
+blri,Blue Ridge Parkway,Parkway,"NC,VA",True,51,023,Botetourt
+blri,Blue Ridge Parkway,Parkway,"NC,VA",True,37,199,Yancey
+blri,Blue Ridge Parkway,Parkway,"NC,VA",True,37,023,Burke
+blri,Blue Ridge Parkway,Parkway,"NC,VA",True,37,111,McDowell
+blri,Blue Ridge Parkway,Parkway,"NC,VA",True,51,163,Rockbridge
+blri,Blue Ridge Parkway,Parkway,"NC,VA",True,51,125,Nelson
+blri,Blue Ridge Parkway,Parkway,"NC,VA",True,37,021,Buncombe
+blri,Blue Ridge Parkway,Parkway,"NC,VA",True,37,089,Henderson
+blri,Blue Ridge Parkway,Parkway,"NC,VA",True,37,009,Ashe
+blri,Blue Ridge Parkway,Parkway,"NC,VA",True,37,175,Transylvania
+blri,Blue Ridge Parkway,Parkway,"NC,VA",True,37,171,Surry
+bowa,Booker T Washington National Monument,National Monument,VA,True,51,067,Franklin
+came,Cape Henry Memorial Part of Colonial National Historical Park,Part of Colonial National Historical Park,VA,True,51,131,Northampton
+came,Cape Henry Memorial Part of Colonial National Historical Park,Part of Colonial National Historical Park,VA,True,51,810,Virginia Beach
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,735,Poquoson
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,095,James City
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,179,Stafford
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,181,Surry
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,42,043,Dauphin
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,24,047,Worcester
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,24,510,Baltimore
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,085,Hanover
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,097,King and Queen
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,24,015,Cecil
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,119,Middlesex
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,42,109,Snyder
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,009,Amherst
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,057,Essex
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,005,Alleghany
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,133,Northumberland
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,42,099,Perry
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,029,Buckingham
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,073,Gloucester
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,24,005,Baltimore
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,760,Richmond
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,145,Powhatan
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,075,Goochland
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,42,015,Bradford
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,101,King William
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,24,009,Calvert
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,42,035,Clinton
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,24,019,Dorchester
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,42,037,Columbia
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,550,Chesapeake
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,093,Isle of Wight
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,24,003,Anne Arundel
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,087,Henrico
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,10,005,Sussex
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,42,097,Northumberland
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,42,069,Lackawanna
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,127,New Kent
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,019,Bedford
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,42,131,Wyoming
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,153,Prince William
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,24,033,Prince George's
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,24,027,Howard
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,036,Charles City
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,42,133,York
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,24,031,Montgomery
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,013,Arlington
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,24,035,Queen Anne's
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,700,Newport News
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,24,041,Talbot
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,049,Cumberland
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,24,045,Wicomico
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,740,Portsmouth
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,24,039,Somerset
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,24,025,Harford
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,001,Accomack
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,003,Albemarle
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,24,037,St. Mary's
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,24,029,Kent
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,710,Norfolk
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,023,Botetourt
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,193,Westmoreland
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,42,093,Montour
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,163,Rockbridge
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,125,Nelson
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,011,Appomattox
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,42,041,Cumberland
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,42,079,Luzerne
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,065,Fluvanna
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,24,017,Charles
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,630,Fredericksburg
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,115,Mathews
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,099,King George
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,42,081,Lycoming
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,031,Campbell
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,680,Lynchburg
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,800,Suffolk
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,059,Fairfax
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,42,115,Susquehanna
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,199,York
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,131,Northampton
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,177,Spotsylvania
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,42,119,Union
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,041,Chesterfield
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,149,Prince George
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,42,071,Lancaster
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,650,Hampton
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,033,Caroline
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,810,Virginia Beach
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,103,Lancaster
+cajo,Captain John Smith Chesapeake National Historic Trail,National Historic Trail,"VA,MD,DE,DC,PA,NY",True,51,159,Richmond
+cebe,Cedar Creek & Belle Grove National Historical Park,National Historical Park,VA,True,51,171,Shenandoah
+cebe,Cedar Creek & Belle Grove National Historical Park,National Historical Park,VA,True,51,187,Warren
+cebe,Cedar Creek & Belle Grove National Historical Park,National Historical Park,VA,True,51,069,Frederick
+cbpo,Chesapeake Bay,,"DC,DE,MD,NY,PA,VA,WV",True,24,003,Anne Arundel
+cbpo,Chesapeake Bay,,"DC,DE,MD,NY,PA,VA,WV",True,24,035,Queen Anne's
+cwdw,Civil War Defenses of Washington,,"DC,MD,VA",True,24,033,Prince George's
+cwdw,Civil War Defenses of Washington,,"DC,MD,VA",True,24,031,Montgomery
+cwdw,Civil War Defenses of Washington,,"DC,MD,VA",True,51,013,Arlington
+cwdw,Civil War Defenses of Washington,,"DC,MD,VA",True,51,059,Fairfax
+colo,Colonial National Historical Park,National Historical Park,VA,True,51,095,James City
+colo,Colonial National Historical Park,National Historical Park,VA,True,51,181,Surry
+colo,Colonial National Historical Park,National Historical Park,VA,True,51,073,Gloucester
+colo,Colonial National Historical Park,National Historical Park,VA,True,51,830,Williamsburg
+colo,Colonial National Historical Park,National Historical Park,VA,True,51,199,York
+cuga,Cumberland Gap National Historical Park,National Historical Park,"KY,TN,VA",True,21,095,Harlan
+cuga,Cumberland Gap National Historical Park,National Historical Park,"KY,TN,VA",True,21,013,Bell
+cuga,Cumberland Gap National Historical Park,National Historical Park,"KY,TN,VA",True,47,025,Claiborne
+cuga,Cumberland Gap National Historical Park,National Historical Park,"KY,TN,VA",True,51,105,Lee
+fomr,Fort Monroe National Monument,National Monument,VA,True,51,650,Hampton
+frsp,Fredericksburg & Spotsylvania National Military Park,National Military Park,VA,True,51,179,Stafford
+frsp,Fredericksburg & Spotsylvania National Military Park,National Military Park,VA,True,51,137,Orange
+frsp,Fredericksburg & Spotsylvania National Military Park,National Military Park,VA,True,51,630,Fredericksburg
+frsp,Fredericksburg & Spotsylvania National Military Park,National Military Park,VA,True,51,177,Spotsylvania
+frsp,Fredericksburg & Spotsylvania National Military Park,National Military Park,VA,True,51,033,Caroline
+gewa,George Washington Birthplace National Monument,National Monument,VA,True,51,193,Westmoreland
+gewa,George Washington Birthplace National Monument,National Monument,VA,True,24,017,Charles
+gwmp,George Washington Memorial Parkway,Memorial Parkway,"DC,MD,VA",True,51,510,Alexandria
+gwmp,George Washington Memorial Parkway,Memorial Parkway,"DC,MD,VA",True,24,033,Prince George's
+gwmp,George Washington Memorial Parkway,Memorial Parkway,"DC,MD,VA",True,24,031,Montgomery
+gwmp,George Washington Memorial Parkway,Memorial Parkway,"DC,MD,VA",True,51,013,Arlington
+gwmp,George Washington Memorial Parkway,Memorial Parkway,"DC,MD,VA",True,51,059,Fairfax
+grfa,Great Falls Park,Park,VA,True,24,031,Montgomery
+grfa,Great Falls Park,Park,VA,True,51,059,Fairfax
+grsp,Green Springs,,VA,True,51,137,Orange
+grsp,Green Springs,,VA,True,51,003,Albemarle
+grsp,Green Springs,,VA,True,51,065,Fluvanna
+grsp,Green Springs,,VA,True,51,109,Louisa
+hafe,Harpers Ferry National Historical Park,National Historical Park,"WV,VA,MD",True,24,021,Frederick
+hafe,Harpers Ferry National Historical Park,National Historical Park,"WV,VA,MD",True,54,037,Jefferson
+hafe,Harpers Ferry National Historical Park,National Historical Park,"WV,VA,MD",True,24,043,Washington
+hafe,Harpers Ferry National Historical Park,National Historical Park,"WV,VA,MD",True,51,107,Loudoun
+jame,Historic Jamestowne Part of Colonial National Historical Park,Part of Colonial National Historical Park,VA,True,51,095,James City
+jame,Historic Jamestowne Part of Colonial National Historical Park,Part of Colonial National Historical Park,VA,True,51,181,Surry
+jame,Historic Jamestowne Part of Colonial National Historical Park,Part of Colonial National Historical Park,VA,True,51,093,Isle of Wight
+jame,Historic Jamestowne Part of Colonial National Historical Park,Part of Colonial National Historical Park,VA,True,51,830,Williamsburg
+jame,Historic Jamestowne Part of Colonial National Historical Park,Part of Colonial National Historical Park,VA,True,51,199,York
+mawa,Maggie L Walker National Historic Site,National Historic Site,VA,True,51,760,Richmond
+mana,Manassas National Battlefield Park,National Battlefield Park,VA,True,51,153,Prince William
+mana,Manassas National Battlefield Park,National Battlefield Park,VA,True,51,059,Fairfax
+ovvi,Overmountain Victory National Historic Trail,National Historic Trail,"NC,SC,TN,VA",True,37,027,Caldwell
+ovvi,Overmountain Victory National Historic Trail,National Historic Trail,"NC,SC,TN,VA",True,37,193,Wilkes
+ovvi,Overmountain Victory National Historic Trail,National Historic Trail,"NC,SC,TN,VA",True,37,121,Mitchell
+ovvi,Overmountain Victory National Historic Trail,National Historic Trail,"NC,SC,TN,VA",True,45,021,Cherokee
+ovvi,Overmountain Victory National Historic Trail,National Historic Trail,"NC,SC,TN,VA",True,37,023,Burke
+ovvi,Overmountain Victory National Historic Trail,National Historic Trail,"NC,SC,TN,VA",True,37,111,McDowell
+ovvi,Overmountain Victory National Historic Trail,National Historic Trail,"NC,SC,TN,VA",True,37,171,Surry
+pete,Petersburg National Battlefield,National Battlefield,VA,True,51,670,Hopewell
+pete,Petersburg National Battlefield,National Battlefield,VA,True,51,053,Dinwiddie
+pete,Petersburg National Battlefield,National Battlefield,VA,True,51,730,Petersburg
+pete,Petersburg National Battlefield,National Battlefield,VA,True,51,149,Prince George
+pohe,Potomac Heritage National Scenic Trail,National Scenic Trail,"DC,MD,PA,VA",True,51,153,Prince William
+pohe,Potomac Heritage National Scenic Trail,National Scenic Trail,"DC,MD,PA,VA",True,24,033,Prince George's
+pohe,Potomac Heritage National Scenic Trail,National Scenic Trail,"DC,MD,PA,VA",True,24,031,Montgomery
+pohe,Potomac Heritage National Scenic Trail,National Scenic Trail,"DC,MD,PA,VA",True,24,043,Washington
+pohe,Potomac Heritage National Scenic Trail,National Scenic Trail,"DC,MD,PA,VA",True,51,107,Loudoun
+pohe,Potomac Heritage National Scenic Trail,National Scenic Trail,"DC,MD,PA,VA",True,42,129,Westmoreland
+prwi,Prince William Forest Park,Park,VA,True,51,179,Stafford
+prwi,Prince William Forest Park,Park,VA,True,51,153,Prince William
+rich,Richmond National Battlefield Park,National Battlefield Park,VA,True,51,085,Hanover
+rich,Richmond National Battlefield Park,National Battlefield Park,VA,True,51,760,Richmond
+rich,Richmond National Battlefield Park,National Battlefield Park,VA,True,51,087,Henrico
+rich,Richmond National Battlefield Park,National Battlefield Park,VA,True,51,041,Chesterfield
+rich,Richmond National Battlefield Park,National Battlefield Park,VA,True,51,033,Caroline
+shen,Shenandoah National Park,National Park,VA,True,51,157,Rappahannock
+shen,Shenandoah National Park,National Park,VA,True,51,079,Greene
+shen,Shenandoah National Park,National Park,VA,True,51,113,Madison
+shen,Shenandoah National Park,National Park,VA,True,51,015,Augusta
+shen,Shenandoah National Park,National Park,VA,True,51,003,Albemarle
+shen,Shenandoah National Park,National Park,VA,True,51,139,Page
+shen,Shenandoah National Park,National Park,VA,True,51,125,Nelson
+shen,Shenandoah National Park,National Park,VA,True,51,165,Rockingham
+shen,Shenandoah National Park,National Park,VA,True,51,187,Warren
+stsp,Star-Spangled Banner National Historic Trail,National Historic Trail,"MD,VA,DC",True,24,510,Baltimore
+stsp,Star-Spangled Banner National Historic Trail,National Historic Trail,"MD,VA,DC",True,51,510,Alexandria
+stsp,Star-Spangled Banner National Historic Trail,National Historic Trail,"MD,VA,DC",True,24,015,Cecil
+stsp,Star-Spangled Banner National Historic Trail,National Historic Trail,"MD,VA,DC",True,24,005,Baltimore
+stsp,Star-Spangled Banner National Historic Trail,National Historic Trail,"MD,VA,DC",True,24,009,Calvert
+stsp,Star-Spangled Banner National Historic Trail,National Historic Trail,"MD,VA,DC",True,24,019,Dorchester
+stsp,Star-Spangled Banner National Historic Trail,National Historic Trail,"MD,VA,DC",True,24,003,Anne Arundel
+stsp,Star-Spangled Banner National Historic Trail,National Historic Trail,"MD,VA,DC",True,24,033,Prince George's
+stsp,Star-Spangled Banner National Historic Trail,National Historic Trail,"MD,VA,DC",True,24,035,Queen Anne's
+stsp,Star-Spangled Banner National Historic Trail,National Historic Trail,"MD,VA,DC",True,24,041,Talbot
+stsp,Star-Spangled Banner National Historic Trail,National Historic Trail,"MD,VA,DC",True,24,039,Somerset
+stsp,Star-Spangled Banner National Historic Trail,National Historic Trail,"MD,VA,DC",True,24,025,Harford
+stsp,Star-Spangled Banner National Historic Trail,National Historic Trail,"MD,VA,DC",True,51,001,Accomack
+stsp,Star-Spangled Banner National Historic Trail,National Historic Trail,"MD,VA,DC",True,24,037,St. Mary's
+stsp,Star-Spangled Banner National Historic Trail,National Historic Trail,"MD,VA,DC",True,24,029,Kent
+stsp,Star-Spangled Banner National Historic Trail,National Historic Trail,"MD,VA,DC",True,24,017,Charles
+stsp,Star-Spangled Banner National Historic Trail,National Historic Trail,"MD,VA,DC",True,51,059,Fairfax
+waro,Washington-Rochambeau Revolutionary Route National Historic Trail,National Historic Trail,"MA,RI,CT,NY,NJ,PA,DE,MD,VA,DC",True,51,095,James City
+waro,Washington-Rochambeau Revolutionary Route National Historic Trail,National Historic Trail,"MA,RI,CT,NY,NJ,PA,DE,MD,VA,DC",True,51,179,Stafford
+waro,Washington-Rochambeau Revolutionary Route National Historic Trail,National Historic Trail,"MA,RI,CT,NY,NJ,PA,DE,MD,VA,DC",True,24,510,Baltimore
+waro,Washington-Rochambeau Revolutionary Route National Historic Trail,National Historic Trail,"MA,RI,CT,NY,NJ,PA,DE,MD,VA,DC",True,51,085,Hanover
+waro,Washington-Rochambeau Revolutionary Route National Historic Trail,National Historic Trail,"MA,RI,CT,NY,NJ,PA,DE,MD,VA,DC",True,51,510,Alexandria
+waro,Washington-Rochambeau Revolutionary Route National Historic Trail,National Historic Trail,"MA,RI,CT,NY,NJ,PA,DE,MD,VA,DC",True,24,015,Cecil
+waro,Washington-Rochambeau Revolutionary Route National Historic Trail,National Historic Trail,"MA,RI,CT,NY,NJ,PA,DE,MD,VA,DC",True,10,003,New Castle
+waro,Washington-Rochambeau Revolutionary Route National Historic Trail,National Historic Trail,"MA,RI,CT,NY,NJ,PA,DE,MD,VA,DC",True,42,101,Philadelphia
+waro,Washington-Rochambeau Revolutionary Route National Historic Trail,National Historic Trail,"MA,RI,CT,NY,NJ,PA,DE,MD,VA,DC",True,24,005,Baltimore
+waro,Washington-Rochambeau Revolutionary Route National Historic Trail,National Historic Trail,"MA,RI,CT,NY,NJ,PA,DE,MD,VA,DC",True,24,003,Anne Arundel
+waro,Washington-Rochambeau Revolutionary Route National Historic Trail,National Historic Trail,"MA,RI,CT,NY,NJ,PA,DE,MD,VA,DC",True,51,127,New Kent
+waro,Washington-Rochambeau Revolutionary Route National Historic Trail,National Historic Trail,"MA,RI,CT,NY,NJ,PA,DE,MD,VA,DC",True,51,153,Prince William
+waro,Washington-Rochambeau Revolutionary Route National Historic Trail,National Historic Trail,"MA,RI,CT,NY,NJ,PA,DE,MD,VA,DC",True,24,033,Prince George's
+waro,Washington-Rochambeau Revolutionary Route National Historic Trail,National Historic Trail,"MA,RI,CT,NY,NJ,PA,DE,MD,VA,DC",True,24,027,Howard
+waro,Washington-Rochambeau Revolutionary Route National Historic Trail,National Historic Trail,"MA,RI,CT,NY,NJ,PA,DE,MD,VA,DC",True,51,013,Arlington
+waro,Washington-Rochambeau Revolutionary Route National Historic Trail,National Historic Trail,"MA,RI,CT,NY,NJ,PA,DE,MD,VA,DC",True,24,025,Harford
+waro,Washington-Rochambeau Revolutionary Route National Historic Trail,National Historic Trail,"MA,RI,CT,NY,NJ,PA,DE,MD,VA,DC",True,51,830,Williamsburg
+waro,Washington-Rochambeau Revolutionary Route National Historic Trail,National Historic Trail,"MA,RI,CT,NY,NJ,PA,DE,MD,VA,DC",True,42,045,Delaware
+waro,Washington-Rochambeau Revolutionary Route National Historic Trail,National Historic Trail,"MA,RI,CT,NY,NJ,PA,DE,MD,VA,DC",True,51,630,Fredericksburg
+waro,Washington-Rochambeau Revolutionary Route National Historic Trail,National Historic Trail,"MA,RI,CT,NY,NJ,PA,DE,MD,VA,DC",True,42,017,Bucks
+waro,Washington-Rochambeau Revolutionary Route National Historic Trail,National Historic Trail,"MA,RI,CT,NY,NJ,PA,DE,MD,VA,DC",True,51,059,Fairfax
+waro,Washington-Rochambeau Revolutionary Route National Historic Trail,National Historic Trail,"MA,RI,CT,NY,NJ,PA,DE,MD,VA,DC",True,51,199,York
+waro,Washington-Rochambeau Revolutionary Route National Historic Trail,National Historic Trail,"MA,RI,CT,NY,NJ,PA,DE,MD,VA,DC",True,51,177,Spotsylvania
+waro,Washington-Rochambeau Revolutionary Route National Historic Trail,National Historic Trail,"MA,RI,CT,NY,NJ,PA,DE,MD,VA,DC",True,51,033,Caroline
+wotr,Wolf Trap National Park for the Performing Arts,,VA,True,51,059,Fairfax
+york,Yorktown Battlefield Part of Colonial National Historical Park,Part of Colonial National Historical Park,VA,True,51,199,York

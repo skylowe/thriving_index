@@ -1,0 +1,803 @@
+state,county,NAME,mean_commute_time
+51,001,"Accomack County, Virginia",21.4
+51,003,"Albemarle County, Virginia",22.4
+51,005,"Alleghany County, Virginia",24.8
+51,007,"Amelia County, Virginia",37.4
+51,009,"Amherst County, Virginia",27.4
+51,011,"Appomattox County, Virginia",26.0
+51,013,"Arlington County, Virginia",27.7
+51,015,"Augusta County, Virginia",24.2
+51,017,"Bath County, Virginia",20.4
+51,019,"Bedford County, Virginia",26.5
+51,021,"Bland County, Virginia",24.0
+51,023,"Botetourt County, Virginia",25.2
+51,025,"Brunswick County, Virginia",32.6
+51,027,"Buchanan County, Virginia",29.6
+51,029,"Buckingham County, Virginia",39.5
+51,031,"Campbell County, Virginia",23.3
+51,033,"Caroline County, Virginia",36.2
+51,035,"Carroll County, Virginia",26.6
+51,036,"Charles City County, Virginia",35.7
+51,037,"Charlotte County, Virginia",33.5
+51,041,"Chesterfield County, Virginia",26.4
+51,043,"Clarke County, Virginia",35.3
+51,045,"Craig County, Virginia",33.9
+51,047,"Culpeper County, Virginia",36.9
+51,049,"Cumberland County, Virginia",41.4
+51,051,"Dickenson County, Virginia",28.0
+51,053,"Dinwiddie County, Virginia",33.1
+51,057,"Essex County, Virginia",34.8
+51,059,"Fairfax County, Virginia",30.4
+51,061,"Fauquier County, Virginia",37.6
+51,063,"Floyd County, Virginia",33.4
+51,065,"Fluvanna County, Virginia",32.0
+51,067,"Franklin County, Virginia",30.9
+51,069,"Frederick County, Virginia",32.7
+51,071,"Giles County, Virginia",29.0
+51,073,"Gloucester County, Virginia",34.4
+51,075,"Goochland County, Virginia",29.9
+51,077,"Grayson County, Virginia",26.4
+51,079,"Greene County, Virginia",30.3
+51,081,"Greensville County, Virginia",26.5
+51,083,"Halifax County, Virginia",25.4
+51,085,"Hanover County, Virginia",26.6
+51,087,"Henrico County, Virginia",22.4
+51,089,"Henry County, Virginia",24.1
+51,091,"Highland County, Virginia",24.6
+51,093,"Isle of Wight County, Virginia",29.6
+51,095,"James City County, Virginia",26.2
+51,097,"King and Queen County, Virginia",34.6
+51,099,"King George County, Virginia",35.6
+51,101,"King William County, Virginia",34.7
+51,103,"Lancaster County, Virginia",26.6
+51,105,"Lee County, Virginia",26.0
+51,107,"Loudoun County, Virginia",32.2
+51,109,"Louisa County, Virginia",34.5
+51,111,"Lunenburg County, Virginia",32.0
+51,113,"Madison County, Virginia",29.0
+51,115,"Mathews County, Virginia",36.9
+51,117,"Mecklenburg County, Virginia",25.7
+51,119,"Middlesex County, Virginia",29.8
+51,121,"Montgomery County, Virginia",18.0
+51,125,"Nelson County, Virginia",29.9
+51,127,"New Kent County, Virginia",31.7
+51,131,"Northampton County, Virginia",24.7
+51,133,"Northumberland County, Virginia",38.8
+51,135,"Nottoway County, Virginia",30.8
+51,137,"Orange County, Virginia",37.1
+51,139,"Page County, Virginia",33.0
+51,141,"Patrick County, Virginia",33.4
+51,143,"Pittsylvania County, Virginia",26.2
+51,145,"Powhatan County, Virginia",32.9
+51,147,"Prince Edward County, Virginia",25.1
+51,149,"Prince George County, Virginia",24.8
+51,153,"Prince William County, Virginia",38.1
+51,155,"Pulaski County, Virginia",24.3
+51,157,"Rappahannock County, Virginia",38.3
+51,159,"Richmond County, Virginia",27.4
+51,161,"Roanoke County, Virginia",22.5
+51,163,"Rockbridge County, Virginia",27.3
+51,165,"Rockingham County, Virginia",21.7
+51,167,"Russell County, Virginia",27.6
+51,169,"Scott County, Virginia",30.1
+51,171,"Shenandoah County, Virginia",29.8
+51,173,"Smyth County, Virginia",22.5
+51,175,"Southampton County, Virginia",33.7
+51,177,"Spotsylvania County, Virginia",37.3
+51,179,"Stafford County, Virginia",37.9
+51,181,"Surry County, Virginia",40.3
+51,183,"Sussex County, Virginia",34.7
+51,185,"Tazewell County, Virginia",24.8
+51,187,"Warren County, Virginia",40.1
+51,191,"Washington County, Virginia",24.2
+51,193,"Westmoreland County, Virginia",38.7
+51,195,"Wise County, Virginia",23.3
+51,197,"Wythe County, Virginia",24.8
+51,199,"York County, Virginia",24.1
+51,510,"Alexandria city, Virginia",30.1
+51,520,"Bristol city, Virginia",19.1
+51,530,"Buena Vista city, Virginia",15.3
+51,540,"Charlottesville city, Virginia",17.0
+51,550,"Chesapeake city, Virginia",26.0
+51,570,"Colonial Heights city, Virginia",24.6
+51,580,"Covington city, Virginia",16.7
+51,590,"Danville city, Virginia",19.2
+51,595,"Emporia city, Virginia",23.4
+51,600,"Fairfax city, Virginia",28.5
+51,610,"Falls Church city, Virginia",27.7
+51,620,"Franklin city, Virginia",23.3
+51,630,"Fredericksburg city, Virginia",32.4
+51,640,"Galax city, Virginia",22.0
+51,650,"Hampton city, Virginia",22.3
+51,660,"Harrisonburg city, Virginia",17.3
+51,670,"Hopewell city, Virginia",25.2
+51,678,"Lexington city, Virginia",13.2
+51,680,"Lynchburg city, Virginia",16.9
+51,683,"Manassas city, Virginia",34.0
+51,685,"Manassas Park city, Virginia",41.2
+51,690,"Martinsville city, Virginia",19.6
+51,700,"Newport News city, Virginia",23.4
+51,710,"Norfolk city, Virginia",22.7
+51,720,"Norton city, Virginia",20.1
+51,730,"Petersburg city, Virginia",25.0
+51,735,"Poquoson city, Virginia",25.8
+51,740,"Portsmouth city, Virginia",23.2
+51,750,"Radford city, Virginia",16.9
+51,760,"Richmond city, Virginia",22.0
+51,770,"Roanoke city, Virginia",20.9
+51,775,"Salem city, Virginia",18.8
+51,790,"Staunton city, Virginia",22.1
+51,800,"Suffolk city, Virginia",29.6
+51,810,"Virginia Beach city, Virginia",23.5
+51,820,"Waynesboro city, Virginia",22.3
+51,830,"Williamsburg city, Virginia",17.7
+51,840,"Winchester city, Virginia",21.1
+42,001,"Adams County, Pennsylvania",28.3
+42,003,"Allegheny County, Pennsylvania",26.2
+42,005,"Armstrong County, Pennsylvania",29.2
+42,007,"Beaver County, Pennsylvania",25.7
+42,009,"Bedford County, Pennsylvania",26.5
+42,011,"Berks County, Pennsylvania",25.0
+42,013,"Blair County, Pennsylvania",20.4
+42,015,"Bradford County, Pennsylvania",23.7
+42,017,"Bucks County, Pennsylvania",29.9
+42,019,"Butler County, Pennsylvania",27.1
+42,021,"Cambria County, Pennsylvania",23.9
+42,023,"Cameron County, Pennsylvania",18.5
+42,025,"Carbon County, Pennsylvania",31.6
+42,027,"Centre County, Pennsylvania",20.4
+42,029,"Chester County, Pennsylvania",27.6
+42,031,"Clarion County, Pennsylvania",24.8
+42,033,"Clearfield County, Pennsylvania",25.9
+42,035,"Clinton County, Pennsylvania",23.8
+42,037,"Columbia County, Pennsylvania",21.4
+42,039,"Crawford County, Pennsylvania",22.5
+42,041,"Cumberland County, Pennsylvania",22.4
+42,043,"Dauphin County, Pennsylvania",21.8
+42,045,"Delaware County, Pennsylvania",28.7
+42,047,"Elk County, Pennsylvania",17.7
+42,049,"Erie County, Pennsylvania",19.9
+42,051,"Fayette County, Pennsylvania",27.3
+42,053,"Forest County, Pennsylvania",25.9
+42,055,"Franklin County, Pennsylvania",24.1
+42,057,"Fulton County, Pennsylvania",32.0
+42,059,"Greene County, Pennsylvania",28.2
+42,061,"Huntingdon County, Pennsylvania",30.5
+42,063,"Indiana County, Pennsylvania",24.5
+42,065,"Jefferson County, Pennsylvania",24.3
+42,067,"Juniata County, Pennsylvania",32.5
+42,069,"Lackawanna County, Pennsylvania",21.4
+42,071,"Lancaster County, Pennsylvania",23.8
+42,073,"Lawrence County, Pennsylvania",23.7
+42,075,"Lebanon County, Pennsylvania",22.2
+42,077,"Lehigh County, Pennsylvania",24.7
+42,079,"Luzerne County, Pennsylvania",23.8
+42,081,"Lycoming County, Pennsylvania",20.7
+42,083,"McKean County, Pennsylvania",20.7
+42,085,"Mercer County, Pennsylvania",21.4
+42,087,"Mifflin County, Pennsylvania",24.8
+42,089,"Monroe County, Pennsylvania",39.8
+42,091,"Montgomery County, Pennsylvania",28.2
+42,093,"Montour County, Pennsylvania",18.7
+42,095,"Northampton County, Pennsylvania",27.3
+42,097,"Northumberland County, Pennsylvania",25.4
+42,099,"Perry County, Pennsylvania",32.3
+42,101,"Philadelphia County, Pennsylvania",32.8
+42,103,"Pike County, Pennsylvania",43.9
+42,105,"Potter County, Pennsylvania",25.2
+42,107,"Schuylkill County, Pennsylvania",26.7
+42,109,"Snyder County, Pennsylvania",23.5
+42,111,"Somerset County, Pennsylvania",24.8
+42,113,"Sullivan County, Pennsylvania",29.5
+42,115,"Susquehanna County, Pennsylvania",27.4
+42,117,"Tioga County, Pennsylvania",25.1
+42,119,"Union County, Pennsylvania",18.9
+42,121,"Venango County, Pennsylvania",24.2
+42,123,"Warren County, Pennsylvania",20.1
+42,125,"Washington County, Pennsylvania",26.6
+42,127,"Wayne County, Pennsylvania",27.8
+42,129,"Westmoreland County, Pennsylvania",27.2
+42,131,"Wyoming County, Pennsylvania",26.8
+42,133,"York County, Pennsylvania",26.8
+24,001,"Allegany County, Maryland",22.6
+24,003,"Anne Arundel County, Maryland",30.3
+24,005,"Baltimore County, Maryland",28.7
+24,009,"Calvert County, Maryland",40.9
+24,011,"Caroline County, Maryland",31.6
+24,013,"Carroll County, Maryland",35.4
+24,015,"Cecil County, Maryland",29.1
+24,017,"Charles County, Maryland",44.2
+24,019,"Dorchester County, Maryland",26.5
+24,021,"Frederick County, Maryland",33.7
+24,023,"Garrett County, Maryland",25.0
+24,025,"Harford County, Maryland",32.3
+24,027,"Howard County, Maryland",29.5
+24,029,"Kent County, Maryland",25.8
+24,031,"Montgomery County, Maryland",33.0
+24,033,"Prince George's County, Maryland",36.0
+24,035,"Queen Anne's County, Maryland",34.9
+24,037,"St. Mary's County, Maryland",30.1
+24,039,"Somerset County, Maryland",24.0
+24,041,"Talbot County, Maryland",26.4
+24,043,"Washington County, Maryland",29.7
+24,045,"Wicomico County, Maryland",23.1
+24,047,"Worcester County, Maryland",23.8
+24,510,"Baltimore city, Maryland",30.1
+10,001,"Kent County, Delaware",26.7
+10,003,"New Castle County, Delaware",25.2
+10,005,"Sussex County, Delaware",27.1
+54,001,"Barbour County, West Virginia",27.4
+54,003,"Berkeley County, West Virginia",29.9
+54,005,"Boone County, West Virginia",34.7
+54,007,"Braxton County, West Virginia",29.8
+54,009,"Brooke County, West Virginia",23.5
+54,011,"Cabell County, West Virginia",21.1
+54,013,"Calhoun County, West Virginia",39.2
+54,015,"Clay County, West Virginia",37.8
+54,017,"Doddridge County, West Virginia",30.5
+54,019,"Fayette County, West Virginia",31.1
+54,021,"Gilmer County, West Virginia",30.0
+54,023,"Grant County, West Virginia",22.8
+54,025,"Greenbrier County, West Virginia",25.4
+54,027,"Hampshire County, West Virginia",38.4
+54,029,"Hancock County, West Virginia",25.0
+54,031,"Hardy County, West Virginia",26.4
+54,033,"Harrison County, West Virginia",22.6
+54,035,"Jackson County, West Virginia",28.9
+54,037,"Jefferson County, West Virginia",37.2
+54,039,"Kanawha County, West Virginia",22.0
+54,041,"Lewis County, West Virginia",30.0
+54,043,"Lincoln County, West Virginia",35.3
+54,045,"Logan County, West Virginia",27.1
+54,047,"McDowell County, West Virginia",33.1
+54,049,"Marion County, West Virginia",24.3
+54,051,"Marshall County, West Virginia",25.2
+54,053,"Mason County, West Virginia",27.2
+54,055,"Mercer County, West Virginia",23.4
+54,057,"Mineral County, West Virginia",25.4
+54,059,"Mingo County, West Virginia",35.6
+54,061,"Monongalia County, West Virginia",21.4
+54,063,"Monroe County, West Virginia",35.5
+54,065,"Morgan County, West Virginia",42.4
+54,067,"Nicholas County, West Virginia",32.2
+54,069,"Ohio County, West Virginia",21.1
+54,071,"Pendleton County, West Virginia",31.3
+54,073,"Pleasants County, West Virginia",26.4
+54,075,"Pocahontas County, West Virginia",21.7
+54,077,"Preston County, West Virginia",31.5
+54,079,"Putnam County, West Virginia",28.3
+54,081,"Raleigh County, West Virginia",23.6
+54,083,"Randolph County, West Virginia",21.5
+54,085,"Ritchie County, West Virginia",29.4
+54,087,"Roane County, West Virginia",32.6
+54,089,"Summers County, West Virginia",33.0
+54,091,"Taylor County, West Virginia",27.3
+54,093,"Tucker County, West Virginia",27.3
+54,095,"Tyler County, West Virginia",33.1
+54,097,"Upshur County, West Virginia",27.0
+54,099,"Wayne County, West Virginia",25.9
+54,101,"Webster County, West Virginia",31.1
+54,103,"Wetzel County, West Virginia",28.5
+54,105,"Wirt County, West Virginia",33.6
+54,107,"Wood County, West Virginia",20.4
+54,109,"Wyoming County, West Virginia",32.8
+21,001,"Adair County, Kentucky",25.7
+21,003,"Allen County, Kentucky",27.1
+21,005,"Anderson County, Kentucky",28.5
+21,007,"Ballard County, Kentucky",25.0
+21,009,"Barren County, Kentucky",23.1
+21,011,"Bath County, Kentucky",31.3
+21,013,"Bell County, Kentucky",24.4
+21,015,"Boone County, Kentucky",24.4
+21,017,"Bourbon County, Kentucky",24.5
+21,019,"Boyd County, Kentucky",22.3
+21,021,"Boyle County, Kentucky",22.1
+21,023,"Bracken County, Kentucky",35.7
+21,025,"Breathitt County, Kentucky",28.8
+21,027,"Breckinridge County, Kentucky",34.4
+21,029,"Bullitt County, Kentucky",28.0
+21,031,"Butler County, Kentucky",28.6
+21,033,"Caldwell County, Kentucky",26.1
+21,035,"Calloway County, Kentucky",16.6
+21,037,"Campbell County, Kentucky",24.0
+21,039,"Carlisle County, Kentucky",27.3
+21,041,"Carroll County, Kentucky",23.2
+21,043,"Carter County, Kentucky",27.7
+21,045,"Casey County, Kentucky",30.3
+21,047,"Christian County, Kentucky",18.9
+21,049,"Clark County, Kentucky",25.7
+21,051,"Clay County, Kentucky",29.2
+21,053,"Clinton County, Kentucky",18.6
+21,055,"Crittenden County, Kentucky",27.1
+21,057,"Cumberland County, Kentucky",21.3
+21,059,"Daviess County, Kentucky",20.0
+21,061,"Edmonson County, Kentucky",34.2
+21,063,"Elliott County, Kentucky",42.6
+21,065,"Estill County, Kentucky",34.7
+21,067,"Fayette County, Kentucky",20.8
+21,069,"Fleming County, Kentucky",33.3
+21,071,"Floyd County, Kentucky",24.9
+21,073,"Franklin County, Kentucky",20.0
+21,075,"Fulton County, Kentucky",19.7
+21,077,"Gallatin County, Kentucky",26.5
+21,079,"Garrard County, Kentucky",34.1
+21,081,"Grant County, Kentucky",29.0
+21,083,"Graves County, Kentucky",21.0
+21,085,"Grayson County, Kentucky",28.1
+21,087,"Green County, Kentucky",29.4
+21,089,"Greenup County, Kentucky",24.6
+21,091,"Hancock County, Kentucky",25.3
+21,093,"Hardin County, Kentucky",22.4
+21,095,"Harlan County, Kentucky",23.4
+21,097,"Harrison County, Kentucky",28.4
+21,099,"Hart County, Kentucky",30.3
+21,101,"Henderson County, Kentucky",22.4
+21,103,"Henry County, Kentucky",29.7
+21,105,"Hickman County, Kentucky",19.7
+21,107,"Hopkins County, Kentucky",22.1
+21,109,"Jackson County, Kentucky",41.7
+21,111,"Jefferson County, Kentucky",22.3
+21,113,"Jessamine County, Kentucky",23.9
+21,115,"Johnson County, Kentucky",26.7
+21,117,"Kenton County, Kentucky",23.0
+21,119,"Knott County, Kentucky",28.6
+21,121,"Knox County, Kentucky",25.0
+21,123,"Larue County, Kentucky",29.1
+21,125,"Laurel County, Kentucky",22.1
+21,127,"Lawrence County, Kentucky",29.6
+21,129,"Lee County, Kentucky",41.0
+21,131,"Leslie County, Kentucky",37.0
+21,133,"Letcher County, Kentucky",27.1
+21,135,"Lewis County, Kentucky",45.2
+21,137,"Lincoln County, Kentucky",31.4
+21,139,"Livingston County, Kentucky",26.9
+21,141,"Logan County, Kentucky",26.6
+21,143,"Lyon County, Kentucky",23.2
+21,145,"McCracken County, Kentucky",17.0
+21,147,"McCreary County, Kentucky",32.6
+21,149,"McLean County, Kentucky",28.5
+21,151,"Madison County, Kentucky",24.6
+21,153,"Magoffin County, Kentucky",35.8
+21,155,"Marion County, Kentucky",19.6
+21,157,"Marshall County, Kentucky",23.4
+21,159,"Martin County, Kentucky",30.3
+21,161,"Mason County, Kentucky",25.4
+21,163,"Meade County, Kentucky",32.4
+21,165,"Menifee County, Kentucky",41.3
+21,167,"Mercer County, Kentucky",28.0
+21,169,"Metcalfe County, Kentucky",22.3
+21,171,"Monroe County, Kentucky",30.0
+21,173,"Montgomery County, Kentucky",25.3
+21,175,"Morgan County, Kentucky",31.6
+21,177,"Muhlenberg County, Kentucky",25.6
+21,179,"Nelson County, Kentucky",25.4
+21,181,"Nicholas County, Kentucky",38.6
+21,183,"Ohio County, Kentucky",27.5
+21,185,"Oldham County, Kentucky",26.1
+21,187,"Owen County, Kentucky",39.4
+21,189,"Owsley County, Kentucky",37.9
+21,191,"Pendleton County, Kentucky",34.9
+21,193,"Perry County, Kentucky",25.0
+21,195,"Pike County, Kentucky",25.2
+21,197,"Powell County, Kentucky",29.9
+21,199,"Pulaski County, Kentucky",22.7
+21,201,"Robertson County, Kentucky",33.5
+21,203,"Rockcastle County, Kentucky",26.3
+21,205,"Rowan County, Kentucky",21.8
+21,207,"Russell County, Kentucky",20.4
+21,209,"Scott County, Kentucky",21.4
+21,211,"Shelby County, Kentucky",26.3
+21,213,"Simpson County, Kentucky",22.4
+21,215,"Spencer County, Kentucky",32.7
+21,217,"Taylor County, Kentucky",23.1
+21,219,"Todd County, Kentucky",24.2
+21,221,"Trigg County, Kentucky",24.0
+21,223,"Trimble County, Kentucky",29.9
+21,225,"Union County, Kentucky",24.6
+21,227,"Warren County, Kentucky",20.6
+21,229,"Washington County, Kentucky",23.6
+21,231,"Wayne County, Kentucky",23.3
+21,233,"Webster County, Kentucky",27.8
+21,235,"Whitley County, Kentucky",21.7
+21,237,"Wolfe County, Kentucky",27.4
+21,239,"Woodford County, Kentucky",24.2
+47,001,"Anderson County, Tennessee",25.8
+47,003,"Bedford County, Tennessee",26.4
+47,005,"Benton County, Tennessee",25.7
+47,007,"Bledsoe County, Tennessee",34.8
+47,009,"Blount County, Tennessee",25.1
+47,011,"Bradley County, Tennessee",23.2
+47,013,"Campbell County, Tennessee",31.7
+47,015,"Cannon County, Tennessee",33.4
+47,017,"Carroll County, Tennessee",28.0
+47,019,"Carter County, Tennessee",23.9
+47,021,"Cheatham County, Tennessee",34.4
+47,023,"Chester County, Tennessee",29.3
+47,025,"Claiborne County, Tennessee",25.8
+47,027,"Clay County, Tennessee",29.1
+47,029,"Cocke County, Tennessee",29.5
+47,031,"Coffee County, Tennessee",24.9
+47,033,"Crockett County, Tennessee",24.3
+47,035,"Cumberland County, Tennessee",22.4
+47,037,"Davidson County, Tennessee",24.7
+47,039,"Decatur County, Tennessee",23.8
+47,041,"DeKalb County, Tennessee",28.4
+47,043,"Dickson County, Tennessee",33.1
+47,045,"Dyer County, Tennessee",20.4
+47,047,"Fayette County, Tennessee",34.4
+47,049,"Fentress County, Tennessee",24.7
+47,051,"Franklin County, Tennessee",23.7
+47,053,"Gibson County, Tennessee",24.9
+47,055,"Giles County, Tennessee",29.2
+47,057,"Grainger County, Tennessee",31.9
+47,059,"Greene County, Tennessee",23.8
+47,061,"Grundy County, Tennessee",32.4
+47,063,"Hamblen County, Tennessee",21.5
+47,065,"Hamilton County, Tennessee",21.9
+47,067,"Hancock County, Tennessee",32.7
+47,069,"Hardeman County, Tennessee",32.8
+47,071,"Hardin County, Tennessee",25.4
+47,073,"Hawkins County, Tennessee",26.6
+47,075,"Haywood County, Tennessee",26.4
+47,077,"Henderson County, Tennessee",25.4
+47,079,"Henry County, Tennessee",22.1
+47,081,"Hickman County, Tennessee",36.4
+47,083,"Houston County, Tennessee",38.9
+47,085,"Humphreys County, Tennessee",35.3
+47,087,"Jackson County, Tennessee",30.7
+47,089,"Jefferson County, Tennessee",27.7
+47,091,"Johnson County, Tennessee",27.9
+47,093,"Knox County, Tennessee",22.1
+47,095,"Lake County, Tennessee",20.8
+47,097,"Lauderdale County, Tennessee",26.0
+47,099,"Lawrence County, Tennessee",26.1
+47,101,"Lewis County, Tennessee",33.6
+47,103,"Lincoln County, Tennessee",30.0
+47,105,"Loudon County, Tennessee",23.3
+47,107,"McMinn County, Tennessee",23.3
+47,109,"McNairy County, Tennessee",26.1
+47,111,"Macon County, Tennessee",31.9
+47,113,"Madison County, Tennessee",19.0
+47,115,"Marion County, Tennessee",31.5
+47,117,"Marshall County, Tennessee",30.5
+47,119,"Maury County, Tennessee",28.3
+47,121,"Meigs County, Tennessee",32.6
+47,123,"Monroe County, Tennessee",28.1
+47,125,"Montgomery County, Tennessee",26.6
+47,127,"Moore County, Tennessee",25.3
+47,129,"Morgan County, Tennessee",31.5
+47,131,"Obion County, Tennessee",19.8
+47,133,"Overton County, Tennessee",25.9
+47,135,"Perry County, Tennessee",26.8
+47,137,"Pickett County, Tennessee",27.1
+47,139,"Polk County, Tennessee",30.0
+47,141,"Putnam County, Tennessee",21.5
+47,143,"Rhea County, Tennessee",27.0
+47,145,"Roane County, Tennessee",29.0
+47,147,"Robertson County, Tennessee",31.3
+47,149,"Rutherford County, Tennessee",28.2
+47,151,"Scott County, Tennessee",28.3
+47,153,"Sequatchie County, Tennessee",32.0
+47,155,"Sevier County, Tennessee",26.6
+47,157,"Shelby County, Tennessee",22.6
+47,159,"Smith County, Tennessee",32.8
+47,161,"Stewart County, Tennessee",36.1
+47,163,"Sullivan County, Tennessee",21.9
+47,165,"Sumner County, Tennessee",29.4
+47,167,"Tipton County, Tennessee",33.4
+47,169,"Trousdale County, Tennessee",39.7
+47,171,"Unicoi County, Tennessee",24.8
+47,173,"Union County, Tennessee",31.8
+47,175,"Van Buren County, Tennessee",31.3
+47,177,"Warren County, Tennessee",27.3
+47,179,"Washington County, Tennessee",21.0
+47,181,"Wayne County, Tennessee",30.2
+47,183,"Weakley County, Tennessee",21.0
+47,185,"White County, Tennessee",24.9
+47,187,"Williamson County, Tennessee",28.1
+47,189,"Wilson County, Tennessee",30.6
+37,001,"Alamance County, North Carolina",25.9
+37,003,"Alexander County, North Carolina",25.7
+37,005,"Alleghany County, North Carolina",26.1
+37,007,"Anson County, North Carolina",26.8
+37,009,"Ashe County, North Carolina",25.0
+37,011,"Avery County, North Carolina",20.7
+37,013,"Beaufort County, North Carolina",24.1
+37,015,"Bertie County, North Carolina",27.6
+37,017,"Bladen County, North Carolina",26.8
+37,019,"Brunswick County, North Carolina",25.2
+37,021,"Buncombe County, North Carolina",20.6
+37,023,"Burke County, North Carolina",23.8
+37,025,"Cabarrus County, North Carolina",27.6
+37,027,"Caldwell County, North Carolina",26.1
+37,029,"Camden County, North Carolina",31.7
+37,031,"Carteret County, North Carolina",24.0
+37,033,"Caswell County, North Carolina",31.5
+37,035,"Catawba County, North Carolina",22.4
+37,037,"Chatham County, North Carolina",28.0
+37,039,"Cherokee County, North Carolina",26.2
+37,041,"Chowan County, North Carolina",30.9
+37,043,"Clay County, North Carolina",24.5
+37,045,"Cleveland County, North Carolina",24.8
+37,047,"Columbus County, North Carolina",28.3
+37,049,"Craven County, North Carolina",20.3
+37,051,"Cumberland County, North Carolina",21.4
+37,053,"Currituck County, North Carolina",35.8
+37,055,"Dare County, North Carolina",23.0
+37,057,"Davidson County, North Carolina",24.3
+37,059,"Davie County, North Carolina",27.0
+37,061,"Duplin County, North Carolina",28.6
+37,063,"Durham County, North Carolina",22.5
+37,065,"Edgecombe County, North Carolina",22.5
+37,067,"Forsyth County, North Carolina",22.7
+37,069,"Franklin County, North Carolina",33.9
+37,071,"Gaston County, North Carolina",26.5
+37,073,"Gates County, North Carolina",38.6
+37,075,"Graham County, North Carolina",24.1
+37,077,"Granville County, North Carolina",30.1
+37,079,"Greene County, North Carolina",26.7
+37,081,"Guilford County, North Carolina",22.0
+37,083,"Halifax County, North Carolina",23.7
+37,085,"Harnett County, North Carolina",32.1
+37,087,"Haywood County, North Carolina",23.1
+37,089,"Henderson County, North Carolina",22.3
+37,091,"Hertford County, North Carolina",28.3
+37,093,"Hoke County, North Carolina",29.4
+37,095,"Hyde County, North Carolina",25.1
+37,097,"Iredell County, North Carolina",25.1
+37,099,"Jackson County, North Carolina",19.8
+37,101,"Johnston County, North Carolina",32.7
+37,103,"Jones County, North Carolina",30.5
+37,105,"Lee County, North Carolina",25.8
+37,107,"Lenoir County, North Carolina",23.6
+37,109,"Lincoln County, North Carolina",29.6
+37,111,"McDowell County, North Carolina",24.6
+37,113,"Macon County, North Carolina",22.3
+37,115,"Madison County, North Carolina",32.1
+37,117,"Martin County, North Carolina",25.4
+37,119,"Mecklenburg County, North Carolina",25.6
+37,121,"Mitchell County, North Carolina",23.7
+37,123,"Montgomery County, North Carolina",24.3
+37,125,"Moore County, North Carolina",26.2
+37,127,"Nash County, North Carolina",24.2
+37,129,"New Hanover County, North Carolina",20.5
+37,131,"Northampton County, North Carolina",26.4
+37,133,"Onslow County, North Carolina",22.0
+37,135,"Orange County, North Carolina",23.8
+37,137,"Pamlico County, North Carolina",23.6
+37,139,"Pasquotank County, North Carolina",28.3
+37,141,"Pender County, North Carolina",31.2
+37,143,"Perquimans County, North Carolina",36.2
+37,145,"Person County, North Carolina",30.6
+37,147,"Pitt County, North Carolina",21.3
+37,149,"Polk County, North Carolina",27.2
+37,151,"Randolph County, North Carolina",24.3
+37,153,"Richmond County, North Carolina",24.8
+37,155,"Robeson County, North Carolina",24.8
+37,157,"Rockingham County, North Carolina",26.4
+37,159,"Rowan County, North Carolina",26.1
+37,161,"Rutherford County, North Carolina",25.4
+37,163,"Sampson County, North Carolina",29.4
+37,165,"Scotland County, North Carolina",24.4
+37,167,"Stanly County, North Carolina",28.2
+37,169,"Stokes County, North Carolina",30.9
+37,171,"Surry County, North Carolina",25.9
+37,173,"Swain County, North Carolina",20.5
+37,175,"Transylvania County, North Carolina",22.1
+37,177,"Tyrrell County, North Carolina",28.8
+37,179,"Union County, North Carolina",29.6
+37,181,"Vance County, North Carolina",25.3
+37,183,"Wake County, North Carolina",25.4
+37,185,"Warren County, North Carolina",27.7
+37,187,"Washington County, North Carolina",27.5
+37,189,"Watauga County, North Carolina",20.0
+37,191,"Wayne County, North Carolina",21.8
+37,193,"Wilkes County, North Carolina",27.6
+37,195,"Wilson County, North Carolina",22.6
+37,197,"Yadkin County, North Carolina",28.8
+37,199,"Yancey County, North Carolina",27.1
+45,001,"Abbeville County, South Carolina",28.6
+45,003,"Aiken County, South Carolina",24.5
+45,005,"Allendale County, South Carolina",37.5
+45,007,"Anderson County, South Carolina",26.0
+45,009,"Bamberg County, South Carolina",30.4
+45,011,"Barnwell County, South Carolina",29.7
+45,013,"Beaufort County, South Carolina",22.8
+45,015,"Berkeley County, South Carolina",29.0
+45,017,"Calhoun County, South Carolina",28.6
+45,019,"Charleston County, South Carolina",24.5
+45,021,"Cherokee County, South Carolina",25.0
+45,023,"Chester County, South Carolina",30.7
+45,025,"Chesterfield County, South Carolina",24.7
+45,027,"Clarendon County, South Carolina",30.4
+45,029,"Colleton County, South Carolina",33.7
+45,031,"Darlington County, South Carolina",22.9
+45,033,"Dillon County, South Carolina",23.6
+45,035,"Dorchester County, South Carolina",31.0
+45,037,"Edgefield County, South Carolina",26.7
+45,039,"Fairfield County, South Carolina",30.6
+45,041,"Florence County, South Carolina",22.6
+45,043,"Georgetown County, South Carolina",28.4
+45,045,"Greenville County, South Carolina",23.9
+45,047,"Greenwood County, South Carolina",19.8
+45,049,"Hampton County, South Carolina",35.2
+45,051,"Horry County, South Carolina",22.8
+45,053,"Jasper County, South Carolina",28.4
+45,055,"Kershaw County, South Carolina",28.7
+45,057,"Lancaster County, South Carolina",30.3
+45,059,"Laurens County, South Carolina",25.7
+45,061,"Lee County, South Carolina",28.3
+45,063,"Lexington County, South Carolina",26.2
+45,065,"McCormick County, South Carolina",34.6
+45,067,"Marion County, South Carolina",31.3
+45,069,"Marlboro County, South Carolina",26.1
+45,071,"Newberry County, South Carolina",26.0
+45,073,"Oconee County, South Carolina",25.4
+45,075,"Orangeburg County, South Carolina",29.5
+45,077,"Pickens County, South Carolina",27.1
+45,079,"Richland County, South Carolina",23.1
+45,081,"Saluda County, South Carolina",33.7
+45,083,"Spartanburg County, South Carolina",24.2
+45,085,"Sumter County, South Carolina",22.4
+45,087,"Union County, South Carolina",27.8
+45,089,"Williamsburg County, South Carolina",31.9
+45,091,"York County, South Carolina",27.4
+13,001,"Appling County, Georgia",22.5
+13,003,"Atkinson County, Georgia",25.4
+13,005,"Bacon County, Georgia",22.0
+13,007,"Baker County, Georgia",23.8
+13,009,"Baldwin County, Georgia",26.6
+13,011,"Banks County, Georgia",32.9
+13,013,"Barrow County, Georgia",33.6
+13,015,"Bartow County, Georgia",29.0
+13,017,"Ben Hill County, Georgia",15.6
+13,019,"Berrien County, Georgia",23.2
+13,021,"Bibb County, Georgia",21.7
+13,023,"Bleckley County, Georgia",25.0
+13,025,"Brantley County, Georgia",31.1
+13,027,"Brooks County, Georgia",23.3
+13,029,"Bryan County, Georgia",33.0
+13,031,"Bulloch County, Georgia",24.5
+13,033,"Burke County, Georgia",27.0
+13,035,"Butts County, Georgia",32.8
+13,037,"Calhoun County, Georgia",22.7
+13,039,"Camden County, Georgia",25.0
+13,043,"Candler County, Georgia",23.6
+13,045,"Carroll County, Georgia",29.1
+13,047,"Catoosa County, Georgia",24.4
+13,049,"Charlton County, Georgia",26.1
+13,051,"Chatham County, Georgia",22.4
+13,053,"Chattahoochee County, Georgia",10.0
+13,055,"Chattooga County, Georgia",27.4
+13,057,"Cherokee County, Georgia",32.7
+13,059,"Clarke County, Georgia",21.1
+13,061,"Clay County, Georgia",20.1
+13,063,"Clayton County, Georgia",32.2
+13,065,"Clinch County, Georgia",23.5
+13,067,"Cobb County, Georgia",29.7
+13,069,"Coffee County, Georgia",18.0
+13,071,"Colquitt County, Georgia",23.1
+13,073,"Columbia County, Georgia",26.2
+13,075,"Cook County, Georgia",26.7
+13,077,"Coweta County, Georgia",30.4
+13,079,"Crawford County, Georgia",32.7
+13,081,"Crisp County, Georgia",20.8
+13,083,"Dade County, Georgia",26.6
+13,085,"Dawson County, Georgia",30.7
+13,087,"Decatur County, Georgia",20.3
+13,089,"DeKalb County, Georgia",31.3
+13,091,"Dodge County, Georgia",30.0
+13,093,"Dooly County, Georgia",22.4
+13,095,"Dougherty County, Georgia",20.5
+13,097,"Douglas County, Georgia",32.8
+13,099,"Early County, Georgia",23.8
+13,101,"Echols County, Georgia",22.9
+13,103,"Effingham County, Georgia",30.0
+13,105,"Elbert County, Georgia",23.7
+13,107,"Emanuel County, Georgia",28.6
+13,109,"Evans County, Georgia",24.1
+13,111,"Fannin County, Georgia",26.5
+13,113,"Fayette County, Georgia",32.3
+13,115,"Floyd County, Georgia",23.4
+13,117,"Forsyth County, Georgia",31.6
+13,119,"Franklin County, Georgia",26.3
+13,121,"Fulton County, Georgia",28.5
+13,123,"Gilmer County, Georgia",29.0
+13,125,"Glascock County, Georgia",36.8
+13,127,"Glynn County, Georgia",19.4
+13,129,"Gordon County, Georgia",23.4
+13,131,"Grady County, Georgia",25.4
+13,133,"Greene County, Georgia",28.2
+13,135,"Gwinnett County, Georgia",33.3
+13,137,"Habersham County, Georgia",26.9
+13,139,"Hall County, Georgia",27.9
+13,141,"Hancock County, Georgia",36.9
+13,143,"Haralson County, Georgia",29.4
+13,145,"Harris County, Georgia",26.3
+13,147,"Hart County, Georgia",23.3
+13,149,"Heard County, Georgia",35.5
+13,151,"Henry County, Georgia",33.1
+13,153,"Houston County, Georgia",22.7
+13,155,"Irwin County, Georgia",27.1
+13,157,"Jackson County, Georgia",30.7
+13,159,"Jasper County, Georgia",34.7
+13,161,"Jeff Davis County, Georgia",23.2
+13,163,"Jefferson County, Georgia",29.8
+13,165,"Jenkins County, Georgia",24.1
+13,167,"Johnson County, Georgia",29.0
+13,169,"Jones County, Georgia",30.5
+13,171,"Lamar County, Georgia",30.3
+13,173,"Lanier County, Georgia",22.9
+13,175,"Laurens County, Georgia",25.9
+13,177,"Lee County, Georgia",22.8
+13,179,"Liberty County, Georgia",23.5
+13,181,"Lincoln County, Georgia",31.0
+13,183,"Long County, Georgia",31.0
+13,185,"Lowndes County, Georgia",19.8
+13,187,"Lumpkin County, Georgia",27.8
+13,189,"McDuffie County, Georgia",22.4
+13,191,"McIntosh County, Georgia",31.4
+13,193,"Macon County, Georgia",22.4
+13,195,"Madison County, Georgia",28.4
+13,197,"Marion County, Georgia",35.1
+13,199,"Meriwether County, Georgia",34.2
+13,201,"Miller County, Georgia",24.4
+13,205,"Mitchell County, Georgia",25.2
+13,207,"Monroe County, Georgia",27.6
+13,209,"Montgomery County, Georgia",27.2
+13,211,"Morgan County, Georgia",25.6
+13,213,"Murray County, Georgia",25.9
+13,215,"Muscogee County, Georgia",20.2
+13,217,"Newton County, Georgia",37.1
+13,219,"Oconee County, Georgia",25.5
+13,221,"Oglethorpe County, Georgia",31.9
+13,223,"Paulding County, Georgia",38.2
+13,225,"Peach County, Georgia",22.6
+13,227,"Pickens County, Georgia",32.5
+13,229,"Pierce County, Georgia",26.0
+13,231,"Pike County, Georgia",34.8
+13,233,"Polk County, Georgia",30.2
+13,235,"Pulaski County, Georgia",26.6
+13,237,"Putnam County, Georgia",32.0
+13,239,"Quitman County, Georgia",32.9
+13,241,"Rabun County, Georgia",25.7
+13,243,"Randolph County, Georgia",23.0
+13,245,"Richmond County, Georgia",21.4
+13,247,"Rockdale County, Georgia",34.9
+13,249,"Schley County, Georgia",30.5
+13,251,"Screven County, Georgia",32.9
+13,253,"Seminole County, Georgia",28.1
+13,255,"Spalding County, Georgia",27.2
+13,257,"Stephens County, Georgia",23.2
+13,259,"Stewart County, Georgia",36.3
+13,261,"Sumter County, Georgia",19.3
+13,263,"Talbot County, Georgia",39.2
+13,265,"Taliaferro County, Georgia",28.5
+13,267,"Tattnall County, Georgia",27.0
+13,269,"Taylor County, Georgia",30.1
+13,271,"Telfair County, Georgia",22.9
+13,273,"Terrell County, Georgia",24.9
+13,275,"Thomas County, Georgia",19.8
+13,277,"Tift County, Georgia",21.1
+13,279,"Toombs County, Georgia",24.6
+13,281,"Towns County, Georgia",20.1
+13,283,"Treutlen County, Georgia",32.8
+13,285,"Troup County, Georgia",23.2
+13,287,"Turner County, Georgia",23.6
+13,289,"Twiggs County, Georgia",26.6
+13,291,"Union County, Georgia",23.7
+13,293,"Upson County, Georgia",23.7
+13,295,"Walker County, Georgia",29.0
+13,297,"Walton County, Georgia",34.2
+13,299,"Ware County, Georgia",21.4
+13,301,"Warren County, Georgia",27.6
+13,303,"Washington County, Georgia",23.5
+13,305,"Wayne County, Georgia",26.8
+13,307,"Webster County, Georgia",33.3
+13,309,"Wheeler County, Georgia",37.4
+13,311,"White County, Georgia",28.6
+13,313,"Whitfield County, Georgia",21.2
+13,315,"Wilcox County, Georgia",28.0
+13,317,"Wilkes County, Georgia",29.5
+13,319,"Wilkinson County, Georgia",26.9
+13,321,"Worth County, Georgia",27.6

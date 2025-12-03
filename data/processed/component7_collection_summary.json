@@ -1,0 +1,70 @@
+{
+  "7.1_commute_time": {
+    "records": 802,
+    "mean": 27.321820448877805,
+    "min": 10.0,
+    "max": 45.2
+  },
+  "7.2_housing_pre1960": {
+    "records": 802,
+    "mean": 114.53162132161955,
+    "min": 31.69197396963124,
+    "max": 575.8126721763085
+  },
+  "7.3_relative_wage": {
+    "records": 802,
+    "mean": 1.0,
+    "min": 0.0,
+    "max": 2.2965759447620258
+  },
+  "7.4_violent_crime": {
+    "records": 804,
+    "total_crimes": 248963,
+    "mean": 309.65547263681594,
+    "min": 0,
+    "max": 17090
+  },
+  "7.5_property_crime": {
+    "records": 804,
+    "total_crimes": 1278315,
+    "mean": 1589.9440298507463,
+    "min": 0,
+    "max": 79976
+  },
+  "7.6_climate_amenities": {
+    "records": 805,
+    "mean": -0.012310559006211185,
+    "min": -3.98,
+    "max": 3.55
+  },
+  "7.7_healthcare_employment": {
+    "records": 771,
+    "mean": 3348.2114137483786,
+    "min": 8.0,
+    "max": 116443.0
+  },
+  "7.8_national_parks": {
+    "records": 802,
+    "counties_with_parks": 146,
+    "total_parks": 33,
+    "mean_parks_per_county": 0.3179551122194514,
+    "max_parks_in_county": 8
+  },
+  "collection_date": "2025-11-17T23:52:24.757690",
+  "acs_year": 2022,
+  "cbp_year": 2021,
+  "qcew_year": 2022,
+  "crime_year": "2023",
+  "states": [
+    "VA",
+    "PA",
+    "MD",
+    "DE",
+    "WV",
+    "KY",
+    "TN",
+    "NC",
+    "SC",
+    "GA"
+  ]
+}
